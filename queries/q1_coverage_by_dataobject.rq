@@ -1,0 +1,29 @@
+# =============================================================================
+# Q1  COVERAGE BY DATA OBJECT   (the cornerstone; feeds the comparison matrix)
+# -----------------------------------------------------------------------------
+# QUESTION: for every ref: data object, which vendors map to it, via what SKOS
+#           match type, with what verdict? ref: objects with no vendor mapping
+#           come back with the vendor columns unbound = the "neither" bucket.
+# RETURNS : one row per (refObj, vendorTerm). Group by ?refObj downstream to get
+#           the covering-vendor set -> buckets (all / some / none). Bucketing is
+#           NOT hard-coded to 2 vendors.
+# AGNOSTIC: vendor identity is DERIVED from the term's namespace; verdict matched
+#           by local name (#verdict). A new overlay participates with no edit.
+# PARAMS  : none. (Filter to one domain by adding  ; ref:mesDomain "Material"  .)
+# =============================================================================
+PREFIX ref:  <https://ontology.yourorg.com/mes-ref#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?refObj ?refLabel ?vendor ?vendorTerm ?match ?verdict
+WHERE {
+  ?refObj rdfs:subClassOf+ ref:DataObject ;
+          rdfs:label ?refLabel .
+  OPTIONAL {
+    ?vendorTerm ?match ?refObj .
+    FILTER( STRSTARTS(STR(?match), STR(skos:)) && CONTAINS(STR(?match), "Match") )
+    BIND( REPLACE(STR(?vendorTerm), "#.*$", "#") AS ?vendor )
+    OPTIONAL { ?vendorTerm ?vp ?verdict . FILTER( STRENDS(STR(?vp), "#verdict") ) }
+  }
+}
+ORDER BY ?refLabel ?vendor

@@ -1,0 +1,23 @@
+# =============================================================================
+# Q6  VENDOR-EXTENSION SURFACE  (differentiators, NOT gaps)
+# QUESTION: which vendor DATA OBJECTS carry verdict "vendor-extension" and have no
+#           mapping edge into ref: at all? (Scoped to data objects, not operations.)
+# PARAM   : %VENDOR% = vendor namespace IRI (or leave to list all vendors).
+# =============================================================================
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?vendor ?vendorTerm ?label
+WHERE {
+  ?vendorTerm rdfs:subClassOf ?dataRoot ; rdfs:label ?label .
+  FILTER( STRENDS(STR(?dataRoot), "#DataObject") )
+  ?vendorTerm ?vp "vendor-extension" . FILTER( STRENDS(STR(?vp), "#verdict") )
+  FILTER NOT EXISTS {
+    ?vendorTerm ?m ?ref .
+    FILTER( STRSTARTS(STR(?m), STR(skos:)) && CONTAINS(STR(?m), "Match") )
+    FILTER( STRSTARTS(STR(?ref), "https://ontology.yourorg.com/mes-ref#") )
+  }
+  BIND( REPLACE(STR(?vendorTerm), "#.*$", "#") AS ?vendor )
+  FILTER( STRSTARTS(STR(?vendorTerm), "%VENDOR%") )
+}
+ORDER BY ?vendor ?label

@@ -1,0 +1,19 @@
+# =============================================================================
+# Q7  DRILL-DOWN / AUDIT TRAIL  for one ref: concept
+# QUESTION: for %REF_CONCEPT%, show EVERY vendor mapping row: term, match type,
+#           verdict, sourceDoc. This is the evidence behind any comparison claim.
+# PARAM   : %REF_CONCEPT% = a ref: IRI, e.g. https://ontology.yourorg.com/mes-ref#WaferMap
+# =============================================================================
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?vendor ?vendorTerm ?label ?match ?verdict ?sourceDoc
+WHERE {
+  ?vendorTerm ?match <%REF_CONCEPT%> .
+  FILTER( STRSTARTS(STR(?match), STR(skos:)) && CONTAINS(STR(?match), "Match") )
+  OPTIONAL { ?vendorTerm rdfs:label ?label }
+  OPTIONAL { ?vendorTerm ?vp ?verdict   . FILTER( STRENDS(STR(?vp), "#verdict") ) }
+  OPTIONAL { ?vendorTerm ?sp ?sourceDoc . FILTER( STRENDS(STR(?sp), "#sourceDoc") ) }
+  BIND( REPLACE(STR(?vendorTerm), "#.*$", "#") AS ?vendor )
+}
+ORDER BY ?vendor

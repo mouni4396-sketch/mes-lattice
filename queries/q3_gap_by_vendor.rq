@@ -1,0 +1,33 @@
+# =============================================================================
+# Q3  GAP ANALYSIS  (per vendor)
+# QUESTION: which ref: data objects does %VENDOR% NOT map to at all?
+# DEFENSIBLE: returns only true absence of a mapping edge from %VENDOR%. It does
+#            NOT claim a competitor gap - Q8 separates "not covered" from "overlay
+#            not yet modelled". Pair them in any report.
+# PARAM   : %VENDOR% = a vendor namespace IRI, e.g. https://ontology.yourorg.com/mes-opc#
+# =============================================================================
+PREFIX ref:  <https://ontology.yourorg.com/mes-ref#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?refObj ?refLabel (SAMPLE(?refNote) AS ?refNote)
+       (GROUP_CONCAT(CONCAT(?otherPrefix, ":", ?otherLocal); separator=" | ") AS ?otherVendors)
+WHERE {
+  ?refObj rdfs:subClassOf+ ref:DataObject ; rdfs:label ?refLabel .
+  OPTIONAL { ?refObj rdfs:comment ?refNote }
+  FILTER NOT EXISTS {
+    ?vendorTerm ?match ?refObj .
+    FILTER( STRSTARTS(STR(?match), STR(skos:)) && CONTAINS(STR(?match), "Match") )
+    FILTER( STRSTARTS(STR(?vendorTerm), "%VENDOR%") )
+  }
+  OPTIONAL {
+    ?otherTerm ?om ?refObj .
+    FILTER( STRSTARTS(STR(?om), STR(skos:)) && CONTAINS(STR(?om), "Match") )
+    FILTER( !STRSTARTS(STR(?otherTerm), "%VENDOR%") )
+    BIND( REPLACE(STR(?otherTerm), "#.*$", "#") AS ?otherNs )
+    BIND( REPLACE(REPLACE(STR(?otherNs), "^.*/mes-", ""), "#$", "") AS ?otherPrefix )
+    BIND( REPLACE(STR(?otherTerm), "^.*#", "") AS ?otherLocal )
+  }
+}
+GROUP BY ?refObj ?refLabel
+ORDER BY ?refLabel

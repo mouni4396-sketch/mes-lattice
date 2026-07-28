@@ -1,0 +1,20 @@
+# =============================================================================
+# Q8  DATA-COMPLETENESS GUARD  (defensibility backstop)
+# QUESTION: how much of ref: has each vendor overlay actually engaged with? Returns
+#           per vendor: # ref objects mapped, out of 57. A low number means the
+#           overlay is INCOMPLETE - so Q3 "gaps" for that vendor are "not yet
+#           modelled", not proven "competitor does not do X". Report alongside gaps.
+# =============================================================================
+PREFIX ref:  <https://ontology.yourorg.com/mes-ref#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?vendor (COUNT(DISTINCT ?refObj) AS ?refObjsMapped)
+WHERE {
+  ?refObj rdfs:subClassOf+ ref:DataObject .
+  ?vendorTerm ?match ?refObj .
+  FILTER( STRSTARTS(STR(?match), STR(skos:)) && CONTAINS(STR(?match), "Match") )
+  BIND( REPLACE(STR(?vendorTerm), "#.*$", "#") AS ?vendor )
+}
+GROUP BY ?vendor
+ORDER BY ?vendor

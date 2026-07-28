@@ -1,0 +1,40 @@
+# =============================================================================
+# Q4  CONVERGENCE  (executable "all-vendor closeMatch => promote Derived->Grounded")
+# QUESTION: which ref: data objects have a skos:closeMatch from EVERY loaded vendor?
+# HOW     : count distinct vendors overall, count distinct vendors with a closeMatch
+#           to the concept; equal => full convergence. Generalises past 2 vendors.
+# RETURNS : refObj + how many vendors closeMatch it.
+#
+# FIX (vs prior version): the "all vendors" subquery previously counted vendors by
+#   the #operatesOn predicate. But ref: itself carries ref:operatesOn (15 triples on
+#   its capabilities), so ref: was mis-counted as a vendor, inflating ?allVendors by
+#   one and making the HAVING condition impossible to satisfy. Vendors are now counted
+#   by the #verdict predicate, which ONLY vendor overlays carry (ref: has zero). This
+#   matches how Q1/Q7 discover vendors and keeps ref: out of the vendor set.
+# AGNOSTIC: no vendor namespace named anywhere; vendor set derived from data.
+# =============================================================================
+PREFIX ref:  <https://ontology.yourorg.com/mes-ref#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?refObj ?refLabel (COUNT(DISTINCT ?vendor) AS ?nClose)
+       (GROUP_CONCAT(CONCAT(?vendorPrefix, ":", ?termLocal); separator=" | ") AS ?terms)
+WHERE {
+  ?refObj rdfs:subClassOf+ ref:DataObject ;
+          rdfs:label ?refLabel .
+  ?vendorTerm skos:closeMatch ?refObj .
+  BIND( REPLACE(STR(?vendorTerm), "#.*$", "#") AS ?vendor )
+  BIND( REPLACE(REPLACE(STR(?vendor), "^.*/mes-", ""), "#$", "") AS ?vendorPrefix )
+  BIND( REPLACE(STR(?vendorTerm), "^.*#", "") AS ?termLocal )
+  {
+    # Total number of distinct vendor overlays loaded, discovered by the
+    # #verdict predicate (vendor-only; ref: never carries it).
+    SELECT (COUNT(DISTINCT ?v) AS ?allVendors) WHERE {
+      ?t ?p ?o . FILTER( STRENDS(STR(?p), "#verdict") )
+      BIND( REPLACE(STR(?t), "#.*$", "#") AS ?v )
+    }
+  }
+}
+GROUP BY ?refObj ?refLabel ?allVendors
+HAVING ( COUNT(DISTINCT ?vendor) = ?allVendors )
+ORDER BY ?refLabel

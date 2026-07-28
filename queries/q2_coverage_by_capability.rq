@@ -1,0 +1,25 @@
+# =============================================================================
+# Q2  COVERAGE BY CAPABILITY  (rolls Q1 up the capability -> operatesOn axis)
+# QUESTION: for each ref: capability, do vendors cover the data objects it acts on?
+# NOTE    : uses the MATERIALIZED ref:operatesOn triples (15). Capabilities whose
+#           objects are only listed in prose (ref:operatesOnRaw) show fewer links -
+#           that is a ref: data-completeness issue, surfaced honestly, not hidden.
+# RETURNS : row per (capability, refObj it operatesOn, vendor covering that obj).
+# =============================================================================
+PREFIX ref:  <https://ontology.yourorg.com/mes-ref#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?capLabel ?refObj ?refLabel ?vendor ?match ?verdict
+WHERE {
+  ?cap rdfs:subClassOf+ ref:Capability ; rdfs:label ?capLabel .
+  ?cap ref:operatesOn ?refObj .
+  ?refObj rdfs:label ?refLabel .
+  OPTIONAL {
+    ?vendorTerm ?match ?refObj .
+    FILTER( STRSTARTS(STR(?match), STR(skos:)) && CONTAINS(STR(?match), "Match") )
+    BIND( REPLACE(STR(?vendorTerm), "#.*$", "#") AS ?vendor )
+    OPTIONAL { ?vendorTerm ?vp ?verdict . FILTER( STRENDS(STR(?vp), "#verdict") ) }
+  }
+}
+ORDER BY ?capLabel ?refLabel ?vendor

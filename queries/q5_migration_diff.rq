@@ -1,0 +1,24 @@
+# =============================================================================
+# Q5  MIGRATION DIFF  (%FROM% -> %TO%)
+# QUESTION: ref: concepts %FROM% covers that %TO% does NOT (config that won't map
+#           cleanly when migrating). Swap params for the reverse (net-new in target).
+# PARAMS  : %FROM%, %TO% = vendor namespace IRIs.
+# =============================================================================
+PREFIX ref:  <https://ontology.yourorg.com/mes-ref#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?refObj ?refLabel ?fromTerm ?fromMatch ?fromLabel
+WHERE {
+  ?refObj rdfs:subClassOf+ ref:DataObject ; rdfs:label ?refLabel .
+  ?fromTerm ?fromMatch ?refObj .
+  OPTIONAL { ?fromTerm rdfs:label ?fromLabel }
+  FILTER( STRSTARTS(STR(?fromMatch), STR(skos:)) && CONTAINS(STR(?fromMatch), "Match") )
+  FILTER( STRSTARTS(STR(?fromTerm), "%FROM%") )
+  FILTER NOT EXISTS {
+    ?toTerm ?m2 ?refObj .
+    FILTER( STRSTARTS(STR(?m2), STR(skos:)) && CONTAINS(STR(?m2), "Match") )
+    FILTER( STRSTARTS(STR(?toTerm), "%TO%") )
+  }
+}
+ORDER BY ?refLabel

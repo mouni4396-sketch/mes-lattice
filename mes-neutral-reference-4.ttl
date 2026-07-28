@@ -1,0 +1,3064 @@
+@prefix ref:  <https://ontology.yourorg.com/mes-ref#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+<https://ontology.yourorg.com/mes-ref> a owl:Ontology ;
+    dct:title "MES Neutral Reference Layer" ;
+    dct:description "Vendor-neutral semiconductor MES reference ontology (ISA-95 / SEMI GEM300). Two-axis: Data Objects (nouns) x Capabilities (verbs), linked by ref:operatesOn. Definitional schema only (no live data; run: layer is separate)." ;
+    dct:creator "MES Neutral Reference Layer project" ;
+    dct:created "2026-01-01"^^xsd:date ;
+    dct:modified "2026-07-07"^^xsd:date ;
+    owl:versionInfo "MASTER-11 (material + quality/defect/reason committed)" ;
+    dct:license "Internal — project working draft" .
+
+# ===== ANNOTATION PROPERTIES =====
+ref:grounding a owl:AnnotationProperty ; rdfs:comment "standard family: ISA / SEMI / ISA + SEMI / Derived / —" .
+ref:status a owl:AnnotationProperty ; rdfs:comment "Grounded / Structure / Derived" .
+ref:mesDomain a owl:AnnotationProperty ; rdfs:comment "cluster domain (Material, Quality, ...)" .
+ref:isa95Area a owl:AnnotationProperty ; rdfs:comment "ISA-95 area" .
+ref:standardAnchor a owl:AnnotationProperty ; rdfs:comment "ISA-95 / SEMI anchor" .
+ref:manufacturingStage a owl:AnnotationProperty ; rdfs:comment "FE / BE / AP / FullFlow / CrossStage" .
+ref:cardinality a owl:AnnotationProperty ; rdfs:comment "queryable cardinality annotation (enforcement is run:/SHACL)" .
+ref:valueKind a owl:AnnotationProperty ; rdfs:comment "plain / enum / lookup" .
+ref:operatesOnRaw a owl:AnnotationProperty ; rdfs:comment "raw operates-on list (source text)" .
+ref:seamNote a owl:AnnotationProperty ; rdfs:comment "adjacent-system seam note" .
+ref:operatesOn a owl:ObjectProperty ; rdfs:domain ref:Capability ; rdfs:range ref:DataObject ; rdfs:label "operatesOn" .
+
+# ===== AXIS ROOTS =====
+ref:DataObject a owl:Class ; rdfs:label "Data Object" ; rdfs:comment "Root of the noun axis." .
+ref:Capability a owl:Class ; rdfs:label "Capability" ; rdfs:comment "Root of the verb axis (MES competency areas)." .
+
+# ===== DATA OBJECTS =====
+ref:Product a owl:Class ;
+    rdfs:label "Product" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Specific sourced device type (the device/SKU spec)." ;
+    ref:standardTerm "MaterialDefinition" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material Definition" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:Lot a owl:Class ;
+    rdfs:label "Lot" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Identified quantity of material — trackable batch of wafers." ;
+    ref:standardTerm "MaterialLot" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material Lot" ;
+    ref:standardAnchor "E90 (context)" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Grounded" .
+
+ref:Substrate a owl:Class ;
+    rdfs:label "Substrate / Wafer" ;
+    rdfs:subClassOf ref:ProductMaterial ;
+    skos:definition "Individually identified wafer / panel / strip." ;
+    ref:standardTerm "MaterialSublot" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material Sublot" ;
+    ref:standardAnchor "E90 Substrate" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:manufacturingStage "FE" ;
+    ref:status "Grounded" .
+
+ref:TestSpec a owl:Class ;
+    rdfs:label "Test Spec" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Test / QA spec attachable to product / lot / substrate." ;
+    ref:standardTerm "MaterialTestSpecification" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material model" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:Carrier a owl:Class ;
+    rdfs:label "Carrier" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "FOUP / Cassette / Pod holding substrates." ;
+    ref:standardTerm "Carrier" ;
+    ref:mesDomain "Material" ;
+    ref:standardAnchor "E87" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" .
+
+ref:WaferMap a owl:Class ;
+    rdfs:label "Wafer Map" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Location-indexed die / bin map." ;
+    ref:standardTerm "SubstrateMap" ;
+    ref:mesDomain "Material" ;
+    ref:standardAnchor "E142" ;
+    ref:grounding "SEMI" ;
+    ref:manufacturingStage "CrossStage" ;
+    ref:status "Grounded" .
+
+ref:Route a owl:Class ;
+    rdfs:label "Route" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Ordered sequence of steps to build a product (+ BOM, product link)." ;
+    ref:standardTerm "ProductDefinition" ;
+    ref:mesDomain "Routing" ;
+    ref:isa95Area "Product Definition" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:RouteOperation a owl:Class ;
+    rdfs:label "Route Operation" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "A step's placement within one route (position + local context)." ;
+    ref:standardTerm "ProductSegment" ;
+    ref:mesDomain "Routing" ;
+    ref:isa95Area "Product Segment" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:Step a owl:Class ;
+    rdfs:label "Operation / Step" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Generic, reusable manufacturing action node." ;
+    ref:standardTerm "ProcessSegment" ;
+    ref:mesDomain "Routing" ;
+    ref:isa95Area "Process Segment" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:BOM a owl:Class ;
+    rdfs:label "BOM" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Materials consumed / produced by the route." ;
+    ref:standardTerm "BillOfMaterial" ;
+    ref:mesDomain "Routing" ;
+    ref:isa95Area "Product Definition" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:TimeConstraint a owl:Class ;
+    rdfs:label "Q-Time Constraint" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Max (and optional min) time allowed between two route operations — e.g. Q-time before oxidation to prevent native-oxide growth." ;
+    ref:standardTerm "(segment constraint)" ;
+    ref:mesDomain "Routing" ;
+    ref:isa95Area "Process Segment constraint" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:ReworkPath a owl:Class ;
+    rdfs:label "Rework Path" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Non-standard path a lot takes when inspection fails, then rejoins the main route." ;
+    ref:standardTerm "(alternate sequencing)" ;
+    ref:mesDomain "Routing" ;
+    ref:isa95Area "Product Definition (alternate)" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:Recipe a owl:Class ;
+    rdfs:label "Recipe" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Engineering program / parameters executed by the tool." ;
+    ref:standardTerm "Recipe" ;
+    ref:mesDomain "Recipe" ;
+    ref:standardAnchor "E40/E42/E139" ;
+    ref:grounding "SEMI" ;
+    ref:status "Structure" .
+
+ref:EquipmentGroup a owl:Class ;
+    rdfs:label "Equipment Group" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Classification grouping of equipment." ;
+    ref:standardTerm "EquipmentClass" ;
+    ref:mesDomain "Resource" ;
+    ref:isa95Area "Equipment model" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:Equipment a owl:Class ;
+    rdfs:label "Equipment" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Logical production tool — the role / position in the line." ;
+    ref:standardTerm "Equipment" ;
+    ref:mesDomain "Resource" ;
+    ref:isa95Area "Equipment" ;
+    ref:standardAnchor "E30" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Grounded" .
+
+ref:PhysicalEquipment a owl:Class ;
+    rdfs:label "Physical Equipment" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Physical serial-numbered machine realizing a logical tool." ;
+    ref:standardTerm "PhysicalAsset" ;
+    ref:mesDomain "Resource" ;
+    ref:isa95Area "Physical Asset" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:LoadPort a owl:Class ;
+    rdfs:label "Load Port" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Interface where carriers dock onto a tool." ;
+    ref:standardTerm "LoadPort" ;
+    ref:mesDomain "Resource" ;
+    ref:standardAnchor "E87" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" .
+
+ref:ProductionRequest a owl:Class ;
+    rdfs:label "Production Request" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Request to produce a product — the order handed to the MES." ;
+    ref:standardTerm "OperationsRequest" ;
+    ref:mesDomain "Scheduling" ;
+    ref:isa95Area "Operations Schedule" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:WorkSchedule a owl:Class ;
+    rdfs:label "Work Schedule" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "The schedule of work that meets production requests." ;
+    ref:standardTerm "OperationsSchedule" ;
+    ref:mesDomain "Scheduling" ;
+    ref:isa95Area "Operations Schedule" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:JobOrder a owl:Class ;
+    rdfs:label "Job Order" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Lowest-level scheduled unit of work dispatched to a work center." ;
+    ref:standardTerm "JobOrder" ;
+    ref:mesDomain "Scheduling" ;
+    ref:isa95Area "Operations Schedule (Part 4)" ;
+    ref:standardAnchor "E94 seam" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:JobResponse a owl:Class ;
+    rdfs:label "Job Response" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Report on the execution of a job order." ;
+    ref:standardTerm "JobResponse" ;
+    ref:mesDomain "Scheduling" ;
+    ref:isa95Area "Operations Performance (Part 4)" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:SegmentRequirement a owl:Class ;
+    rdfs:label "Segment Requirement" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Line item in the schedule tied to a route step." ;
+    ref:standardTerm "SegmentRequirement" ;
+    ref:mesDomain "Scheduling" ;
+    ref:isa95Area "Operations Schedule (Part 4)" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:DispatchDecision a owl:Class ;
+    rdfs:label "Dispatch Decision" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Record of a dispatch choice: which lot to which tool for which operation, and why. Structural class — populated decisions with timestamps / rule-firing are run: scope." ;
+    ref:standardTerm "(dispatch list)" ;
+    ref:mesDomain "Scheduling" ;
+    ref:isa95Area "Production Dispatching (Part 3)" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:ControlJob a owl:Class ;
+    rdfs:label "Control Job" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Manages the processing sequence for one or more carriers at a tool." ;
+    ref:standardTerm "E94 Control Job" ;
+    ref:mesDomain "Execution" ;
+    ref:standardAnchor "E94" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" .
+
+ref:ProcessJob a owl:Class ;
+    rdfs:label "Process Job" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Process executed on a subset of substrates using a recipe." ;
+    ref:standardTerm "E40 Process Job" ;
+    ref:mesDomain "Execution" ;
+    ref:standardAnchor "E40" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" .
+
+ref:ProcessStepExecution a owl:Class ;
+    rdfs:label "Process Step Execution" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Record of a process step executed on material at equipment." ;
+    ref:standardTerm "E157 Process Step Tracking" ;
+    ref:mesDomain "Execution" ;
+    ref:standardAnchor "E157" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" .
+
+ref:DataCollectionPlan a owl:Class ;
+    rdfs:label "DC Plan" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Defines what data/metrology to collect at a step." ;
+    ref:standardTerm "DataCollectionMgmt (E134)" ;
+    ref:mesDomain "Quality" ;
+    ref:isa95Area "Quality Ops" ;
+    ref:standardAnchor "E134" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" .
+
+ref:SamplingPlan a owl:Class ;
+    rdfs:label "Sampling Plan" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Defines whether/which wafers or lots are measured (skip-lot/skip-wafer)." ;
+    ref:standardTerm "SamplingPlan" ;
+    ref:mesDomain "Quality" ;
+    ref:isa95Area "Quality Operations" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:MeasurementResult a owl:Class ;
+    rdfs:label "Measurement Result" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "The collected metrology/test data for material at a step." ;
+    ref:standardTerm "QualityTestResponse" ;
+    ref:mesDomain "Quality" ;
+    ref:isa95Area "Quality Test Response (Part 4)" ;
+    ref:standardAnchor "E134" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Structure" .
+
+ref:HoldRecord a owl:Class ;
+    rdfs:label "Hold" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Freezes a lot/tool/carrier from further processing on an anomaly." ;
+    ref:standardTerm "(exception)" ;
+    ref:mesDomain "Quality" ;
+    ref:isa95Area "Quality Operations" ;
+    ref:grounding "ISA" ;
+    ref:status "Derived" .
+
+ref:NonConformanceReport a owl:Class ;
+    rdfs:label "NCR" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Formal quality deviation record with MRB disposition. [Promoted to Grounded: CM + Opcenter converge on NCR/MRB as a core object.]" ;
+    ref:standardTerm "QualityNonConformance" ;
+    ref:mesDomain "Quality" ;
+    ref:isa95Area "Quality Operations" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:SPCViolation a owl:Class ;
+    rdfs:label "SPC Violation" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Out-of-control/out-of-spec event flagged by the SPC engine." ;
+    ref:standardTerm "(statistical method)" ;
+    ref:mesDomain "Quality" ;
+    ref:grounding "ISA" ;
+    ref:status "Derived" .
+
+ref:EquipmentStateLog a owl:Class ;
+    rdfs:label "Equipment State Log" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Time-stamped history of equipment state changes (basis for RAM/OEE metrics)." ;
+    ref:standardTerm "E10 State Log" ;
+    ref:mesDomain "Resource" ;
+    ref:isa95Area "Equipment" ;
+    ref:standardAnchor "E10/E58" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" .
+
+ref:MaintenanceWorkOrder a owl:Class ;
+    rdfs:label "Maintenance Work Order" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Corrective/preventive/calibration ticket on a tool or chamber." ;
+    ref:standardTerm "Maintenance Order (Part 4)" ;
+    ref:mesDomain "Maintenance" ;
+    ref:isa95Area "Maintenance Operations" ;
+    ref:standardAnchor "E10 downtime" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:MaintenanceCounter a owl:Class ;
+    rdfs:label "Maintenance Counter" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Usage-based trigger for PM (RF hours, wafer count, cycles)." ;
+    ref:standardTerm "MaintenanceCounter" ;
+    ref:mesDomain "Maintenance" ;
+    ref:isa95Area "Maintenance Resource Mgmt" ;
+    ref:grounding "ISA" ;
+    ref:status "Derived" .
+
+ref:SparePart a owl:Class ;
+    rdfs:label "Spare Part" ;
+    rdfs:subClassOf ref:IndirectMaterial ;
+    skos:definition "Part replaced during maintenance (focus ring, target, etc.)." ;
+    ref:standardTerm "SparePart" ;
+    ref:mesDomain "Maintenance" ;
+    ref:isa95Area "Maintenance Resource Mgmt" ;
+    ref:grounding "ISA" ;
+    ref:status "Derived" .
+
+ref:Person a owl:Class ;
+    rdfs:label "Person / Operator" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "An individual operator, technician or engineer." ;
+    ref:standardTerm "Person" ;
+    ref:mesDomain "Personnel" ;
+    ref:isa95Area "Personnel model" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:PersonnelClass a owl:Class ;
+    rdfs:label "Personnel Class / Role" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Classification of personnel (operator, technician, engineer)." ;
+    ref:standardTerm "PersonnelClass" ;
+    ref:mesDomain "Personnel" ;
+    ref:isa95Area "Personnel model" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" .
+
+ref:Certification a owl:Class ;
+    rdfs:label "Certification" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "A qualification a person must hold for a step or resource." ;
+    ref:standardTerm "Qualification Test Spec/Result" ;
+    ref:mesDomain "Personnel" ;
+    ref:isa95Area "Personnel qualification" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:StorageLocation a owl:Class ;
+    rdfs:label "Storage Location / Stocker" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Physical location where material/carriers are stored (stocker, buffer, shelf)." ;
+    ref:standardTerm "OperationalLocation" ;
+    ref:mesDomain "Inventory" ;
+    ref:isa95Area "Inventory Operations" ;
+    ref:standardAnchor "E88 stocker" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Structure" .
+
+ref:MaterialMovement a owl:Class ;
+    rdfs:label "Material Movement" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "A transfer of material between locations." ;
+    ref:standardTerm "MaterialMovement" ;
+    ref:mesDomain "Inventory" ;
+    ref:isa95Area "Inventory Operations" ;
+    ref:standardAnchor "E82/E84 AMHS" ;
+    ref:grounding "ISA" ;
+    ref:status "Structure" .
+
+ref:InventoryRecord a owl:Class ;
+    rdfs:label "Inventory Record" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Stock level / quantity of material at a location." ;
+    ref:standardTerm "InventorySnapshot" ;
+    ref:mesDomain "Inventory" ;
+    ref:isa95Area "Inventory Operations" ;
+    ref:grounding "ISA" ;
+    ref:status "Derived" .
+
+ref:Material a owl:Class ;
+    rdfs:label "Material" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Abstract superclass — any tracked material (product/consumable/durable/indirect); NEVER instantiated directly, every real material is a leaf. A HUB: bound by BOM/segment spec; related to Step, Equipment, Maintenance, Inventory, Dispatch, and other Material (genealogy)." ;
+    ref:standardTerm "Material (ISA-95 model)" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material Model" ;
+    ref:grounding "ISA" ;
+    ref:manufacturingStage "FullFlow" ;
+    ref:status "Grounded" .
+
+ref:ProductMaterial a owl:Class ;
+    rdfs:label "Product Material" ;
+    rdfs:subClassOf ref:Material ;
+    skos:definition "Physical WIP product at any form. definedBy a Product. DISTINCT from the Product device-definition object. One class, many forms: wafer -> die -> package." ;
+    ref:standardTerm "MaterialLot / Sublot" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material" ;
+    ref:grounding "ISA" ;
+    ref:manufacturingStage "FullFlow" ;
+    ref:status "Grounded" .
+
+ref:Die a owl:Class ;
+    rdfs:label "Die" ;
+    rdfs:subClassOf ref:ProductMaterial ;
+    skos:definition "Singulated die. Carries source-wafer position (gridX/Y), stackTier (3D), binCategory, KGD state. Identity ORIGINATES as a WaferMap entry before it is physical at dicing." ;
+    ref:standardTerm "Material Sublot (extended)" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material Sublot" ;
+    ref:standardAnchor "E90/E142 (ext)" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:manufacturingStage "CrossStage" ;
+    ref:status "Structure" .
+
+ref:Package a owl:Class ;
+    rdfs:label "Package / Unit" ;
+    rdfs:subClassOf ref:ProductMaterial ;
+    skos:definition "Assembled unit containing one or more dies (+ interposer + package substrate). Multi-die = advanced packaging (chiplet/2.5D/3D/HBM)." ;
+    ref:standardTerm "(assembly)" ;
+    ref:mesDomain "Material" ;
+    ref:grounding "—" ;
+    ref:manufacturingStage "AP" ;
+    ref:status "Derived" .
+
+ref:Module a owl:Class ;
+    rdfs:label "Module / SiP" ;
+    rdfs:subClassOf ref:ProductMaterial ;
+    skos:definition "Higher-level assembled unit containing one or more packages (System-in-Package). Top of the containment hierarchy." ;
+    ref:standardTerm "(advanced packaging)" ;
+    ref:mesDomain "Material" ;
+    ref:grounding "—" ;
+    ref:manufacturingStage "AP" ;
+    ref:status "Derived" .
+
+ref:Interposer a owl:Class ;
+    rdfs:label "Interposer" ;
+    rdfs:subClassOf ref:ProductMaterial ;
+    skos:definition "2.5D interposer (Si/organic/glass) that dies sit on; own fab genealogy. Assembly constituent alongside dies." ;
+    ref:standardTerm "(advanced packaging)" ;
+    ref:mesDomain "Material" ;
+    ref:grounding "—" ;
+    ref:manufacturingStage "AP" ;
+    ref:status "Derived" .
+
+ref:PackageSubstrate a owl:Class ;
+    rdfs:label "Package Substrate / Laminate" ;
+    rdfs:subClassOf ref:ProductMaterial ;
+    skos:definition "Organic/laminate substrate the interposer/dies mount to. Constituent. NOT a wafer (E90), NOT a Carrier (E87)." ;
+    ref:standardTerm "(advanced packaging)" ;
+    ref:mesDomain "Material" ;
+    ref:grounding "—" ;
+    ref:manufacturingStage "AP" ;
+    ref:status "Derived" .
+
+ref:ConsumableMaterial a owl:Class ;
+    rdfs:label "Consumable Material" ;
+    rdfs:subClassOf ref:Material ;
+    skos:definition "Consumed during processing (resist, slurry, gases, DAF tape). Lot/qty tracked with expiry, vendor lot, CoA, grade." ;
+    ref:standardTerm "Material (Consumed use)" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material" ;
+    ref:grounding "ISA" ;
+    ref:manufacturingStage "FullFlow" ;
+    ref:status "Grounded" .
+
+ref:DurableMaterial a owl:Class ;
+    rdfs:label "Durable Material" ;
+    rdfs:subClassOf ref:Material ;
+    skos:definition "Reusable tooling carrying process identity (reticle/mask, probe card, test board). Serial + floor-life counter + qualification. loadedInto Equipment; maintained like equipment." ;
+    ref:standardTerm "(segment resource requirement)" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material" ;
+    ref:grounding "ISA" ;
+    ref:manufacturingStage "FullFlow" ;
+    ref:status "Structure" .
+
+ref:IndirectMaterial a owl:Class ;
+    rdfs:label "Indirect Material" ;
+    rdfs:subClassOf ref:Material ;
+    skos:definition "MRO / maintenance supplies (spare parts). SparePart re-classed under here. Consumed by maintenance, not production." ;
+    ref:standardTerm "Material (MRO)" ;
+    ref:mesDomain "Material" ;
+    ref:isa95Area "Material" ;
+    ref:grounding "ISA" ;
+    ref:manufacturingStage "FullFlow" ;
+    ref:status "Structure" .
+
+ref:AssemblyCarrier a owl:Class ;
+    rdfs:label "Assembly Carrier (Strip / Lead-frame)" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Strip / lead-frame / boat holding many packages at positions during assembly & test — back-end analog of a FOUP+slot. OSAT-scope; front-end-only comparison can omit." ;
+    ref:standardTerm "(E90 sub-substrate analog)" ;
+    ref:mesDomain "Material" ;
+    ref:standardAnchor "E90 (analog)" ;
+    ref:grounding "SEMI" ;
+    ref:manufacturingStage "BE" ;
+    ref:status "Derived" .
+
+ref:Defect a owl:Class ;
+    rdfs:label "Defect" ;
+    rdfs:subClassOf ref:DataObject ;
+    skos:definition "Categorical, coded, located quality finding (visual / ADC / inline inspection). Distinct from MeasurementResult (parametric value vs limit): a PRIMARY observation that may exist with no parametric result behind it. CM + Opcenter converge." ;
+    ref:standardTerm "(quality finding)" ;
+    ref:mesDomain "Quality" ;
+    ref:isa95Area "Quality Operations" ;
+    ref:standardAnchor "E142 (defect/bin)" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:manufacturingStage "CrossStage" ;
+    ref:status "Grounded" .
+
+# ===== CAPABILITIES =====
+ref:MasterDataManagement a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Master Data Management" ;
+    skos:definition "Maintaining definition-plane objects (products, routes, recipes, resources)." ;
+    ref:standardAnchor "ISA-95" ;
+    ref:grounding "ISA" ;
+    ref:status "Derived" ;
+    ref:operatesOnRaw "All definition-plane objects" ;
+    rdfs:comment "CROSS-CUTTING — function over objects" .
+
+ref:RoutingDefinition a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Routing / Process Definition" ;
+    skos:definition "Authoring routes and steps and their sequence." ;
+    ref:standardAnchor "ISA-95 Product Definition Mgmt" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" ;
+    ref:operatesOnRaw "Route, Route Operation, Step, Q-Time Constraint, Rework Path" ;
+    ref:operatesOn ref:ReworkPath, ref:Route, ref:RouteOperation, ref:Step, ref:TimeConstraint ;
+    rdfs:comment "Built" .
+
+ref:OrderManagement a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Order Management" ;
+    skos:definition "Managing production requests / work orders." ;
+    ref:standardAnchor "ISA-95 Production Schedule/Request" ;
+    ref:grounding "ISA" ;
+    ref:status "Built (structure)" ;
+    ref:operatesOnRaw "Production Request, Work Schedule, Job Order" ;
+    ref:operatesOn ref:JobOrder, ref:ProductionRequest, ref:WorkSchedule ;
+    rdfs:comment "Scheduling slice — now has nouns" .
+
+ref:MaterialTracking a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Material / Lot Tracking" ;
+    skos:definition "Tracking lots and substrates through the flow." ;
+    ref:standardAnchor "ISA-95 Material; SEMI E90" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Grounded" ;
+    ref:operatesOnRaw "Lot, Substrate, Material, ProductMaterial, Die, Package, Module, Interposer, PackageSubstrate, WaferMap, AssemblyCarrier" ;
+    ref:operatesOn ref:AssemblyCarrier, ref:Die, ref:Interposer, ref:Lot, ref:Material, ref:Module, ref:Package, ref:PackageSubstrate, ref:ProductMaterial, ref:Substrate, ref:WaferMap ;
+    rdfs:comment "C4 — expanded to the material hub. Consumable/Durable/Indirect are cross-cutting hub materials operated on by Routing (segmentRequiresMaterial/consumes/produces), Maintenance (maintains/maintenanceConsumes) and Dispatch (reservesMaterial) — not owned by one capability." .
+
+ref:CarrierManagement a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Carrier Management" ;
+    skos:definition "Managing carriers and their docking/loading." ;
+    ref:standardAnchor "SEMI E87" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" ;
+    ref:operatesOnRaw "Carrier, Load Port" ;
+    ref:operatesOn ref:Carrier, ref:LoadPort ;
+    rdfs:comment "Built" .
+
+ref:Dispatch a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Dispatch" ;
+    skos:definition "Selecting/releasing the next lot/step to a resource." ;
+    ref:standardAnchor "ISA-95 Production Dispatching" ;
+    ref:grounding "ISA" ;
+    ref:status "Built (structure)" ;
+    ref:operatesOnRaw "Job Order, Lot, Equipment, Dispatch Decision" ;
+    ref:operatesOn ref:DispatchDecision, ref:Equipment, ref:JobOrder, ref:Lot ;
+    rdfs:comment "Scheduling slice — now has nouns" .
+
+ref:Execution a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Execution (Track In->Run)" ;
+    skos:definition "Running material at a step on equipment." ;
+    ref:standardAnchor "SEMI E40/E94/E157; ISA-95 Production Execution" ;
+    ref:grounding "SEMI" ;
+    ref:status "Built" ;
+    ref:operatesOnRaw "Control Job, Process Job, Process Step Execution, Lot" ;
+    ref:operatesOn ref:ControlJob, ref:Lot, ref:ProcessJob, ref:ProcessStepExecution ;
+    rdfs:comment "Execution slice — now built" .
+
+ref:EquipmentTracking a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Equipment Tracking" ;
+    skos:definition "Tracking equipment availability and state." ;
+    ref:standardAnchor "ISA-95 Equipment; SEMI E10/E58" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Built" ;
+    ref:operatesOnRaw "Equipment, Equipment State Log" ;
+    ref:operatesOn ref:Equipment, ref:EquipmentStateLog ;
+    rdfs:comment "Resource slice — now built" .
+
+ref:RecipeManagement a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Recipe Management" ;
+    skos:definition "Managing recipes executed at steps." ;
+    ref:standardAnchor "SEMI E40/E42/E139" ;
+    ref:grounding "SEMI" ;
+    ref:status "Grounded" ;
+    ref:operatesOnRaw "Recipe" ;
+    ref:operatesOn ref:Recipe ;
+    rdfs:comment "Built (structure)" .
+
+ref:DataCollection a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Data Collection" ;
+    skos:definition "Defining data collected at a step." ;
+    ref:standardAnchor "ISA-95 Production Data Collection; SEMI E134" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Built" ;
+    ref:operatesOnRaw "DC Plan, Sampling Plan, Measurement Result" ;
+    ref:operatesOn ref:DataCollectionPlan, ref:MeasurementResult, ref:SamplingPlan ;
+    rdfs:comment "Quality slice — now built Feeds QualityManagement; E134 collection is production-side data gathering, distinct from quality evaluation." .
+
+ref:QualityManagement a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Quality Management" ;
+    skos:definition "Quality operations — specifications, inspection findings, SPC, holds, non-conformance & disposition, and defect classification." ;
+    ref:standardAnchor "ISA-95 Quality Operations Mgmt; SEMI E142" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Grounded" ;
+    ref:operatesOnRaw "TestSpec, Hold, NCR, SPC Violation, Defect" ;
+    ref:operatesOn ref:Defect, ref:HoldRecord, ref:NonConformanceReport, ref:SPCViolation, ref:TestSpec ;
+    rdfs:comment "Absorbs former ExceptionManagement (holds/NCR/SPC). DataCollection remains the production-side data feed (E134) that Quality evaluates." .
+
+ref:Genealogy a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Genealogy" ;
+    skos:definition "Tracing material/equipment relationships over time." ;
+    ref:standardAnchor "ISA-95 Material Lot genealogy" ;
+    ref:grounding "ISA" ;
+    ref:status "Grounded" ;
+    ref:operatesOnRaw "Lot, Substrate, Equipment" ;
+    ref:operatesOn ref:Equipment, ref:Lot, ref:Substrate ;
+    rdfs:comment "CROSS-CUTTING — traceability" .
+
+ref:MaintenanceManagement a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Maintenance Management" ;
+    skos:definition "Managing maintenance work orders, PM triggers and spare parts." ;
+    ref:standardAnchor "ISA-95 Maintenance Operations Mgmt; SEMI E10" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Built" ;
+    ref:operatesOnRaw "Maintenance Work Order, Maintenance Counter, Spare Part, Equipment" ;
+    ref:operatesOn ref:Equipment, ref:MaintenanceCounter, ref:MaintenanceWorkOrder, ref:SparePart ;
+    rdfs:comment "NEW capability — beyond original 12" .
+
+ref:PersonnelManagement a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Personnel / Labor Management" ;
+    skos:definition "Managing operators, roles and certifications." ;
+    ref:standardAnchor "ISA-95 Personnel model (Part 2)" ;
+    ref:grounding "ISA" ;
+    ref:status "Built" ;
+    ref:operatesOnRaw "Person, Personnel Class, Certification" ;
+    ref:operatesOn ref:Certification, ref:Person, ref:PersonnelClass ;
+    rdfs:comment "NEW capability — beyond original 12" .
+
+ref:InventoryManagement a owl:Class ;
+    rdfs:subClassOf ref:Capability ;
+    rdfs:label "Inventory / Material Logistics" ;
+    skos:definition "Managing WIP locations, material movement and stock levels." ;
+    ref:standardAnchor "ISA-95 Inventory Operations Mgmt; SEMI E82/E88" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:status "Built" ;
+    ref:operatesOnRaw "Storage Location, Material Movement, Inventory Record, Lot" ;
+    ref:operatesOn ref:InventoryRecord, ref:Lot, ref:MaterialMovement, ref:StorageLocation ;
+    rdfs:comment "NEW capability — beyond original 12" .
+
+# ===== DATA PROPERTIES =====
+ref:lotID a owl:DatatypeProperty ;
+    rdfs:label "LotID" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:quantity a owl:DatatypeProperty ;
+    rdfs:label "Quantity" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Wafer/die count" .
+
+ref:lotStatus a owl:ObjectProperty ;
+    rdfs:label "Lot Status" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range ref:LotStatus ;
+    ref:valueKind "lookup" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "WIP/Hold/Scrap" .
+
+ref:substrateID a owl:DatatypeProperty ;
+    rdfs:label "SubstrateID" ;
+    rdfs:domain ref:Substrate ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E90" .
+
+ref:slotNumber a owl:DatatypeProperty ;
+    rdfs:label "Slot Number" ;
+    rdfs:domain ref:Substrate ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E87/E90" .
+
+ref:substrateProcessingState a owl:DatatypeProperty ;
+    rdfs:label "Processing State" ;
+    rdfs:domain ref:Substrate ;
+    rdfs:range ref:SubstrateProcessingState ;
+    ref:valueKind "enum" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E90" .
+
+ref:carrierID a owl:DatatypeProperty ;
+    rdfs:label "CarrierID" ;
+    rdfs:domain ref:Carrier ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E87" .
+
+ref:carrierType a owl:ObjectProperty ;
+    rdfs:label "Carrier Type" ;
+    rdfs:domain ref:Carrier ;
+    rdfs:range ref:CarrierType ;
+    ref:valueKind "lookup" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "FOUP/Cassette/Pod" .
+
+ref:capacity a owl:DatatypeProperty ;
+    rdfs:label "Capacity" ;
+    rdfs:domain ref:Carrier ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E87" .
+
+ref:carrierUsage a owl:DatatypeProperty ;
+    rdfs:label "Usage" ;
+    rdfs:domain ref:Carrier ;
+    rdfs:range ref:CarrierUsage ;
+    ref:valueKind "enum" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Test/Dummy/Product/Filler" .
+
+ref:productID a owl:DatatypeProperty ;
+    rdfs:label "ProductID" ;
+    rdfs:domain ref:Product ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:displayOrder a owl:DatatypeProperty ;
+    rdfs:label "Display Order / Sequence" ;
+    rdfs:domain ref:RouteOperation ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Position in route — on the PLACEMENT, not the generic step" .
+
+ref:advancementRule a owl:DatatypeProperty ;
+    rdfs:label "Advancement Rule" ;
+    rdfs:domain ref:RouteOperation ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Completion criteria that must be met before a lot advances from this operation (e.g. track-out complete, inspection passed, all wafers done). The RULE only; when it fires is the event model (parked)." .
+
+ref:processingType a owl:DatatypeProperty ;
+    rdfs:label "Processing Type" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:ProcessingType ;
+    ref:valueKind "enum" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "CM trichotomy (Logistical/Metrology/Process); not a named ISA/SEMI enum — pending 2nd-vendor confirmation" .
+
+ref:equipmentID a owl:DatatypeProperty ;
+    rdfs:label "EquipmentID" ;
+    rdfs:domain ref:Equipment ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "ISA-95 + E30" .
+
+ref:recipeID a owl:DatatypeProperty ;
+    rdfs:label "RecipeID" ;
+    rdfs:domain ref:Recipe ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Ref by E40" .
+
+ref:routeID a owl:DatatypeProperty ;
+    rdfs:label "Route ID" ;
+    rdfs:domain ref:Route ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Product Definition ID" .
+
+ref:routeName a owl:DatatypeProperty ;
+    rdfs:label "Route Name" ;
+    rdfs:domain ref:Route ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Name attribute" .
+
+ref:routeVersion a owl:DatatypeProperty ;
+    rdfs:label "Version" ;
+    rdfs:domain ref:Route ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Product Definition version" .
+
+ref:routeIsActive a owl:DatatypeProperty ;
+    rdfs:label "Is Active" ;
+    rdfs:domain ref:Route ;
+    rdfs:range xsd:boolean ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Published/active status" .
+
+ref:stepID a owl:DatatypeProperty ;
+    rdfs:label "Step ID" ;
+    rdfs:domain ref:Step ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Process Segment ID" .
+
+ref:stepName a owl:DatatypeProperty ;
+    rdfs:label "Step Name" ;
+    rdfs:domain ref:Step ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Name attribute" .
+
+ref:stepDescription a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:domain ref:Step ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Description attribute" .
+
+ref:stepDuration a owl:DatatypeProperty ;
+    rdfs:label "Duration" ;
+    rdfs:domain ref:Step ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Process Segment duration" .
+
+ref:bomQuantity a owl:DatatypeProperty ;
+    rdfs:label "Quantity" ;
+    rdfs:domain ref:BOM ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 material bill quantity" .
+
+ref:bomDirection a owl:DatatypeProperty ;
+    rdfs:label "Consumed/Produced" ;
+    rdfs:domain ref:BOM ;
+    rdfs:range ref:BomDirection ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 material use: consumed or produced" .
+
+ref:constraintID a owl:DatatypeProperty ;
+    rdfs:label "Constraint ID" ;
+    rdfs:domain ref:TimeConstraint ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:maxMinutes a owl:DatatypeProperty ;
+    rdfs:label "Max Minutes" ;
+    rdfs:domain ref:TimeConstraint ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Upper Q-time bound" .
+
+ref:minMinutes a owl:DatatypeProperty ;
+    rdfs:label "Min Minutes" ;
+    rdfs:domain ref:TimeConstraint ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Optional lower bound" .
+
+ref:reworkPathID a owl:DatatypeProperty ;
+    rdfs:label "Rework Path ID" ;
+    rdfs:domain ref:ReworkPath ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:reworkReason a owl:ObjectProperty ;
+    rdfs:label "Rework Reason" ;
+    rdfs:domain ref:ReworkPath ;
+    rdfs:range ref:ReasonCode ;
+    ref:valueKind "lookup" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Why the rework path is taken Repointed xsd:string -> ReasonCode lookup (de-scatter)." .
+
+ref:requestID a owl:DatatypeProperty ;
+    rdfs:label "Request ID" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:requestedQuantity a owl:DatatypeProperty ;
+    rdfs:label "Requested Quantity" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:dueDate a owl:DatatypeProperty ;
+    rdfs:label "Due Date" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:orderState a owl:DatatypeProperty ;
+    rdfs:label "Order State" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range ref:OrderState ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Draft->Released->Active->Complete/Cancelled; gates shop-floor visibility. State set is convention, not mandated ISA." .
+
+ref:orderedUOM a owl:DatatypeProperty ;
+    rdfs:label "Ordered UOM" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Unit of measure (from Product if not overridden)" .
+
+ref:requestedStartDate a owl:DatatypeProperty ;
+    rdfs:label "Requested Start" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Earliest acceptable start" .
+
+ref:orderPriority a owl:DatatypeProperty ;
+    rdfs:label "Priority" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Scheduling priority; value convention varies by vendor" .
+
+ref:externalOrderRef a owl:DatatypeProperty ;
+    rdfs:label "External Order Ref" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ERP / Level-4 order number" .
+
+ref:plannedQuantity a owl:DatatypeProperty ;
+    rdfs:label "Planned Quantity" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Quantity planned to start into processing" .
+
+ref:plannedStartDate a owl:DatatypeProperty ;
+    rdfs:label "Planned Start" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Scheduled start (from schedule)" .
+
+ref:plannedEndDate a owl:DatatypeProperty ;
+    rdfs:label "Planned End" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Scheduled completion" .
+
+ref:scheduleName a owl:DatatypeProperty ;
+    rdfs:label "Schedule Name" ;
+    rdfs:domain ref:WorkSchedule ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Schedule / scenario label" .
+
+ref:scheduleState a owl:DatatypeProperty ;
+    rdfs:label "Schedule State" ;
+    rdfs:domain ref:WorkSchedule ;
+    rdfs:range ref:ScheduleState ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Draft/Published/Archived; convention, not mandated ISA" .
+
+ref:horizonStart a owl:DatatypeProperty ;
+    rdfs:label "Horizon Start" ;
+    rdfs:domain ref:WorkSchedule ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Earliest date covered" .
+
+ref:horizonEnd a owl:DatatypeProperty ;
+    rdfs:label "Horizon End" ;
+    rdfs:domain ref:WorkSchedule ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Latest date covered" .
+
+ref:actualStartDate a owl:DatatypeProperty ;
+    rdfs:label "Actual Start" ;
+    rdfs:domain ref:JobResponse ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Operations Performance plane; runtime-populated" .
+
+ref:actualEndDate a owl:DatatypeProperty ;
+    rdfs:label "Actual End" ;
+    rdfs:domain ref:JobResponse ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Operations Performance plane; runtime-populated" .
+
+ref:segmentReqType a owl:DatatypeProperty ;
+    rdfs:label "Requirement Type" ;
+    rdfs:domain ref:SegmentRequirement ;
+    rdfs:range ref:SegmentReqType ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Pt4 resource category: Equipment/Material/Personnel" .
+
+ref:segmentReqQuantity a owl:DatatypeProperty ;
+    rdfs:label "Required Quantity" ;
+    rdfs:domain ref:SegmentRequirement ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Quantity of the resource required" .
+
+ref:segmentReqIsMandatory a owl:DatatypeProperty ;
+    rdfs:label "Is Mandatory" ;
+    rdfs:domain ref:SegmentRequirement ;
+    rdfs:range xsd:boolean ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "True = execution blocked without it" .
+
+ref:scheduleID a owl:DatatypeProperty ;
+    rdfs:label "Schedule ID" ;
+    rdfs:domain ref:WorkSchedule ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:jobOrderID a owl:DatatypeProperty ;
+    rdfs:label "Job Order ID" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:jobOrderState a owl:ObjectProperty ;
+    rdfs:label "Job Order State" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range ref:JobOrderState ;
+    ref:valueKind "lookup" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Part 4 state; vendor-extended" .
+
+ref:scheduledStartTime a owl:DatatypeProperty ;
+    rdfs:label "Scheduled Start" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:jobResponseID a owl:DatatypeProperty ;
+    rdfs:label "Job Response ID" ;
+    rdfs:domain ref:JobResponse ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:actualQuantity a owl:DatatypeProperty ;
+    rdfs:label "Actual Quantity" ;
+    rdfs:domain ref:JobResponse ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:dispatchDecisionID a owl:DatatypeProperty ;
+    rdfs:label "Dispatch Decision ID" ;
+    rdfs:domain ref:DispatchDecision ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:dispatchReason a owl:ObjectProperty ;
+    rdfs:label "Dispatch Reason" ;
+    rdfs:domain ref:DispatchDecision ;
+    rdfs:range ref:ReasonCode ;
+    ref:valueKind "lookup" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Rule/priority applied (the rule LOGIC itself is the DispatchRule candidate) Repointed xsd:string -> ReasonCode lookup (de-scatter)." .
+
+ref:controlJobID a owl:DatatypeProperty ;
+    rdfs:label "Control Job ID" ;
+    rdfs:domain ref:ControlJob ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E94" .
+
+ref:controlJobState a owl:DatatypeProperty ;
+    rdfs:label "Control Job State" ;
+    rdfs:domain ref:ControlJob ;
+    rdfs:range ref:ControlJobState ;
+    ref:valueKind "enum" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E94" .
+
+ref:processingOrder a owl:DatatypeProperty ;
+    rdfs:label "Processing Order" ;
+    rdfs:domain ref:ControlJob ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E94" .
+
+ref:processJobID a owl:DatatypeProperty ;
+    rdfs:label "Process Job ID" ;
+    rdfs:domain ref:ProcessJob ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E40" .
+
+ref:processJobState a owl:DatatypeProperty ;
+    rdfs:label "Process Job State" ;
+    rdfs:domain ref:ProcessJob ;
+    rdfs:range ref:ProcessJobState ;
+    ref:valueKind "enum" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E40" .
+
+ref:executionStartTime a owl:DatatypeProperty ;
+    rdfs:label "Start Time" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E157" .
+
+ref:executionEndTime a owl:DatatypeProperty ;
+    rdfs:label "End Time" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E157" .
+
+ref:executionStatus a owl:ObjectProperty ;
+    rdfs:label "Status" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range ref:ExecutionStatus ;
+    ref:valueKind "lookup" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E157 step execution status; vendor-extended" .
+
+ref:dcPlanID a owl:DatatypeProperty ;
+    rdfs:label "DC Plan ID" ;
+    rdfs:domain ref:DataCollectionPlan ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E134" .
+
+ref:samplingRate a owl:DatatypeProperty ;
+    rdfs:label "Sampling Rate" ;
+    rdfs:domain ref:DataCollectionPlan ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E134" .
+
+ref:triggerEvent a owl:DatatypeProperty ;
+    rdfs:label "Trigger Event" ;
+    rdfs:domain ref:DataCollectionPlan ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Process Start / Wafer Complete" .
+
+ref:mandatory a owl:DatatypeProperty ;
+    rdfs:label "Mandatory" ;
+    rdfs:domain ref:DataCollectionPlan ;
+    rdfs:range xsd:boolean ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E134" .
+
+ref:dcPlanVersion a owl:DatatypeProperty ;
+    rdfs:label "Plan Version" ;
+    rdfs:domain ref:DataCollectionPlan ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Version identity (point-in-time 'active-at-collection' binding is run: audit)" .
+
+ref:samplingPlanID a owl:DatatypeProperty ;
+    rdfs:label "Sampling Plan ID" ;
+    rdfs:domain ref:SamplingPlan ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:samplingFrequency a owl:DatatypeProperty ;
+    rdfs:label "Frequency" ;
+    rdfs:domain ref:SamplingPlan ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "e.g. every Nth lot" .
+
+ref:samplingPlanVersion a owl:DatatypeProperty ;
+    rdfs:label "Plan Version" ;
+    rdfs:domain ref:SamplingPlan ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Version identity (point-in-time binding is run: audit)" .
+
+ref:resultID a owl:DatatypeProperty ;
+    rdfs:label "Result ID" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:measuredValue a owl:DatatypeProperty ;
+    rdfs:label "Measured Value" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:upperControlLimit a owl:DatatypeProperty ;
+    rdfs:label "Upper Control Limit" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "UCL" .
+
+ref:lowerControlLimit a owl:DatatypeProperty ;
+    rdfs:label "Lower Control Limit" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "LCL — statistical process bound" .
+
+ref:unitOfMeasure a owl:DatatypeProperty ;
+    rdfs:label "Unit of Measure" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "e.g. nm, Angstrom, ohm" .
+
+ref:characteristic a owl:DatatypeProperty ;
+    rdfs:label "Characteristic" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "What was measured — CD, overlay, thickness, Rs" .
+
+ref:targetValue a owl:DatatypeProperty ;
+    rdfs:label "Target Value" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Nominal/target for the characteristic" .
+
+ref:upperSpecLimit a owl:DatatypeProperty ;
+    rdfs:label "Upper Spec Limit" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "USL — engineering PASS/FAIL bound (NOT the control limit)" .
+
+ref:lowerSpecLimit a owl:DatatypeProperty ;
+    rdfs:label "Lower Spec Limit" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "LSL — engineering PASS/FAIL bound (NOT the control limit)" .
+
+ref:resultStatus a owl:DatatypeProperty ;
+    rdfs:label "Result Status" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range ref:ResultStatus ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "Pass/Fail/Alarm against spec limits" .
+
+ref:holdID a owl:DatatypeProperty ;
+    rdfs:label "Hold ID" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:holdReasonCode a owl:ObjectProperty ;
+    rdfs:label "Hold Reason Code" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range ref:ReasonCode ;
+    ref:valueKind "lookup" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "e.g. Metrology Out of Bounds Repointed xsd:string -> ReasonCode lookup (de-scatter)." .
+
+ref:holdState a owl:DatatypeProperty ;
+    rdfs:label "Hold State" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range ref:HoldState ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Active/Released (state MACHINE / transitions are run: scope)" .
+
+ref:heldAt a owl:DatatypeProperty ;
+    rdfs:label "Held At" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "When the hold was placed" .
+
+ref:heldBy a owl:DatatypeProperty ;
+    rdfs:label "Held By" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Actor who placed the hold" .
+
+ref:releasedAt a owl:DatatypeProperty ;
+    rdfs:label "Released At" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "When released" .
+
+ref:releasedBy a owl:DatatypeProperty ;
+    rdfs:label "Released By" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Actor who released" .
+
+ref:releaseReasonCode a owl:ObjectProperty ;
+    rdfs:label "Release Reason Code" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range ref:ReasonCode ;
+    ref:valueKind "lookup" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Reason for release Repointed xsd:string -> ReasonCode lookup (de-scatter)." .
+
+ref:ncrID a owl:DatatypeProperty ;
+    rdfs:label "NCR ID" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:severity a owl:DatatypeProperty ;
+    rdfs:label "Severity" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:dispositionAction a owl:DatatypeProperty ;
+    rdfs:label "Disposition Action" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range ref:DispositionAction ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "MRB disposition" .
+
+ref:ncrState a owl:DatatypeProperty ;
+    rdfs:label "NCR State" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range ref:NCRState ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Open/UnderReview/Approved/Closed (approval WORKFLOW is run: scope)" .
+
+ref:ncrOwner a owl:DatatypeProperty ;
+    rdfs:label "Owner" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Responsible owner" .
+
+ref:ncrOpenedAt a owl:DatatypeProperty ;
+    rdfs:label "Opened At" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:ncrClosedAt a owl:DatatypeProperty ;
+    rdfs:label "Closed At" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:ncrApprovedBy a owl:DatatypeProperty ;
+    rdfs:label "Approved By" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Records that approval occurred; the workflow itself is run: scope" .
+
+ref:spcEventID a owl:DatatypeProperty ;
+    rdfs:label "SPC Event ID" ;
+    rdfs:domain ref:SPCViolation ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:ruleViolated a owl:DatatypeProperty ;
+    rdfs:label "Rule Violated" ;
+    rdfs:domain ref:SPCViolation ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "e.g. Western Electric Rules" .
+
+ref:equipmentState a owl:DatatypeProperty ;
+    rdfs:label "Equipment State" ;
+    rdfs:domain ref:Equipment ;
+    rdfs:range ref:E10State ;
+    ref:valueKind "enum" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Current E10/E58 state" .
+
+ref:controlState a owl:DatatypeProperty ;
+    rdfs:label "Control State" ;
+    rdfs:domain ref:Equipment ;
+    rdfs:range ref:ControlState ;
+    ref:valueKind "enum" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "GEM E30 control state" .
+
+ref:logID a owl:DatatypeProperty ;
+    rdfs:label "Log ID" ;
+    rdfs:domain ref:EquipmentStateLog ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "" .
+
+ref:previousState a owl:DatatypeProperty ;
+    rdfs:label "Previous State" ;
+    rdfs:domain ref:EquipmentStateLog ;
+    rdfs:range ref:E10State ;
+    ref:valueKind "enum" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E10" .
+
+ref:newState a owl:DatatypeProperty ;
+    rdfs:label "New State" ;
+    rdfs:domain ref:EquipmentStateLog ;
+    rdfs:range ref:E10State ;
+    ref:valueKind "enum" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E10" .
+
+ref:stateTimestamp a owl:DatatypeProperty ;
+    rdfs:label "Timestamp" ;
+    rdfs:domain ref:EquipmentStateLog ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E10" .
+
+ref:maintOrderID a owl:DatatypeProperty ;
+    rdfs:label "Maint Order ID" ;
+    rdfs:domain ref:MaintenanceWorkOrder ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:maintType a owl:DatatypeProperty ;
+    rdfs:label "Maintenance Type" ;
+    rdfs:domain ref:MaintenanceWorkOrder ;
+    rdfs:range ref:MaintenanceType ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Preventive/Corrective/Calibration" .
+
+ref:maintScheduledStart a owl:DatatypeProperty ;
+    rdfs:label "Scheduled Start" ;
+    rdfs:domain ref:MaintenanceWorkOrder ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:actualDuration a owl:DatatypeProperty ;
+    rdfs:label "Actual Duration" ;
+    rdfs:domain ref:MaintenanceWorkOrder ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "hours" .
+
+ref:counterID a owl:DatatypeProperty ;
+    rdfs:label "Counter ID" ;
+    rdfs:domain ref:MaintenanceCounter ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:currentValue a owl:DatatypeProperty ;
+    rdfs:label "Current Value" ;
+    rdfs:domain ref:MaintenanceCounter ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:thresholdLimit a owl:DatatypeProperty ;
+    rdfs:label "Threshold Limit" ;
+    rdfs:domain ref:MaintenanceCounter ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:counterUoM a owl:DatatypeProperty ;
+    rdfs:label "Counter UoM" ;
+    rdfs:domain ref:MaintenanceCounter ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "RF Hours / Wafer Count / Cycles" .
+
+ref:partID a owl:DatatypeProperty ;
+    rdfs:label "Part ID" ;
+    rdfs:domain ref:SparePart ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:partSerialNumber a owl:DatatypeProperty ;
+    rdfs:label "Serial Number" ;
+    rdfs:domain ref:SparePart ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:personID a owl:DatatypeProperty ;
+    rdfs:label "Person ID" ;
+    rdfs:domain ref:Person ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:personName a owl:DatatypeProperty ;
+    rdfs:label "Name" ;
+    rdfs:domain ref:Person ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:personnelClassID a owl:DatatypeProperty ;
+    rdfs:label "Class ID" ;
+    rdfs:domain ref:PersonnelClass ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:certificationID a owl:DatatypeProperty ;
+    rdfs:label "Certification ID" ;
+    rdfs:domain ref:Certification ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:certificationExpiry a owl:DatatypeProperty ;
+    rdfs:label "Expiry Date" ;
+    rdfs:domain ref:Certification ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:locationID a owl:DatatypeProperty ;
+    rdfs:label "Location ID" ;
+    rdfs:domain ref:StorageLocation ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:locationType a owl:DatatypeProperty ;
+    rdfs:label "Location Type" ;
+    rdfs:domain ref:StorageLocation ;
+    rdfs:range ref:LocationType ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "Stocker/Buffer/Shelf/Bin" .
+
+ref:locationCapacity a owl:DatatypeProperty ;
+    rdfs:label "Capacity" ;
+    rdfs:domain ref:StorageLocation ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:movementID a owl:DatatypeProperty ;
+    rdfs:label "Movement ID" ;
+    rdfs:domain ref:MaterialMovement ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:movementTime a owl:DatatypeProperty ;
+    rdfs:label "Movement Time" ;
+    rdfs:domain ref:MaterialMovement ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:inventoryRecordID a owl:DatatypeProperty ;
+    rdfs:label "Inventory Record ID" ;
+    rdfs:domain ref:InventoryRecord ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:quantityOnHand a owl:DatatypeProperty ;
+    rdfs:label "Quantity On Hand" ;
+    rdfs:domain ref:InventoryRecord ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "" .
+
+ref:materialClass a owl:ObjectProperty ;
+    rdfs:label "materialClass" ;
+    rdfs:domain ref:Material ;
+    rdfs:range ref:MaterialClass ;
+    ref:valueKind "lookup" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Axis-1 classifier — WHAT KIND. Distinct from ref:Product (device def); a material is definedBy a Product." .
+
+ref:qualificationState a owl:DatatypeProperty ;
+    rdfs:label "qualificationState" ;
+    rdfs:domain ref:Material ;
+    rdfs:range ref:QualificationState ;
+    ref:valueKind "enum" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Structure. Qualified/Unqualified/Expired + KGD/KBD. Live state & transitions are run:. Gates assembly + litho." .
+
+ref:trackingGranularity a owl:DatatypeProperty ;
+    rdfs:label "trackingGranularity" ;
+    rdfs:domain ref:Material ;
+    rdfs:range ref:TrackingGranularity ;
+    ref:valueKind "enum" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Structure. COMPARISON AXIS — how the MES absorbs the die volume-explosion." .
+
+ref:materialProvenance a owl:DatatypeProperty ;
+    rdfs:label "materialProvenance" ;
+    rdfs:domain ref:Material ;
+    rdfs:range ref:MaterialProvenance ;
+    ref:valueKind "enum" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Internal/ForeignFab/ExternalSupplier. COMPARISON AXIS — foreign-KGD ingestion differentiator." .
+
+ref:gridX a owl:DatatypeProperty ;
+    rdfs:label "Grid X" ;
+    rdfs:domain ref:Die ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E142 — die X position on source wafer." .
+
+ref:gridY a owl:DatatypeProperty ;
+    rdfs:label "Grid Y" ;
+    rdfs:domain ref:Die ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E142 — die Y position on source wafer." .
+
+ref:binCategory a owl:ObjectProperty ;
+    rdfs:label "Bin Category" ;
+    rdfs:domain ref:Die ;
+    rdfs:range ref:BinType ;
+    ref:valueKind "lookup" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E142. Repointed from xsd:string to BinType SKOS lookup (Bin add). Sort-bin classification." .
+
+ref:stackTier a owl:DatatypeProperty ;
+    rdfs:label "Stack Tier" ;
+    rdfs:domain ref:Die ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "3D/HBM vertical layer; gridX/Y give planar position." .
+
+ref:packageType a owl:DatatypeProperty ;
+    rdfs:label "Package Type" ;
+    rdfs:domain ref:Package ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "flip-chip / 2.5D interposer / 3D stack." .
+
+ref:dieCount a owl:DatatypeProperty ;
+    rdfs:label "Die Count" ;
+    rdfs:domain ref:Package ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "1 = single-die; >1 = multi-die/chiplet." .
+
+ref:expiryDate a owl:DatatypeProperty ;
+    rdfs:label "Expiry Date" ;
+    rdfs:domain ref:ConsumableMaterial ;
+    rdfs:range xsd:dateTime ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Structure. Expired consumable = scrap; expiry enforcement is a comparison axis." .
+
+ref:floorLife a owl:DatatypeProperty ;
+    rdfs:label "Floor Life" ;
+    rdfs:domain ref:ConsumableMaterial ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Structure. Out-time / pot-life (post-exposure / after opening)." .
+
+ref:vendorLot a owl:DatatypeProperty ;
+    rdfs:label "Vendor Lot" ;
+    rdfs:domain ref:ConsumableMaterial ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Structure. Supplier lot — supplier-quality traceability." .
+
+ref:certificateOfAnalysis a owl:DatatypeProperty ;
+    rdfs:label "Certificate of Analysis" ;
+    rdfs:domain ref:ConsumableMaterial ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Structure. CoA reference." .
+
+ref:materialGrade a owl:DatatypeProperty ;
+    rdfs:label "Material Grade" ;
+    rdfs:domain ref:ConsumableMaterial ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Structure. Grade / spec of the consumable." .
+
+ref:durableSerial a owl:DatatypeProperty ;
+    rdfs:label "Durable Serial" ;
+    rdfs:domain ref:DurableMaterial ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Structure. Individual serial (e.g. reticle SN-4471)." .
+
+ref:usageCount a owl:DatatypeProperty ;
+    rdfs:label "Usage Count" ;
+    rdfs:domain ref:DurableMaterial ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Structure. Shot count etc.; slot is ref:, live value is run:." .
+
+ref:externallySourced a owl:DatatypeProperty ;
+    rdfs:label "Externally Sourced" ;
+    rdfs:domain ref:WaferMap ;
+    rdfs:range xsd:boolean ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "True if map imported from another fab/supplier (foreign KGD file)." .
+
+ref:stripPosition a owl:DatatypeProperty ;
+    rdfs:label "Strip Position" ;
+    rdfs:domain ref:Package ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "Derived" ;
+    rdfs:comment "Package position within its assembly carrier / strip." .
+
+ref:reasonCode a owl:ObjectProperty ;
+    rdfs:label "Reason Code" ;
+    rdfs:domain ref:EquipmentStateLog ;
+    rdfs:range ref:ReasonCode ;
+    ref:valueKind "lookup" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E58 downtime/state reason on the state log." .
+
+ref:ncReasonCode a owl:ObjectProperty ;
+    rdfs:label "NC Reason Code" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range ref:ReasonCode ;
+    ref:valueKind "lookup" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "Reason the NC was raised." .
+
+ref:defectID a owl:DatatypeProperty ;
+    rdfs:label "Defect ID" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "—" ;
+    rdfs:comment "Structure. Vendor/inspection defect identifier." .
+
+ref:defectSeverity a owl:DatatypeProperty ;
+    rdfs:label "Defect Severity" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range xsd:string ;
+    ref:valueKind "plain" ;
+    ref:grounding "—" ;
+    rdfs:comment "Structure. Severity / criticality (killer / major / minor)." .
+
+ref:defectCount a owl:DatatypeProperty ;
+    rdfs:label "Defect Count" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range xsd:integer ;
+    ref:valueKind "plain" ;
+    ref:grounding "—" ;
+    rdfs:comment "Structure. Number of occurrences aggregated in this record." .
+
+ref:defectDensity a owl:DatatypeProperty ;
+    rdfs:label "Defect Density" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range xsd:decimal ;
+    ref:valueKind "plain" ;
+    ref:grounding "—" ;
+    rdfs:comment "Structure. Defects per unit area (e.g. /cm2) — killer-defect / yield analytics." .
+
+ref:dispositionAction a owl:DatatypeProperty ;
+    rdfs:label "Disposition Action" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range ref:DispositionAction ;
+    ref:valueKind "enum" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Reuses the neutral disposition enum (vendor disposition codes map up in the overlay)." .
+
+# ===== OBJECT PROPERTIES =====
+ref:definedBy a owl:ObjectProperty ;
+    rdfs:label "definedBy" ;
+    rdfs:domain [ owl:unionOf ( ref:Lot ref:ProductMaterial ) ] ;
+    rdfs:range ref:Product ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "A3 — union domain: both the batch (Lot) and the individual material (ProductMaterial/Substrate/Die) are defined by a Product." .
+
+ref:onRoute a owl:ObjectProperty ;
+    rdfs:label "onRoute" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range ref:Route ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "The route this lot is ACTUALLY running (defaults to the product's route; diverges for rework/alternates)" .
+
+ref:atRouteOperation a owl:ObjectProperty ;
+    rdfs:label "atRouteOperation" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "The lot's CURRENT position in the route — live WIP pointer" .
+
+ref:classifiedBy a owl:ObjectProperty ;
+    rdfs:label "classifiedBy" ;
+    rdfs:domain ref:Equipment ;
+    rdfs:range ref:EquipmentGroup ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Class membership" .
+
+ref:composedOf a owl:ObjectProperty ;
+    rdfs:label "composedOf" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range ref:ProductMaterial ;
+    owl:inverseOf ref:partOfLot ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "A4 — range widened Substrate -> ProductMaterial so a lot can aggregate any form (wafers/dies/units). Inverse partOfLot widens too. TREE genealogy (front-end)." .
+
+ref:splitFrom a owl:ObjectProperty ;
+    rdfs:label "splitFrom" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range ref:Lot ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Parent lot this lot was split from (engineering split / send-ahead). ISA-95 material lot genealogy" .
+
+ref:mergedFrom a owl:ObjectProperty ;
+    rdfs:label "mergedFrom" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range ref:Lot ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Lots that merged to form this lot. ISA-95 material lot genealogy" .
+
+ref:locatedInCarrier a owl:ObjectProperty ;
+    rdfs:label "locatedInCarrier" ;
+    rdfs:domain ref:Substrate ;
+    rdfs:range ref:Carrier ;
+    owl:inverseOf ref:containsSubstrate ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Slot occupancy E87/E90. Inverse containsSubstrate lets carrier-first queries traverse to its wafers" .
+
+ref:dockedAt a owl:ObjectProperty ;
+    rdfs:label "dockedAt" ;
+    rdfs:domain ref:Carrier ;
+    rdfs:range ref:LoadPort ;
+    owl:inverseOf ref:hostsCarrier ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E87. Inverse hostsCarrier: load-port-first traversal" .
+
+ref:hasMap a owl:ObjectProperty ;
+    rdfs:label "hasMap" ;
+    rdfs:domain ref:Substrate ;
+    rdfs:range ref:WaferMap ;
+    owl:inverseOf ref:mapsWafer ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E142" .
+
+ref:includesOperation a owl:ObjectProperty ;
+    rdfs:label "includesOperation" ;
+    rdfs:domain ref:Route ;
+    rdfs:range ref:RouteOperation ;
+    owl:inverseOf ref:partOfRoute ;
+    ref:cardinality "1..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Ordered placements" .
+
+ref:partOfRoute a owl:ObjectProperty ;
+    rdfs:label "partOfRoute" ;
+    rdfs:domain ref:RouteOperation ;
+    rdfs:range ref:Route ;
+    owl:inverseOf ref:includesOperation ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Inverse of includesOperation — lets a query traverse operation -> route (needed to express the atRouteOperation/onRoute consistency check)" .
+
+ref:realizes a owl:ObjectProperty ;
+    rdfs:label "realizes" ;
+    rdfs:domain ref:RouteOperation ;
+    rdfs:range ref:Step ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Placement realizes generic step (= CM Flow Item)" .
+
+ref:precedes a owl:ObjectProperty ;
+    rdfs:label "precedes" ;
+    rdfs:domain ref:RouteOperation ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 segment precedence — the operation(s) that follow this one. Traversable flow (linear = one successor; branching = many, for parallel/conditional paths). 'nextOperation' is the linear read of this." .
+
+ref:hasBOM a owl:ObjectProperty ;
+    rdfs:label "hasBOM" ;
+    rdfs:domain ref:Product ;
+    rdfs:range ref:BOM ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "A1 — repointed from Route to Product; the BOM binds the device SKU. specifiesMaterial carries the lines." .
+
+ref:produces a owl:ObjectProperty ;
+    rdfs:label "produces" ;
+    rdfs:domain ref:Route ;
+    rdfs:range ref:Product ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "NEW — Route makes this product" .
+
+ref:requiresSpecification a owl:ObjectProperty ;
+    rdfs:label "requiresSpecification" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:ProcessSpecification ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Process Segment specifications (resource specs the step requires)" .
+
+ref:requiresEquipmentGroup a owl:ObjectProperty ;
+    rdfs:label "requiresEquipmentGroup" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:EquipmentGroup ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "ISA-95 Process Segment Equipment Specification — the eligible tool CLASS for this step (definitional; dispatch picks the specific tool). Distinct from ProcessStepExecution.executedOn (the actual tool)" .
+
+ref:executesRecipe a owl:ObjectProperty ;
+    rdfs:label "executesRecipe" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:Recipe ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E40 reference" .
+
+ref:realizedBy a owl:ObjectProperty ;
+    rdfs:label "realizedBy" ;
+    rdfs:domain ref:Equipment ;
+    rdfs:range ref:PhysicalEquipment ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Historized (AssetAssignment reified)" .
+
+ref:partOf a owl:ObjectProperty ;
+    rdfs:label "partOf" ;
+    rdfs:domain ref:Equipment ;
+    rdfs:range ref:Equipment ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Hierarchy (level = enum)" .
+
+ref:hasLoadPort a owl:ObjectProperty ;
+    rdfs:label "hasLoadPort" ;
+    rdfs:domain ref:Equipment ;
+    rdfs:range ref:LoadPort ;
+    owl:inverseOf ref:mountedOn ;
+    ref:cardinality "0..*" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E87 — load port is an interface on the tool" .
+
+ref:testedBy a owl:ObjectProperty ;
+    rdfs:label "testedBy" ;
+    rdfs:domain [ owl:unionOf ( ref:Product ref:Lot ref:Substrate ) ] ;
+    rdfs:range ref:TestSpec ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Test spec applies to product/lot/substrate" .
+
+ref:fromOperation a owl:ObjectProperty ;
+    rdfs:label "fromOperation" ;
+    rdfs:domain ref:TimeConstraint ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Start of the timed interval" .
+
+ref:toOperation a owl:ObjectProperty ;
+    rdfs:label "toOperation" ;
+    rdfs:domain ref:TimeConstraint ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "End of the timed interval (Q-time measured from->to)" .
+
+ref:hasReworkPath a owl:ObjectProperty ;
+    rdfs:label "hasReworkPath" ;
+    rdfs:domain ref:RouteOperation ;
+    rdfs:range ref:ReworkPath ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Rework options at this operation" .
+
+ref:reworkGoTo a owl:ObjectProperty ;
+    rdfs:label "reworkGoTo" ;
+    rdfs:domain ref:ReworkPath ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Where rework processing starts" .
+
+ref:reworkReturn a owl:ObjectProperty ;
+    rdfs:label "reworkReturn" ;
+    rdfs:domain ref:ReworkPath ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Where the lot rejoins the main route" .
+
+ref:executedForSubstrate a owl:ObjectProperty ;
+    rdfs:label "executedForSubstrate" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range ref:Substrate ;
+    ref:cardinality "0..*" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Wafer-level execution genealogy (partial-lot processing)" .
+
+ref:executedVia a owl:ObjectProperty ;
+    rdfs:label "executedVia" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range ref:ProcessJob ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "The E40 process job that actually ran this step execution — links the MES execution record (E157) to the equipment-level job (E40)" .
+
+ref:collectedDuring a owl:ObjectProperty ;
+    rdfs:label "collectedDuring" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range ref:ProcessStepExecution ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Ties the data trace to the specific execution run (RCA/GenAI feed)" .
+
+ref:fulfills a owl:ObjectProperty ;
+    rdfs:label "fulfills" ;
+    rdfs:domain ref:WorkSchedule ;
+    rdfs:range ref:ProductionRequest ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Schedule meets the request" .
+
+ref:includesJobOrder a owl:ObjectProperty ;
+    rdfs:label "includesJobOrder" ;
+    rdfs:domain ref:WorkSchedule ;
+    rdfs:range ref:JobOrder ;
+    owl:inverseOf ref:partOfSchedule ;
+    ref:cardinality "1..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Schedule is made of job orders" .
+
+ref:usesWorkMaster a owl:ObjectProperty ;
+    rdfs:label "usesWorkMaster" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range ref:Route ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Job order follows a Work Master = Route (links scheduling to routing)" .
+
+ref:dispatchedTo a owl:ObjectProperty ;
+    rdfs:label "dispatchedTo" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range ref:Equipment ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Job order dispatched to a work center / tool" .
+
+ref:schedulesLot a owl:ObjectProperty ;
+    rdfs:label "schedulesLot" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range ref:Lot ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "The material the job order runs" .
+
+ref:respondsTo a owl:ObjectProperty ;
+    rdfs:label "respondsTo" ;
+    rdfs:domain ref:JobResponse ;
+    rdfs:range ref:JobOrder ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Response reports on a job order" .
+
+ref:forLot a owl:ObjectProperty ;
+    rdfs:label "forLot" ;
+    rdfs:domain ref:DispatchDecision ;
+    rdfs:range ref:Lot ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "The lot that was dispatched" .
+
+ref:toEquipment a owl:ObjectProperty ;
+    rdfs:label "toEquipment" ;
+    rdfs:domain ref:DispatchDecision ;
+    rdfs:range ref:Equipment ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "The tool it was dispatched to" .
+
+ref:forJobOrder a owl:ObjectProperty ;
+    rdfs:label "forJobOrder" ;
+    rdfs:domain ref:DispatchDecision ;
+    rdfs:range ref:JobOrder ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "The job order this decision serves" .
+
+ref:dispatchesOperation a owl:ObjectProperty ;
+    rdfs:label "dispatchesOperation" ;
+    rdfs:domain ref:DispatchDecision ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Dispatch is STEP-SPECIFIC — the operation being dispatched, not the whole route" .
+
+ref:requestsProduct a owl:ObjectProperty ;
+    rdfs:label "requestsProduct" ;
+    rdfs:domain ref:ProductionRequest ;
+    rdfs:range ref:Product ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "What the request is to produce (direct product link; previously only reachable via a 3-hop path)" .
+
+ref:requiresOperation a owl:ObjectProperty ;
+    rdfs:label "requiresOperation" ;
+    rdfs:domain ref:SegmentRequirement ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Segment requirement ties to a route step" .
+
+ref:handsOffTo a owl:ObjectProperty ;
+    rdfs:label "handsOffTo" ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range ref:ControlJob ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "EXECUTION SEAM: Job Order -> E94 Control Job" .
+
+ref:manages a owl:ObjectProperty ;
+    rdfs:label "manages" ;
+    rdfs:domain ref:ControlJob ;
+    rdfs:range ref:ProcessJob ;
+    owl:inverseOf ref:partOfControlJob ;
+    ref:cardinality "1..*" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E94 -> E40 execution hierarchy" .
+
+ref:processesSubstrate a owl:ObjectProperty ;
+    rdfs:label "processesSubstrate" ;
+    rdfs:domain ref:ProcessJob ;
+    rdfs:range ref:Substrate ;
+    ref:cardinality "1..*" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E40 runs on a subset of substrates" .
+
+ref:runsRecipe a owl:ObjectProperty ;
+    rdfs:label "runsRecipe" ;
+    rdfs:domain ref:ProcessJob ;
+    rdfs:range ref:Recipe ;
+    ref:cardinality "1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E40 process job executes a recipe" .
+
+ref:processesCarrier a owl:ObjectProperty ;
+    rdfs:label "processesCarrier" ;
+    rdfs:domain ref:ControlJob ;
+    rdfs:range ref:Carrier ;
+    ref:cardinality "1..*" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E94 manages carriers" .
+
+ref:recordsStep a owl:ObjectProperty ;
+    rdfs:label "recordsStep" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range ref:Step ;
+    ref:cardinality "1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "E157 — execution record of a route step (generic)" .
+
+ref:executesOperation a owl:ObjectProperty ;
+    rdfs:label "executesOperation" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "Ties the execution to the SPECIFIC route placement (precise genealogy; the RouteOperation realizes the generic Step)" .
+
+ref:executedOn a owl:ObjectProperty ;
+    rdfs:label "executedOn" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range ref:Equipment ;
+    ref:cardinality "1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Where the step ran (genealogy)" .
+
+ref:executedForLot a owl:ObjectProperty ;
+    rdfs:label "executedForLot" ;
+    rdfs:domain ref:ProcessStepExecution ;
+    rdfs:range ref:Lot ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Material processed (genealogy)" .
+
+ref:collectsAtStep a owl:ObjectProperty ;
+    rdfs:label "collectsAtStep" ;
+    rdfs:domain ref:DataCollectionPlan ;
+    rdfs:range ref:Step ;
+    ref:cardinality "0..*" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "DC plan defined at a step" .
+
+ref:samplesAtStep a owl:ObjectProperty ;
+    rdfs:label "samplesAtStep" ;
+    rdfs:domain ref:SamplingPlan ;
+    rdfs:range ref:Step ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Sampling plan applies at a step" .
+
+ref:perPlan a owl:ObjectProperty ;
+    rdfs:label "perPlan" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range ref:DataCollectionPlan ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Result collected per DC plan" .
+
+ref:measuredForLot a owl:ObjectProperty ;
+    rdfs:label "measuredForLot" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range ref:Lot ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Material measured" .
+
+ref:measuredForSubstrate a owl:ObjectProperty ;
+    rdfs:label "measuredForSubstrate" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range ref:Substrate ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Wafer-level metrology (E90/E142) — CD/overlay measured per wafer, not just per lot" .
+
+ref:measuredAtOperation a owl:ObjectProperty ;
+    rdfs:label "measuredAtOperation" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "Direct route-position link for step-level SPC / yield-by-operation. Kept direct (not only via ProcessStepExecution) because standalone/offline metrology may have no execution to hop through" .
+
+ref:perSamplingPlan a owl:ObjectProperty ;
+    rdfs:label "perSamplingPlan" ;
+    rdfs:domain ref:MeasurementResult ;
+    rdfs:range ref:SamplingPlan ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "Which sampling plan governed this result. NOTE: definitions don't point at one execution — the RESULT records the plan (correct direction). Version-active-at-collection audit is run: scope" .
+
+ref:flaggedOn a owl:ObjectProperty ;
+    rdfs:label "flaggedOn" ;
+    rdfs:domain ref:SPCViolation ;
+    rdfs:range ref:MeasurementResult ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "SPC violation on a measurement" .
+
+ref:holds a owl:ObjectProperty ;
+    rdfs:label "holds" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range [ owl:unionOf ( ref:Lot ref:Equipment ref:Carrier ) ] ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Hold freezes a lot, tool or carrier" .
+
+ref:triggeredBy a owl:ObjectProperty ;
+    rdfs:label "triggeredBy" ;
+    rdfs:domain ref:HoldRecord ;
+    rdfs:range ref:SPCViolation ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Hold may be triggered by an SPC event" .
+
+ref:raisedFor a owl:ObjectProperty ;
+    rdfs:label "raisedFor" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range ref:Lot ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "NCR raised for a lot" .
+
+ref:escalatesFrom a owl:ObjectProperty ;
+    rdfs:label "escalatesFrom" ;
+    rdfs:domain ref:NonConformanceReport ;
+    rdfs:range ref:HoldRecord ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "NCR may escalate from a hold" .
+
+ref:triggersRework a owl:ObjectProperty ;
+    rdfs:label "triggersRework" ;
+    rdfs:domain [ owl:unionOf ( ref:NonConformanceReport ref:Defect ) ] ;
+    rdfs:range ref:ReworkPath ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "A Rework disposition points to the rework path (the structural link; EXECUTION of the rework is run: scope) Domain widened: dual rework path — via NCR (MRB-gated, default) OR direct from Defect (auto-rework)." .
+
+ref:occursAtOperation a owl:ObjectProperty ;
+    rdfs:label "occursAtOperation" ;
+    rdfs:domain [ owl:unionOf ( ref:HoldRecord ref:NonConformanceReport ref:Defect ) ] ;
+    rdfs:range ref:RouteOperation ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Where in the route the quality event occurred — RCA, defect trending, yield-by-operation. Applies to both Hold and NCR (union domain) Domain widened to admit Defect." .
+
+ref:logsEquipment a owl:ObjectProperty ;
+    rdfs:label "logsEquipment" ;
+    rdfs:domain ref:EquipmentStateLog ;
+    rdfs:range ref:Equipment ;
+    ref:cardinality "1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "State log records this tool's transitions" .
+
+ref:maintains a owl:ObjectProperty ;
+    rdfs:label "maintains" ;
+    rdfs:domain ref:MaintenanceWorkOrder ;
+    rdfs:range [ owl:unionOf ( ref:Equipment ref:DurableMaterial ) ] ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "A7 — generalized from maintainsEquipment: a work order targets equipment OR a durable (reticles/probe cards are cleaned/requalified/reconditioned like equipment)." .
+
+ref:countsFor a owl:ObjectProperty ;
+    rdfs:label "countsFor" ;
+    rdfs:domain ref:MaintenanceCounter ;
+    rdfs:range [ owl:unionOf ( ref:Equipment ref:DurableMaterial ) ] ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "A7 — range admits durable floor-life counters as well as equipment counters." .
+
+ref:triggersMaintenance a owl:ObjectProperty ;
+    rdfs:label "triggersMaintenance" ;
+    rdfs:domain ref:MaintenanceCounter ;
+    rdfs:range ref:MaintenanceWorkOrder ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Counter threshold triggers a PM work order" .
+
+ref:hasRole a owl:ObjectProperty ;
+    rdfs:label "hasRole" ;
+    rdfs:domain ref:Person ;
+    rdfs:range ref:PersonnelClass ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Person belongs to a personnel class / role" .
+
+ref:holdsCertification a owl:ObjectProperty ;
+    rdfs:label "holdsCertification" ;
+    rdfs:domain ref:Person ;
+    rdfs:range ref:Certification ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Person holds qualifications" .
+
+ref:requiresCertification a owl:ObjectProperty ;
+    rdfs:label "requiresCertification" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:Certification ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Step requires a certification (the long-open Step->Certification seam)" .
+
+ref:storedAt a owl:ObjectProperty ;
+    rdfs:label "storedAt" ;
+    rdfs:domain ref:Lot ;
+    rdfs:range ref:StorageLocation ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Where the lot currently is (WIP location)" .
+
+ref:carrierStoredAt a owl:ObjectProperty ;
+    rdfs:label "carrierStoredAt" ;
+    rdfs:domain ref:Carrier ;
+    rdfs:range ref:StorageLocation ;
+    owl:inverseOf ref:storesCarrier ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Where the carrier is stored (stocker). Inverse storesCarrier: location-first traversal" .
+
+ref:movesLot a owl:ObjectProperty ;
+    rdfs:label "movesLot" ;
+    rdfs:domain ref:MaterialMovement ;
+    rdfs:range ref:Lot ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Material moved" .
+
+ref:fromLocation a owl:ObjectProperty ;
+    rdfs:label "fromLocation" ;
+    rdfs:domain ref:MaterialMovement ;
+    rdfs:range ref:StorageLocation ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Source location" .
+
+ref:toLocation a owl:ObjectProperty ;
+    rdfs:label "toLocation" ;
+    rdfs:domain ref:MaterialMovement ;
+    rdfs:range ref:StorageLocation ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Destination location" .
+
+ref:recordedAt a owl:ObjectProperty ;
+    rdfs:label "recordedAt" ;
+    rdfs:domain ref:InventoryRecord ;
+    rdfs:range ref:StorageLocation ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Location of the stock record" .
+
+ref:operatesOn a owl:ObjectProperty ;
+    rdfs:label "operatesOn" ;
+    rdfs:domain ref:Capability ;
+    rdfs:range ref:DataObject ;
+    ref:cardinality "1..*" ;
+    ref:grounding "META" ;
+    rdfs:comment "Links capability axis to data-object axis" .
+
+ref:specifiesMaterial a owl:ObjectProperty ;
+    rdfs:label "specifiesMaterial" ;
+    rdfs:domain ref:BOM ;
+    rdfs:range ref:Material ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "BOM lines: which materials, what qty per unit. DEFINITIONAL. Replaces retired bomIncludes." .
+
+ref:segmentRequiresMaterial a owl:ObjectProperty ;
+    rdfs:label "segmentRequiresMaterial" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:Material ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Per-segment material requirement — the correct home for \"litho step requires reticle + resist\"." .
+
+ref:producesMaterial a owl:ObjectProperty ;
+    rdfs:label "producesMaterial" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:Material ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Step OUTPUT (produced role) — the other half of genealogy alongside consumption." .
+
+ref:consumesMaterial a owl:ObjectProperty ;
+    rdfs:label "consumesMaterial" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:Material ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Step consumption (derives from BOM/segment spec). Actual consumed qty per run is run:." .
+
+ref:requiresDurable a owl:ObjectProperty ;
+    rdfs:label "requiresDurable" ;
+    rdfs:domain ref:Step ;
+    rdfs:range ref:DurableMaterial ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Structure. Definitional constraint — litho requires a specific reticle." .
+
+ref:loadedInto a owl:ObjectProperty ;
+    rdfs:label "loadedInto" ;
+    rdfs:domain ref:DurableMaterial ;
+    rdfs:range ref:Equipment ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Structure. Durable mounted on a tool (reticle in stepper, probe card on prober). WHICH tool now is run: live state." .
+
+ref:maintenanceConsumes a owl:ObjectProperty ;
+    rdfs:label "maintenanceConsumes" ;
+    rdfs:domain ref:MaintenanceWorkOrder ;
+    rdfs:range ref:IndirectMaterial ;
+    ref:cardinality "0..*" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Structure. Maintenance consumes indirect material (spare parts). SparePart is now a subclass of IndirectMaterial. Replaces retired consumesPart." .
+
+ref:hasFloorLifeCounter a owl:ObjectProperty ;
+    rdfs:label "hasFloorLifeCounter" ;
+    rdfs:domain ref:DurableMaterial ;
+    rdfs:range ref:MaintenanceCounter ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Structure. Reuses the MaintenanceCounter pattern. Ticking value/history is run:." .
+
+ref:reservesMaterial a owl:ObjectProperty ;
+    rdfs:label "reservesMaterial" ;
+    rdfs:domain ref:DispatchDecision ;
+    rdfs:range ref:Material ;
+    ref:cardinality "0..*" ;
+    ref:grounding "—" ;
+    rdfs:comment "run:. Dispatch is material-gated (no litho without an available reticle / sufficient resist). Availability evaluation is run:." .
+
+ref:dicedFrom a owl:ObjectProperty ;
+    rdfs:label "dicedFrom" ;
+    rdfs:domain ref:Die ;
+    rdfs:range ref:Substrate ;
+    ref:cardinality "1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Structure. Wafer->die transformation genealogy. Populated (which die from which wafer x,y) is run:." .
+
+ref:assembledFrom a owl:ObjectProperty ;
+    rdfs:label "assembledFrom" ;
+    rdfs:domain ref:Package ;
+    rdfs:range ref:Die ;
+    ref:cardinality "0..*" ;
+    ref:grounding "—" ;
+    rdfs:comment "Derived. KGD-gated die subset of a package (advanced pkg = multi-die). PRIORITY Opcenter comparison axis." .
+
+ref:assembledInto a owl:ObjectProperty ;
+    rdfs:label "assembledInto" ;
+    rdfs:domain ref:ProductMaterial ;
+    rdfs:range ref:ProductMaterial ;
+    owl:inverseOf ref:assemblyConstituent ;
+    ref:cardinality "0..1" ;
+    ref:grounding "—" ;
+    rdfs:comment "Derived. Containment die->interposer->package->module. CONTAINED to the assembly subtree; front-end Lot/Substrate keep tree genealogy." .
+
+ref:assemblyConstituent a owl:ObjectProperty ;
+    rdfs:label "assemblyConstituent" ;
+    rdfs:domain ref:ProductMaterial ;
+    rdfs:range ref:ProductMaterial ;
+    owl:inverseOf ref:assembledInto ;
+    ref:cardinality "0..*" ;
+    ref:grounding "—" ;
+    rdfs:comment "Derived. Many-parent DAG node — all constituents (dies + interposer + substrate) of a unit." .
+
+ref:mapsWafer a owl:ObjectProperty ;
+    rdfs:label "mapsWafer" ;
+    rdfs:domain ref:WaferMap ;
+    rdfs:range ref:Substrate ;
+    owl:inverseOf ref:hasMap ;
+    ref:cardinality "1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Structure. A5 — inverse of the existing hasMap. The wafer this map describes." .
+
+ref:hasDiePosition a owl:ObjectProperty ;
+    rdfs:label "hasDiePosition" ;
+    rdfs:domain ref:WaferMap ;
+    rdfs:range ref:Die ;
+    ref:cardinality "0..*" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Structure. Die identity ORIGINATES here (map entry) before dicing. Populated per-die bin/position entries are run:." .
+
+ref:carriesPackage a owl:ObjectProperty ;
+    rdfs:label "carriesPackage" ;
+    rdfs:domain ref:AssemblyCarrier ;
+    rdfs:range ref:Package ;
+    ref:cardinality "0..*" ;
+    ref:grounding "—" ;
+    rdfs:comment "Derived. Strip carries many packages at positions (FOUP-analog). Which package at which position is run:." .
+
+ref:foundOn a owl:ObjectProperty ;
+    rdfs:label "foundOn" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range [ owl:unionOf ( ref:Lot ref:Substrate ref:Die ) ] ;
+    ref:cardinality "1" ;
+    ref:grounding "ISA + SEMI" ;
+    rdfs:comment "The material the defect was found on (lot-level excursion, wafer, or die)." .
+
+ref:hasDefectCode a owl:ObjectProperty ;
+    rdfs:label "hasDefectCode" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range ref:DefectCode ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Defect classification code (ADC/visual catalog)." .
+
+ref:detectedVia a owl:ObjectProperty ;
+    rdfs:label "detectedVia" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range ref:DataCollectionPlan ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Inspection/DC plan that surfaced the defect." .
+
+ref:foundOnMap a owl:ObjectProperty ;
+    rdfs:label "foundOnMap" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range ref:WaferMap ;
+    ref:cardinality "0..1" ;
+    ref:grounding "SEMI" ;
+    rdfs:comment "Wafer-map the defect is located on (planar position via the map)." .
+
+ref:escalatesTo a owl:ObjectProperty ;
+    rdfs:label "escalatesTo" ;
+    rdfs:domain ref:Defect ;
+    rdfs:range ref:NonConformanceReport ;
+    ref:cardinality "0..1" ;
+    ref:grounding "ISA" ;
+    rdfs:comment "Defect escalated to an NCR (the MRB-gated rework/disposition path)." .
+
+# ===== AUTO-DECLARED INVERSES (completeness: both directions queryable) =====
+ref:partOfLot a owl:ObjectProperty ; rdfs:label "partOfLot" ; owl:inverseOf ref:composedOf ;
+    rdfs:domain ref:ProductMaterial ;
+    rdfs:range ref:Lot ;
+    ref:status "auto-generated inverse" .
+
+ref:containsSubstrate a owl:ObjectProperty ; rdfs:label "containsSubstrate" ; owl:inverseOf ref:locatedInCarrier ;
+    rdfs:domain ref:Carrier ;
+    rdfs:range ref:Substrate ;
+    ref:status "auto-generated inverse" .
+
+ref:hostsCarrier a owl:ObjectProperty ; rdfs:label "hostsCarrier" ; owl:inverseOf ref:dockedAt ;
+    rdfs:domain ref:LoadPort ;
+    rdfs:range ref:Carrier ;
+    ref:status "auto-generated inverse" .
+
+ref:mountedOn a owl:ObjectProperty ; rdfs:label "mountedOn" ; owl:inverseOf ref:hasLoadPort ;
+    rdfs:domain ref:LoadPort ;
+    rdfs:range ref:Equipment ;
+    ref:status "auto-generated inverse" .
+
+ref:partOfSchedule a owl:ObjectProperty ; rdfs:label "partOfSchedule" ; owl:inverseOf ref:includesJobOrder ;
+    rdfs:domain ref:JobOrder ;
+    rdfs:range ref:WorkSchedule ;
+    ref:status "auto-generated inverse" .
+
+ref:partOfControlJob a owl:ObjectProperty ; rdfs:label "partOfControlJob" ; owl:inverseOf ref:manages ;
+    rdfs:domain ref:ProcessJob ;
+    rdfs:range ref:ControlJob ;
+    ref:status "auto-generated inverse" .
+
+ref:storesCarrier a owl:ObjectProperty ; rdfs:label "storesCarrier" ; owl:inverseOf ref:carrierStoredAt ;
+    rdfs:domain ref:StorageLocation ;
+    rdfs:range ref:Carrier ;
+    ref:status "auto-generated inverse" .
+
+# ===== SEAM-STUB CLASSES (undeclared referents — resolve or repoint) =====
+ref:ProcessSpecification a owl:Class ; rdfs:label "Process Specification" ; ref:status "Seam stub" ;
+    ref:seamNote "Referenced by a domain/range but not yet defined. Resolve (define the object) or repoint on the relevant slice pass." .
+
+# ===== ENUMS (closed) & LOOKUPS (SKOS, extensible) =====
+ref:ProcessingType a rdfs:Datatype ;
+    rdfs:label "ProcessingType" ;
+    ref:grounding "ISA + SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Logistical" "Metrology" "Process" ) ] .
+
+ref:SubstrateProcessingState a rdfs:Datatype ;
+    rdfs:label "SubstrateProcessingState" ;
+    ref:grounding "SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "NotProcessed" "InProcess" "Processed" ) ] .
+
+ref:CarrierType a skos:ConceptScheme ; rdfs:label "CarrierType" ;
+    ref:grounding "SEMI" ;
+    ref:valueKind "lookup (extensible)" .
+ref:CarrierType-FOUP a skos:Concept ; skos:inScheme ref:CarrierType ; skos:prefLabel "FOUP" .
+ref:CarrierType-Cassette a skos:Concept ; skos:inScheme ref:CarrierType ; skos:prefLabel "Cassette" .
+ref:CarrierType-Pod a skos:Concept ; skos:inScheme ref:CarrierType ; skos:prefLabel "Pod" .
+
+ref:CarrierUsage a rdfs:Datatype ;
+    rdfs:label "CarrierUsage" ;
+    ref:grounding "SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Test" "Dummy" "Product" "Filler" ) ] .
+
+ref:LotStatus a skos:ConceptScheme ; rdfs:label "LotStatus" ;
+    ref:grounding "ISA" ;
+    ref:valueKind "lookup (extensible)" .
+ref:LotStatus-WIP a skos:Concept ; skos:inScheme ref:LotStatus ; skos:prefLabel "WIP" .
+ref:LotStatus-Hold a skos:Concept ; skos:inScheme ref:LotStatus ; skos:prefLabel "Hold" .
+ref:LotStatus-Scrap a skos:Concept ; skos:inScheme ref:LotStatus ; skos:prefLabel "Scrap" .
+
+ref:EquipmentElementLevel a rdfs:Datatype ;
+    rdfs:label "EquipmentElementLevel" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Enterprise" "Site" "Area" "WorkCenter" "WorkUnit" ) ] .
+
+ref:JobOrderState a skos:ConceptScheme ; rdfs:label "JobOrderState" ;
+    ref:grounding "ISA" ;
+    ref:valueKind "lookup (extensible)" .
+ref:JobOrderState-Scheduled a skos:Concept ; skos:inScheme ref:JobOrderState ; skos:prefLabel "Scheduled" .
+ref:JobOrderState-Dispatched a skos:Concept ; skos:inScheme ref:JobOrderState ; skos:prefLabel "Dispatched" .
+ref:JobOrderState-Running a skos:Concept ; skos:inScheme ref:JobOrderState ; skos:prefLabel "Running" .
+ref:JobOrderState-Completed a skos:Concept ; skos:inScheme ref:JobOrderState ; skos:prefLabel "Completed" .
+ref:JobOrderState-Closed a skos:Concept ; skos:inScheme ref:JobOrderState ; skos:prefLabel "Closed" .
+
+ref:OrderState a rdfs:Datatype ;
+    rdfs:label "OrderState" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Draft" "Released" "Active" "Complete" "Cancelled" ) ] .
+
+ref:ScheduleState a rdfs:Datatype ;
+    rdfs:label "ScheduleState" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Draft" "Published" "Archived" ) ] .
+
+ref:SegmentReqType a rdfs:Datatype ;
+    rdfs:label "SegmentReqType" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Equipment" "Material" "Personnel" ) ] .
+
+ref:ResultStatus a rdfs:Datatype ;
+    rdfs:label "ResultStatus" ;
+    ref:grounding "ISA + SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Pass" "Fail" "Alarm" ) ] .
+
+ref:HoldState a rdfs:Datatype ;
+    rdfs:label "HoldState" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Active" "Released" ) ] .
+
+ref:NCRState a rdfs:Datatype ;
+    rdfs:label "NCRState" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Open" "UnderReview" "Approved" "Closed" ) ] .
+
+ref:ProcessJobState a rdfs:Datatype ;
+    rdfs:label "ProcessJobState" ;
+    ref:grounding "SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "SettingUp" "Waiting" "Processing" "ProcessComplete" "Stopping" "Aborting" "Pausing" "Paused" ) ] .
+
+ref:ControlJobState a rdfs:Datatype ;
+    rdfs:label "ControlJobState" ;
+    ref:grounding "SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Queued" "Selected" "Executing" "Paused" "Completed" ) ] .
+
+ref:ExecutionStatus a skos:ConceptScheme ; rdfs:label "ExecutionStatus" ;
+    ref:grounding "SEMI" ;
+    ref:valueKind "lookup (extensible)" .
+ref:ExecutionStatus-InProcess a skos:Concept ; skos:inScheme ref:ExecutionStatus ; skos:prefLabel "InProcess" .
+ref:ExecutionStatus-Completed a skos:Concept ; skos:inScheme ref:ExecutionStatus ; skos:prefLabel "Completed" .
+ref:ExecutionStatus-Aborted a skos:Concept ; skos:inScheme ref:ExecutionStatus ; skos:prefLabel "Aborted" .
+
+ref:DispositionAction a rdfs:Datatype ;
+    rdfs:label "DispositionAction" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Scrap" "Rework" "StripAndReRun" "UseAsIs" "ReturnToSupplier" ) ] .
+
+ref:E10State a rdfs:Datatype ;
+    rdfs:label "E10State" ;
+    ref:grounding "SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Productive" "Standby" "Engineering" "ScheduledDown" "UnscheduledDown" "NonScheduled" ) ] .
+
+ref:ControlState a rdfs:Datatype ;
+    rdfs:label "ControlState" ;
+    ref:grounding "SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "OnlineLocal" "OnlineRemote" "Offline" ) ] .
+
+ref:MaintenanceType a rdfs:Datatype ;
+    rdfs:label "MaintenanceType" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Preventive" "Corrective" "Calibration" ) ] .
+
+ref:LocationType a rdfs:Datatype ;
+    rdfs:label "LocationType" ;
+    ref:grounding "ISA + SEMI" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Stocker" "Buffer" "Shelf" "Bin" ) ] .
+
+ref:BomDirection a rdfs:Datatype ;
+    rdfs:label "BomDirection" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Consumed" "Produced" ) ] .
+
+ref:MaterialClass a skos:ConceptScheme ; rdfs:label "MaterialClass" ;
+    ref:grounding "ISA" ;
+    ref:valueKind "lookup (extensible)" .
+ref:MaterialClass-ProductMaterial a skos:Concept ; skos:inScheme ref:MaterialClass ; skos:prefLabel "ProductMaterial" .
+ref:MaterialClass-Consumable a skos:Concept ; skos:inScheme ref:MaterialClass ; skos:prefLabel "Consumable" .
+ref:MaterialClass-Durable a skos:Concept ; skos:inScheme ref:MaterialClass ; skos:prefLabel "Durable" .
+ref:MaterialClass-Indirect a skos:Concept ; skos:inScheme ref:MaterialClass ; skos:prefLabel "Indirect" .
+
+ref:MaterialUse a rdfs:Datatype ;
+    rdfs:label "MaterialUse" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Produced" "Consumed" "Sample" ) ] .
+
+ref:QualificationState a rdfs:Datatype ;
+    rdfs:label "QualificationState" ;
+    ref:grounding "ISA" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Qualified" "Unqualified" "Expired" "KnownGoodDie" "KnownBadDie" ) ] .
+
+ref:TrackingGranularity a rdfs:Datatype ;
+    rdfs:label "TrackingGranularity" ;
+    ref:grounding "Derived" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "LotOfWafers" "WaferMapOfDies" "StripOfPackages" "IndividualUnit" ) ] .
+
+ref:MaterialProvenance a rdfs:Datatype ;
+    rdfs:label "MaterialProvenance" ;
+    ref:grounding "Derived" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "Internal" "ForeignFab" "ExternalSupplier" ) ] .
+
+ref:ManufacturingStage a rdfs:Datatype ;
+    rdfs:label "ManufacturingStage" ;
+    ref:grounding "—" ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:oneOf ( "FE" "BE" "AP" "FullFlow" "CrossStage" ) ] .
+
+ref:BinType a skos:ConceptScheme ; rdfs:label "BinType" ;
+    ref:grounding "SEMI" ;
+    ref:valueKind "lookup (extensible)" .
+ref:BinType-Electrical a skos:Concept ; skos:inScheme ref:BinType ; skos:prefLabel "Electrical" .
+ref:BinType-Functional a skos:Concept ; skos:inScheme ref:BinType ; skos:prefLabel "Functional" .
+ref:BinType-Yield a skos:Concept ; skos:inScheme ref:BinType ; skos:prefLabel "Yield" .
+ref:BinType-Assembly a skos:Concept ; skos:inScheme ref:BinType ; skos:prefLabel "Assembly" .
+ref:BinType-Customer a skos:Concept ; skos:inScheme ref:BinType ; skos:prefLabel "Customer" .
+
+ref:DefectCode a skos:ConceptScheme ; rdfs:label "DefectCode" ;
+    ref:grounding "—" ;
+    ref:valueKind "lookup (extensible)" .
+ref:DefectCode-Particle a skos:Concept ; skos:inScheme ref:DefectCode ; skos:prefLabel "Particle" .
+ref:DefectCode-Scratch a skos:Concept ; skos:inScheme ref:DefectCode ; skos:prefLabel "Scratch" .
+ref:DefectCode-PatternDefect a skos:Concept ; skos:inScheme ref:DefectCode ; skos:prefLabel "PatternDefect" .
+ref:DefectCode-Bridge a skos:Concept ; skos:inScheme ref:DefectCode ; skos:prefLabel "Bridge" .
+ref:DefectCode-Void a skos:Concept ; skos:inScheme ref:DefectCode ; skos:prefLabel "Void" .
+ref:DefectCode-Contamination a skos:Concept ; skos:inScheme ref:DefectCode ; skos:prefLabel "Contamination" .
+ref:DefectCode-Crack a skos:Concept ; skos:inScheme ref:DefectCode ; skos:prefLabel "Crack" .
+
+ref:ReasonCode a skos:ConceptScheme ; rdfs:label "ReasonCode" ;
+    ref:grounding "ISA + SEMI" ;
+    ref:valueKind "lookup (extensible)" .
+ref:ReasonCode-ProcessDeviation a skos:Concept ; skos:inScheme ref:ReasonCode ; skos:prefLabel "ProcessDeviation" .
+ref:ReasonCode-EquipmentFault a skos:Concept ; skos:inScheme ref:ReasonCode ; skos:prefLabel "EquipmentFault" .
+ref:ReasonCode-OperatorError a skos:Concept ; skos:inScheme ref:ReasonCode ; skos:prefLabel "OperatorError" .
+ref:ReasonCode-MaterialIssue a skos:Concept ; skos:inScheme ref:ReasonCode ; skos:prefLabel "MaterialIssue" .
+ref:ReasonCode-PlannedActivity a skos:Concept ; skos:inScheme ref:ReasonCode ; skos:prefLabel "PlannedActivity" .
+ref:ReasonCode-QualityConcern a skos:Concept ; skos:inScheme ref:ReasonCode ; skos:prefLabel "QualityConcern" .
+

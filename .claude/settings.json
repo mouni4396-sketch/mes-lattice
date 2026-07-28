@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(node --check /tmp/extracted.js)",
+      "Bash(node -e ' *)",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted2.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted3.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted4.js\")",
+      "Bash(python -c ' *)",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted5.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted6.js\")",
+      "Bash(sort -u -t'\"' -k2)",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted7.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted8.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted10.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted11.js\")"
+    ]
+  }
+}
