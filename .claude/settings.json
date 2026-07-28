@@ -15,7 +15,8 @@
       "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted7.js\")",
       "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted8.js\")",
       "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted10.js\")",
-      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted11.js\")"
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted11.js\")",
+      "Bash(grep -n '\"\\\\.\\\\./\\\\|os\\\\.path\\\\.join\\(WEB_DIR\\\\|FileResponse\\\\|StaticFiles' api.py)"
     ]
   }
 }

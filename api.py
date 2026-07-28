@@ -18,6 +18,7 @@ from fastapi.responses import FileResponse, PlainTextResponse
 from pydantic import BaseModel
 import os
 import tempfile
+from pathlib import Path
 
 from store import OntologyStore
 from graph_engine import GraphEngine
@@ -29,13 +30,15 @@ import reasoner
 # CONFIG — the only place layers are named. Vendor identity flows from data
 # after this; endpoints below never hard-code "cm"/"opc".
 # ---------------------------------------------------------------------------
+BASE_DIR = Path(__file__).parent
+
 LAYERS = [
-    ("ref", "mes-neutral-reference-4.ttl"),
-    ("cm",  "mes-cm-overlay.ttl"),
-    # ("opc", "mes-opcenter-overlay.ttl"),   # <- a third overlay: just add here
+    ("ref", BASE_DIR / "mes-neutral-reference-4.ttl"),
+    ("cm",  BASE_DIR / "mes-cm-overlay.ttl"),
+    # ("opc", BASE_DIR / "mes-opcenter-overlay.ttl"),   # <- a third overlay: just add here
 ]
-QUERY_DIR = "queries"
-WEB_DIR = "web"
+QUERY_DIR = BASE_DIR / "queries"
+WEB_DIR = BASE_DIR / "web"
 
 # ---------------------------------------------------------------------------
 # Load once at startup.
