@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compose Material (Sub-Materials) - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="compose-material-sub-materials">Compose Material (Sub-Materials)<a class="headerlink" href="#compose-material-sub-materials" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>Compose</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is similar to <a href="../compose_material/">Compose Material (Quantities)</a>, but it allows you to transfer Sub-Materials instead of Quantities. Simply, this means that you can attach the Sub-Materials you select into the Target Material.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>Source and Target <strong>Materials</strong> are Active.</li> <li>Source and Target <strong>Materials</strong>, and their respective Top-Most <strong>Materials</strong>, are not On Hold and are not In Transit.</li> <li>Source and Target <strong>Materials</strong>, as well as the Target <strong>Container</strong>, must belong to the same <strong>Facility</strong>.</li> <li>Source Parent <strong>Materials</strong> and Top-Most <strong>Materials</strong> must be different from the Target <strong>Materials</strong>.</li> <li>Source <strong>Materials</strong> and Source Parent <strong>Materials</strong> must not have expired or an Expiration Date has not been defined.</li> <li>Top-Most of Source and Target <strong>Materials</strong> must have different Top-Mosts.</li> <li>The Top-Most Source and the Top-Most Target <strong>Materials</strong> must have the Current Transfer Material property set to <code>null</code>.</li> <li>The Source <strong>Material</strong> Products must not be blocked, or if blocked, the Source <strong>Materials</strong> property Override Product Block must be <code>true</code>.</li> <li>The Source <strong>Materials</strong> must not have any open defects (Open Defect Count is <code>0</code>).</li> <li>The Target <strong>Container</strong> must be Active, Non-Template, the System State must be Available, and it must not be On Hold for Maintenance.</li> <li>The Target <strong>Container</strong> must have the Position Unit Type set to <strong>Material</strong> and the Target <strong>Container</strong> Units must match either the <strong>Material</strong> Primary or Secondary Units.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>This transaction is relevant for genealogy.</p> </div> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <ol> <li>Select a <strong>Material</strong> that complies with the preconditions.</li> <li>Select the <strong>Sub-Materials</strong> button, accessible through the <strong>More</strong> button on the top ribbon.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_submaterial_option.png"><img alt='Screenshot showing the "Compose Sub-material" option in the drop-down menu.' src="../images/compose_submaterial_option.png"/></a></p> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Optionally, select a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> of Compose Map scope.</li> <li> <p>When selecting a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>, you must also specify the Compose <abbr title="Bill-Of-Materials">BOM</abbr> Mode and choose a target <strong>Container</strong>. The Compose <abbr title="Bill-Of-Materials">BOM</abbr> Mode offers two options:</p> <ul> <li><strong>Full</strong> - all the required <abbr title="Bill-Of-Materials">BOM</abbr> items must be assigned in the <strong>Container</strong>.</li> <li><strong>Partial</strong> - you can choose which <abbr title="Bill-Of-Materials">BOM</abbr> items will be assigned to the empty positions in the <strong>Container</strong>.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>It is possible to define the default value for the Compose <abbr title="Bill-Of-Materials">BOM</abbr> Mode by editing the entry Context = <code>Material.Compose</code> and Element = <code>ComposeBOMMode</code> in the <a href="../../../administration/tables/generic-tables/guielementdefaultvalue/">GUIElementDefaultValue</a> Generic Table. By default, the value is set to <code>Full</code>.</p> </div> </li> <li> <p>Optionally, select a Target <strong>Container</strong>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>When selecting a <abbr title="Bill-Of-Materials">BOM</abbr>, it is mandatory to also choose a Target Container.</p> </div> </li> <li> <p>Select the Source Materials' Form from the <a href="../../../administration/tables/lookup-tables/materialform/">MaterialForm</a> Lookup Table.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>There must be a match between the chosen Source Materials' Form and the Sub-Materials' Form in the <a href="../../../administration/tables/generic-tables/materialformrelation/">MaterialFormRelation</a> Generic Table.</p> </div> </li> <li> <p>Select <strong>Next</strong> to continue.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_material_submaterials.png"><img alt='Screenshot showing a UI with fields for "Compose Material (Sub-Materias)" and "General Date".' src="../images/compose_material_submaterials.png"/></a></p> <h3 id="step-2-source-materials">Step 2: Source Materials<a class="headerlink" href="#step-2-source-materials" title="Direct link to this section">#</a></h3> <ol> <li>Choose whether to <strong>Allow Top-Most Materials of Form {Form Name}</strong> of the selected Sub-Materials Form to be included as Source <strong>Materials</strong>.</li> <li>Add as many Source <strong>Materials</strong> as you need by selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> icon and choose the desired <strong>Material</strong>. Only Source <strong>Materials</strong> with a compatible form for the selected Sub-Materials Form will be shown (based on the <a href="../../../administration/tables/generic-tables/materialformrelation/">MaterialFormRelation</a> Generic Table). You can also remove <strong>Materials</strong> by selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> icon and filter <strong>Materials</strong> by selecting the <span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M450,50v50L300,275v100l-100,75V275L50,100V50H450z"></path> </svg> </span> icon.</li> <li>Select <strong>Next</strong> to continue.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_submaterials_source.png"><img alt="Screenshot showing a list of materials with sub-materials, as part of Step 2 in the documentation." src="../images/compose_submaterials_source.png"/></a></p> <h3 id="step-3-sub-materials-transfer">Step 3: Sub-Materials Transfer<a class="headerlink" href="#step-3-sub-materials-transfer" title="Direct link to this section">#</a></h3> <p>Depending on your selections in Step 1, there are three possible scenarios:</p> <ol> <li><strong>No <abbr title="Bill-Of-Materials">BOM</abbr> or Target Container Selected</strong> - the positions each Sub-Materials occupies in the Target <strong>Container</strong> are irrelevant.</li> <li><strong>Target Container Selected</strong> - you must insert the Sub-Material in a specific position within the <strong>Container</strong> by choosing a Sub-Material and selecting the desired position.</li> <li> <p><strong>Both <abbr title="Bill-Of-Materials">BOM</abbr> and Target Container Selected</strong> - you must insert the Sub-Material in a designated position within the <strong>Container</strong>, as determined by the <strong><abbr title="Bill-Of-Materials">BOM</abbr> Items Products</strong>. For highlighted positions in the Target <strong>Container</strong>, select compatible <strong>Materials</strong> based on the <strong><abbr title="Bill-Of-Materials">BOM</abbr>-defined Products</strong>.</p> <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><input id="__tabbed_1_3" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">No Selection</label><label for="__tabbed_1_2">Target Container Selected</label><label for="__tabbed_1_3"><abbr title="Bill-Of-Materials">BOM</abbr> and Target Container Selected</label></div> <div class="tabbed-content"> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_submaterial_example1.png"><img alt="Screenshot showing a UI illustrating the step of inserting a Sub-Material into a designated position within a Container, as determined by the Bill of Materials (BOM)." src="../images/compose_submaterial_example1.png"/></a></p> </div> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_submaterial_example2.png"><img alt="Screenshot showing a container with a BOM and target container selected, illustrating the step for inserting a sub-material." src="../images/compose_submaterial_example2.png"/></a></p> </div> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_submaterial_example3.png"><img alt="Screenshot showing a user interface with a Compose Material (Sub-Materials) screen, featuring Source Materials Containers and a Target Container." src="../images/compose_submaterial_example3.png"/></a></p> </div> </div> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <ul> <li>When a Target Container or both <abbr title="Bill-Of-Materials">BOM</abbr> and Target Container are selected, Source Materials are color-coded based on their associated Products. You can drag and drop each Material or Sub-Material into the Target Container.</li> <li>When a <abbr title="Bill-Of-Materials">BOM</abbr> and Target Container are selected, the mandatory positions are marked with an <span class="twemoji" style="margin-top: 2px; color: #b83128;"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M298.5,250.275l92.6,56.425l-26.025,42.7L275,294.5V400h-50V293.925l-91.2,54.15l-25.525-43l93.225-55.35L108.925,193.3
+	l26-42.7L225,205.5V100h50v106.075l91.2-54.15l25.525,43L298.5,250.275z"></path> </svg> </span> icon. Once all required positions are correctly filled, a <span class="twemoji" style="color: #4DB6AC; margin-top: 2px;"><?xml version="1.0" encoding="utf-8"?> <svg id="Layer_1" style="enable-background:new 0 0 1000 1000;" version="1.1" viewbox="0 0 1000 1000" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M500,100c-220.9,0-400,179.1-400,400s179.1,400,400,400s400-179.1,400-400S720.9,100,500,100z M508.1,629.3l-80.8,80.8
+	l-80.8-80.8L233.3,516.2l80.8-80.8l113.1,113.1l258.6-258.6l80.8,80.8L508.1,629.3z"></path> </svg> </span> icon confirms completion.</li> <li>You can use the search field to quickly locate specific Materials in any of the three scenarios.</li> </ul> </div> </li> <li> <p>Select <strong>Compose</strong> to complete the operation.</p> </li> </ol> </article>
+</body>
+</html>

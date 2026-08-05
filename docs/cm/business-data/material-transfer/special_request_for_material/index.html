@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Special Request for Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="special-request-for-material">Special Request for Material<a class="headerlink" href="#special-request-for-material" title="Direct link to this section">#</a></h1> <p>🔒 MaterialTransfer.<strong>SpecialRequestForMaterial</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to make a <strong>Material Transfer</strong> request for a particular <abbr title="Bill-Of-Materials">BOM</abbr> product of a given <strong>Material</strong> at any given <em>Step</em> of the <em>Material Flow</em>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>Both the <em>SourceFacility</em> and <em>TargetFacility</em> must exist and be <em>Active</em> and <em>SourceFacility</em> must be different from <em>TargetFacility</em>.</li> <li>The Product referenced in the <strong>Material Transfer</strong> must be <em>Active</em> and the <strong>Material</strong> <em>TransferMode</em> must be different from <em>None</em>.</li> <li><em>RequestedQuantity</em> can only be Decimal if <em>ProductMaterialTransferDecimalQuantityAllowed</em> is true.</li> <li><em>FromFacility</em> must be defined and must not be a <em>Remote Facility</em>.</li> <li>If <strong>Material Transfer</strong> is either <em>InventoryTransfer</em> or <strong>Material Transfer</strong>, a <em>ToFacility</em> must be defined.</li> <li>If the <em>ToFacility</em> is defined, it must not be a <em>Remote Facility</em>.</li> <li>If the <em>RequestedMaterial</em> (free text) matches a <strong>Material</strong>, that <strong>Material</strong> must be <em>Active</em>, <em>Topmost</em>, not <em>On Hold</em>, not <em>InTransit</em> and must not have <em>Sub-Materials</em>.</li> <li>If the <em>FromStep</em> is defined, it must have the <em>IsMaterial TransferStep</em> set to true.</li> <li>If the <em>ToStep</em> is defined, it must have the <em>IsMaterial TransferStep</em> set to true.</li> <li>If a <em>RequestedMaterial</em> is defined and if the <em>RequestedMaterial</em> (free text) matches a <strong>Material</strong> by name, the <em>RequestedQuantity</em> must be less or equal to the current <em>RequestedMaterial Primary Quantity</em>.</li> <li>If <strong>Material Transfer</strong> <em>AllowedPickup</em> is <em>AreaEmployee</em>, the <em>ToArea</em> must be defined. </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-details">Step 1: Details<a class="headerlink" href="#step-1-details" title="Direct link to this section">#</a></h3> <ol> <li>Select a <strong>Material</strong> and then click <strong>Request for Material</strong> to initialize the wizard.</li> <li>Select a <em>From Facility</em> and optionally, a <em>From Area</em>.</li> <li>Optionally, select a different <em>Step</em> of the <strong>Material</strong> (notice that the <abbr title="Bill-Of-Materials">BOM</abbr> will be resolved for the selected <em>Step</em>.</li> <li>Optionally, select a <em>To Resource</em>.</li> <li>Select the <em>Product</em> (must match a <em>Product</em> from the <strong>Material</strong> <abbr title="Bill-Of-Materials">BOM</abbr> for the selected <em>Step</em> - resolved for the current <strong>Material</strong> context).</li> <li>Optionally, enter the name of a specific <strong>Material</strong> to be requested or press the button <strong>Retrieve Materials</strong> to retrieve a list of the available <strong>Materials</strong>.</li> <li>Select the <em>Urgency</em> (values are taken from the generic table <em>MaterialTransferUrgency</em>). When the <em>Urgency</em> is selected, the request delivery date is automatically set, based on the current date, in addition to the predefined <em>DefaultDeliveryTime</em> for that <em>Urgency</em> (in minutes).</li> <li>Optionally, modify the request delivery date.</li> <li>Optionally, enter a comment.</li> <li>Press <strong>Special Request</strong> to complete the transaction.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/special_request_material_transfer.png"><img alt="request_material_transfer" src="../images/special_request_material_transfer.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>It is possible to define a default value for the <em>FromFacility</em> by adding the entry <em>Context=Material Transfer.ForMaterial</em>, <em>Element=DefaultFacility</em> in the Generic Table <em>GUIElementDefaultValue</em>.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The <strong>Retrieve Materials</strong> button is only shown if the configuration <code>/Cmf/System/Configuration/WarehouseManagement/EnableGetMaterialsOnRequestForMaterial</code> is set to true.</p> </div> </article>
+</body>
+</html>

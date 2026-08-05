@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Post Aggregated Data Points - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="post-aggregated-data-points">Post Aggregated Data Points<a class="headerlink" href="#post-aggregated-data-points" title="Direct link to this section">#</a></h1> <p>🔒 Chart.<strong>PostDataPoint</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to post a new data point to a <strong>Chart</strong>, but instead of providing individual readings data, only the aggregated data is posted.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Chart</strong> is Active and enabled.</li> <li>The <strong>Chart</strong> is of a Variable Chart type.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-context">Step 1: Context<a class="headerlink" href="#step-1-context" title="Direct link to this section">#</a></h3> <ol> <li>Select Post Data Point on the top ribbon, followed by Post Chart Data Point Aggregated.</li> <li>Fill out the Context. It is possible to <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> or <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> supplementary contexts.</li> <li>Enter the Context Details - <strong>Material</strong> and <strong>Product</strong> for this example.</li> <li>Optionally, enter a comment.</li> <li>Select <strong>Next</strong>.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/post_chart_aggregated_01.png"><img alt="post_chart_aggregated_01" src="../images/post_chart_aggregated_01.png"/></a></p> <h3 id="step-2-readings">Step 2: Readings<a class="headerlink" href="#step-2-readings" title="Direct link to this section">#</a></h3> <ol> <li>In the grid, specify the sample size (must be compatible with the sample size sample definition), and the aggregated data for Indicator 1 and Indicator 2.</li> <li>Optionally, enter a comment.</li> <li>Select <strong>Post</strong> to complete the transaction.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/post_chart_aggregated_02.png"><img alt="post_chart_aggregated_02" src="../images/post_chart_aggregated_02.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>When posting data to the Logical Chart for the first time, the Logical Chart is automatically created with the default settings from the <strong>Chart</strong>.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Depending on the configured <abbr title="Statistical Process Control">SPC</abbr> rules for the <strong>Chart</strong>, a Protocol may be opened or a <abbr title="Dynamic Evaluation Engine - a runtime execution engine based on C# business rules">DEE</abbr> Action may be automatically executed when a violation occurs.</p> </div> </article>
+</body>
+</html>

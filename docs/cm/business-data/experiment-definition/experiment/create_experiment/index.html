@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Experiment - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-experiment">Create Experiment<a class="headerlink" href="#create-experiment" title="Direct link to this section">#</a></h1> <p>🔒 Experiment.<strong>Create</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a new <strong>Experiment</strong>. There are two ways of creating a new <strong>Experiment</strong>:</p> <ul> <li>By choosing an existing <strong>Experiment Definition</strong>, selecting the <strong>Material</strong> and then selecting <strong>Create Experiment</strong>.</li> <li>By choosing an existing <strong>Material</strong>, selecting <strong>Create Experiment</strong> and then selecting an <strong>Experiment Definition</strong>.</li> </ul> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The Experiment Management module must be properly licensed in the system.</li> <li>The <strong>Experiment Definition</strong> exists in the system and there is an effective version for it.</li> <li>The <strong>Material</strong> exists, is Active in the system and is TopMost.</li> <li>The <strong>Material</strong> state is Queued if it is currently in the first <strong>Step</strong> of the <strong>Experiment Definition</strong>. If not, there is no precondition for the <strong>Material</strong> state.</li> <li>The <strong>Material</strong> must not be referenced by any active <strong>Experiment</strong>.</li> <li>The <strong>Material</strong> must have the same <strong>Flow</strong> as the <strong>Experiment Definition</strong>.</li> <li>If the <strong>Experiment Definition</strong> defines a <strong>Product</strong> or a <strong>Product Group</strong>, the <strong>Material</strong> must have that <strong>Product</strong> or <strong>Product Group</strong> (via the Product).</li> <li>If the <strong>Experiment Definition</strong> defines a Required Type, the <strong>Material</strong> must have that Type.</li> <li>If the <strong>Experiment Definition</strong> defines a Required Form, the <strong>Material</strong> must have that Form.</li> <li> <p>If the mode is <strong>Sub-Materials</strong>:</p> <ul> <li>There must be a <strong>Material</strong> for every Sub-Materials from position 1 to Required Sub-Material Count that is not an Empty Sub-Material nor is it an Optional Sub-Material.</li> <li>There can be a <strong>Material</strong> for every Sub-Materials from position 1 to Required Sub-Material Count that is an Optional Sub-Material.</li> <li>Every <strong>Material</strong> Sub-Material must be assigned to an <strong>Experiment</strong> position – either to a Mandatory or an Optional slot.</li> <li>Every Sub-Material assigned to the <strong>Experiment</strong> must not be assigned to any other active <strong>Experiment</strong>.</li> </ul> </li> <li> <p>If the <strong>Experiment Definition</strong> defines a Required Sub-Materials Form, the Sub-Materials must have that Form.</p> </li> <li>If the <strong>Experiment Definition</strong> defines a Max Number Of Materials, then the current number of Experiments' records for the <strong>Experiment Definition</strong> of the <strong>Experiment</strong>, must not be exceeded after this use case is performed.</li> <li>In case the <strong>Experiment</strong> mode is Sub-Materials, all Sub-Materials to be attached to the experiment must have the following properties cleared (that is not set): <strong>Experiment</strong> and Experiment Sub-Material Number.</li> <li>If not called from Special Create Experiment - the <strong>Material</strong> either did not reach the First Flow Path as defined in the <strong>Experiment Definition</strong> (and can be in any System State) or is at the First Flow Path as defined in the <strong>Experiment Definition</strong> (and must be Queued).</li> <li>If called from Special Create Experiment - the <strong>Material</strong> is either at or hasn't yet reached the <strong>Experiment Definition</strong> Flow Path.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>As mentioned above, there are two ways of creating an <strong>Experiment</strong>.</p> <p>In this example, we will go through the process of creating a new <strong>Experiment</strong> by choosing an existing <strong>Experiment Definition</strong> and then selecting the <strong>Materials</strong> and the button <strong>Create Experiment</strong>. Start by selecting one of the <strong>Experiment</strong> active instances and select the button <strong>Create Experiment</strong>.</p> <h3 id="step-1-material">Step 1: Material<a class="headerlink" href="#step-1-material" title="Direct link to this section">#</a></h3> <ol> <li> <p>Select the <strong>Material</strong> and then select <strong>Next</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/create_experiment_material_selection.png"><img alt="Screenshot showing a UI for selecting an experiment material." src="../../images/create_experiment_material_selection.png"/></a></p> </li> <li> <p>If the selected mode is Full Material, only <strong>Materials</strong> without Sub-Materials can be used. If the Experiment Definition Mode is Sub-Materials, you must assign them to Experiment Definition Sub-Material Numbers.</p> </li> </ol> <h3 id="step-2-sub-materials">Step 2: Sub-Materials<a class="headerlink" href="#step-2-sub-materials" title="Direct link to this section">#</a></h3> <ol> <li> <p>When the Experiment Definition Mode is set to Sub-Materials, you will need to assign it to the <strong>Material</strong> group and number. You can assign the Sub-Materials manually or select the <span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg id="Layer_1" style="enable-background:new 0 0 500 500;" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M250,300L150,200v-75l75,75V50h50v150l75-75v75L250,300z M425,125v300H75V125H50v325h400V125H425z"></path> </svg> </span> icon to define the criteria by which you will assign the Sub-Materials:</p> <ul> <li><strong>Assign by Sub-Material Name</strong> - the first experiment number is assigned with the first Sub-Material sorted by name (ASC).</li> <li><strong>Assign by Container and Position</strong> - the first experiment number is assigned with the first Sub-Material sorted by <strong>Container, Position</strong> (ASC).</li> <li><strong>Assign Remaining Randomly</strong> - positions are assigned randomly.</li> <li><strong>Clear</strong> - remove current assignments.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/create_experiment_submaterials.png"><img alt="Screenshot showing the Create Experiment wizard where the user can select the Sub-Materials to associate with the Experiment." src="../../images/create_experiment_submaterials.png"/></a></p> <p>When assigning <strong>Materials</strong> to the <strong>Experiment</strong>, if the number of Available Sub-Materials is less than the total number of Sub-Materials specified in the <strong>Experiment Definition</strong> (which includes Mandatory plus Optional Sub-Materials), the Mandatory positions must be assigned first in a sequential order. Otherwise, the system will show the error in the image below. <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/create_experiment_submaterials_mandatory_errors.png"><img alt="Screenshot showing a list of sub-materials with error messages indicating mandatory fields." src="../../images/create_experiment_submaterials_mandatory_errors.png"/></a></p> <p>Only the Optional Sub-Materials may be left unassigned. <a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/create_experiment_submaterials_assignment.png"><img alt="Screenshot showing the Create Experiment wizard where the user can only leave the optional Sub-Materials unassigned." src="../../images/create_experiment_submaterials_assignment.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>It is important to present the container and position information for the Sub-Materials.</p> </div> </li> <li> <p>Optionally, enter a comment.</p> </li> <li>The system will report that the <strong>Experiment</strong> was created successfully.</li> </ol> <p>Alternatively, create the <strong>Experiment</strong> by selecting an existing <strong>Material</strong>, selecting the button <strong>Create Experiment</strong> and then choosing an <strong>Experiment Definition</strong>. </p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>After the assignment operation, the Experiment is in state Created.</p> </div> </article>
+</body>
+</html>

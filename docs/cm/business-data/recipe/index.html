@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recipe - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="recipe">Recipe<a class="headerlink" href="#recipe" title="Direct link to this section">#</a></h1> <p>🔒 Recipe.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Recipe</strong> represents the necessary equipment information for processing a given Material in a Step. It can contain parameters which are static or dynamic and it can also contain a body. A <strong>Recipe</strong> can contain <strong>Sub-Recipes</strong>. This increases the modularity and re-usability of <strong>Recipes</strong>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Recipe Management is a Critical Manufacturing optional module.</p> </div> <h2 id="global-and-versioned-data">Global And Versioned Data<a class="headerlink" href="#global-and-versioned-data" title="Direct link to this section">#</a></h2> <p>A <strong>Recipe</strong>, being a change-controlled object, contains global and versioned data components as shown in the next picture.</p> <pre class="mermaid"><code>graph TD
+subgraph Recipe
+Main1["Global Data&lt;br&gt;(Without Change Control)"] --- A1[Is Enabled&lt;br&gt;Is Executable]
+Main2["Versioned Data&lt;br&gt;(With Change Control)"] --- A2[All other]
+end
+
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Main1,Main2 mermaid_entity
+class A1,A2 mermaid_entitylinked</code></pre> <p>A <strong>Recipe</strong> is resolved using the <em>Recipe Context</em>. For more information on how to manage the <em>Recipe Context</em>, please refer to the Recipe Context section.</p> <p>Notice that the <strong>Recipe</strong> resolution is actually a two step process. First, the <strong>Service</strong> is resolved using the Service Context, based on process information, and afterwards the <strong>Recipe</strong> is resolved using the Recipe Context, which is based primarily on equipment information, as shown in the next figure.</p> <pre class="mermaid"><code>graph LR
+subgraph Service Context
+Main1[Step]
+A1[Service]
+end
+
+subgraph Recipe Context
+Main2[Service]
+A2[Recipe]
+end
+
+A1 --- Main2
+
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Main1,Main2 mermaid_entity
+class A1,A2 mermaid_businessdata</code></pre> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    C1[Recipe Parameter Overrides Context] --- Main[Recipe]
+    L1[Recipe Body] --- Main
+    C2[Recipe Context] --- Main
+    L2[Recipe Parameter] --- Main
+    C1 --- L2
+    A1[Parameter] --- L2
+    Main --- L3[Recipe Instance]
+    L3 --- L4[Recipe Instance Parameter]
+    Main ---- L5[SubRecipe]
+    L5 ----|SubRecipe| Main
+    Main --- L6[SubRecipe Parameter]
+    L6 --- A1
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/recipe"
+click A1 "../../business-data/parameter"
+click C1 "../../administration/tables/smart-tables/recipeparameteroverridecontext"
+click C2 "../../administration/tables/smart-tables/recipecontext"
+click L5 "../../business-data/recipe"</code></pre> <div class="admonition info"> <p class="admonition-title">Info</p> <p><strong>Sub-Recipes</strong> are not <strong>Recipes</strong> that are intended to be used in Sub-Resources.</p> </div> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly using a <strong>Recipe</strong> are the following:</p> <ol> <li>Create the necessary Parameters - note that <strong>Recipes</strong> can only use <strong>Parameters</strong> of scope <em>EDC_SPC_Recipe</em> or <em>Recipe</em>.</li> <li>Create the necessary Sub-recipes - if they will be referenced by the new <strong>Recipe</strong>.</li> <li>Create the Recipe - note that it is necessary to associate the <em>Recipe Version</em> to a *<em>Change Set</em>.</li> <li> <p>Approve the Change Set, which contains the <em>Recipe Version</em> that has been created. </p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For convenience, the Recipe can be configured to use implicit Change Sets. Please refer to the <a href="../change-set/">Change Set</a> section for more information.</p> </div> </li> <li> <p>Manage the Recipe Context as appropriate. Note that the <em>Recipe Context</em> is used to resolve the <strong>Recipe</strong> for a particular <strong>Service</strong>. </p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Recipe resolution and instantiation only applies to Resources that have the have the property Recipe Management set to true.</p> </div> </li> </ol> <div class="admonition info"> <p class="admonition-title">Info<p>For more information, see the <a href="../../../tutorials/modules/recipe-management/recipemanagement/">Recipe Management</a> tutorial.</p> </p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Recipe:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="recipe_page/">Recipe Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_recipe/">Clone Recipe</a></li> <li><a href="create_recipe/">Create Recipe</a></li> <li><a href="edit_recipe/">Edit Recipe</a></li> <li><a href="terminate_recipe/">Terminate Recipe</a></li> <li><a href="unterminate_recipe/">Unterminate Recipe</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="compare_recipes/">Compare Recipes</a></li> <li><a href="disable_recipe/">Disable Recipe</a></li> <li><a href="enable_recipe/">Enable Recipe</a></li> <li><a href="manage_recipe_body/">Manage Recipe Body</a></li> <li><a href="manage_recipe_parameters/">Manage Recipe Parameters</a></li> <li><a href="manage_recipe_subrecipes/">Manage Recipe Sub-Recipes</a></li> <li><a href="upload_recipe_resource/">Upload Recipe to Resource</a></li> </ul> </article>
+</body>
+</html>

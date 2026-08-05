@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Step - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="step">Step<a class="headerlink" href="#step" title="Direct link to this section">#</a></h1> <p>🔒 Step.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Step</strong> represents a manufacturing process operation and represents the smallest trackable process unit for <strong>Material</strong> (in the context of this document, material represents any work in progress).</p> <p>In a <strong>Step</strong>, a service is performed on <strong>Material</strong>. Given the <strong>Step</strong>, the <strong>Service</strong> to be performed may depend optionally on the <strong>Flow, Product</strong> or even <strong>Material</strong> (for experiment or override purposes). The service resolution information to be applied for a given material at a <strong>Step</strong> is called <strong>Service Context</strong>.</p> <p>A <strong>Step</strong> has optionally associated a defined set of loss, bonus, rework and hold reasons, which are applicable for material quantity loss, material quantity gain, material rework and hold, respectively.</p> <p>A <strong>Step</strong> has defined primary and, optionally, secondary quantity units. <strong>Step</strong> primary units are set (only when the Set Units property is selected). If <strong>Material</strong> arrives at the <strong>Step</strong> with different primary or secondary quantity units, the new primary or secondary unit quantities will be converted using the defined <strong>Product</strong> unit of conversion factors. All <strong>Material</strong> created at a <strong>Step</strong> must necessarily have the primary and, optionally, secondary units defined for that <strong>Step</strong>.</p> <p>A <strong>Material</strong> is always in a <strong>Step</strong> and <strong>Flow</strong>. Since <strong>Steps</strong> and <strong>Flows</strong> can be reused within the same <strong>Flow</strong>, it is necessary to uniquely identify the position of the <strong>Material</strong> along the flow by its <strong>Flow Path</strong>.</p> <p>The reusability potential of <strong>Steps</strong> and <strong>Flows</strong> is reflected in the use of <strong>Logical Names</strong> and <strong>Logical Flow Paths</strong>:</p> <ul> <li> <p>A <strong>Logical Name</strong> is an optional qualified name for a <strong>Step</strong> or <strong>Flow</strong> within a specific <strong>Flow</strong> version that designates the <strong>Intended Usage</strong> of the <strong>Step</strong> or <strong>Flow</strong>.</p> </li> <li> <p>A <strong>Logical Flow Path</strong> is a simple sequence of all the <strong>Logical Names</strong> of the <strong>Step</strong> and <strong>Flow</strong>.</p> </li> </ul> <p>This means you do not need to duplicate <strong>Steps</strong> and <strong>Flows</strong>, and you can reuse the same <strong>Steps</strong> and <strong>Flows</strong> but with different contexts/intents. For example, in situations where you repeat a sequence of <strong>Steps</strong> but some parameters are different (Durables, Recipe, <abbr title="Bill-Of-Materials">BOM</abbr>, and other).</p> <p>The <strong>Logical Name</strong> feature gives you the freedom to specify the usage, purpose or intent of your <strong>Step</strong>, and it is assigned when you create the <strong>Flow</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p><strong>Logical Names</strong> are pre-defined and managed at the <strong>Step</strong> and <strong>Flow</strong> level.</p> </div> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    A1[Flow] --- A2[Flow Step] --- Main[Step] === L1[Sampling Plan]
+    A3[Data Collection Instance] -.- Main
+    A4[Material] --- Main
+    A5[Protocol] -.- Main
+    A6[Facility] --- A7[Area] --- A8[Step Area] --- Main -.- A9[Workgroup Step]
+    L3[Step Logical Name] -.- Main
+    A10[Product] -.- Main
+    A11[Schedule Scenario Job] -.- Main
+    A12[Notification] -.- Main
+    Main -.- C1[BOM Context]
+    Main -.- C2[Material Checklist Context]
+    Main -.- C3[Material Data Collection Context]
+    Main -.- C4[Material Document Context]
+    Main -.- C5[Material Durables Context]
+    Main -.- C6[Service Context]
+    Main -.- C7[Step Certification Requirements Context]
+    Main -.- C8[Step Chart Context]
+    Main -.- C9[Step Inspection Plan Context]
+    Main -.- C10[Step Line Flow Context]
+    Main -.- C11[Step Product Yield and Cycle Time Context]
+    Main -.- C12[Step Sampling Pattern Context]
+    Main -.- C13[Step Split Trackout Context]
+    Main -.- C14[Time Constraints Context]
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6,L7,L8,L9 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/step"
+click A1 "../../business-data/flow"
+click A2 "../../business-data/step"
+click A3 "../../business-data/data-collection/data-collection-instance"
+click A4 "../../business-data/material"
+click A5 "../../business-data/protocol"
+click A6 "../../business-data/facility"
+click A7 "../../business-data/area"
+click A8 "../../business-data/area"
+click A9 "../../business-data/step"
+click A10 "../../business-data/product"
+click A11 "../../business-data/schedule"
+click A12 "../../business-data/notification"
+click C1 "../../administration/tables/smart-tables/bomcontext"
+click C2 "../../administration/tables/smart-tables/materialchecklistcontext"
+click C3 "../../administration/tables/smart-tables/materialdatacollectioncontext"
+click C4 "../../administration/tables/smart-tables/materialdocumentcontext"
+click C5 "../../administration/tables/smart-tables/materialdurablescontext"
+click C6 "../../administration/tables/smart-tables/servicecontext"
+click C7 "../../administration/tables/smart-tables/stepcertificationrequirementscontext"
+click C8 "../../administration/tables/smart-tables/stepchartcontext"
+click C9 "../../administration/tables/smart-tables/stepinspectionplancontext"
+click C10 "../../administration/tables/smart-tables/steplineflowcontext"
+click C11 "../../administration/tables/smart-tables/stepproductyieldandcycletimecontext"
+click C12 "../../administration/tables/smart-tables/stepsamplingpatterncontext"
+click C13 "../../administration/tables/smart-tables/stepsplittrackoutcontext"
+click C14 "../../administration/tables/smart-tables/timeconstraintscontext"</code></pre> <p>A <strong>Step</strong> is also an optional element in several context resolution tables:</p> <ul> <li><a href="../../administration/tables/smart-tables/bomcontext/">BOMContext</a></li> <li><a href="../../administration/tables/smart-tables/materialchecklistcontext/">MaterialChecklistContext</a> </li> <li><a href="../../administration/tables/smart-tables/materialdatacollectioncontext/">MaterialDataCollectionContext</a></li> <li><a href="../../administration/tables/smart-tables/materialdocumentcontext/">MaterialDocumentContext</a> </li> <li><a href="../../administration/tables/smart-tables/materialdurablescontext/">MaterialDurablesContext</a> </li> <li><a href="../../administration/tables/smart-tables/servicecontext/">ServiceContext</a></li> <li><a href="../../administration/tables/smart-tables/stepcertificationrequirementscontext/">StepCertificationRequirementsContext</a></li> <li><a href="../../administration/tables/smart-tables/stepchartcontext/">StepChartContext</a> </li> <li><a href="../../administration/tables/smart-tables/stepinspectionplancontext/">StepInspectionPlanContext</a></li> <li><a href="../../administration/tables/smart-tables/steplineflowcontext/">StepLineFlowContext</a></li> <li><a href="../../administration/tables/smart-tables/stepproductyieldandcycletimecontext/">StepProductYieldAndCycleTimeContext</a></li> <li><a href="../../administration/tables/smart-tables/stepsamplingpatterncontext/">StepSamplingPatternContext</a></li> <li><a href="../../administration/tables/smart-tables/stepsplittrackoutcontext/">StepSplitTrackOutContext</a></li> <li><a href="../../administration/tables/smart-tables/timeconstraintscontext/">TimeConstraintsContext</a></li> </ul> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary actions for correctly using a <strong>Step</strong> are the following:</p> <ol> <li>Optionally create loss, bonus, rework and hold Reasons.</li> <li>Optionally create a <strong>Sort Rule Set</strong>.</li> <li>Create the <strong>Step</strong>.</li> <li>Create a <strong>Flow</strong> that uses that <strong>Step</strong>.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see the <a href="../../../tutorials/modules/routing-and-dispatching/flow-modeling/">Flow Modeling</a> tutorial.</p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Step:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="step_page/">Step Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_step/">Clone Step</a></li> <li><a href="create_step/">Create Step</a></li> <li><a href="edit_step/">Edit Step</a></li> <li><a href="terminate_step/">Terminate Step</a></li> <li><a href="unterminate_step/">Unterminate Step</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="manage_areas/">Manage Areas</a></li> <li><a href="manage_costs/">Manage Costs</a></li> <li><a href="manage_future_actions/">Manage Future Actions</a></li> <li><a href="manage_inspection_information/">Manage Inspection Information</a></li> <li><a href="manage_reasons/">Manage Reasons</a></li> <li><a href="manage_sampling/">Manage Sampling Plans</a></li> <li><a href="manage_step_scheduling/">Manage Scheduling</a></li> <li><a href="manage_inspection_severity_instances/">Manage Step Inspection Severity Instances</a></li> <li><a href="manage_step_logical_names/">Manage Step Logical Names</a></li> <li><a href="special_manage_future_actions/">Special Manage Future Actions</a></li> <li><a href="step_inspection_rules/">Step Inspection Rules</a></li> </ul> </article>
+</body>
+</html>

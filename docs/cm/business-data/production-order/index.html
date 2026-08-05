@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Production Order - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="production-order">Production Order<a class="headerlink" href="#production-order" title="Direct link to this section">#</a></h1> <p>🔒 ProductionOrder.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Production Order</strong> represents a demand which is materialized through one or several <strong>Materials</strong>. The system will keep track of all Production Order Materials, their quantities and their state (<em>InProgress, Completed and Delivered</em>)</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Order Management is a Critical Manufacturing optional module</p> </div> <p>A <strong>Production Order</strong> can be made restricted. A restricted <strong>Production Order</strong> cannot have <strong>Materials</strong> removed from or assigned to (with the exception of Split and Expand Material, which in effect keep the new Materials in the same <strong>Production Order</strong>).</p> <p>A <strong>Production Order</strong> object keeps track of the following quantities - which are automatically adjusted to take into consideration unit changes - based on the Materials currently associated with it.</p> <ul> <li>In Progress Quantity</li> <li>Completed Quantity</li> <li>Delivered Quantity</li> </ul> <p>A <strong>Material</strong> is considered <em>Completed</em> when it reaches a <strong>Step</strong> that has the option <em>Marks Product Completion</em> set to true. However, if the <strong>Material</strong> has a <strong>Production Order</strong> associated to it, the <strong>Material</strong> must have the same <strong>Product</strong> and <em>Units</em> as those defined in the <strong>Production Order</strong>.</p> <p>A <strong>Material</strong> is considered <em>Delivered</em> when it is shipped to a remote or local <strong>Facility</strong> that has the <em>Terminate on Ship to This Facility</em> option set to true.</p> <pre class="mermaid"><code>graph LR
+subgraph Material In Progress
+    A1[Step X]
+end
+subgraph Material Completed
+    A2["Step Y&lt;br&gt;&lt;br&gt;&lt;em&gt;Marks Product Completion&lt;/em&gt;"]
+end
+subgraph Material Delivered
+    A3["Facility F&lt;br&gt;&lt;br&gt;&lt;em&gt;Remote&lt;br&gt;or&lt;br&gt;Local with automatic termination&lt;/em&gt;"]
+end
+    A1 --&gt;|Move Next| A2
+    A2 --&gt;|Ship|A3
+
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Main1,Main2 mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_state</code></pre> <p>A <strong>Production Order</strong> can be closed if the completed quantity is greater or equal to the <strong>Production Order</strong> quantity and it is less or equal to (1 + over-delivery tolerance) and it does not contain any <strong>Material</strong> which is <em>InProgress</em>. A <strong>Production Order</strong> which is <em>Closed</em> cannot have its <strong>Product</strong> or quantity changed, and no <strong>Materials</strong> can be assigned or removed from it. All <strong>Materials</strong> associated with a <em>Closed</em> <strong>Production Order</strong> cannot have the <strong>Product</strong>, the quantity, the units (given by <strong>Step</strong>) or the Is Production Complete property (given by the <strong>Step</strong>) changed.</p> <p>If required by Scheduling or other restrictions, namely for <strong>Production Orders</strong> that take a long time until completion, a <strong>Production Order</strong> can be split into a number of Production Order Steps, dividing the <strong>Production Order</strong> quantity into as many steps as required to fulfill the current <strong>Flow</strong> where the <strong>Material</strong> is placed, with a fraction of the <strong>Material</strong> quantity being placed in each of the <strong>Production Order</strong> Steps. As an example, a <strong>Production Order</strong> with remaining quantity equal to 100 units, bound to a specific <strong>Flow</strong> with seven <strong>Steps</strong>, where the first <strong>Step</strong> has a the Production Order Step Size property set to 20, can be divided into <code>100 / 20 = 5</code> Production Order Steps, each of them with seven different <strong>Steps</strong>.</p> <h2 id="state-model">State Model<a class="headerlink" href="#state-model" title="Direct link to this section">#</a></h2> <p>All <strong>Production Orders</strong> in the system follow the state model below.</p> <pre class="mermaid"><code>graph TD
+    Start1 -.-&gt;|Unterminate| A1[Created]
+    A1 --&gt;|Release| A2[Released]
+    A2 --&gt;|Unrelease| A1
+    A2 ---&gt;|&lt;em&gt;Automatic&lt;/em&gt;| N1[In Progress]
+    N1 ---&gt;|&lt;em&gt;Automatic&lt;/em&gt;| N2[Completed]
+    Start2 -..-&gt;|Unterminate| N1
+    Start3 -..-&gt;|Unterminate| N2
+    N2 ---&gt; N1
+    A2 ---&gt;|Cancel| A6[Canceled]
+    N1 ---&gt;|Cancel| A6[Canceled]
+    N2 ---&gt;|Cancel| A6[Canceled]
+    N2 ---&gt;|Close| A5[Closed]
+    A5 ---&gt;|Reopen| N2
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_initial_state fill:#d7e4bd,stroke:#92d050,stroke-width:3px,color:#000;
+classDef mermaid_final_state fill:#a7e2f2,stroke:#65CDE8,stroke-width:3px,color:#000;
+class Main1,Main2 mermaid_entity
+class Start1,Start2,Start3 mermaid_start
+class A1,A2,N1,N2 mermaid_initial_state
+class A5,A6 mermaid_final_state</code></pre> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    A1[Product] --- Main[Production Order]
+    A2[Roles] -.- Main
+    A3[Facility] -.- Main
+    A4[Material] --- Main
+    Main === L1[Production Order Material]
+    L1 --- A4
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/production-order"
+click A1 "../../business-data/product"
+click A2 "../../administration/security/roles"
+click A3 "../../business-data/facility"
+click A4 "../../business-data/material"
+click L1 "../../business-data/material"</code></pre> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly using a <strong>Production Order</strong> are the following:</p> <ol> <li>Mark the necessary <strong>Steps</strong> with the <em>Marks Product Completion</em> property set to true.</li> <li>Create the <strong>Production Order</strong>.</li> <li>Assign <strong>Materials</strong> to the <strong>Production Order</strong>, or Create <strong>Materials</strong> for the <strong>Production Order</strong> or Change <strong>Material Production Orders</strong>.</li> </ol> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Production Order:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="production_order_page/">Production Order Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_production_order/">Clone Production Order</a></li> <li><a href="create_production_order/">Create Production Order</a></li> <li><a href="edit_production_order/">Edit Production Order</a></li> <li><a href="terminate_production_order/">Terminate Production Order</a></li> <li><a href="unterminate_production_order/">Unterminate Production Order</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="assign_production_order/">Assign Materials To Production Order</a></li> <li><a href="cancel_production_order/">Cancel Production Order</a></li> <li><a href="change_product_and_quantity/">Change Product and Quantity</a></li> <li><a href="change_production_order_characteristics/">Change Production Order Characteristics</a></li> <li><a href="close_production_order/">Close Production Order</a></li> <li><a href="create_material_production_order/">Create Material For Production Order</a></li> <li><a href="manage_production_order_step_dependencies/">Manage Production Order Step Dependencies</a></li> <li><a href="manage_production_order_steps/">Manage Production Order Steps</a></li> <li><a href="reassign_production_order/">Reassign Production Order Materials</a></li> <li><a href="release_production_order/">Release Production Order</a></li> <li><a href="reopen_production_order/">Reopen Production Order</a></li> <li><a href="restrict_production_order/">Restrict Production Order</a></li> <li><a href="start_production_order/">Start Production Order</a></li> <li><a href="synchronize_production_order_steps/">Synchronize Production Order Steps</a></li> <li><a href="unrelease_production_order/">Unrelease Production Order</a></li> <li><a href="unrestrict_production_order/">Unrestrict Production Order</a></li> </ul> </article>
+</body>
+</html>

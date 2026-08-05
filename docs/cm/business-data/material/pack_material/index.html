@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pack Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:packing">packing</a> </nav> <h1 id="pack-material">Pack Material<a class="headerlink" href="#pack-material" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>Pack</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to Pack a <strong>Material</strong> into one or multiple packages. </p> <p>This is the Level 1 packing operation which is possible for different content types:</p> <ul> <li>Material Quantity Single/Multiple (Package is not trackable) - has Primary Quantity and Sub-Materials are equal to zero.</li> <li>Material Ids (Package is trackable) - has Sub-Materials and Primary Quantity is equal to zero.</li> </ul> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Material Logistics</strong> module is properly licensed in the system.</li> <li>The <strong>Material</strong> must be Active, and Non-Template.</li> <li>The <strong>Material</strong> must be In Process and the Assembly Type must be Packing.</li> <li>The <strong>Material</strong> must not be On Hold.</li> <li>The <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Version contains only one <abbr title="Bill-Of-Materials">BOM</abbr> Product, the <strong>Product</strong> is of Product Type Packing, and this <abbr title="Bill-Of-Materials">BOM</abbr> Product does not contain substitutes.</li> <li>If the property Packing Step of the <strong>Step</strong> associated to the <strong>Material</strong> is set to <code>True</code>, the system must ensure the following:<ul> <li>The <strong>Material</strong> is TopMost and has a Maximum Material Depth of 1. This means that the Sub-Material Count of their <strong>Sub-Materials</strong> must all be zero.</li> <li>The <strong>Material</strong> Package Count is greater than zero.</li> <li>The <strong>Material</strong> Primary Units must match the Packed Quantity Units of any Active Package of that <strong>Material</strong>.</li> <li>The <strong>Material</strong> and <strong>Sub-Materials</strong> Primary Quantity must be equal to the Total Packed Quantity of all the Active Packages that reference that <strong>Material</strong> - including Packages of Content Type Material Ids.</li> <li>Taking into account all the Active Material Packages that reference the <strong>Material</strong>, their depth from their TopMost Parent Package must be greater or equal to the Step From Packing Level Minus One and less or equal to the Step To Packing Level.</li> </ul> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-general-data-material-quantity">Step 1: General Data - Material Quantity<a class="headerlink" href="#step-1-general-data-material-quantity" title="Direct link to this section">#</a></h3> <ol> <li> <p>Select <strong>Pack</strong> on the top ribbon.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_01.png"><img alt='Screenshot showing a UI with a selected "Pack" option on the top ribbon.' src="../images/pack_material_01.png"/></a></p> </li> <li> <p>The left panel of the page shows the following:</p> <ul> <li>Packed Quantity progress bar.</li> <li>Packages information of the packages created for this <strong>Material</strong>.</li> <li>Two Actions - in Material Quantity mode it is possible to <strong>Create Single</strong> or <strong>Create Multiple</strong> package(s). </li> <li>Recent Activity information - the last two entries are visible on the page, but if you select <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"></path></svg></span>, you can access all the available information.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_02.png"><img alt="Screenshot showing a UI with a table displaying general data and material quantity, with nearby instructions for accessing recent activity information." src="../images/pack_material_02.png"/></a></p> </li> <li> <p>The right panel of the page shows the following:</p> <ul> <li>Bom Items information.</li> <li> <p>Consumables information:</p> <ul> <li>From here you can scan or use the manual Insert Barcode to add consumables that might be missing.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_03.png"><img alt='Screenshot showing a barcode scanner interface with an "Insert Barcode" button.' src="../images/pack_material_03.png"/></a></p> <ul> <li>From here you can select a consumable and go to the Record Material Loss/Bonus operation.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_04.png"><img alt="Screenshot showing a UI with options for recording material loss or bonus, including fields for quantity and reasons." src="../images/pack_material_04.png"/></a></p> </li> </ul> </li> <li> <p>Select <strong>Create Single</strong> to create only one package.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_05.png"><img alt="Screenshot showing a UI with a field related to material quantity, in the context of creating packages." src="../images/pack_material_05.png"/></a></p> </li> <li> <p>Confirm the details and select <strong>Create</strong>.</p> </li> <li> <p>Or select <strong>Create Multiple</strong> to create more that one package. The difference in this wizard is that you can define the Package Quantity.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_06.png"><img alt="Screenshot showing a UI with options to create multiple packages, including a field for defining package quantity." src="../images/pack_material_06.png"/></a></p> </li> <li> <p>Confirm the details and select <strong>Create</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_07.png"><img alt='Screenshot showing a UI with a list of materials, including "Pack Material 07".' src="../images/pack_material_07.png"/></a></p> </li> <li> <p>When all the <strong>Material</strong> is packed, you can <strong>Track-Out</strong>. When you track out, you will see Resource State information, and will be able to Record Loss/Bonus.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_08.png"><img alt="Screenshot showing a UI with packed material quantity information." src="../images/pack_material_08.png"/></a></p> </li> <li> <p>Select <strong>Track-Out</strong> to complete the operation.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>As the Parent Package is not Trackable, although the Package Quantity is 6, only one Package was created, this is, the packages were coalesced.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_09.png"><img alt="Screenshot showing a quantity input field for material in a manufacturing process." src="../images/pack_material_09.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more details on this Package, select it and its Details page will open in the Package entity of the Business Data menu. </p> </div> </li> </ol> <h3 id="step-1-general-data-material-ids">Step 1: General Data - Material IDs<a class="headerlink" href="#step-1-general-data-material-ids" title="Direct link to this section">#</a></h3> <ol> <li> <p>Select <strong>Pack</strong> on the top ribbon and notice that this <strong>Material</strong> has a <strong>Sub-Materials</strong> section, which will give us the Package IDs.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_10.png"><img alt="Screenshot showing a UI with a Material ID field and a Sub-Materials section in the top ribbon." src="../images/pack_material_10.png"/></a></p> </li> <li> <p>The left panel of the page shows the following:</p> <ul> <li>Packed Quantity progress bar.</li> <li>Packages IDs information of the packages created for this <strong>Material</strong>.</li> <li>One Action - in Material IDs mode it is only possible to <strong>Create</strong>. </li> <li>Recent Activity information - the last two entries are visible on the page, but if you select <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"></path></svg></span>, you can access all the available information.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_11.png"><img alt="Screenshot showing a list of material IDs with nearby instructions for accessing recent activity information." src="../images/pack_material_11.png"/></a></p> </li> <li> <p>The right panel of the page provides the same operations as for Material Quantity (number 3 above).</p> </li> <li>Select <strong>Create</strong> to create the package.</li> <li> <p>Scan the Sub-Material IDs or use the manual Insert Barcode and select <strong>OK</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_11a.png"><img alt='Screenshot showing a barcode scanner interface with "Insert Barcode" label and a filename hint reading "pack material 11a".' src="../images/pack_material_11a.png"/></a></p> </li> <li> <p>In the Create Package Material Id wizard, select <strong>Create</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_12a.png"><img alt="Screenshot showing a UI with selected option to create package material ID in the Create Package Material Id wizard." src="../images/pack_material_12a.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>In the Create Package Material Id wizard you can remove an added <strong>Sub-Material</strong>.</p> </div> </li> <li> <p>Perform this operation as many times as needed. In this example 5 of 5 were packed.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_13.png"><img alt='Screenshot showing a packing operation with material ID "pack material 13" displayed on screen.' src="../images/pack_material_13.png"/></a></p> </li> <li> <p>If you use two <strong>Sub-Materials</strong> in the same package, you can view them in full by selecting <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"></path></svg></span> in the Material ID column.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_13a.png"><img alt='Screenshot showing a table with material IDs, including "51109" and "100 Kg", in the context of managing general data.' src="../images/pack_material_13a.png"/></a></p> </li> <li> <p>This opens the View Sub-Material ID's window with more detailed information. </p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_13b.png"><img alt="Screenshot showing the View Sub-Material ID's window, displaying sub-material IDs and a filename hint &quot;pack material 13b&quot;." src="../images/pack_material_13b.png"/></a></p> </li> <li> <p>If configured in the <a href="../../../administration/tables/smart-tables/materialpackingprintabledocumentcontext/">MaterialPackingPrintableDocumentContext</a> smart table, you can print the documents for the package that are associated with the Close Operation. Select the package, select <strong>Print</strong> on the top ribbon, and then select the appropriate option.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_14.png"><img alt="Screenshot showing a UI element related to printing material documents." src="../images/pack_material_14.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This is possible for both Material Quantity and Material IDs.<br/> For Level 1 packing, only the configured Printable Document(s) for the Close Operation are printed.</p> </div> <p>Example of a Package document:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_14b.png"><img alt="Screenshot showing a list of Material IDs in a table, as part of Step 1: General Data." src="../images/pack_material_14b.png"/></a></p> <p>Example of two Package documents:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_14c.png"><img alt='Screenshot showing a list of material IDs in the "Packages" section.' src="../images/pack_material_14c.png"/></a></p> </li> <li> <p>You can confirm what you created in the <strong>Packages</strong> section of your <strong>Material</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>As the Parent Package is Trackable, the packages were not coalesced.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/pack_material_15.png"><img alt='Screenshot showing a list of material IDs with a filename "pack material 15" in the background.' src="../images/pack_material_15.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more details on any Package, select it and its Details page will open in the Package entity of the Business Data menu.</p> </div> </li> <li> <p>Proceed with <strong>Track-Out</strong> as you would for Material Quantity.</p> </li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see <a href="../../../../tags#packing">Packing</a>.</p> </div> </article>
+</body>
+</html>

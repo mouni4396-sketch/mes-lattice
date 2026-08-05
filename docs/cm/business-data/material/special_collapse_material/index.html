@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Special Collapse Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="special-collapse-material">Special Collapse Material<a class="headerlink" href="#special-collapse-material" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>SpecialCollapse</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to collapse <strong>Material</strong>, that is, to merge the Sub-Material(s) back into a Parent <strong>Material</strong>. This operation is similar to Collapse <strong>Material</strong>, except that the Sub-Material must not be a part of the same <strong>Product</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The Main <strong>Material</strong> and Sub-Material are Active, not On Hold and not In Transit.</li> <li>To be collapsed, the Sub-Material must belong to the same Main <strong>Material</strong> and must have the same Facility, Type, Step, Flow Path and Flow. </li> <li>When the collapsed Sub-Material quantity is placed in the same container/position as the Main <strong>Material</strong>, and the associated <strong>Container</strong> has Capacity Validation Mode set to Units, it must be ensured:<ul> <li>The Capacity Per Position of the <strong>Container</strong> can hold the Main <strong>Material</strong> and the additional Sub-Material quantity - whether Primary or Secondary, as defined in the Capacity Units of the <strong>Container</strong>.</li> </ul> </li> <li>If the Main <strong>Material</strong> or Sub-Material are associated with a Production Order, the Production Order must not be Closed.</li> </ul> <h2 id="preconditions-for-bulk">Preconditions for Bulk<a class="headerlink" href="#preconditions-for-bulk" title="Direct link to this section">#</a></h2> <ul> <li>In addition to the preconditions mentioned above, all Sub-Materials must:<ul> <li>Have the same Parent <strong>Material</strong>.</li> </ul> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>Select the <strong>Special Collapse</strong> button.</li> <li>Verify the <strong>Material</strong> information.</li> <li>Select the <strong>Sub-Material(s)</strong> to be collapsed by choosing the corresponding case.</li> <li>Optionally, enter a comment.</li> <li>Select <strong>Special Collapse</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/special_collapse.png"><img alt='Screenshot showing a UI with options for Special Collapse, including "Material" and "Sub: Material(s) to Be Collapsed".' src="../images/special_collapse.png"/></a></p> </article>
+</body>
+</html>

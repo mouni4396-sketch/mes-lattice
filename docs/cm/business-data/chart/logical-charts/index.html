@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Logical Charts - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="logical-charts">Logical Charts<a class="headerlink" href="#logical-charts" title="Direct link to this section">#</a></h1> <p>🔒 LogicalChart.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>To access a Logical Chart, it is necessary to:</p> <ol> <li>Open the <strong>Chart</strong>.</li> <li>Go to the Logical Charts section.</li> <li>Select the Name of the Logical Chart you want to access.</li> </ol> <p>The top ribbon displays all the options of the Logical Chart.</p> <p>On the right of the screen, the Details pane allows you to show or hide the details. The details contain the following information sub-panes:</p> <ul> <li><strong>Point Details</strong> - indicates basic point information, including point values, control limits and spec limits.</li> <li><strong>Point Readings</strong> - lists the individual point readings.</li> <li><strong>Point Context</strong> - lists the full point context.</li> <li><strong>Point Violations</strong> - lists the point violations and opened protocols, if any.</li> <li><strong>Point Statistics</strong> - displays the statistics about the selected data point (see Point Statistics later in this section for the formula).</li> <li><strong>Chart Statistics</strong> - displays the statistics about all the visible data points, but excludes deleted and excluded data points (see Chart Statistics later in this section for the formulas).</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/logical_chart.PNG"><img alt="logical_chart" src="../images/logical_chart.PNG"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>At the <strong>Chart</strong> level, you can define which pane to display by default (if any).</p> </div> <p>Above the Details pane, you can find the filtering options. Through the View filter you can choose to show or hide:</p> <ul> <li>Spec Limits</li> <li>Target Value</li> <li>Timestamps</li> <li>Histogram</li> <li>Sparkline</li> <li>Sample Id</li> <li>The chart of indicator 1 or indicator 2 (for variable charts only)</li> </ul> <p>You can also choose to apply a Display Filter by selecting the appropriate button and specifying one of two options:</p> <ul> <li>Last Number of Points</li> <li>Date Interval</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/display_filter_dialog.png"><img alt='"Screenshot showing the Display Filter dialog with options for Filter Settings."' src="../images/display_filter_dialog.png"/></a></p> <p>Select <strong>Apply</strong> to apply the filters to the current Logical Chart, the Display Filter button will be shown with an active indicator in yellow:</p> <table> <thead> <tr> <th>Visual display</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/display_filter.png"><img alt='Screenshot showing a UI element with a yellow active indicator labeled as "Display Filter" button.' src="../images/display_filter.png"/></a></td> <td>No filters are active.</td> </tr> <tr> <td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/display_filter_active.png"><img alt="Screenshot showing a display filter button with a yellow active indicator." src="../images/display_filter_active.png"/></a></td> <td>Some filters are active.</td> </tr> </tbody> </table> <p>Table: Active filter indicator</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>To clear any active filter(s), select Remove Filters in the Display Filter dialog.</p> </div> <h2 id="data-point-legend">Data Point Legend<a class="headerlink" href="#data-point-legend" title="Direct link to this section">#</a></h2> <p>The color and shape of each data point provides meaningful information:</p> <table> <thead> <tr> <th style="text-align: center;">Shape and color</th> <th>Symbol</th> <th style="text-align: center;">Comment</th> <th style="text-align: center;">Exclusion</th> <th style="text-align: center;">Violations</th> </tr> </thead> <tbody> <tr> <td style="text-align: center;"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/blue_circle.png"><img alt="blue_circle" src="../../../images/blue_circle.png"/></a></td> <td>Blue circle</td> <td style="text-align: center;"></td> <td style="text-align: center;"></td> <td style="text-align: center;"></td> </tr> <tr> <td style="text-align: center;"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/grey_circle.png"><img alt="grey_circle" src="../../../images/grey_circle.png"/></a></td> <td>Grey circle</td> <td style="text-align: center;"></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> </tr> <tr> <td style="text-align: center;"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/red_circle.png"><img alt="red_circle" src="../../../images/red_circle.png"/></a></td> <td>Red circle</td> <td style="text-align: center;"></td> <td style="text-align: center;"></td> <td style="text-align: center;">x</td> </tr> <tr> <td style="text-align: center;"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/blue_square.png"><img alt="blue_square" src="../../../images/blue_square.png"/></a></td> <td>Blue square</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td style="text-align: center;"></td> </tr> <tr> <td style="text-align: center;"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/grey_square.png"><img alt="grey_square" src="../../../images/grey_square.png"/></a></td> <td>Grey square</td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> </tr> <tr> <td style="text-align: center;"><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/red_square.png"><img alt="red_square" src="../../../images/red_square.png"/></a></td> <td>Red square</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td style="text-align: center;">x</td> </tr> </tbody> </table> <p>Table: Data point legend</p> <h2 id="posting-new-data-points">Posting New Data Points<a class="headerlink" href="#posting-new-data-points" title="Direct link to this section">#</a></h2> <p>To post new data points, select Post Data Point on the top ribbon. This will give you access to the Post Chart Data Point or Post Chart Data Point Aggregated wizard. For more information, see <a href="../post_chart_data_point/">Post Data Point To Chart</a> or <a href="../post_chart_data_point_aggregated/">Post Aggregated Data Points</a>.</p> <h2 id="editing-data-points">Editing Data Points<a class="headerlink" href="#editing-data-points" title="Direct link to this section">#</a></h2> <p>🔒 LogicalChart.<strong>Edit</strong></p> <p>To edit a data point, select the date point you want to edit (by default the last data point is selected) followed by Edit Data Point. In the Edit Chart Data Point wizard, edit as needed and select <strong>Save</strong>. For more information, see <a href="../post_chart_data_point/">Post Data Point To Chart</a> or <a href="../post_chart_data_point_aggregated/">Post Aggregated Data Points</a>.</p> <h2 id="changing-the-number-of-points-to-display">Changing The Number Of Points To Display<a class="headerlink" href="#changing-the-number-of-points-to-display" title="Direct link to this section">#</a></h2> <p>To change the number of points to display, select a pre-defined number of data points, or manually enter a new value.</p> <h2 id="recalculating-the-control-limits">Recalculating The Control Limits<a class="headerlink" href="#recalculating-the-control-limits" title="Direct link to this section">#</a></h2> <p>🔒 Chart.<strong>Recalculate</strong></p> <p>You can recalculate the control limits for the logical chart by selecting Recalculate &amp; Set. A wizard is shown where you can override the default number of data points to be considered. You can also preview the recalculated values before setting them as effective.</p> <h2 id="point-statistics">Point Statistics<a class="headerlink" href="#point-statistics" title="Direct link to this section">#</a></h2> <p>Point statistics are calculated based on the single data point data and are mostly applicable to variable charts.</p> <h2 id="chart-statistics">Chart Statistics<a class="headerlink" href="#chart-statistics" title="Direct link to this section">#</a></h2> <p>Chart statistics are calculated based on all the data points shown in the chart except for excluded data points. All formulas below apply to the computed value 1 except where noted.</p> <p>Because SpecValues (Lower, Target, Upper) as well as Centerlines, LCL and UCL may change during the data points, and because the formulas consider a single value, changes in these values will be handled based on the value defined in the configuration entry <code>/Cmf/System/Configuration/SPC/MultipleDataPointsStatistics/CalculationMode/</code> which can be:</p> <ul> <li> <p><strong>Average</strong> (default use if no value is present) - uses the average of the values for the considered data points (default). The considered data points are only the ones that contains the required values (LSL, ST, USL, LCL, CL, UCL).</p> </li> <li> <p><strong>Last</strong> - uses the latest values from the last data point. In turn, the last data point is only considered if it contains the required values (LSL, ST, USL, LCL, CL, UCL); if it contains the required values, all the data points to be considered within the selection, use the values (LSL, ST, USL, LCL, CL, UCL) from the last data point.</p> </li> </ul> <h2 id="specification-limits">Specification Limits<a class="headerlink" href="#specification-limits" title="Direct link to this section">#</a></h2> <p>To enable Product or Product Group Specification Limits, the <strong>Chart</strong> has either the <strong>Product</strong> or the <strong>Product Group</strong> as context key. If that requirement is met, you need to set the Specification Limits mode to Product. Once the Specification Limits mode is set to Product when creating a Logical Chart, the system will look for the Product (or Product Group) parameters of type Specification that match the Chart parameter as well as the Chart Product (or Product Group) values to set the specification limits automatically.</p> <p>In addition, to automatically view the specification limits of a Logical Chart when performing a data collection of a Chart by <strong>Product</strong>, you need to add both <strong>Product</strong> and <strong>Step</strong> as context keys. Otherwise, the specification limits will not be visible in the Logical Chart.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the Chart defines the <strong>Step</strong> as key, the Product Parameter Step must match the Chart Step key value as well.</p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Logical Charts:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="logical_charts_page/">Logical Chart Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="edit_logical_chart/">Edit Logical Chart</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="add_logical_chart/">Add Logical Chart</a></li> <li><a href="annotate_data_point/">Annotate Data Point</a></li> <li><a href="edit_data_point/">Edit Data Point</a></li> <li><a href="exclude_data_point/">Exclude Data Point</a></li> <li><a href="include_data_point/">Include Data Point</a></li> <li><a href="open_protocol/">Opening a Protocol</a></li> <li><a href="recalculate_center_lines/">Recalculate Centerline(s)</a></li> <li><a href="remove_data_point/">Remove Data Point</a></li> <li><a href="remove_logical_chart/">Remove Logical Chart</a></li> <li><a href="set_limits/">Set Limits</a></li> </ul> </article>
+</body>
+</html>

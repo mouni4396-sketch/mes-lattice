@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Track-In Material At Risk - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="track-in-material-at-risk">Track-In Material At Risk<a class="headerlink" href="#track-in-material-at-risk" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>TrackInAtRisk</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to track a <strong>Material</strong> into a <strong>Resource</strong> to be Run at Risk, that is to process a <strong>Material</strong> even when the <strong>Resource</strong> is under a <strong>Qualification Check</strong>. This transaction is available for multiple <strong>Materials</strong> from the Resource and Step View.</p> <div class="admonition smart-barcode"> <p class="admonition-title">Supports Smart Barcodes</p> <p>You can use <a href="../../../general/smart_barcode_scanning/">Smart Barcode Scanning</a> to perform this operation.</p> </div> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Material</strong> is Active, is not In Transit or On Hold.</li> <li>The <strong>Material</strong> is a Top-Most <strong>Material</strong>, that is, it has no Parent <strong>Material</strong>, and it must be Dispatched.</li> <li>The <strong>Resource</strong> is a top level <strong>Resource</strong>, that is, it has no Parent <strong>Resource</strong>.</li> <li>The <strong>Resource</strong> Max Concurrent Materials In Process Count is greater than the number of <strong>Materials</strong> currently being processed at the <strong>Resource</strong>.</li> <li>If a required <strong><abbr title="Bill-Of-Materials">BOM</abbr> Version</strong> exists for the <strong>Material</strong>, it cannot have different <strong>Sub-Products</strong>.</li> <li>The <strong>Current <abbr title="Bill-Of-Materials">BOM</abbr> Version</strong> and Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type at the <strong>Resource</strong> either is not set, or it matches the required <abbr title="Bill-Of-Materials">BOM</abbr> settings for the <strong>Material</strong>.</li> <li>If a required <strong><abbr title="Bill-Of-Materials">BOM</abbr> Version</strong> exists for the <strong>Material</strong>, the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> Product must match the Top-Most <strong>Material</strong> Product.</li> <li>If it has a <strong>Current <abbr title="Bill-Of-Materials">BOM</abbr> Version</strong> and Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type required set to Automatic At Track-In or Automatic At Track-Out (depending on the Track-In Check Mode), there must be enough consumable material to fulfill the quantities required by the Material <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>.</li> <li>If the required <strong>Material</strong> <strong>Current <abbr title="Bill-Of-Materials">BOM</abbr> Version</strong> is not empty, the <strong>Material</strong> cannot have different Sub-Products.</li> <li>The Experiment Lock Type of the <strong>Material</strong> must be empty or set to Move Next.</li> <li>The IsInQualification property must be set to <code>false</code>.</li> <li>If the <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Mixed, assembly is validated according to the Mixed Assembly Explicit Type (Explicit, Explicit Add or Explicit Long Running), excluding <abbr title="Bill-Of-Materials">BOM</abbr> Products with a specified Assembly Type.</li> <li>If the <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Explicit Add, the <strong>Material</strong> - and recursively all <strong>Sub-Materials</strong> - Primary Quantity must be zero.</li> <li>All required Durables must be currently attached to the <strong>Resource</strong>, in the exact types and positions as they are defined in the Step Durables Context with the remark that optional Durables are either attached to the right position or the positions are empty. Furthermore, none of the Durables can be on Hold.</li> <li>If there is a Durables <abbr title="Bill-Of-Materials">BOM</abbr> defined for the specific Material being tracked in, the same <abbr title="Bill-Of-Materials">BOM</abbr> will be displayed in the execution of the operation.</li> <li>If the Top-Most <strong>Resource</strong> has the property Enable Check-In set to <code>true</code>, and the current user Is Integration User property is set to <code>false</code>, then:<ul> <li>If the property Require Check-In For Material Operations at the Top-Most <strong>Resource</strong> is <code>true</code>, there must be an <strong>Employee</strong> associated with the current user who is currently associated with the <strong>Resource</strong>.</li> <li>If the property Enforce Resource Personnel Requirements At Track-In at the Top-Most <strong>Resource</strong> is <code>true</code>, the system must ensure that all the required <strong>Certifications</strong> for the Top-Most <strong>Resource</strong> have matching <strong>Employees</strong> currently associated with it, in the right quantity.</li> </ul> </li> <li>If the <strong>Step</strong> Enable Step Certification Requirements is <code>true</code>, the current user <strong>Employee</strong> must have the required Certifications as defined in the <a href="../../../administration/tables/smart-tables/stepcertificationrequirementscontext/">StepCertificationRequirementsContext</a> Smart Table.</li> <li>There must not be any Material Time Constraint violated for the <strong>Material</strong> at the current context and transaction.</li> <li>If the <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Explicit Long Running, a new <strong><abbr title="Bill-Of-Materials">BOM</abbr> Instance</strong> will be created, assigned to the Current <abbr title="Bill-Of-Materials">BOM</abbr> Instance property and used during the process. Also, the Material Quantity that matches the <abbr title="Bill-Of-Materials">BOM</abbr> Units must be &gt; 0 and the <strong>Material</strong> must be Top-Most.</li> <li>If a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> is resolved for the <strong>Material</strong> through a <code>StepContext</code> table entry (or using the <a href="../../../administration/tables/smart-tables/bomcontext/">BOMContext</a> Smart Table), that <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> must not contain any <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> Item for which the <strong>Product</strong> matches the <strong>Product</strong> of the <strong>Material</strong> being tracked in.</li> <li>If the <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Packing, the system must check that:<ul> <li>The <strong>Material</strong> Package Count is zero.</li> <li>If the <strong>Material</strong> is a Top-Most Material:<ul> <li>The <strong>Material</strong> can only have one level of <strong>Sub-Materials</strong>, and the Sub-Materials Count of all the <strong>Sub-Materials</strong> must be set to zero.</li> <li>All the <strong>Sub-Materials</strong> must have the same <strong>Product</strong> as the <strong>Material</strong>.</li> <li>The <strong>Material</strong> Primary Quantity or the <strong>Sub-Materials</strong> Primary Quantity must be zero.</li> <li>The joining of the <strong>Material</strong> Primary Quantity and the <strong>Sub-Materials</strong> Primary Quantity is greater than zero.</li> </ul> </li> <li>If the <strong>Material</strong> is not a Top-Most Material:<ul> <li>Its Parent is a Top-Most Material and the <strong>Material</strong> has no <strong>Sub-Materials</strong>.</li> <li>The <strong>Material</strong> has the same <strong>Product</strong> as its Parent.</li> <li>The Parent Primary Quantity must be zero and the <strong>Material</strong> Primary Quantity must be greater than zero.</li> </ul> </li> </ul> </li> <li>If the <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Packing, and if the <abbr title="Bill-Of-Materials">BOM</abbr> TrackInCheckMode is different from None, the system will use the Automatic Assemble Material operation to supply the TrackInCheckMode.</li> <li>If the <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Automatic At Track-Out or Mixed with Includes Track-In Check Mode Overrides set to <code>true</code> (Only <abbr title="Bill-Of-Materials">BOM</abbr> Items with Assembly Type Automatic At Track-Out are considered):<ul> <li>The <strong>Material</strong> is Top-Most, and either the Track-In Check Mode or the Includes Track-In Check Mode Overrides option is enabled, consumables will be validated to ensure all required materials are available.</li> </ul> </li> <li>If the <strong>Material</strong> is a <strong>Sub-Material</strong> and a Current <abbr title="Bill-Of-Materials">BOM</abbr> Version is set, the same checks for the <strong>Sub-Material</strong> for <abbr title="Bill-Of-Materials">BOM</abbr> are run for the <strong>Sub-Material</strong>.</li> <li>If the property Packing Step of the <strong>Step</strong> associated to the <strong>Material</strong> is set to <code>true</code>, the system must ensure the following:<ul> <li>The <strong>Material</strong> is Top-Most and has a Maximum Material Depth of 1. This means that the Sub-Material Count of their <strong>Sub-Materials</strong> must all be zero.</li> <li>The <strong>Material</strong> Package Count is greater than zero.</li> <li>The <strong>Material</strong> Primary Units must match the Packed Quantity Units of any Active Package of that <strong>Material</strong>.</li> <li>The <strong>Material</strong> and <strong>Sub-Materials</strong> Primary Quantity must be equal to the Total Packed Quantity of all the Active Packages that reference that <strong>Material</strong> – including Packages of Content Type Material Ids.</li> <li>Taking into account all the Active Material Packages that reference the <strong>Material</strong>, their depth from their Top-Most Parent Package must be greater or equal to the Step From Packing Level Minus One and less or equal to the Step To Packing Level.</li> </ul> </li> <li> <p>If the <strong>Material</strong> is a <strong>Sub-Material</strong> and the Is In Line Step property is set to <code>true</code>:</p> <ul> <li>The Required Service must be provided by the <strong>Resource</strong> and must be enabled at the <strong>Resource</strong>. Additionally, the Required Service at the <strong>Resource</strong> must have the Is Available property set to <code>true</code>.</li> </ul> </li> <li> <p>The <strong>Resource</strong> Run at Risk Count must be higher than <code>0</code>.</p> </li> <li>The <strong>Material</strong> must exist in the list of <strong>Resource</strong> Run at Risk <strong>Materials</strong>.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="resource-state">Resource State<a class="headerlink" href="#resource-state" title="Direct link to this section">#</a></h3> <ol> <li>In the <strong>Resource Details</strong> section, the <strong>Material</strong> and <strong>Resource</strong> information is visible.</li> <li>If the <strong>Resource</strong> has lanes configured (Is Multilane Active enabled), the Resource Lane section will be available and will contain the lane information selected at Dispatch.</li> <li>Optionally, the Resource State can be changed.</li> <li>Optionally, add a Comment.</li> <li>Select <strong>Track-In</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/trackin_at_risk_resource.png"><img alt="Screenshot showing a Track-In status" src="../images/trackin_at_risk_resource.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>As with the Track-In Material operation, other steps may be displayed based on the configured settings, such as BOMs, Documents, Checklists, among others. For more information, see <a href="../track_in_material/">Track-In Material</a>.</p> <p>Once the Track-In Material At Risk operation is completed, proceed with <a href="../track_out_material/">Track-Out Material</a>.</p> </div> </article>
+</body>
+</html>

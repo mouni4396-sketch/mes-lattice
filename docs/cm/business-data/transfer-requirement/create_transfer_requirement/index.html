@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Transfer Requirement - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:material-logistics">material logistics</a> </nav> <h1 id="create-transfer-requirement">Create Transfer Requirement<a class="headerlink" href="#create-transfer-requirement" title="Direct link to this section">#</a></h1> <p>🔒 TransferRequirement.<strong>Create</strong></p> <p>🔒 TransferRequirement.<strong>CreateTemplate</strong></p> <p>🔒 TransferRequirement.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a new <strong>Transfer Requirement</strong>. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu.</p> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>Specify a Name for the <strong>Transfer Requirement</strong>.</li> <li>Optionally select a Data Group for the <strong>Transfer Requirement</strong>.</li> <li>Select the appropriate Area for which the Transfer Requirement will be created.</li> <li>Select the Request Type to be fulfilled. The available Request Types depend on the <strong>Area</strong> selected above and can be viewed and edited on the <strong>Area</strong> page. More information on the <a href="../../area/manage_transferrequirementtypes/">Manage Transfer Requirement Types</a> page.</li> <li>The values for Source Location and Destination Location will be automatically filled:<ul> <li>Source Location will be set according to the Transfer Requirement Type of the For Location Area.</li> <li>If the For Location is a Storage Area, the Destination Location is set with that Storage Area.</li> <li>If the For Location is a Production Line, the Destination Location is set with the defined Destination Location of the Transfer Requirement Type if it is configured therein or with the For Location if it is not configured.</li> </ul> </li> <li>Specify the Priority of the <strong>Transfer Requirement</strong>. By default, the priority of the task is set to Medium, but it is possible to set it also with the value Low or High.</li> <li>Define the delivery due date. The due date is the latest point in time when the <strong>Transfer Requirement</strong> must be completed. Pick a date from the calendar and a time by clicking on the clock icon.</li> <li> <p>Optionally, specify additional context data for the <strong>Transfer Requirement</strong>:</p> <ul> <li>For Resource</li> <li>For Resource Location</li> <li>For Material</li> <li>For Step</li> <li>For <abbr title="Maintenance Activity Order">MAO</abbr></li> <li>For Production Order</li> <li>For Maintenance Activity Order</li> </ul> </li> <li> <p>Select <strong>Next</strong> to define the <strong>Transfer Requirement</strong> Items.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Create_Transfer_Requirement_step_one.png"><img alt="Create_Transfer_Requirement_step_one" src="../images/Create_Transfer_Requirement_step_one.png"/></a></p> <h3 id="step-2-transfer-requirement-items">Step 2 - Transfer Requirement Items<a class="headerlink" href="#step-2-transfer-requirement-items" title="Direct link to this section">#</a></h3> <ol> <li> <p>On the left side panel, add as many items as desired (press <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> in the top right of the grid to add, and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> to remove), specifying for each item:</p> <ul> <li><strong>Product</strong>.</li> <li>Bin Code (when the selected <strong>Product</strong> requires one).</li> <li>Requested quantity (Must be larger than zero. The value for the Required Quantity will be displayed automatically depending on the already consumed quantity).</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The Required Quantity field accepts up to eight decimal places, but always displays 3 decimal places rounded up.</p> </div> <ul> <li>Units.</li> </ul> </li> <li> <p>Optionally, if the Source Location Area is not external, a specific existing <strong>Material</strong> can be requested.</p> </li> <li>Select the <strong>Create</strong> button to complete the creation of the <strong>Transfer Requirement</strong>.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Create_Transfer_Requirement_step_two.png"><img alt="Create_Transfer_Requirement_step_two" src="../images/Create_Transfer_Requirement_step_two.png"/></a></p> </article>
+</body>
+</html>

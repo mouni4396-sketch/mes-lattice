@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Material Dependencies - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="manage-material-dependencies">Manage Material Dependencies<a class="headerlink" href="#manage-material-dependencies" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>ManageDependencies</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation allows you to manage the <strong>Material Dependencies</strong> entities for a certain <strong>Material</strong>. The <strong>Material Dependency</strong> is an entity that translates the relation between a certain <strong>Material</strong> and its predecessors (components), in the sense that the successor cannot begin processing at a certain <strong>Step</strong> without the required predecessors (components) being themselves present at a certain point in their <strong>Flows</strong> (typically at the last <strong>Step</strong>; in other words, the components should have been completely processed at the moment of their attachment to the main <strong>Material</strong>).</p> <p>The system implements this restriction in two ways:</p> <ol> <li>If the system is working with a <strong>Schedule</strong>, a restriction that the successor <strong>Step</strong> (To Step) of the successor <strong>Material</strong> (To Material), can only be planned for a time after all the predecessors <strong>Steps</strong> (From Step) of all the predecessor <strong>Materials</strong> (From Material) have been planned.</li> <li>During Track-in of the successor <strong>Material</strong> (To Material) at the chosen <strong>Step</strong> (To Step), the system checks if there any <strong>Material Dependencies</strong> referencing the pair (To Material, To Step); if so, an error is thrown. Therefore, to remove this obstacle, all the predecessor <strong>Materials</strong> (From Material) must have previously been Tracked-Out of the predecessor <strong>Step</strong> (From Step), which automatically closes any <strong>Material Dependencies</strong> containing that pair (From Material, From Step). This validation is exemplified in the following picture.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/materialDependencies.PNG"><img alt="Material Dependencies Validation" src="../../../images/materialDependencies.PNG"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>When Scheduling in the Planning Mode, if there are Production Orders with the properties Include In Planning and Include In <abbr title="Bill-Of-Materials">BOM</abbr> Explosion activated and there are <abbr title="Bill-Of-Materials">BOM</abbr> of Scope Material involved in the Flow of the Product, the system will, for Planning purposes, work like if there were a Material Dependency between a Virtual Material and its components, applying the restriction described previously in 1.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>When Starting a Production Order with the property Include In <abbr title="Bill-Of-Materials">BOM</abbr> Explosion activated, the system will, besides creating all Materials referring to its Product and to components defined in BOMs of Scope Material involved in the Flow of the Product, also create the adequate Material Dependencies between them.</p> </div> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The From Material and the To Material exist in the system and are Active.</li> <li>The From Step and the To Step exist in the system, are Active, and are not Pass-Through Steps.</li> <li>The combination of From Material, From Step, To Material, and To Step must be unique.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The Manage Dependencies Section is accessible from the <strong>Material</strong> details page.</p> <ol> <li>Select the <strong>Manage Material Dependencies</strong> button.</li> <li>To manage the successor dependencies, that is, dependencies From the current <strong>Material</strong> go to the <strong>FROM</strong> tab. To manage predecessor dependencies, that is, To the current <strong>Material</strong>, go to the <strong>TO</strong> tab.</li> <li>Add or remove as many dependencies providing for each dependency:<ul> <li>The From Material (filled in automatically in the <strong>From</strong> tab).</li> <li>The From Step.</li> <li>The From Flow Path.</li> <li>The To Material (filled in automatically in the <strong>TO</strong> tab).</li> <li>The To Step.</li> <li>The To Flow Path.</li> <li>Optionally, define a From Quantity.</li> <li>Optionally, define a From Units applicable to the From Quantity.</li> <li>Optionally, define a To Quantity.</li> <li>Optionally, define a To Units applicable to the To Quantity.</li> <li>Optionally, define a System State - Open or Closed.</li> <li>Optionally, enter a Comment.</li> </ul> </li> <li>Select <strong>Update</strong> to finish the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Manage_Material_Dependencies_Step1.png"><img alt="Manage Material Dependencies" src="../images/Manage_Material_Dependencies_Step1.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Either all the following properties are filled or none are:</p> <ul> <li>From Quantity</li> <li>From Units</li> <li>To Quantity</li> <li>To Units</li> </ul> </div> </article>
+</body>
+</html>

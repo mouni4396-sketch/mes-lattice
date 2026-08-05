@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Protocol - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-protocol">Create Protocol<a class="headerlink" href="#create-protocol" title="Direct link to this section">#</a></h1> <p>🔒 Protocol.<strong>Create</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a new <strong>Protocol</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Protocol</strong> name must be provided and must be unique.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>There are several ways to create a new versioned object. Depending on the level, follow these steps to get started:</p> <ul> <li>Entity - in the landing page of this entity type in the Business Data menu or in the details page of an existing entity of the same type, select <strong>New</strong> on the top ribbon. For more information, see <a href="../../../general/creating_entity_objects/">Creating Entity Objects</a>.</li> <li>Revision - if you want to create a new revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Revision</strong>. For more information, see <a href="../../../general/revisions/">Revisions</a>.</li> <li>Version - if you want to create a version associated to an existing revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Version</strong>. For more information, see <a href="../../../general/versions/">Versions</a>.</li> </ul> <h3 id="step-1-change-set">Step 1: Change Set<a class="headerlink" href="#step-1-change-set" title="Direct link to this section">#</a></h3> <ol> <li>Select an existing Change Set or select Create to create a new <strong>Change Set</strong>. If configured to support implicit <strong>Change Sets</strong>, it is also possible to check the option Use Automatic Change Set.</li> <li>Optionally, select an Approval Role.</li> </ol> <h3 id="step-2-general-data">Step 2: General Data<a class="headerlink" href="#step-2-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Provide a name for the <strong>Protocol</strong>.</li> <li>If you are creating a new version, the revision that was selected when you started the process will be the revision to which this version will be associated. If you are creating a new entity or revision (with a new version associated to it), provide a name for the revision or it will be automatically generated for you. For more information, see the Naming section of <a href="../../../general/revisions/#naming">Revisions</a>.</li> <li>Optionally, enter a description.</li> <li>Select the <strong>Protocol</strong> type. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/protocoltype/">ProtocolType</a> lookup table.</li> <li>Select the scope of the <strong>Protocol</strong> - defaults to General.</li> <li>Select the <strong>Protocol</strong> severity. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/protocolseverity/">ProtocolSeverity</a> lookup table.</li> <li> <p>Optionally, add the following data:</p> <ul> <li><strong>Default Owner</strong> - reference to an existing <strong>Employee</strong>.</li> <li><strong>Root Cause Source</strong> - a lookup table to be used to select root causes.</li> <li><strong>Overrides</strong><ul> <li><strong>Allow inhibit overrides</strong> - if <code>true</code>, the options Default Inhibit Move from Step and Default Inhibit Ship defined at the protocol are simply default because you can change them when opening each new <strong>Protocol</strong> Instance.</li> <li><strong>Allow state role override</strong> - if <code>true</code>, you can override the protocol state role when changing the state of a <strong>Protocol</strong> Instance.</li> </ul> </li> <li> <p><strong>Options</strong></p> <ul> <li><strong>Default Inhibit Move from Step</strong> - if a material is associated with a <strong>Protocol</strong> Instance, that material cannot be moved to the next step while the <strong>Protocol</strong> Instance is not closed or terminated (defaults to <code>false</code>).</li> <li><strong>Default Inhibit Ship</strong> - if a material is associated with a <strong>Protocol</strong> Instance, that material cannot be shipped while the <strong>Protocol</strong> Instance is not closed or terminated (defaults to <code>false</code>).</li> <li><strong>Remove Terminated Materials</strong> - each <strong>Protocol</strong> Instance can be associated with several materials; if meanwhile one material is terminated for any reason, the material will be removed from the <strong>Protocol</strong> Instance (defaults to <code>true</code>).</li> <li><strong>Terminate on Zero Materials</strong> - each <strong>Protocol</strong> Instance can be associated with several materials; once you disassociate all those materials, the instance will be automatically terminated (defaults to <code>true</code>).</li> <li><strong>Default Auto State Change Behavior</strong> - defaults to None. If the value is None, then no action is needed, otherwise:<ul> <li>Automatic - after evaluation of the conditions to change the state or close the <strong>Protocol</strong> Instance, it will automatically change or close. If there is more than one next state possible, the system will ask what is the new state and will automatically change it.</li> <li>Prompt No - after evaluation of the conditions to change the state or close the <strong>Protocol</strong> Instance, you will be asked to change or close the <strong>Protocol</strong> Instance automatically (defaults to No). If there is more than one next state possible, the system will ask what is the new state. If you chose yes, the system will change the state or close the <strong>Protocol</strong> Instance.</li> <li>Prompt Yes - similar to Prompt No, although in this case the default is Yes.</li> </ul> </li> </ul> </li> <li> <p><strong>Notifications</strong></p> <ul> <li><strong>Send Email to the Owner and Role</strong> - if <code>true</code>, whenever a <strong>Protocol</strong> Instance is created, the system will send an email to the Owner (if defined and has a valid email), to the Initiator (if defined and has a valid email), and to the distribution list of the Role (if any and has valid emails separated by a semicolon). The email has the <strong>Protocol</strong> Instance name, date/time, and list of materials and associated materials (if any).</li> <li><strong>Send Notification to the Owner and Role</strong> - if <code>true</code>, whenever a <strong>Protocol</strong> Instance is created, the system will send a notification to the Owner (if defined), to the Initiator (if defined), and to <strong>Protocol</strong> State Role (if defined). The notification shows the <strong>Protocol</strong> Instance name, the System State and the <strong>Protocol</strong> State.</li> </ul> </li> </ul> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_protocol_step_one.png"><img alt='Screenshot showing a UI with options for creating a protocol, including "Create Protocol" and checkboxes for "Owner" and "Role".' src="../images/create_protocol_step_one.png"/></a></p> <h3 id="step-3-dispositions">Step 3: Dispositions<a class="headerlink" href="#step-3-dispositions" title="Direct link to this section">#</a></h3> <ol> <li> <p>At the <strong>Protocol</strong> level, choose which actions are possible to be taken in a future instance by defining the following criteria:</p> <ul> <li><strong>Allow Full Record Loss</strong> - select a loss reason, predefined at the loss Reason list. The material will consequently be scrapped.</li> <li><strong>Allow Rework</strong> - select a Flow path, predefined as rework flow and a rework reason from the step Rework Reasons' list. The return path will be automatically filled based on the Go to Flow that was selected.</li> <li><strong>Allow Temporary Off Flow</strong> - select an Off Flow Path, predefined as Off Flow and an Off Flow Reason from the step Off Flow Reasons List. The return path will be automatically filled based on the selected departure point in the <strong>Flow</strong>.</li> </ul> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Protocol_Dispositions.PNG"><img alt="Screenshot showing a protocol disposition form with predefined off flow paths and reasons." src="../images/Protocol_Dispositions.PNG"/></a></p> <h3 id="step-4-parameters">Step 4: Parameters<a class="headerlink" href="#step-4-parameters" title="Direct link to this section">#</a></h3> <ol> <li> <p>Fill different <strong>Parameter</strong> details according to the type you selected. The different types are:</p> <ul> <li>Boolean</li> <li>Date Time</li> <li>Decimal</li> <li>Long</li> <li>String</li> </ul> </li> <li> <p>Select <strong>Create</strong> to complete the operation.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Protocol_Parameters.PNG"><img alt="Protocol Parameters" src="../images/Protocol_Parameters.PNG"/></a></p> <h3 id="step-5-state">Step 5: State<a class="headerlink" href="#step-5-state" title="Direct link to this section">#</a></h3> <ol> <li> <p>When the <strong>Protocol</strong> is created, you can define its flow of states. The flow is not restricted to a unique unidirectional sequence; you can draw different paths. To build a flow of states, follow the steps below:</p> <ul> <li>Drag all the states you need from the Shapes panel on the right-hand side of the screen and drop them in the main area. Define a Start and one or more Ends.</li> <li>Once the states have been positioned, proceed to creating the connections; do so by pulling the arrows at each state shape.</li> <li>Finally, drag and drop the Start and End shapes to the respective positions in the flow. You can have just one start but several ends.</li> <li>Select the three-dot menu in each state and define the <strong>Settings</strong>.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Flowchart_state1.PNG"><img alt="Diagram showing a flowchart with one state." src="../images/Flowchart_state1.PNG"/></a></p> </li> </ol> <h4 id="general-data">General Data<a class="headerlink" href="#general-data" title="Direct link to this section">#</a></h4> <ul> <li><strong>Name</strong> - must be unique within the <strong>Protocol</strong>.</li> <li><strong>Description</strong> - contains a description of the state.</li> <li><strong>Role</strong> - should include the group of people who will perform each stage. The user needs to be associated with an employee object and, therefore, be included in the specified role for a stage.</li> <li><strong>Checklist</strong> - has to be created prior to being associated with a stage. To validate the state, you must go through the checklist before changing the state.</li> <li><strong>Auto State Change Behavior</strong> - by default, it will display the behavior defined in the <strong>Protocol</strong> options. However, you can change it at every stage.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Flowchart_General_Data.PNG"><img alt="Diagram showing a flowchart illustrating the general data process and auto state change behavior settings." src="../images/Flowchart_General_Data.PNG"/></a></p> <h4 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Direct link to this section">#</a></h4> <ul> <li><strong>Allow Task Creation</strong> - if <code>true</code>, you can create a new task. If <code>false</code>, the Task Creation State will be disabled.</li> <li><strong>Task Creation State</strong> - tasks have different states: Created, Released, In Progress, and Completed. When defining the task creation state, you can choose Created or Released.<ul> <li>If Created, it needs to be approved to change to Released to be ready to be performed.</li> <li>If Released, it does not need to be approved to be ready to Perform by the assigned user (owner).</li> </ul> </li> <li><strong>Allow Task Release</strong> - you can allow task creation as Created but you cannot allow its approval (to Release) at this particular state. However, this does not mean that the task cannot be approved at a subsequent step. To set this possibility, mark as <code>false</code>.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/flowchart_tasks.PNG"><img alt="Screenshot showing a flowchart illustrating the different states of task release and approval." src="../images/flowchart_tasks.PNG"/></a></p> <h4 id="dispositions">Dispositions<a class="headerlink" href="#dispositions" title="Direct link to this section">#</a></h4> <ul> <li><strong>Allow Dispositions</strong> - if <code>true</code>, you can create dispositions for the associated materials.</li> <li><strong>Dispositions Mode</strong> (only configurable when Allow Disposition is set as <code>true</code>) - a disposition starts as Created, then Approved, and finally Executed. You can define which disposition stage you want to have at each protocol state, otherwise you cannot <strong>Change State</strong>.<ul> <li><strong>Allow</strong> - you can create a <strong>Disposition</strong> for any associated material, although it is not mandatory.</li> <li><strong>Approve</strong> - in this state, it is mandatory that <strong>Dispositions</strong>, for all the associated materials, have been approved.</li> <li><strong>Execute</strong> - in this state, it is mandatory that <strong>Dispositions</strong>, for all the associated materials, have been executed.</li> <li><strong>Require</strong> - in this state, it is mandatory that <strong>Dispositions</strong>, for all the associated materials, have been created.</li> </ul> </li> <li><strong>Requires Approval</strong> - after the <strong>Disposition</strong> is created, it will be available for approval by the <strong>Protocol Instance</strong> owner. Only after this approval can it be executed by anyone who has state role permissions.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Flowchart_Dispositions.PNG"><img alt="Screenshot showing a flowchart illustrating the process of creating and approving dispositions in the protocol instance." src="../images/Flowchart_Dispositions.PNG"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>You can only create Dispositions for associated Materials.</p> </div> <h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Direct link to this section">#</a></h4> <p>You can enter some information in the <strong>Parameters</strong> section (example: you can choose which parameters you want to consider at each state of the <strong>Protocol Instance</strong>). Remember these <strong>Parameters</strong> need to be defined previously when you are creating the <strong>Protocol</strong> (see Step 4: Parameters above).</p> <p>To select the parameters, follow the steps below:</p> <ol> <li>Select the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> icon.</li> <li> <p>Select one of the <strong>Parameters</strong>, previously defined at the protocol creation stage. If the <strong>Parameter</strong> is a string, the type has to be defined by selecting one of the following options:</p> <ul> <li><strong>Free text</strong> - any text can be entered.</li> <li><strong>Lookup table</strong> - a list of option will be available when performing the <strong>Protocol Instance</strong>. To specify this list, you need to select a lookup table in the Source field.</li> <li><strong>Query</strong> - a list of options will be available when performing the <strong>Protocol Instance</strong>. To specify this list, you need to select a query in the Source field. Only queries with <strong>Protocol</strong> Parameter as Entity will be available.</li> </ul> </li> <li> <p>Define if the <strong>Parameter</strong> is mandatory and if it is Read-Only (available for viewing but not editing).</p> </li> <li>Select <strong>Save and Close</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Flowchart_Parameters.PNG"><img alt="Diagram showing a flowchart illustrating the parameters for a paver installation." src="../images/Flowchart_Parameters.PNG"/></a></p> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material Quantity Unit Changes - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="material-quantity-unit-changes">Material Quantity Unit Changes<a class="headerlink" href="#material-quantity-unit-changes" title="Direct link to this section">#</a></h1> <p>Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> always tracks a primary quantity, and optionally a secondary quantity, for every <strong>Material</strong>. The primary and secondary units are stored at the <strong>Material</strong> level, but are defined at the <strong>Step</strong> level. A <strong>Step</strong> can define whether it defines the units with the property Set Units or not. If a <strong>Step</strong> does not define the units, when a <strong>Material</strong> arrives at that <strong>Step</strong>, it maintains its units. When a <strong>Material</strong> is moved to a <strong>Step</strong> that defines units, the quantities are preserved if the units are the same, otherwise the table below applies for converting the quantities to the new units. The conversion factors are defined at the Product level in the Unit Conversion Factors.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Unit Conversion Factors work in both directions, that is, if Product 1 defines a conversion factor from Unit A to Unit B as being 5, if the system is looking for the reverse conversion factor (Unit B to Unit A) and it does not exist, it assumes the inverse of the conversion from Unit A to Unit B, in this case 0.2.</p> </div> <table> <thead> <tr> <th>Scenario</th> <th>Units</th> <th>Old Step</th> <th>New Step</th> <th>Result</th> <th>Applied conversion factor</th> <th>If conversion factor does not exist</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>Primary</td> <td>A</td> <td>A</td> <td>A quantity remains</td> <td>1 (none)</td> <td>N/A</td> </tr> <tr> <td>1</td> <td>Secondary</td> <td>B</td> <td>-</td> <td>B quantities are dropped</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>2</td> <td>Primary</td> <td>A</td> <td>B</td> <td>B quantity (switched)</td> <td>1 (none)</td> <td>N/A</td> </tr> <tr> <td>2</td> <td>Secondary</td> <td>B</td> <td>-</td> <td>A quantity is dropped</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>3</td> <td>Primary</td> <td>A</td> <td>B</td> <td>B quantity (switched)</td> <td>1 (none)</td> <td>N/A</td> </tr> <tr> <td>3</td> <td>Secondary</td> <td>B</td> <td>A</td> <td>A quantity (switched)</td> <td>1 (none)</td> <td>N/A</td> </tr> <tr> <td>4</td> <td>Primary</td> <td>A</td> <td>C</td> <td>C quantity (converted)</td> <td>A -&gt; C</td> <td>Exception</td> </tr> <tr> <td>4</td> <td>Secondary</td> <td>B</td> <td>D</td> <td>D quantity (converted)</td> <td>B -&gt; D</td> <td>0</td> </tr> <tr> <td>5</td> <td>Primary</td> <td>A</td> <td>C</td> <td>C quantity (converted)</td> <td>A -&gt; C</td> <td>Exception</td> </tr> <tr> <td>5</td> <td>Secondary</td> <td>B</td> <td>A</td> <td>A quantity (switched)</td> <td>1 (none)</td> <td>N/A</td> </tr> <tr> <td>6</td> <td>Primary</td> <td>A</td> <td>B</td> <td>B quantity (switched)</td> <td>1 (none)</td> <td>N/A</td> </tr> <tr> <td>6</td> <td>Secondary</td> <td>B</td> <td>D</td> <td>A quantity (converted)</td> <td>B -&gt; D</td> <td>0</td> </tr> <tr> <td>7</td> <td>Primary</td> <td>A</td> <td>C</td> <td>C quantity (converted)</td> <td>A -&gt; C</td> <td>Exception</td> </tr> <tr> <td>7</td> <td>Secondary</td> <td>B</td> <td>-</td> <td>B quantities are dropped</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>8</td> <td>Primary</td> <td>A</td> <td>C</td> <td>C quantity (converted)</td> <td>A -&gt; C</td> <td>Exception</td> </tr> <tr> <td>8</td> <td>Secondary</td> <td>-</td> <td>-</td> <td>-</td> <td>N/A</td> <td>N/A</td> </tr> <tr> <td>9</td> <td>Primary</td> <td>A</td> <td>C</td> <td>C quantity (converted)</td> <td>A -&gt; C</td> <td>Exception</td> </tr> <tr> <td>9</td> <td>Secondary</td> <td>-</td> <td>D</td> <td>D quantity (converted)</td> <td>A -&gt; D</td> <td>0</td> </tr> <tr> <td>10</td> <td>Primary</td> <td>A</td> <td>C</td> <td>C quantity (converted)</td> <td>A -&gt; C</td> <td>Exception</td> </tr> <tr> <td>10</td> <td>Secondary</td> <td>-</td> <td>A</td> <td>A quantity (switched)</td> <td>1 (none)</td> <td>N/A</td> </tr> <tr> <td>11</td> <td>Primary</td> <td>A</td> <td>A</td> <td>A quantity remains</td> <td>1 (none)</td> <td>N/A</td> </tr> <tr> <td>11</td> <td>Secondary</td> <td>-</td> <td>B</td> <td>B quantity (converted)</td> <td>A -&gt; B</td> <td>0</td> </tr> </tbody> </table> </article>
+</body>
+</html>

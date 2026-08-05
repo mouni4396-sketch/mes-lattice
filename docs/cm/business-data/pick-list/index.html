@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pick List - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../tags/#tag:material-logistics">material logistics</a> </nav> <h1 id="pick-list">Pick List<a class="headerlink" href="#pick-list" title="Direct link to this section">#</a></h1> <p>🔒 PickList.<strong>Show</strong></p> <p>A <strong>Pick List</strong> is created from one or more <strong>Transfer Requirements</strong>. The <strong>pick list</strong> defines specific Materials to be picked in order to fulfill the <strong>Transfer Requirement</strong>. The <strong>Material</strong> IDs are generated using a picking strategy and picking sequence defined for the Storage <strong>Area</strong>, remaining editable by users with the proper permission set.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>One <strong>Pick List</strong> can be used to fulfill multiple <strong>Transfer Requirements</strong> provided that the Source and Target locations are the same.</p> </div> <h2 id="pick-list-lifecycle">Pick List Lifecycle<a class="headerlink" href="#pick-list-lifecycle" title="Direct link to this section">#</a></h2> <p>A <strong>Pick List</strong>, during its life cycle, follows the state model as illustrated in the next picture.</p> <pre class="mermaid"><code>graph TD
+    Start --&gt;|Create| A1[Open]
+    A1 ------&gt;|Cancel picking| A7[Canceled]
+    A1 --&gt;|Start picking| A2[In Progress]
+    A2 --&gt;|All items picked| A3[Picked]
+    A3 --&gt;|All items in transport| A4[In Transport]
+    A4 --&gt;|All items delivered| A5[Delivered]
+    A5 --&gt;|All items confirmed| A6[Closed]
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Start mermaid_start
+classDef mermaid_initial_state fill:#d7e4bd,stroke:#92d050,stroke-width:3px,color:#000;
+classDef mermaid_final_state fill:#a7e2f2,stroke:#65CDE8,stroke-width:3px,color:#000;
+
+
+class A1,A2,A3,A4,A5,A8,A9,A10,A11,A12 mermaid_initial_state
+class A6,A7 mermaid_final_state</code></pre> <p>The lifecycle is further described in the table below.</p> <table> <thead> <tr> <th>State</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><strong>Open</strong></td> <td>The Pick List has been created and it's ready to be picked</td> </tr> <tr> <td><strong>In Progress</strong></td> <td>At least one Pick List item has been picked</td> </tr> <tr> <td><strong>Picked</strong></td> <td>All Pick List items have been picked</td> </tr> <tr> <td><strong>In Transport</strong></td> <td>All Pick List items are currently in transport</td> </tr> <tr> <td><strong>Delivered</strong></td> <td>All Pick List items have been delivered</td> </tr> <tr> <td><strong>Closed</strong></td> <td>All Pick List items have been confirmed</td> </tr> <tr> <td><strong>Canceled</strong></td> <td>The Pick List has been canceled - only possible to be triggered from the Cancel Transfer Requirement</td> </tr> </tbody> </table> <p>Table: Pick List lifecycle</p> <p>A <strong>Transfer Requirement</strong> can be configured to create separate <strong>Pick Lists</strong> for MSD material. Also, when picking an MSD material, if the MSD remaining time is below a certain configurable threshold (MSD warning time), the system will display a warning to the operator</p> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    L3[Transfer Requirement] --- L2[Transfer Requirement Item]
+    Main[Pick List] --- L1[Pick List Item]
+    L1 --- L2
+    L1 --- A1[Material]
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/pick-list"
+click A1 "../../business-data/material"
+click L3 "../../business-data/transfer-requirement"</code></pre> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Pick List:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="pick_list_page/">Pick List Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="edit_pick_list/">Edit Pick List</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="manage_pick_list_items/">Manage Pick List Items</a></li> <li><a href="pick_pick_list/">Pick Pick List</a></li> <li><a href="take_pick_list_ownership/">Take Pick List Ownership</a></li> <li><a href="unpick_pick_list/">Unpick Pick List Items</a></li> <li><a href="view_pick_list_report/">View Pick List Report</a></li> </ul> </article>
+</body>
+</html>

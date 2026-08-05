@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Change Resource State - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="change-resource-state">Change Resource State<a class="headerlink" href="#change-resource-state" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>ChangeState</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation changes the state of a <strong>Resource</strong>, following the currently associated State Model.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>You can also select transitions that have no role defined, or if a role is defined, you must belong to that role.</p> </div> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Resource</strong> is active and has a state model associated to it.</li> <li>If the current State model state has a role associated to it, you must belong to that role.</li> <li>The state transition exists for the current Resource state model and state.</li> </ul> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-state-selection">Step 1: State Selection<a class="headerlink" href="#step-1-state-selection" title="Direct link to this section">#</a></h3> <p>This step captures the new state information, as well as the transaction comment.</p> <ol> <li>Optionally, review the <strong>Resource</strong> details.</li> <li>Select the new state (the state is usually pre-selected when entering the wizard).</li> <li>If there are <strong>Reasons</strong> defined for the State Transition, it is necessary to select one of them (it pre-selects the default one).</li> <li>Optionally, enter a comment.</li> </ol> <h3 id="step-2-documents">Step 2: Documents<a class="headerlink" href="#step-2-documents" title="Direct link to this section">#</a></h3> <p>This step is used to display <strong>Documents</strong> which are associated with the transaction context. To open any <strong>Document</strong>, simply select the <strong>Document</strong> icon.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Only used if there are <strong>Documents</strong> associated with the Resource and State Transition Context.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p><strong>Documents</strong> are configured in the Document Resource Context.</p> </div> <h3 id="step-3-data-collection">Step 3: Data Collection<a class="headerlink" href="#step-3-data-collection" title="Direct link to this section">#</a></h3> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Only used if there is a <strong>Data Collection</strong> associated to the Resource Context and State Transition</p> </div> <p>This step is used to capture the <strong>Data Collection</strong> information.</p> <ol> <li>Fill in the <strong>Data Collection</strong> plan.</li> </ol> <h3 id="step-4-checklist">Step 4: Checklist<a class="headerlink" href="#step-4-checklist" title="Direct link to this section">#</a></h3> <p>This screen is used to complete a pre-defined <strong>Checklist</strong> associated with the state transition.</p> <ol> <li>The <strong>Checklist</strong> is immediate and it must be filled completely. Additionally, if the <strong>Checklist</strong> has a previously defined <strong>Data Collection</strong>, you will need to supply a possible <strong>Data Collection Instance</strong>.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Only if there is a <strong>Checklist</strong> associated with the Resource Context and State Transition.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p><strong>Checklists</strong> are configured in the Resource Checklist Context.</p> </div> <h3 id="step-5-request-mao">Step 5: Request <abbr title="Maintenance Activity Order">MAO</abbr><a class="headerlink" href="#step-5-request-mao" title="Direct link to this section">#</a></h3> <p>This step is used to request one or more ad-hoc <strong>Maintenance Activities</strong> for the <strong>Resource</strong>.</p> <ol> <li>Optionally, select one ad-hoc <strong>Maintenance Activity</strong> to be requested for the <strong>Resource</strong> as part of the transaction. At maximum, one <strong>Maintenance Activity</strong> can be requested.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Only if the <strong>Resource</strong> property Enable Request <abbr title="Maintenance Activity Order">MAO</abbr> on State Change is <code>true</code>, if there are Ad-hoc MAOs that can be requested, and if attribute SEMI E10 for the new state model state is set as Unscheduled Down.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/resourceChangeState.gif"><img alt="Resource Change State" src="../../../images/resourceChangeState.gif"/></a></p> </article>
+</body>
+</html>

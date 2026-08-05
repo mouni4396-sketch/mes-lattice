@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Substrate Map Overlay - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:mapping">mapping</a> </nav> <h1 id="create-substrate-map-overlay">Create Substrate Map Overlay<a class="headerlink" href="#create-substrate-map-overlay" title="Direct link to this section">#</a></h1> <p>🔒 SubstrateMap.<strong>CreateOverlay</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a new <strong>Substrate Map</strong> Overlay version by selecting an Overlay base and it also has the option of applying a <strong>Bin Converter</strong>.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Substrate Map</strong> to be updated is Active in the system.</li> <li>The Overlay within the <strong>Substrate Map</strong> to be used as a base is of type <code>BinCodeMap</code>.</li> </ul> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction. </p> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The <strong>Create Overlay</strong> wizard can be called from the <strong>Substrate Map</strong> page within the Business Data Group. In <strong>Views</strong>, select <strong>Content</strong>, select an Overlay of type <code>BinCodeMap</code>, and then select the <strong>Create Overlay</strong> button on the top ribbon:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_substrate_map_01b.png"><img alt="Screenshot showing a Substrate Map page with the Create Overlay wizard open, selecting an Overlay of type BinCodeM." src="../images/create_substrate_map_01b.png"/></a></p> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li> <p>Configure the optional settings for the new Overlay:</p> <ul> <li> <p><strong>Synchronize Quantity</strong> - enables synchronization of the <strong>Substrate Map</strong> with the <strong>Material</strong> quantity. For more information, see <a href="../../material/set_material_substrate_map/">Set Material Substrate Map</a>. If enabled, <a href="./#step-2-synchronization">Step 2: Synchronization</a> will be available.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>You can define the default value for the Synchronize Quantity by editing the entry Context = <code>SubstrateMap.CreateMapOverlay</code> for the Element = <code>Synchronize</code> in the <a href="../../../administration/tables/generic-tables/guielementdefaultvalue/">GUIElementDefaultValue</a> Generic Table.</p> </div> </li> <li> <p><strong>Copy Overlay Information</strong> - if enabled, the Substrate Map Overlay Information from the original <strong>Substrate Map</strong> are copied into the newly created Overlay. For more information, see <a href="../manage_substrate_map_overlay_information/">Manage Substrate Map Overlay Information</a>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>You can define the default value for the Copy Overlay Information by editing the entry Context = <code>SubstrateMap.CreateMapOverlay</code> for the Element = <code>CopyOverlayInformation</code> in the <a href="../../../administration/tables/generic-tables/guielementdefaultvalue/">GUIElementDefaultValue</a> Generic Table.</p> </div> </li> <li> <p><strong>Set Overlay as Active</strong> - if enabled, the newly created Overlay will become the active version. When an Overlay is marked as Active, the system visually identifies it by displaying a <span class="twemoji green-icon small-icon"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg></span> next to the corresponding version.</p> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/set_overlay_as_active.png"><img alt="Create substrate map overlay" src="../images/set_overlay_as_active.png"/></a></p> </li> <li> <p>Select a <strong>Bin Converter</strong> to be applied. You can select:</p> <ul> <li>The <strong>Substrate Map</strong> default <strong>Bin Converter</strong> (if any).</li> <li>Any of the <strong>Substrate Map</strong> Overlay <strong>Bin Converter</strong>.</li> <li>Any <strong>Bin Converter</strong>.</li> </ul> </li> <li> <p>You can create a new:</p> <ul> <li><strong>Version for Current Map Name</strong> - creates a new version for the currently selected Map Name.</li> <li><strong>Version for Another Map Name</strong> - creates a new version based on an existing Map Name. This option is available only if other Overlays of type <code>BinCodeMap</code> exist. In this case, select the Overlay that will serve as the source.</li> <li> <p><strong>New Map Name</strong> - creates a new Map Name with version 1. When selecting this option, you must provide the following information:</p> <ul> <li><strong>Overlay</strong> - select the Overlay that will be associated with the new Map Name.</li> <li><strong>Facility</strong> - optionally, associate a <strong>Facility</strong>.</li> <li><strong>Step</strong> - optionally, associate a <strong>Step</strong>.</li> <li><strong>Resource</strong> - optionally, associate a <strong>Resource</strong>.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Regardless of whether the Copy Overlay Information option is enabled, if the Step and the Resource were defined in previous versions and are left empty when creating a new Map Name, the system automatically inherits the most recently defined values.</p> </div> </li> </ul> <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><input id="__tabbed_1_3" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Version for Current Map Name</label><label for="__tabbed_1_2">Version for Another Map Name</label><label for="__tabbed_1_3">New Map Name</label></div> <div class="tabbed-content"> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_substrate_map_overlay_current_name.png"><img alt="Create substrate map overlay" src="../images/create_substrate_map_overlay_current_name.png"/></a></p> </div> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_substrate_map_overlay_another_name.png"><img alt="Create substrate map overlay" src="../images/create_substrate_map_overlay_another_name.png"/></a></p> </div> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_substrate_map_overlay_new_name.png"><img alt="Create substrate map overlay" src="../images/create_substrate_map_overlay_new_name.png"/></a></p> </div> </div> </div> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Overlay will always be created under the Base Substrate Map.</p> </div> </li> <li> <p>Select <strong>Create</strong> to complete the operation.</p> </li> </ol> <h3 id="step-2-synchronization">Step 2: Synchronization<a class="headerlink" href="#step-2-synchronization" title="Direct link to this section">#</a></h3> <ol> <li> <p>If you want to synchronize the <strong>Substrate Map</strong> with the <strong>Material</strong>, enable Synchronize Quantity property. This option is available only if the operations described in <a href="../../material/set_material_substrate_map/">Set Material Substrate Map</a> and <a href="../../material/synchronize_material_substrate_map/">Synchronize Material with Substrate Map</a> have been previously performed.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_sub_map_overlay_03.png"><img alt='Screenshot showing a UI with options to enable synchronization, including "Synchronize Quantity" checkbox.' src="../images/create_sub_map_overlay_03.png"/></a></p> </li> <li> <p>Select <strong>Next</strong>.</p> </li> <li>Confirm the information on the screen.</li> <li> <p>Optionally, enter a Loss reason.</p> </li> <li> <p>Select <strong>Create</strong> to complete the operation.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_sub_map_overlay_04.png"><img alt='Screenshot showing a UI with an "Overlay" creation option.' src="../images/create_sub_map_overlay_04.png"/></a></p> </article>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Collection Limit Set - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../tags/#tag:data-collection">data collection</a> </nav> <h1 id="data-collection-limit-set">Data Collection Limit Set<a class="headerlink" href="#data-collection-limit-set" title="Direct link to this section">#</a></h1> <p>🔒 DataCollectionLimitSet.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>To promote reusability of <strong>Data Collections</strong> across different contexts where only the limits are different, the object <strong>Data Collection Limit Set</strong> is used. The <strong>Data Collection Limit Set</strong> defines warning and error limits to be applied for a given <strong>Data Collection</strong> at a given <strong>Step</strong> context.</p> <p>The <strong>Data Collection Limit Set</strong> can also be used to override the default parameter range validation.</p> <p>The <strong>Data Collection Limit Set</strong> is a change controlled object. A <strong>Data Collection Limit Set</strong> is linked to a particular <strong>Data Collection</strong> and can be copied to other <strong>Data Collections</strong>.</p> <p>Within a <strong>Data Collection Limit Set</strong>, there is a set of <strong>Data Collection Parameter Limits</strong>. Each <strong>Data Collection Parameter Limit</strong> defines optionally a target, and warning and error specification limits. It is also possible to specify in the <strong>Data Collection</strong> a <strong>Protocol</strong> to be opened whenever the warning and error limits are exceeded. In the eventuality that the error limit is exceeded and it has a <strong>Protocol</strong> associated with it, the warning <strong>Protocol</strong> (if any) is not opened.</p> <p>For long-running <strong>Data Collection Instances</strong>, limit evaluation depends on two settings configured in the related <strong>Data Collection</strong>:</p> <ul> <li><strong>Data Collection - On Post</strong>: limits are evaluated every time data is posted.</li> <li><strong>Data Collection - On Close</strong>: limits are evaluated only when the instance is closed.</li> <li><strong>Data Collection Parameter - Individual Value</strong>: limits are checked against individual values.</li> <li><strong>Data Collection Parameter - Calculated Value</strong>: limits are checked against the calculated value defined by the parameter calculation and grouping mode.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Data Collection Limit Sets only apply to numeric parameters.</p> </div> <h2 id="global-and-versioned-data">Global and Versioned Data<a class="headerlink" href="#global-and-versioned-data" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph TD
+subgraph Data Collection Limit Set
+Main1["Global Data&lt;br&gt;(Without Change Control)"] --- O1[None]
+Main2["Versioned Data&lt;br&gt;(With Change Control)"] --- A2[All other]
+end
+
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Main1,Main2 mermaid_entity
+class A1,A2 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class O1 mermaid_optional</code></pre> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph TD
+    L1[Data Collection] === Main[Data Collection Limit Set]
+    L2[Data Collection Instance] --- L1
+    L2 --- A2[Maintenance Activity Order]
+    A1[Material] --- L2
+    Main === L3[Data Collection Limit Set Parameter]
+    L3 --- A4[Parameter]
+    Main --- A3
+    L1 --- A3[Maintenance Activity]
+    C1[Material Data Collection Context] -.- Main
+    C2[Resource Data Collection Context] -.- Main
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6,L7,L8,L9 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click L1 "../../business-data/data-collection"
+click L2 "../../business-data/data-collection/data-collection-instance"
+click A1 "../../business-data/material"
+click A2 "../../business-data/maintenance-activity-order"
+click A3 "../../business-data/maintenance-plan"
+click A4 "../../business-data/parameter"
+click C1 "../../administration/tables/smart-tables/materialdatacollectioncontext"
+click C2 "../../administration/tables/smart-tables/resourcedatacollectioncontext"</code></pre> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly using a <strong>Data Collection Limit Set</strong> are the following:</p> <ol> <li>Create a <strong>Data Collection</strong>.</li> <li>Create the <strong>Data Collection Limit Set</strong>.</li> <li>Manage the <strong>Step Data Collection Context</strong>.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For convenience, the Document can be configured to use implicit Change Sets. For more information, see <a href="../change-set/">Change Set</a>.</p> </div> <p>For more information, see the <a href="../../../tutorials/modules/data-collection/">Data Collection</a> tutorial.</p> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Data Collection Limit Set:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="data_collection_limit_set_page/">Data Collection Limit Set Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="create_data_collection_limit_set/">Create Data Collection Limit Set</a></li> <li><a href="edit_data_collection_limit_set/">Edit Data Collection Limit Set</a></li> <li><a href="terminate_data_collection_limit_set/">Terminate Data Collection Limit Set</a></li> <li><a href="unterminate_data_collection_limit_set/">Unterminate Data Collection Limit Set</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="copy_data_collection_limit_sets/">Copy Data Collection Limit Sets</a></li> <li><a href="manage_data_collection_limit_set_parameters/">Manage Data Collection Limit Set Parameters</a></li> </ul> </article>
+</body>
+</html>

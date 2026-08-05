@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Set Resource Recipe - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="set-resource-recipe">Set Resource Recipe<a class="headerlink" href="#set-resource-recipe" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>SetRecipe</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to manually set the current <strong>Recipe</strong> for a given <strong>Resource</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Resource</strong> exists and is Active.</li> <li>The <strong>Resource</strong> Is Recipe Management Enabled is set to <code>true</code>.</li> <li>The <strong>Recipe</strong> to be set is Effective, Is Enabled and Is Executable.</li> <li>The <strong>Resource</strong> Current Recipe Version is either empty or <code>null</code>; if it is not not empty or <code>null</code> the Current Recipe Version Source is the User.</li> <li>If the TopMost <strong>Resource</strong> Is Multilane Active is set to <code>true</code>, the <strong>Resource</strong> Lane Count &gt; 0, and the Lane Recipe Mode is Per Lane, you must specify the <strong>Resource</strong> Lane.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The <strong>Set Resource Recipe</strong> wizard can be called from the <strong>Resource</strong> page within the Business Data Group.</p> <ol> <li>Select the <strong>Set Recipe</strong> button on the top ribbon.</li> <li> <p>In the Options, specify Validate Recipe Context (defaults to <code>true</code> - must be validated). If set to <code>true</code>, you can select any <strong>Recipe</strong> from the system (this is useful for Experiment Management).</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This default configuration can be overridden by adding an entry to the Generic Table <code>GUIElementDefaultValue</code> - Context: Resource.SetRecipe; Element: ValidateRecipeContext BypassRecipeContextValidation; Value: False; Is Enabled: False.</p> </div> </li> <li> <p>If the Validate Recipe Context is set to <code>false</code>, you will be presented with a list of possible <strong>Recipes</strong> that you can set.</p> </li> <li>Select a Lane.</li> <li>Select the <strong>Recipe</strong>.</li> <li>Optionally enter a Comment.</li> <li> <p>Select <strong>Set</strong> to complete the operation.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/set_resource_recipe.png"><img alt='Screenshot showing a set resource selection menu with "SMES 2" highlighted as the selected option.' src="../images/set_resource_recipe.png"/></a></p> </li> </ol> <p>The configured information is then available in the <strong>Lanes</strong> section of the <strong>Resource</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/set_resource_recipe_lanes.png"><img alt="Screenshot showing a UI with cryptic characters and labels, illustrating the step of setting resources in a recipe." src="../images/set_resource_recipe_lanes.png"/></a></p> </article>
+</body>
+</html>

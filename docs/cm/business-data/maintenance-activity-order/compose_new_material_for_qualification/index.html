@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compose New Material for Qualification - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:maintenance">maintenance</a> </nav> <h1 id="compose-new-material-for-qualification">Compose New Material for Qualification<a class="headerlink" href="#compose-new-material-for-qualification" title="Direct link to this section">#</a></h1> <p>🔒 MaintenanceActivityOrder.<strong>ComposeNewMaterialForQualification</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to Compose a New Material to be assigned to the Qualification of a <strong>Maintenance Activity Order</strong> (<strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>).</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> exists and is Active.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Maintenance Type is set to Qualification.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Material Type Restriction Mode is set to Require Specific.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Execution State is Requested, Approved, Released, In Progress, or Waiting For Acceptance.</li> <li>There must be at least one <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> <strong>Qualification Check</strong> whose system state is neither Completed or Obsolete.</li> <li>The <strong>Material</strong> exists, is Active, and Non-Template.</li> <li>The <strong>Material</strong> is Top-Most and not in an Off-Flow (either Temporary Off-Flow or Rework).</li> <li>The <strong>Material</strong> Pick List Item Count must be empty.</li> <li>The <strong>Material</strong> In Transfer Order Item must be empty.</li> <li>If the <strong>Material</strong> is associated with a <strong>Resource</strong>, and the state of the <strong>Material</strong> is Consumable, Durable, Dispatched, In Process, or the property In Store is set to <code>true</code>, the <strong>Resource</strong> Inventory Locked must be <code>false</code>.</li> <li>The <strong>Material</strong> Is Approved property must not be set to <code>false</code>.</li> <li>The <strong>Material</strong> Expiration Date is <code>null</code>, or if defined, it must be in the future.</li> <li>The Source Material Floor Life must be valid. This condition is met if any of the following applies:<ul> <li>Floor Life Remaining Hours is <code>null</code>; or</li> <li>Floor Life Remaining Hours is greater than <code>0</code> and the Floor Life Counter State is Stopped; or</li> <li>The Floor Life Counter State is Running, and the Floor Life Remaining Hours - calculated as <code>Floor Life Remaining Hours - (Now() - Floor Life Open Date)</code> - is greater than <code>0</code>.</li> </ul> </li> <li>The <strong>Material Product</strong> must not be blocked or if blocked, the <strong>Material</strong> property Override Product Block must be <code>true</code>.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Assignment Compose Map <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> is defined and the <strong>Product</strong> of the chosen Sub-Material at position 1 must match the <strong>Product</strong> of the <strong><abbr title="Bill-Of-Materials">BOM</abbr> Product</strong> in the same position.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Select a <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> that matches the preconditions above.</li> <li>Select the <strong>Compose New Material</strong> button on the top ribbon.</li> <li> <p>In the <strong>Compose New Material for Qualification</strong> wizard, provide the following information:</p> <ul> <li><strong>Name</strong> – unique identifier of the <strong>Material</strong>. May be automatically generated if a name generator is configured.</li> <li><strong>Description</strong> – optional free-text description providing additional context for the <strong>Material</strong>.</li> <li><strong>State Model</strong> – lifecycle model that defines the allowed states and transitions of the <strong>Material</strong>.</li> <li><strong>State</strong> – initial state of the <strong>Material</strong> within the selected state model.</li> <li><strong>Facility</strong> – Facility to which the <strong>Material</strong> is assigned.</li> <li><strong>Form</strong> – physical or logical form of the <strong>Material</strong>, selected from the <a href="../../../administration/tables/lookup-tables/materialform/">MaterialForm</a> Lookup Table.</li> <li><strong>Flow and Step</strong> – production Flow and Step associated with the <strong>Material</strong>, used for routing and processing.</li> <li><strong>Primary Quantity</strong> – main quantity of the <strong>Material</strong>, expressed in the primary unit of measure.</li> <li><strong>Expiration Date</strong> – date after which the <strong>Material</strong> can no longer be used as a consumable.</li> <li><strong>Manufacturer</strong> – name of the <strong>Material</strong> manufacturer.</li> <li><strong>Supplier</strong> – supplier from which the <strong>Material</strong> was procured.</li> <li><strong>Manufacturer Part Number</strong> – manufacturer-defined part number associated with the <strong>Material</strong>.</li> <li><strong>Manufacturer Lot Number</strong> – manufacturer lot or batch identifier.</li> <li><strong>Manufacturer Date Code</strong> – date code provided by the manufacturer, typically indicating the production date.</li> <li><strong>Purchase Order Number</strong> – purchase order reference associated with the <strong>Material</strong>.</li> <li><strong>RoHS Compliant</strong> – indicates whether the <strong>Material</strong> complies with the restriction of hazardous substances (RoHS) directive.</li> <li><strong>Moisture Sensitivity Level</strong> – classification of the <strong>Material</strong> sensitivity to moisture exposure.</li> <li><strong>Floor Life Remaining Hours</strong> – remaining usable floor life of the <strong>Material</strong>, expressed in hours.</li> <li><strong>Priority</strong> – scheduling priority of the <strong>Material</strong>, from 1 (lowest) to 10 (highest).</li> <li><strong>Splits Allowed</strong> – indicates whether the <strong>Material</strong> can be split into multiple materials.</li> <li><strong>Merges Allowed</strong> – indicates whether the <strong>Material</strong> can be merged with other materials.</li> <li><strong>Hot</strong> – identifies the <strong>Material</strong> as a hot lot, giving it highest priority in dispatching and scheduling.</li> <li><strong>Exclude From Scheduling</strong> – indicates whether the <strong>Material</strong> is excluded from scheduling operations.</li> <li><strong>Production Order</strong> – production order associated with the <strong>Material</strong>.</li> <li><strong>Order Nr</strong> – free-text order reference for external or customer-specific tracking.</li> <li><strong>Possible Start Date</strong> – earliest date on which the <strong>Material</strong> can be considered for scheduling.</li> <li><strong>Due Date</strong> – target completion date for the <strong>Material</strong>, used for scheduling purposes.</li> <li><strong>Target Material Quantity</strong> – planned target quantity for the <strong>Material</strong>. Must be greater than zero.</li> <li><strong>Target Material Units</strong> – unit of measure associated with the target material quantity.</li> <li><strong>Capacity Class</strong> – capacity classification of the <strong>Material</strong>, using the values on the <a href="../../../administration/tables/lookup-tables/capacityclass/">CapacityClass</a> Lookup Table.</li> </ul> <div class="admonition info"> <p class="admonition-title">Recommended Reading</p> <p>For more information about these properties, see <a href="../../material/create_material/#step-1-general">Create Material</a>.</p> </div> </li> <li> <p>Optionally, enter a comment.</p> </li> <li>Select <strong>Next</strong> to continue.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_new_material_qualification_general_data.png"><img alt="Screenshot of the Compose New Material for Qualification wizard where the user can enter the general data of the new material" src="../images/compose_new_material_qualification_general_data.png"/></a></p> <h3 id="step-2-compose-information">Step 2: Compose Information<a class="headerlink" href="#step-2-compose-information" title="Direct link to this section">#</a></h3> <ol> <li>Select the Compose <abbr title="Bill-Of-Materials">BOM</abbr> Mode: Full or Partial.</li> <li>Select the Target <strong>Container</strong>.</li> <li> <p>Select the Materials' Form.</p> <div class="admonition info"> <p class="admonition-title">Recommended Reading</p> <p>For more information about these properties and their associated preconditions, see <a href="../../material/compose_material_submaterials/">Compose Material (Sub-Materials)</a>.</p> </div> </li> <li> <p>Enable or disable the Assign to Qualification flag. This option is available only when the Compose <abbr title="Bill-Of-Materials">BOM</abbr> Mode is set to Full and is enabled by default.</p> </li> <li>Select <strong>Next</strong> to proceed.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_new_material_qualification_compose_information.png"><img alt="Screenshot of the Compose New Material for Qualification wizard where the user can enter the compose information for the new material" src="../images/compose_new_material_qualification_compose_information.png"/></a></p> <h3 id="step-3-source-materials">Step 3: Source Materials<a class="headerlink" href="#step-3-source-materials" title="Direct link to this section">#</a></h3> <ol> <li>Add as many Source <strong>Materials</strong> as needed by selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> icon. Only Source <strong>Materials</strong> with a compatible form for the selected Sub-Materials Form will be shown (based on the <a href="../../../administration/tables/generic-tables/materialformrelation/">MaterialFormRelation</a> Generic Table). You can also remove <strong>Materials</strong> by selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> icon and filter <strong>Materials</strong> by selecting the <span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M450,50v50L300,275v100l-100,75V275L50,100V50H450z"></path> </svg> </span> icon.</li> <li>Select <strong>Next</strong> to continue.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_new_material_qualification_source_materials.png"><img alt="Screenshot of the Compose New Material for Qualification wizard where the user can select the source materials that will be used to compose a new material" src="../images/compose_new_material_qualification_source_materials.png"/></a></p> <h3 id="step-4-sub-materials-transfer">Step 4: Sub-Materials Transfer<a class="headerlink" href="#step-4-sub-materials-transfer" title="Direct link to this section">#</a></h3> <ol> <li>Add each Sub-Material in a designated position within the <strong>Container</strong>, as determined by the <strong><abbr title="Bill-Of-Materials">BOM</abbr> Items Products</strong>. For highlighted positions in the Target <strong>Container</strong>, select compatible <strong>Materials</strong> based on the <strong><abbr title="Bill-Of-Materials">BOM</abbr>-defined Products</strong>.</li> <li>Select <strong>Create</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/compose_new_material_qualification_submaterials_transfer.png"><img alt="Screenshot of the Compose New Material for Qualification wizard where the user can select the sub-materials that will be transferred" src="../images/compose_new_material_qualification_submaterials_transfer.png"/></a></p> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Special Insert Material into Line - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:unit-tracking">unit tracking</a> </nav> <h1 id="special-insert-material-into-line">Special Insert Material into Line<a class="headerlink" href="#special-insert-material-into-line" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>InsertIntoLine</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to insert a <strong>Material</strong> into a parent <strong>Material</strong> that is tracked-in (in process) at a Line, allowing the user to select the specific Line <strong>Step</strong> where the <strong>Material</strong> will be inserted. As a naming convention, the Material to be inserted is called Child Material and the Material where the Material will be inserted is called Parent Material.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li> <p>Both the Parent Material and Child Material:</p> <ul> <li>Are TopMost, Active and Non-Template</li> <li>Are not on Hold or Stored</li> <li>Do not have a <em>FutureAction</em> set</li> <li>Are not a part of a <strong>Pick List</strong> or a <strong>Transfer Order</strong></li> <li>Must be in a Line <strong>Step</strong></li> <li>The <em>TargetQuantity</em> must be null</li> <li>Have the same <strong>Facility</strong>, <strong>Step</strong>, <strong>Flow</strong>, <em>Flow Path</em></li> <li>Have the same <em>PrimaryUnits</em> and <em>SecondaryUnits</em></li> </ul> </li> <li> <p>Regarding the Child <strong>Material</strong>:</p> <ul> <li>It's in state <em>Queued</em></li> <li>It's <em>Dispatchable</em></li> <li>If the <em>PendingReworkReturn</em> property is true, the Child <strong>Material</strong> can only be inserted via Special Insert Material Into Line and it must be inserted into the LineReworkStep in a <strong>Material</strong> that has the same LineReworkReturnFlowVersion. Note by design at this time, the Resource is not being enforced.</li> </ul> </li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Because this is a more restricted and lightweight operation, there are some checks that are not performed by design (e.g.: certifications, maintenance, product blocks, time-constraints, material dependencies).</p> </div> <ul> <li>Regarding the Parent <strong>Material</strong>:<ul> <li>It's in state <em>InProcess</em></li> <li>If the Parent <strong>Material</strong> has an <strong>Experiment</strong>, the Child <strong>Material</strong> must have the same <strong>Experiment</strong> property defined.</li> </ul> </li> <li>Regarding the <strong>Resource</strong> current processing the Parent <strong>Material</strong>:<ul> <li>Must be TopMost and of processing type Line</li> <li>Must be Active and Non-Template</li> <li>Must have the System State Up</li> <li>The Inventory Locked must be false</li> <li>The <strong>Resource</strong> <em>Enable SubTrackin</em> property must be true</li> <li>If the Child <strong>Material</strong> <em>RequiredResource</em> is set, the Parent <strong>Material</strong> <strong>Resource</strong> must be equal to that Required <strong>Resource</strong></li> </ul> </li> <li>Regarding the destination Flow Path where the Child <strong>Material</strong> will be inserted:<ul> <li>In the Parent <strong>Material</strong> structure <strong>Material</strong> Line <strong>Steps</strong>, there must be a valid active <strong>Material</strong> Line <strong>Step</strong> with a reference to that Flow Path</li> <li>The relationship Parent Material Form to Child Material Form must be defined in the <em>MaterialForm</em> table</li> </ul> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>Select a Child <strong>Material</strong> matching the pre-conditions outlined above. Select <em>Insert Material Into Line</em> from the top ribbon.</li> <li>Select a <strong>Resource</strong> matching the pre-conditions outlined above.</li> <li>Select a Parent <strong>Material</strong> currently in state <em>InProcess</em> at the <strong>Resource</strong> where the Child <strong>Material</strong> will be inserted.</li> <li> <p>Select in which Line <strong>Step</strong> to insert the ChildMaterial.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If the <code>PendingLineReworkReturn</code> property is not set, the default value is the one with <code>IsFirstStep</code> set to <code>true</code>. In alternative, if <code>PendingLineReworkReturn</code> is <code>true</code>, the default is the value of the <code>LineReworkReturnFlowPath</code> property if it is set; otherwise, the default is the <code>LineReworkReturnStep</code>.</p> </div> </li> <li> <p>Review the information and select <strong>Insert</strong> to complete the transaction.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/special_insert_material_into_line.png"><img alt='Screenshot showing a UI element labeled "Insert" in a dialog box related to inserting special materials.' src="../images/special_insert_material_into_line.png"/></a></p> </li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see the <a href="../../../../tutorials/modules/materials-and-containers/linematerialtracking/">Line Material Tracking</a> tutorial.</p> </div> </article>
+</body>
+</html>

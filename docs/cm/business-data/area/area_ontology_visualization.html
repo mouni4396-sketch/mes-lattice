@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Ontology & Semantic Diagram - Critical Manufacturing MES</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Vis.js Local for Network Graphs -->
+    <script type="text/javascript" src="vis-network.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #080b11;
+            --bg-secondary: #0e131f;
+            --card-bg: rgba(18, 26, 47, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            
+            /* Class & Relationship colors */
+            --color-core: #8b5cf6;       /* Violet */
+            --color-subclass: #a78bfa;   /* Light Purple */
+            --color-related: #10b981;    /* Emerald Green */
+            --color-operation: #f97316;  /* Orange */
+            
+            --accent-blue: #3b82f6;
+            --shadow-neon: 0 0 25px rgba(139, 92, 246, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.07) 0px, transparent 50%);
+        }
+
+        header {
+            padding: 1.25rem 2.5rem;
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(8, 11, 17, 0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .brand h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .method-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .method-btn:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: var(--color-core);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            flex-grow: 1;
+            height: calc(100vh - 78px);
+            min-height: 0;
+            position: relative;
+        }
+
+        /* Network Visualizer Container */
+        #networkContainer {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(8, 11, 17, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Graph Controls and Legends Overlay */
+        .overlay-panel {
+            position: absolute;
+            left: 2rem;
+            bottom: 2rem;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            pointer-events: none;
+        }
+
+        .legend-card, .controls-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+        }
+
+        .legend-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+
+        /* Side Inspector Panel */
+        .inspector-panel {
+            border-left: 1px solid var(--card-border);
+            background: rgba(14, 19, 31, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
+            z-index: 5;
+        }
+
+        .inspector-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 1rem;
+        }
+
+        .node-type-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            width: fit-content;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .badge-core { background: rgba(139, 92, 246, 0.15); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .badge-subclass { background: rgba(167, 139, 250, 0.15); color: #ddd6fe; border: 1px solid rgba(167, 139, 250, 0.3); }
+        .badge-related { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-operation { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+
+        .node-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: white;
+            margin-top: 0.5rem;
+        }
+
+        .node-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.35rem;
+        }
+
+        .prop-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .prop-name {
+            font-weight: 600;
+            color: white;
+        }
+
+        .prop-val {
+            color: var(--text-secondary);
+        }
+
+        /* Operations/Actions section details */
+        .op-meta-card {
+            background: rgba(249, 115, 22, 0.05);
+            border: 1px solid rgba(249, 115, 22, 0.15);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .op-lock {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.8rem;
+            color: #fb923c;
+            font-weight: 600;
+        }
+
+        /* Modals / Documentation slideover */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 1rem;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .method-step {
+            display: flex;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--color-core);
+        }
+
+        .step-num {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--color-core);
+        }
+
+        .step-body h4 {
+            font-family: 'Outfit', sans-serif;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-body p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Responsive Layout Updates */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 500px auto;
+                height: auto;
+                overflow-y: auto;
+            }
+            body {
+                overflow: auto;
+            }
+            .inspector-panel {
+                border-left: none;
+                border-top: 1px solid var(--card-border);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <h1>Area Ontology & Relations</h1>
+            <p>Critical Manufacturing MES Domain Schema Model</p>
+        </div>
+        <button class="method-btn" onclick="openModal()">View Ontology Method</button>
+    </header>
+
+    <div class="main-container">
+        <!-- Node Diagram Map -->
+        <div id="networkContainer">
+            <div class="overlay-panel">
+                <div class="legend-card">
+                    <h3 class="legend-title">Entity / Node Types</h3>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--color-core); box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);"></div>
+                            <span>Core Entity Class</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--color-subclass); box-shadow: 0 0 10px rgba(167, 139, 250, 0.4);"></div>
+                            <span>Entity Subclass / Type</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--color-related); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);"></div>
+                            <span>Related Domain Class</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--color-operation); box-shadow: 0 0 10px rgba(249, 115, 22, 0.4);"></div>
+                            <span>Entity Transaction (Op)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Semantic Inspector Panel -->
+        <div class="inspector-panel" id="inspector">
+            <!-- JavaScript populated -->
+        </div>
+    </div>
+
+    <!-- Ontology Method Modal -->
+    <div class="modal" id="methodModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="font-family: 'Outfit', sans-serif;">Ontology Extraction Methodology</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                This method defines a systematic structure to ingest documentation guides from the Critical Manufacturing MES and automatically generate formal, semantic RDF/OWL ontology graphs.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div class="method-step">
+                    <span class="step-num">01</span>
+                    <div class="step-body">
+                        <h4>Class & Subclass Ingestion</h4>
+                        <p>Scan overview sentences to extract semantic structures. Direct definitions ("An X is a logical grouping of Y") identify class instances. Sub-options ("Area types: Production Line, Storage Area") establish hierarchical <code>subClassOf</code> taxonomy relationships.</p>
+                    </div>
+                </div>
+                <div class="method-step">
+                    <span class="step-num">02</span>
+                    <div class="step-body">
+                        <h4>Object Property & Link Extraction</h4>
+                        <p>Map page sections and details components (e.g., Steps, Resources, Sub-Areas) as OWL Object Properties linking classes. For instance, mapping the "Steps" section from the Details View directly to a <code>groupsStep</code> object property connecting <code>class:Area</code> with <code>class:Step</code>.</p>
+                    </div>
+                </div>
+                <div class="method-step">
+                    <span class="step-num">03</span>
+                    <div class="step-body">
+                        <h4>Data Property Classification</h4>
+                        <p>Ingest wizard sequence fields (Name, Description, Cost Center, Distribution List) to define OWL Data Properties. These represent attributes belonging to classes, mapped to XML Schema datatypes (string, integer, boolean).</p>
+                    </div>
+                </div>
+                <div class="method-step">
+                    <span class="step-num">04</span>
+                    <div class="step-body">
+                        <h4>Transactional Operation Ingestion</h4>
+                        <p>Ingest operation pages as system Transactions (subclasses of <code>class:Operation</code>). For each operation, parse security permissions (<code>🔒</code>), state preconditions, and setup variables, linking them back to target classes via <code>hasTargetClass</code> or <code>modifies</code> properties.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ontology Data Model (RDF/OWL JSON Schema)
+        const ontologyData = {
+            classes: {
+                "Area": {
+                    type: "core_class",
+                    title: "Area",
+                    description: "An Area is a logical grouping of Steps and Resources which may have a corresponding physical location. An Area always belongs to a Facility and serves as the anchor connecting manufacturing routes (Steps) with physical equipment (Resources).",
+                    properties: [
+                        { name: "Name", value: "String (Unique identifier, configured via Name Generator)" },
+                        { name: "Description", value: "String (Optional description of the area)" },
+                        { name: "AreaType", value: "Lookup Table Value (AreaTypeLookup)" },
+                        { name: "DisplayOrder", value: "Integer (Controls position in fabExplorer UI)" }
+                    ],
+                    associations: [
+                        { property: "belongsTo", target: "Facility", description: "Every Area must map to exactly one Facility" },
+                        { property: "hasCalendar", target: "Calendar", description: "Links shift schedules and calendars to the Area context" },
+                        { property: "hasSchedule", target: "Schedule", description: "Optional dispatching/scheduling configuration links" },
+                        { property: "groupsStep", target: "Step", description: "Manufacturing steps/routes configured under the Area" },
+                        { property: "groupsResource", target: "Resource", description: "Machine tools, operators, and equipment physically in the Area" }
+                    ]
+                },
+                "ProductionLine": {
+                    type: "subclass",
+                    title: "Production Line",
+                    description: "A specialized type of Area representing a sequence of production steps. Inherits all basic properties of Area but adds production-specific properties.",
+                    properties: [
+                        { name: "FlowPath", value: "Step (Default flow path step to use when receiving material)" },
+                        { name: "Incoming Picking Place", value: "String (Optional picking location definition)" },
+                        { name: "Outgoing Picking Place", value: "String (Optional picking location definition)" }
+                    ],
+                    associations: [
+                        { property: "subClassOf", target: "Area", description: "Inherits all properties and behaviors of the Area parent class" }
+                    ]
+                },
+                "StorageArea": {
+                    type: "subclass",
+                    title: "Storage Area",
+                    description: "A specialized type of Area designed for inventory management, buffer areas, or raw material storage.",
+                    properties: [
+                        { name: "IsExternalStorageArea", value: "Boolean (Indicates third party or off-site location)" },
+                        { name: "PickingStrategy", value: "SortRuleSet Link (Default logic used for material picking)" },
+                        { name: "PickingSequence", value: "SortRuleSet Link (Default order/sequence for material picking)" }
+                    ],
+                    associations: [
+                        { property: "subClassOf", target: "Area", description: "Inherits basic Area taxonomy properties" },
+                        { property: "hasSupplyArea", target: "Area", description: "Linked supply locations configured for storage replenishment" },
+                        { property: "hasTransferRequirementType", target: "TransferRequirementType", description: "Material transfer configurations and transaction rules" }
+                    ]
+                },
+                "Facility": { type: "related", title: "Facility", description: "A high-level physical or logical location that contains Areas, representing a factory, site, or building." },
+                "Calendar": { type: "related", title: "Calendar", description: "Entity used to define working shifts, non-working times, and clock constraints." },
+                "Schedule": { type: "related", title: "Schedule", description: "Specifies dispatching rules and planning priorities for material scheduling." },
+                "Step": { type: "related", title: "Step", description: "Processes or operation steps defined on routing maps that materials undergo." },
+                "Resource": { type: "related", title: "Resource", description: "Physical tools, equipment, processing chambers, or technicians executing tasks." },
+                "ShiftLogbook": { type: "related", title: "Shift Logbook", description: "System log that tracks shift progress, operator notes, sign-offs, and critical exceptions." },
+                "Attribute": { type: "related", title: "Attribute", description: "User-defined custom properties associated with the Area for reporting and custom logic." },
+                "Attachment": { type: "related", title: "Attachment", description: "File links, manuals, or checklist PDFs uploaded and attached to the Area entity." },
+                "TransferRequirementType": { type: "related", title: "Transfer Requirement Type", description: "System configuration mapping which source/destination links require auto-release or pick verification." },
+                "MaintenanceActivity": { type: "related", title: "Maintenance Activity", description: "PM schedules, tool qualifications, or cleanup protocols associated with the Area." }
+            },
+            operations: {
+                "CreateArea": {
+                    type: "operation",
+                    title: "Create Area",
+                    description: "Instantiates a new Area object in the MES database, optionally utilizing a template definition.",
+                    security: ["Area.Create", "Area.CreateTemplate", "Area.CreateFromTemplate"],
+                    preconditions: ["The Area Name does not currently exist in the system."],
+                    steps: [
+                        "Input Name, Description, Facility, and Area Type.",
+                        "Select Parent Area if configuring a child Area.",
+                        "Setup additional attributes (Calendar, Scheduling groups, or flow paths depending on selected Type)."
+                    ]
+                },
+                "CloneArea": {
+                    type: "operation",
+                    title: "Clone Area",
+                    description: "Duplicates an existing Area structure into one or multiple new Areas, inheriting all configurations except name.",
+                    security: ["Area.Clone"],
+                    preconditions: ["The base Area exists in the system."],
+                    steps: [
+                        "Identify base Area to replicate.",
+                        "Provide names for new instances or configure Name Generators.",
+                        "Trigger clone operation to build new database records."
+                    ]
+                },
+                "EditArea": {
+                    type: "operation",
+                    title: "Edit Area",
+                    description: "Modifies properties and settings on an existing Area database record.",
+                    security: ["Area.Edit"],
+                    preconditions: ["The Area exists in the system."],
+                    steps: [
+                        "Open the Area in Edit mode.",
+                        "Modify parameters (Name property is disabled).",
+                        "Save to apply modifications."
+                    ]
+                },
+                "TerminateArea": {
+                    type: "operation",
+                    title: "Terminate Area",
+                    description: "Deactivates the Area and flag-deletes it. References in generic tables are removed.",
+                    security: ["Area.Terminate"],
+                    preconditions: ["The Area exists in the system and is in Active or Created state."],
+                    steps: [
+                        "Trigger Terminate operation.",
+                        "Confirm warnings regarding table reference removals."
+                    ]
+                },
+                "UnterminateArea": {
+                    type: "operation",
+                    title: "Unterminate Area",
+                    description: "Restores a terminated Area to active status.",
+                    security: ["Area.Unterminate"],
+                    preconditions: ["The Area exists in the system and is in Terminated state."],
+                    steps: [
+                        "Locate terminated Area.",
+                        "Select Unterminate operation."
+                    ]
+                },
+                "ManageSupplyAreas": {
+                    type: "operation",
+                    title: "Manage Supply Areas",
+                    description: "Maps replenishment source Areas to the current Storage Area or Production Line.",
+                    security: ["Area.Edit"],
+                    preconditions: ["The Area exists.", "The Area type is Production Line or Storage Area."],
+                    steps: [
+                        "Access the Supply Areas section on the Area details view.",
+                        "Add/remove supply Area rows.",
+                        "Save connections."
+                    ]
+                },
+                "ManageTransferRequirementTypes": {
+                    type: "operation",
+                    title: "Manage TR Types",
+                    description: "Configures logistics transfer actions, auto-picking, auto-release, and picking sequences.",
+                    security: ["Area.Edit"],
+                    preconditions: ["The Area exists.", "The Area type is Storage Area."],
+                    steps: [
+                        "Access Transfer Requirement Types section.",
+                        "Define parameters (Auto-release, Auto-picking, Floor life list rules).",
+                        "Update and save settings."
+                    ]
+                },
+                "ViewAreaDashboards": {
+                    type: "operation",
+                    title: "View Dashboards",
+                    description: "Queries manufacturing execution statistics and plots dashboards using the Grafana portal widget.",
+                    security: ["None (Basic Show access required)"],
+                    preconditions: ["Area exists and is Active.", "Grafana system config widget URL exists."],
+                    steps: [
+                        "Click View Dashboards in ribbon.",
+                        "Select desired dashboard profile (e.g. Maintenance KPIs)."
+                    ]
+                }
+            }
+        };
+
+        // Vis.js Network Renderer
+        let network = null;
+
+        function initNetwork() {
+            const container = document.getElementById('networkContainer');
+            
+            // Build Vis.js Nodes
+            const nodes = [];
+            const edges = [];
+
+            // 1. Add Class Nodes
+            Object.keys(ontologyData.classes).forEach(id => {
+                const cls = ontologyData.classes[id];
+                let color = '#8b5cf6'; // default core class
+                let shadowColor = 'rgba(139, 92, 246, 0.4)';
+                let size = 25;
+
+                if (cls.type === 'subclass') {
+                    color = '#a78bfa';
+                    shadowColor = 'rgba(167, 139, 250, 0.3)';
+                    size = 20;
+                } else if (cls.type === 'related') {
+                    color = '#10b981';
+                    shadowColor = 'rgba(16, 185, 129, 0.3)';
+                    size = 18;
+                }
+
+                nodes.push({
+                    id: id,
+                    label: cls.title,
+                    shape: 'dot',
+                    size: size,
+                    color: {
+                        background: color,
+                        border: 'rgba(255, 255, 255, 0.8)',
+                        highlight: { background: color, border: '#ffffff' }
+                    },
+                    shadow: {
+                        enabled: true,
+                        color: shadowColor,
+                        size: 15,
+                        x: 0,
+                        y: 0
+                    },
+                    font: { color: '#ffffff', face: 'Plus Jakarta Sans', size: 12, strokeWidth: 0 }
+                });
+            });
+
+            // 2. Add Operation Nodes
+            Object.keys(ontologyData.operations).forEach(id => {
+                const op = ontologyData.operations[id];
+                nodes.push({
+                    id: id,
+                    label: op.title,
+                    shape: 'diamond',
+                    size: 16,
+                    color: {
+                        background: '#f97316',
+                        border: 'rgba(255, 255, 255, 0.8)',
+                        highlight: { background: '#f97316', border: '#ffffff' }
+                    },
+                    shadow: {
+                        enabled: true,
+                        color: 'rgba(249, 115, 22, 0.4)',
+                        size: 12,
+                        x: 0,
+                        y: 0
+                    },
+                    font: { color: '#ffffff', face: 'Plus Jakarta Sans', size: 11, strokeWidth: 0 }
+                });
+            });
+
+            // 3. Define Edges (Ontology Relationships)
+            // Core Taxonomic subclass hierarchy
+            edges.push({ from: 'ProductionLine', to: 'Area', label: 'subClassOf', color: { color: '#a78bfa' } });
+            edges.push({ from: 'StorageArea', to: 'Area', label: 'subClassOf', color: { color: '#a78bfa' } });
+
+            // Object Properties
+            edges.push({ from: 'Area', to: 'Facility', label: 'belongsTo', color: { color: '#10b981' } });
+            edges.push({ from: 'Area', to: 'Calendar', label: 'hasCalendar', color: { color: '#10b981' } });
+            edges.push({ from: 'Area', to: 'Schedule', label: 'hasSchedule (opt)', color: { color: '#10b981' }, dashes: true });
+            edges.push({ from: 'Area', to: 'Step', label: 'groupsStep', color: { color: '#10b981' } });
+            edges.push({ from: 'Area', to: 'Resource', label: 'groupsResource', color: { color: '#10b981' } });
+            edges.push({ from: 'Area', to: 'ShiftLogbook', label: 'hasShiftLogbook', color: { color: '#10b981' } });
+            edges.push({ from: 'Area', to: 'Attribute', label: 'hasAttribute', color: { color: '#10b981' } });
+            edges.push({ from: 'Area', to: 'Attachment', label: 'hasAttachment', color: { color: '#10b981' } });
+            edges.push({ from: 'Area', to: 'MaintenanceActivity', label: 'hasMaintenance', color: { color: '#10b981' } });
+            
+            // Subclass-specific associations
+            edges.push({ from: 'StorageArea', to: 'Area', label: 'hasSupplyArea', color: { color: '#10b981' } });
+            edges.push({ from: 'StorageArea', to: 'TransferRequirementType', label: 'hasTRType', color: { color: '#10b981' } });
+
+            // Operations mappings
+            edges.push({ from: 'CreateArea', to: 'Area', label: 'instantiates', color: { color: '#f97316' } });
+            edges.push({ from: 'CloneArea', to: 'Area', label: 'clones', color: { color: '#f97316' } });
+            edges.push({ from: 'EditArea', to: 'Area', label: 'modifies', color: { color: '#f97316' } });
+            edges.push({ from: 'TerminateArea', to: 'Area', label: 'transitionsState', color: { color: '#f97316' } });
+            edges.push({ from: 'UnterminateArea', to: 'Area', label: 'transitionsState', color: { color: '#f97316' } });
+            edges.push({ from: 'ManageSupplyAreas', to: 'StorageArea', label: 'modifies', color: { color: '#f97316' } });
+            edges.push({ from: 'ManageTransferRequirementTypes', to: 'StorageArea', label: 'modifies', color: { color: '#f97316' } });
+            edges.push({ from: 'ViewAreaDashboards', to: 'Area', label: 'queries', color: { color: '#f97316' } });
+
+            const data = {
+                nodes: new vis.DataSet(nodes),
+                edges: new vis.DataSet(edges)
+            };
+
+            const options = {
+                physics: {
+                    barnesHut: {
+                        gravitationalConstant: -3000,
+                        centralGravity: 0.15,
+                        springLength: 120,
+                        springConstant: 0.04
+                    },
+                    stabilization: { iterations: 150 }
+                },
+                edges: {
+                    arrows: { to: { enabled: true, scaleFactor: 0.8 } },
+                    font: {
+                        color: '#9ca3af',
+                        size: 9,
+                        face: 'Plus Jakarta Sans',
+                        strokeWidth: 2,
+                        strokeColor: '#080b11'
+                    },
+                    color: { color: '#374151', highlight: '#ffffff' }
+                },
+                interaction: {
+                    hover: true,
+                    dragNodes: true,
+                    zoomView: true,
+                    dragView: true
+                }
+            };
+
+            network = new vis.Network(container, data, options);
+
+            // Register Event Handlers
+            network.on("selectNode", function (params) {
+                const nodeId = params.nodes[0];
+                inspectNode(nodeId);
+            });
+
+            // Set default view on startup
+            inspectNode("Area");
+        }
+
+        function inspectNode(id) {
+            const panel = document.getElementById('inspector');
+            panel.innerHTML = '';
+
+            let node = ontologyData.classes[id];
+            let isOp = false;
+
+            if (!node) {
+                node = ontologyData.operations[id];
+                isOp = true;
+            }
+
+            if (!node) return;
+
+            // Generate header
+            const badgeClass = isOp ? 'badge-operation' : (node.type === 'core_class' ? 'badge-core' : (node.type === 'subclass' ? 'badge-subclass' : 'badge-related'));
+            const badgeText = isOp ? 'Transaction (Op)' : (node.type === 'core_class' ? 'Core Domain Class' : (node.type === 'subclass' ? 'Subclass Entity' : 'Domain Class'));
+            
+            let headerHTML = `
+                <div class="inspector-header">
+                    <span class="node-type-badge ${badgeClass}">${badgeText}</span>
+                    <h2 class="node-title">${node.title}</h2>
+                </div>
+                <p class="node-description">${node.description}</p>
+            `;
+
+            let bodyHTML = '';
+
+            if (isOp) {
+                // Operation Specifics
+                let lockHTML = '';
+                if (node.security && node.security.length > 0) {
+                    lockHTML = `
+                        <div class="info-section">
+                            <h3 class="section-title">Security Privilege</h3>
+                            <div class="op-meta-card">
+                                ${node.security.map(sec => `<div class="op-lock">🔑 <span>${sec}</span></div>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                let preconditionHTML = '';
+                if (node.preconditions && node.preconditions.length > 0) {
+                    preconditionHTML = `
+                        <div class="info-section">
+                            <h3 class="section-title">State Preconditions</h3>
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                                ${node.preconditions.map(pre => `<li style="background: rgba(239, 68, 68, 0.05); border-left: 3px solid #ef4444; padding: 0.5rem 0.75rem; border-radius: 4px;">${pre}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+
+                let stepsHTML = '';
+                if (node.steps && node.steps.length > 0) {
+                    stepsHTML = `
+                        <div class="info-section">
+                            <h3 class="section-title">Workflow Steps</h3>
+                            <ol style="margin-left: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem;">
+                                ${node.steps.map(step => `<li>${step}</li>`).join('')}
+                            </ol>
+                        </div>
+                    `;
+                }
+
+                bodyHTML = lockHTML + preconditionHTML + stepsHTML;
+            } else {
+                // Class Specifics
+                let propertiesHTML = '';
+                if (node.properties && node.properties.length > 0) {
+                    propertiesHTML = `
+                        <div class="info-section">
+                            <h3 class="section-title">Data Properties</h3>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                ${node.properties.map(prop => `
+                                    <div class="prop-item">
+                                        <span class="prop-name">${prop.name}</span>
+                                        <span class="prop-val">${prop.value}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                let associationsHTML = '';
+                if (node.associations && node.associations.length > 0) {
+                    associationsHTML = `
+                        <div class="info-section">
+                            <h3 class="section-title">Object Relationships</h3>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                ${node.associations.map(assoc => `
+                                    <div class="prop-item" style="border-left: 3px solid var(--accent-blue);">
+                                        <span class="prop-name">${assoc.property} ➔ <span style="color: var(--color-related);">${assoc.target}</span></span>
+                                        <span class="prop-val">${assoc.description}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                bodyHTML = propertiesHTML + associationsHTML;
+            }
+
+            panel.innerHTML = headerHTML + bodyHTML;
+        }
+
+        function openModal() {
+            document.getElementById('methodModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('methodModal').style.display = 'none';
+        }
+
+        window.onload = function() {
+            try {
+                if (typeof vis === 'undefined') {
+                    throw new Error("Vis.js library failed to load. Please verify that vis-network.min.js exists in the same directory.");
+                }
+                initNetwork();
+            } catch (err) {
+                console.error("Initialization Error:", err);
+                const container = document.getElementById('networkContainer');
+                container.innerHTML = `
+                    <div style="padding: 2.5rem; color: #f87171; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; margin: 2rem; font-family: 'Plus Jakarta Sans', sans-serif; backdrop-filter: blur(10px);">
+                        <h3 style="margin-bottom: 0.75rem; font-size: 1.15rem; font-weight: 600;">⚠️ Graph Visualization failed to load</h3>
+                        <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">${err.message}</p>
+                    </div>
+                `;
+            }
+            
+            // Close modal when clicking outside content
+            window.onclick = function(event) {
+                const modal = document.getElementById('methodModal');
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        };
+    </script>
+</body>
+</html>

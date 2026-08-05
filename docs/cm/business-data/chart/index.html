@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chart - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="chart">Chart<a class="headerlink" href="#chart" title="Direct link to this section">#</a></h1> <p>🔒 Chart.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Chart</strong> is an object that represents a Statistical Process Control (<abbr title="Statistical Process Control">SPC</abbr>) Chart.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p><abbr title="Statistical Process Control">SPC</abbr> is a Critical Manufacturing optional module.</p> </div> <p>A <strong>Chart</strong> has a Chart Type, and is associated with a numeric <strong>Parameter</strong>.</p> <p>A <strong>Chart</strong> can also have an associated set of <strong>Rules</strong> to check for violations and, in the case a violation is found, a <strong>Protocol Instance</strong> can also be opened automatically by the system. The system comes pre-configured with a set of <a href="spc-rules/"><abbr title="Statistical Process Control">SPC</abbr> Rules</a>, which can be extended by the user.</p> <p>To promote the re-usability of a single chart across different contexts (for instance across different <strong>Resources</strong>), each <strong>Chart</strong> is associated with a context information. The <strong>Chart</strong> Context Information defines the <strong>Chart</strong> keys (that uniquely identify a <strong>Chart</strong>) as well as the mandatory context, which needs to be collected when posting data to the <strong>Chart</strong>. Each unique combination of <strong>Chart</strong> keys makes up the Logical Chart within a <strong>Chart</strong>.</p> <p>A Data Point consists of a sample of data (which may contain many readings) and it is always associated with a <strong>Chart</strong> and a Logical Chart within a <strong>Chart</strong>.</p> <p>To allow the integration between <strong>Data Collection</strong> and <abbr title="Statistical Process Control">SPC</abbr>, two context resolution tables exist in the system:</p> <ul> <li><a href="../../administration/tables/smart-tables/stepchartcontext/">StepChartContext</a> - maintained at the <strong>Step</strong> level.</li> <li><a href="../../administration/tables/smart-tables/resourcechartcontext/">ResourceChartContext</a> - maintained at the <strong>Resource</strong> level.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The following tokens are exchanged between <abbr title="Engineering Data Collection">EDC</abbr> and <abbr title="Statistical Process Control">SPC</abbr>: Facility, Material, MaterialType, Step, Resource, ProcessResource, Product, ProductGroup, and Flow.</p> </div> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    A1[Parameter] --- Main[Chart]
+    A2[Maintenance Activity] --- Main
+    Main === L1[Logical Chart]
+    L1 === L6[Data Point]
+    L6 === L7[Data Point Context]
+    L6 === L8[Data Point Reading]
+    L8 === L9[Data Point Violation]
+    Main === L2[Chart Rule]
+    L2 === L4["Rule (SPC)"]
+    L2 === L5["Rule (SPC Action)"]
+    L2 --- A3[Protocol]
+    Main ==== L3[Chart Context Information]
+    C1[Resource Chart Context] -.- Main
+    C2[Step Chart Context] -.- Main
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6,L7,L8,L9 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/chart"
+click A1 "../../business-data/parameter"
+click A2 "../../business-data/maintenance-plan"
+click A3 "../../business-data/protocol"
+click A4 "../../business-data/flow"
+click C1 "../../administration/tables/smart-tables/resourcechartcontext"
+click C2 "../../administration/tables/smart-tables/stepchartcontext"</code></pre> <h2 id="data-points">Data Points<a class="headerlink" href="#data-points" title="Direct link to this section">#</a></h2> <p>All posts to a <strong>Chart</strong> consist of a Data Point. A Data Point represents a sample unit and may consist of several reading. A Data Point can be:</p> <ul> <li><strong>Active</strong> - by default, whenever a data point is posted.</li> <li><strong>Excluded</strong> - if the data point has been marked as excluded.</li> <li><strong>Edited</strong> - if it has been edited after being posted.</li> <li><strong>Removed</strong> - if the data point has been marked as removed. A removed data point still remains in the database.</li> </ul> <p>The <abbr title="Statistical Process Control">SPC</abbr> rules are only run when the data point is first posted. If the data point is edited or deleted afterwards, the <abbr title="Statistical Process Control">SPC</abbr> rules are not run again. The following table lists the different behavior of the <strong>Chart</strong> depending on the data point Status:</p> <table> <thead> <tr> <th>Data Point Status</th> <th>Visible in Chart</th> <th>Used for Histogram &amp; Statistics</th> <th>Considered in Rules</th> <th>Used in Control Limits Re-calculation</th> </tr> </thead> <tbody> <tr> <td>Active</td> <td>Yes</td> <td>Yes</td> <td>Yes</td> <td>Yes</td> </tr> <tr> <td>Removed</td> <td>No</td> <td>No</td> <td>No</td> <td>No</td> </tr> <tr> <td>Edited</td> <td>Yes</td> <td>Yes</td> <td>Yes</td> <td>Yes</td> </tr> <tr> <td>Excluded</td> <td>Yes</td> <td>No</td> <td>No</td> <td>No</td> </tr> </tbody> </table> <p>Table: Data Point Status</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Because some <abbr title="Statistical Process Control">SPC</abbr> indicators depend on multiple <abbr title="Statistical Process Control">SPC</abbr> chart data point which can use variable specification limits and centerlines, the system uses the configuration <code>/Cmf/System/Configuration/SPC/MultipleDataPointStatiscs/CalculationMode</code> to define how the different values are handled. Possible values are <strong>Average</strong> (takes an average of all chart data point values) or <strong>Last</strong> (uses the values from the last chart data point).</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p><abbr title="Statistical Process Control">SPC</abbr> charts data points are oly processed by the Data Warehouse aggregation procedure after the number of hours defined in <code>/Cmf System/Configuration/SPC/DataWarehouseAggregationDelay</code> has elapsed.</p> </div> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly using a <strong>Chart</strong> are the following:</p> <ol> <li>Create the <strong>Chart</strong>.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see the <a href="../../../tutorials/modules/statistical-process-control/spc/"><abbr title="Statistical Process Control">SPC</abbr></a> tutorial.</p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Chart:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="chart_page/">Chart Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_chart/">Clone Chart</a></li> <li><a href="create_chart/">Create Chart</a></li> <li><a href="edit_chart/">Edit Chart</a></li> <li><a href="terminate_chart/">Terminate Chart</a></li> <li><a href="unterminate_chart/">Unterminate Chart</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="enable_and_disable/">Enable and Disable</a></li> <li><a href="manage_chart_rules/">Manage Chart Rules</a></li> <li><a href="post_chart_data_point_aggregated/">Post Aggregated Data Points</a></li> <li><a href="post_chart_data_point/">Post Data Point to Chart</a></li> <li><a href="spc_indicators_formulas/"><abbr title="Statistical Process Control">SPC</abbr> Indicators Formulas</a></li> <li><a href="chart-types/">Chart Types</a><ul> <li><a href="chart-types/average_and_range/">Average and Range (Xbar R)</a></li> <li><a href="chart-types/average_and_standard_deviation/">Average and Standard Deviation (Xbar s)</a></li> <li><a href="chart-types/control_chart_constants/">Control Chart Constants</a></li> <li><a href="chart-types/fraction_defective/">Fraction Defective (p)</a></li> <li><a href="chart-types/individuals_and_moving_range/">Individuals And Moving Range (X Rm)</a></li> <li><a href="chart-types/median_and_range/">Median and Range (Xtilde R)</a></li> <li><a href="chart-types/number_defective/">Number Defective (np)</a></li> <li><a href="chart-types/number_of_defects/">Number Of Defects (c)</a></li> <li><a href="chart-types/number_of_defects_per_unit/">Number Of Defects Per Unit (u)</a></li> </ul> </li> <li><a href="logical-charts/">Logical Charts</a><ul> <li><a href="logical-charts/add_logical_chart/">Add Logical Chart</a></li> <li><a href="logical-charts/annotate_data_point/">Annotate Data Point</a></li> <li><a href="logical-charts/edit_data_point/">Edit Data Point</a></li> <li><a href="logical-charts/edit_logical_chart/">Edit Logical Chart</a></li> <li><a href="logical-charts/exclude_data_point/">Exclude Data Point</a></li> <li><a href="logical-charts/include_data_point/">Include Data Point</a></li> <li><a href="logical-charts/logical_charts_page/">Logical Chart Page</a></li> <li><a href="logical-charts/open_protocol/">Opening a Protocol</a></li> <li><a href="logical-charts/recalculate_center_lines/">Recalculate Centerline(s)</a></li> <li><a href="logical-charts/remove_data_point/">Remove Data Point</a></li> <li><a href="logical-charts/remove_logical_chart/">Remove Logical Chart</a></li> <li><a href="logical-charts/set_limits/">Set Limits</a></li> </ul> </li> <li><a href="spc-rules/"><abbr title="Statistical Process Control">SPC</abbr> Rules</a><ul> <li><a href="spc-rules/spc_nelson1/">Nelson 1</a></li> <li><a href="spc-rules/spc_nelson2/">Nelson 2</a></li> <li><a href="spc-rules/spc_nelson3/">Nelson 3</a></li> <li><a href="spc-rules/spc_nelson4/">Nelson 4</a></li> <li><a href="spc-rules/spc_nelson5/">Nelson 5</a></li> <li><a href="spc-rules/spc_nelson6/">Nelson 6</a></li> <li><a href="spc-rules/spc_nelson7/">Nelson 7</a></li> <li><a href="spc-rules/spc_nelson8/">Nelson 8</a></li> <li><a href="spc-rules/spc_outofspec/">Out of Spec</a></li> <li><a href="spc-rules/spc_we1/">Western Electric 1</a></li> <li><a href="spc-rules/spc_we2/">Western Electric 2</a></li> <li><a href="spc-rules/spc_we3/">Western Electric 3</a></li> <li><a href="spc-rules/spc_we4/">Western Electric 4</a></li> </ul> </li> </ul> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Product - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-product">Create Product<a class="headerlink" href="#create-product" title="Direct link to this section">#</a></h1> <p>🔒 Product.<strong>Create</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a <strong>Product</strong>, this is, to define a set of desired characteristics of a <strong>Material</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction. </p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Product</strong> name must be unique.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>There are several ways to create a new versioned object. Depending on the level, follow these steps to get started:</p> <ul> <li>Entity - in the landing page of this entity type in the Business Data menu or in the details page of an existing entity of the same type, select <strong>New</strong> on the top ribbon. For more information, see <a href="../../../general/creating_entity_objects/">Creating Entity Objects</a>.</li> <li>Revision - if you want to create a new revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Revision</strong>. For more information, see <a href="../../../general/revisions/">Revisions</a>.</li> <li>Version - if you want to create a version associated to an existing revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Version</strong>. For more information, see <a href="../../../general/versions/">Versions</a>.</li> </ul> <h3 id="step-1-change-set">Step 1: Change Set<a class="headerlink" href="#step-1-change-set" title="Direct link to this section">#</a></h3> <ol> <li>Choose an existing Change Set or select <strong>Create</strong> to create a new Change Set. If configured to support implicit Change Sets, it is also possible to check the Use Automatic Change Set option.</li> <li>Optionally, select an Approval Role.</li> <li>Optionally, set the Make Change Set Items Effective on Approval to <code>true</code> so that the Change Set items become effective when the Change Set is approved.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see <a href="../../change-set/create_change_set/">Create Change Set</a>.</p> </div> <h3 id="step-2-general-data">Step 2: General Data<a class="headerlink" href="#step-2-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Provide a Name for the <strong>Product</strong>.</li> <li>If you are creating a new version, the revision that was selected when you started the process will be the revision to which this version will be associated. If you are creating a new entity or revision (with a new version associated to it), provide a name for the Revision or it will be automatically generated for you. For more information, see <a href="../../../general/revisions/#naming">Naming</a></li> <li>Optionally, enter a Description.</li> <li>Select the Type of the <strong>Product</strong>. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/producttype/">ProductType</a> lookup table.</li> <li>Optionally, specify a Default Start Flow Path where <strong>Materials</strong> created with that <strong>Product</strong> should be placed.</li> <li> <p>Select the Product Type of the <strong>Product</strong>. The possible types are:</p> <ul> <li>Durable - tools or moveable tool parts required for the setup of equipment in some processes and are attached as durables, for example, a mold, wafer probe card or an SMT stencil.</li> <li>Finished Good (default) - product that is intended to be shipped to the customer. This Product Type is used for the classification of <abbr title="Work In Progress - also referred to as Work In Process">WIP</abbr> and finished inventory.</li> <li>Packaging - any type of box, package or container used for the purposes of transportation or shipping.</li> <li>Part - a component or sub-component of an equipment and is used for maintenance.</li> <li>Raw Material - any material that is consumed/incorporated into <abbr title="Work In Progress - also referred to as Work In Process">WIP</abbr>, for example, gold wire, chemicals or SMD components. This Product Type is typically used to register raw material such as lots or batches to be consumed later.</li> <li> <p>Semi Finished Good - are goods that are used as inputs in the production of other goods including finished goods. This Product Type is used for the classification of <abbr title="Work In Progress - also referred to as Work In Process">WIP</abbr> and finished inventory.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Work in Progress (<abbr title="Work In Progress - also referred to as Work In Process">WIP</abbr>) is inventory that has begun the manufacturing process and is no longer included in the raw materials inventory but is not yet a completed product.</p> </div> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If you change the Product Type from Durable, Packaging, or Part to a different type, make sure the Product is not in any active <abbr title="Bill-Of-Materials">BOM</abbr>, either as a main product or as a substitute. This also applies if the Product is as part of a Product Entity. Remove the Product from any active BOMs or Product Entities before making the change.</p> </div> </li> </ul> </li> <li> <p>Optionally, select the Product Group of the <strong>Product</strong>. In which case the <strong>Product</strong> will automatically inherit the default Units, default Flow Path, and Parameters from its Product Group.</p> </li> <li>Optionally, specify the Default Units. This property is mandatory if the <strong>Product</strong> is enabled for Maintenance Management. This information is used to create a <strong>Material</strong> in a <strong>Step</strong> that does not define units and to request Material Transfers for this <strong>Product</strong>.</li> <li>Optionally, specify the Default Material Type. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/materialtype/">MaterialType</a> lookup table.</li> <li>Optionally, specify the Default Material Form. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/materialform/">MaterialForm</a> lookup table.</li> <li>Optionally, specify the Default <abbr title="Bill-Of-Materials">BOM</abbr>. The Scope of the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> must be Materials, Durables, Weigh And Dispense, Parts or Packing, and must be Effective.</li> <li>Optionally, specify the default Substrate Map of the <strong>Product</strong> - must be an active Substrate Map template.</li> <li>For Sampling purposes, optionally specify the Maturity of the <strong>Product</strong>. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/productmaturity/">ProductMaturity</a> lookup table.</li> <li>For Scheduling purposes, optionally specify the Capacity Class. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/capacityclass/">CapacityClass</a> lookup table. This property is only used for Scheduling purposes for <strong>Resources</strong> of type Tunnel and Batch.</li> <li>Select the Moisture Sensitivity Level of the <strong>Product</strong>. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/moisturesensitivitylevel/">MoistureSensitivityLevel</a> lookup table. The value for the Floor Life (Unit of Time) of the <strong>Product</strong> will be displayed automatically.</li> <li>Select the value for Floor Life of the <strong>Product</strong> (numeric values only), as well as the Floor Life Unit Of Time.</li> <li>Select whether the <strong>Product</strong> is Enabled. This property applies to the global portion of the <strong>Product</strong>. It is not possible to create a <strong>Material</strong> for a <strong>Product</strong> that is disabled nor is it possible to change the <strong>Product</strong> of a <strong>Material</strong> to a <strong>Product</strong> that is disabled.</li> <li>Select whether the <strong>Product</strong> is Blocked. This property applies to the global portion of the <strong>Product</strong>. It is not possible to perform the following operations on <strong>Materials</strong> for which the <strong>Product</strong> is blocked:<ul> <li>Track-In Material</li> <li>Combine Material (as source)</li> <li>Compose Material (as source)</li> <li>Assemble Material (as source)</li> <li>Replace Assembled Material (as source)</li> <li>Disassemble Material (as source)</li> <li>Attach Consumable To Resource</li> </ul> </li> <li>If Product Type is not Packaging, select whether the <strong>Product</strong> is Discrete. A discrete <strong>Product</strong> can only have integer quantity values.</li> <li>Select whether the <strong>Product</strong> Requires a Bin Code.</li> <li> <p>Select whether to Apply Global Rework Limit (defaults to <code>false</code>) - if this property is enabled, you must define a Global Rework Limit that is greater or equal to zero.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>This property specifies whether the system should consider the global rework limit when a Material with this Product is reworked, and the limit to be considered for Materials with this Product.</p> </div> </li> <li> <p>Select whether to Apply Step Rework Limits (defaults to <code>false</code>) - if this property is enabled, rework by <strong>Step</strong> will be considered. These limits are defined in the <a href="../../../administration/tables/smart-tables/stepreworklimitscontext/">StepReworkLimitsContext</a> smart table.</p> </li> <li> <p>Select whether to Apply Reason Rework Limits (defaults to <code>false</code>) - if this property is enabled, rework limits by <strong>Reason</strong> will be considered. These limits are defined in the <a href="../../../administration/tables/smart-tables/reasonreworklimitscontext/">ReasonReworkLimitsContext</a> smart table.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_product_rework_limits.png"><img alt="Screenshot showing a checkbox for applying reason rework limits with default value of false." src="../images/create_product_rework_limits.png"/></a></p> </li> <li> <p>If the Product Type is Raw Material, select whether the <strong>Product</strong> Requires Approval, and if so, select the Approval Role.</p> </li> <li> <p>If the Product Type is Packaging, the following may need to be defined:</p> <ul> <li>Type - value taken for the <a href="../../../administration/tables/lookup-tables/packagetype/">PackageType</a> lookup table.</li> <li>Level - defaults to 1.</li> <li>Weight - greater or equal to 0 if Level is 1, otherwise not possible to edit.</li> <li>Tare Weight - greater or equal to 0 if Level is greater than 1, otherwise not possible to edit.</li> <li>Maximum Weight - can be defined if Level is greater than 1.</li> <li>Label Specification - value taken from the <a href="../../../administration/tables/lookup-tables/labelspecification/">LabelSpecification</a> lookup table.</li> <li>Label Specification Field - defined with a valid Field of the Label Specification.</li> <li>Product Mix Allowed - can be enabled if Level is greater than 1, otherwise disabled.</li> <li>Production Order Mix Allowed - can be enabled if Level is greater than 1, otherwise disabled.</li> <li>Trackable - can be enabled if Level is 1, otherwise disabled.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_product_packaging.png"><img alt="Screenshot showing a UI with options for creating product packaging, including an option to enable trackability based on level setting." src="../images/create_product_packaging.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Label Specification Field</p> <p>For trackable packages, the Package Label Identification Field must map to the Package Id.</p> </div> </li> <li> <p>If the Product Type is Part, specify the Part Information, by choosing the Type: Consumable or Repairable. If you choose Consumable, specify if the Consume Quantity is enabled or not. This option is set to <code>false</code> by default.</p> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>*If the Part Type is Repairable, the Consume Quantity and the Discrete property must be enabled and the Requires Bin Code must be disabled. * If you change the Part Type from Repairable or if you change the Product Type from Part, the Product must not be associated with any Resource Part. * You can only change the Part Type to Repairable of a Product associated with a Resource Part for which the Quantity is equal to <code>1</code>.</p> </div> </li> <li> <p>Optionally, enter a Comment.</p> </li> <li>Select <strong>Create</strong> to complete the operation.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The default initial Flow Path cannot refer to an Alternate Flow, nor can it refer to an optional Step.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_product.PNG"><img alt='Screenshot showing a UI with options for creating a new product, including "Create Prod" and other product types such as "Chocoace" and "Canines".' src="../images/create_product.PNG"/></a></p> </article>
+</body>
+</html>

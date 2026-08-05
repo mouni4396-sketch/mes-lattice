@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resource OEE Configuration - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="resource-oee-configuration">Resource <abbr title="Overall Equipment Efficiency">OEE</abbr> Configuration<a class="headerlink" href="#resource-oee-configuration" title="Direct link to this section">#</a></h1> <p><abbr title="Overall Equipment Efficiency">OEE</abbr> stands for <strong>Overall Equipment Efficiency</strong> and it offers a simple algorithm to measure and evaluate equipment corrective action methods, ensuring permanent productivity improvements. The actual report is available in Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> (<a href="../../../business-intelligence/analytics-views/performance/resource_oee/">Resource <abbr title="Overall Equipment Efficiency">OEE</abbr></a>/), but requires several configuration steps.</p> <p>Here are a few steps to configure Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> for optimal <abbr title="Overall Equipment Efficiency">OEE</abbr> calculation:</p> <ul> <li><strong>Calendar</strong> Days must be generated for the <strong>Calendars</strong> of the relevant <strong>Areas</strong>. For more information, see <a href="../../calendar/generate_calendar_days/">Generate Calendar Days</a>.</li> <li>Each <strong>Resource</strong> must have an associated <strong>State Model</strong> (by default SEMI E10 and SEMI E58 are provided). For more information, see <a href="../../../administration/state_models/">State Models</a>.</li> <li>The <a href="../../../administration/tables/smart-tables/resourceidealcycletime/">ResourceIdealCycleTime</a> smart table must be filled in with the appropriate values for your production environment. For each combination of <strong>Product</strong> per either <strong>Resource</strong>, <strong>Resource Type</strong> or <strong>Resource Model</strong>, define:<ul> <li>For each <strong>Product</strong> define Time Scale, Time per Unit and whether the <strong>Product</strong> is to be used as a reference.</li> </ul> </li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The reference <strong>Product</strong> is the standard <strong>Product</strong> whose Cycle Time is used to normalize the produced volume of different <strong>Products</strong> with different cycle times.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/resourceidealcycletime_oee.png"><img alt="oee" src="../images/resourceidealcycletime_oee.png"/></a></p> <p>Below you can see an example of the calculations for a <strong>Resource</strong> processing four different <strong>Products</strong> in the same day:</p> <table> <thead> <tr> <th></th> <th>TimeScale</th> <th>TimePerUnit</th> <th>Reference</th> <th>Ratio</th> <th>Physical Volume (24h)</th> <th>Normalized Volume (24h)</th> </tr> </thead> <tbody> <tr> <td>Product A</td> <td>Seconds</td> <td>10</td> <td><strong>Yes</strong></td> <td>1.0</td> <td>8640</td> <td>8640</td> </tr> <tr> <td>Product B</td> <td>Seconds</td> <td>8</td> <td>No</td> <td>0.8</td> <td>10800</td> <td>8640</td> </tr> <tr> <td>Product C</td> <td>Seconds</td> <td>12</td> <td>No</td> <td>1.2</td> <td>7200</td> <td>8640</td> </tr> <tr> <td>Product D</td> <td>Seconds</td> <td>14</td> <td>No</td> <td>1.4</td> <td>6171</td> <td>8640</td> </tr> </tbody> </table> <p>Table: Resource processing different Products in the same day</p> <table> <thead> <tr> <th></th> <th>TimeScale</th> <th>TimePerUnit</th> <th>Reference</th> <th>Ratio</th> <th>Hours</th> <th>Physical Volume (24h)</th> <th>Normalized Volume (24h)</th> </tr> </thead> <tbody> <tr> <td>Product A</td> <td>Seconds</td> <td>10</td> <td><strong>Yes</strong></td> <td>1.0</td> <td>4</td> <td>1440</td> <td>1440</td> </tr> <tr> <td>Product B</td> <td>Seconds</td> <td>8</td> <td>No</td> <td>0.8</td> <td>6</td> <td>2700</td> <td>2160</td> </tr> <tr> <td>Product C</td> <td>Seconds</td> <td>12</td> <td>No</td> <td>1.2</td> <td>8</td> <td>2400</td> <td>2880</td> </tr> <tr> <td>Product D</td> <td>Seconds</td> <td>14</td> <td>No</td> <td>1.4</td> <td>6</td> <td>1543</td> <td>2160</td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td><strong>24</strong></td> <td><strong>8063</strong></td> <td><strong>8640</strong></td> </tr> </tbody> </table> <p>Table: Resource processing different Products in the same day</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The normalized volume represents the volume converted to the reference Product (Product A)</p> </div> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Copy Data Collection Limit Sets - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:data-collection">data collection</a> </nav> <h1 id="copy-data-collection-limit-sets">Copy Data Collection Limit Sets<a class="headerlink" href="#copy-data-collection-limit-sets" title="Direct link to this section">#</a></h1> <p>🔒 DataCollectionLimitSet.<strong>Create</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation copies <strong>Data Collection Limit Sets</strong> from other <strong>Data Collections</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the precondition of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li><strong>Data Collection</strong> version is Active or Effective.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>This operation can be performed by selecting the <strong>Copy</strong> button in the Limit Set section of the <strong>Data Collection</strong> entity page that has the source <strong>Data Collection Limit Sets</strong> that you want to copy. If the operation is called from the <strong>Data Collection</strong> wizard, the selection is automatic.</p> <h3 id="step-1-change-set">Step 1: Change Set<a class="headerlink" href="#step-1-change-set" title="Direct link to this section">#</a></h3> <ol> <li>Select an existing <strong>Change Set</strong> or select <strong>Create New</strong> to create a new Change Set to be used for this purpose. If the support of Implicit Change Sets has been configured beforehand, it is also possible to check the option Use Automatic Change Set.</li> <li>Optionally, select an Approver Role.</li> </ol> <h3 id="step-2-limit-sets">Step 2: Limit Sets<a class="headerlink" href="#step-2-limit-sets" title="Direct link to this section">#</a></h3> <ol> <li>Select the <strong>Data Collection Limit Sets</strong> to be copied by checking them from the list. Optionally, you can filter by displaying all Limit Sets from a specific <strong>Data Collection</strong> or by actual specific <strong>Data Collection Limit Sets</strong>.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/copy_data_collection_limitset_step_one.png"><img alt="copy_data_collection_limitset_step_one" src="../images/copy_data_collection_limitset_step_one.png"/></a></p> <h3 id="step-3-limit-sets-names">Step 3: Limit Sets Names<a class="headerlink" href="#step-3-limit-sets-names" title="Direct link to this section">#</a></h3> <ol> <li>Because <strong>Data Collection Limit Sets</strong> cannot have duplicate names, the system will automatically add the name of the current Data Collection together with an underscore ('_') as a prefix. It is possible however to edit the name</li> <li>Select the <strong>Copy</strong> button to complete the transaction.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/copy_data_collection_limitset_step_two.png"><img alt="copy_data_collection_limitset_step_two" src="../images/copy_data_collection_limitset_step_two.png"/></a></p> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material Future Flow Report - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../../tags/#tag:reports">reports</a> </nav> <h1 id="material-future-flow-report">Material Future Flow Report<a class="headerlink" href="#material-future-flow-report" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>FutureFlowReport</strong></p> <h2 id="description">Description<a class="headerlink" href="#description" title="Direct link to this section">#</a></h2> <p>This report provides access to the Material Future Flow report of any <strong>Material</strong> which is available in the Operational Data Store (<abbr title="Operational Data Store">ODS</abbr>) database.</p> <h2 id="data-sources">Data Source(s)<a class="headerlink" href="#data-sources" title="Direct link to this section">#</a></h2> <ul> <li><abbr title="Operational Data Store">ODS</abbr> database</li> </ul> <h2 id="filters">Filters<a class="headerlink" href="#filters" title="Direct link to this section">#</a></h2> <p>You can customized the Material Future Flow report by selecting the options below:</p> <ul> <li><abbr title="Bill-Of-Materials">BOM</abbr></li> <li>Checklist</li> <li>Data Collection</li> <li>Document</li> <li>Durables</li> <li>Future Action</li> <li>Inspection Plan</li> <li>Line Flows</li> <li>Personnel Requirements</li> <li>Recipe</li> <li>Resource</li> <li>Reworks</li> <li>Sampling</li> <li><abbr title="Statistical Process Control">SPC</abbr></li> <li>Time Constraints</li> </ul> <p>To select these options, simply choose the <strong>True</strong> radio button. When you are done, select the <strong>View Report</strong> button on the top-right corner to generate the report. If you change any options, select <strong>View Report</strong> to refresh the data.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/material_future_flow_report_options.png"><img alt="MaterialFutureFlowReport" src="../../images/material_future_flow_report_options.png"/></a></p> <p>To view future flow information for a specific <strong>Step</strong>, use the <strong>Step Name Filter</strong> field. Enter the <strong>Step</strong> name and select <strong>Enter</strong> or <strong>View Report</strong> to update the results.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The information regarding the Line Flows and the Reworks associated with the <strong>Material</strong> will appear at the end of the report.</p> </div> <h2 id="fields">Fields<a class="headerlink" href="#fields" title="Direct link to this section">#</a></h2> <ul> <li>Material</li> <li>Product</li> <li>Flow</li> <li>Step</li> <li>Primary Quantity</li> <li>Secondary Quantity</li> <li>Flow Structure</li> </ul> <h2 id="example">Example<a class="headerlink" href="#example" title="Direct link to this section">#</a></h2> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/material_future_flow_report.png"><img alt="MaterialFutureFlowReport" src="../../images/material_future_flow_report.png"/></a></p> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Substrate Map - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:mapping">mapping</a> </nav> <h1 id="create-substrate-map">Create Substrate Map<a class="headerlink" href="#create-substrate-map" title="Direct link to this section">#</a></h1> <p>🔒 Substrate Map.<strong>Create</strong></p> <p>🔒 Substrate Map.<strong>CreateTemplate</strong></p> <p>🔒 Substrate Map.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a <strong>Substrate Map</strong>. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction. </p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Mapping</strong> module must be properly licensed.</li> <li>The <strong>Substrate Map</strong> name must be unique.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Enter the <strong>Name</strong> (must be unique).</li> <li>Enter the <strong>Description</strong>.</li> <li> <p>Enter the <code>xml</code> file with the map content:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_substrate_map_01.png"><img alt='Screenshot showing a general data entry screen with an XML file input field labeled "create substrate map 01".' src="../images/create_substrate_map_01.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>When creating a Substrate Map, the system validates that the uploaded file is compliant with SEMI E142.</p> </div> </li> <li> <p>Select <strong>Next</strong> to optionally select a Bin Converter:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_substrate_map_01a.png"><img alt='Screenshot showing an optional step for selecting a bin converter, with a filename hint "create substrate map 01a".' src="../images/create_substrate_map_01a.png"/></a></p> </li> <li> <p>Select <strong>Create</strong> to complete the operation.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_substrate_map_01b.png"><img alt='Screenshot showing a UI with a filename "create substrate map 01b" and a button labeled "Create".' src="../images/create_substrate_map_01b.png"/></a></p> </li> </ol> <h3 id="step-2-bin-converters">Step 2: Bin Converters<a class="headerlink" href="#step-2-bin-converters" title="Direct link to this section">#</a></h3> <ol> <li>Optionally, specify a <strong>Default Bin Converter</strong>.</li> <li> <p>Optionally, specify a list of <strong>Overlay Converters</strong>, and define the following for each:</p> <ul> <li>Map Name</li> <li>Bin Converter</li> </ul> </li> <li> <p>Select <strong>Create</strong> to complete the operation:</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_substrate_map_02.png"><img alt='Screenshot showing the "Create Substrate Map" dialog box.' src="../images/create_substrate_map_02.png"/></a></p> <p>After it is successfully created, the conversion will be automatically applied:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/sub_map_bin_con_01.png"><img alt='Screenshot showing a UI with a filename hint "create substrate map 03" and an option labeled "Create".' src="../images/sub_map_bin_con_01.png"/></a></p> <h2 id="after-creating-a-substrate-map">After Creating a Substrate Map<a class="headerlink" href="#after-creating-a-substrate-map" title="Direct link to this section">#</a></h2> <p>The <strong>Substrate Map</strong> file can define several entities for each overlay. These entities provide contextual information that is used during import and processing.</p> <p>The following entities can be associated with each overlay:</p> <ul> <li>Enterprise</li> <li>Facility</li> <li>Site</li> <li>Step</li> <li>Resource</li> </ul> <p>When importing a <strong>Substrate Map</strong>, the system determines the value of each entity based on a predefined resolution logic, which is described in the diagram below.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../diagrams/substrate_map_logic.drawio.svg"><img alt="Diagram showing the Entity Resolution Logic for Substrate Map Import" src="../diagrams/substrate_map_logic.drawio.svg"/></a></p> <p>After the <strong>Substrate Map</strong> is imported, all Overlay data is available in the Overlay Information section.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/overlay_information.png"><img alt="Screenshot showing a list of overlays and their data" src="../images/overlay_information.png"/></a></p> </article>
+</body>
+</html>

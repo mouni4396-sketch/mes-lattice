@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Control Chart Constants - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="control-chart-constants">Control Chart Constants<a class="headerlink" href="#control-chart-constants" title="Direct link to this section">#</a></h1> <p>List of the <span class="arithmatex">\(c_4\)</span>, <span class="arithmatex">\(c_5\)</span>, <span class="arithmatex">\(d_2\)</span>, <span class="arithmatex">\(d_3\)</span> and <span class="arithmatex">\(e_1\)</span> control chart constants ([Cano et al. 2015], [Montgomery 2009], [Walker et al. 2012], [Statsoft 2009], [Milivojevich 2015]).</p> <table> <thead> <tr> <th>Subgroup size (n)</th> <th><span class="arithmatex">\(c_4\)</span></th> <th><span class="arithmatex">\(c_5\)</span></th> <th><span class="arithmatex">\(d_2\)</span></th> <th><span class="arithmatex">\(d_3\)</span></th> <th><span class="arithmatex">\(e_1\)</span></th> </tr> </thead> <tbody> <tr> <td>2</td> <td>0.797885</td> <td>0.60281</td> <td>1.1284</td> <td>0.8525</td> <td>1</td> </tr> <tr> <td>3</td> <td>0.886227</td> <td>0.463251</td> <td>1.6926</td> <td>0.8884</td> <td>1.16</td> </tr> <tr> <td>4</td> <td>0.921318</td> <td>0.38881</td> <td>2.0588</td> <td>0.8798</td> <td>1.093</td> </tr> <tr> <td>5</td> <td>0.939986</td> <td>0.341213</td> <td>2.3259</td> <td>0.8641</td> <td>1.198</td> </tr> <tr> <td>6</td> <td>0.951533</td> <td>0.307547</td> <td>2.5344</td> <td>0.848</td> <td>1.134</td> </tr> <tr> <td>7</td> <td>0.959369</td> <td>0.282154</td> <td>2.7044</td> <td>0.8332</td> <td>1.214</td> </tr> <tr> <td>8</td> <td>0.96503</td> <td>0.262139</td> <td>2.8472</td> <td>0.8198</td> <td>1.162</td> </tr> <tr> <td>9</td> <td>0.969311</td> <td>0.245838</td> <td>2.97</td> <td>0.8078</td> <td>1.223</td> </tr> <tr> <td>10</td> <td>0.972659</td> <td>0.232238</td> <td>3.0775</td> <td>0.7971</td> <td>1.174</td> </tr> <tr> <td>11</td> <td>0.97535</td> <td>0.220663</td> <td>3.1729</td> <td>0.7873</td> <td>1.228</td> </tr> <tr> <td>12</td> <td>0.977559</td> <td>0.210662</td> <td>3.2585</td> <td>0.7785</td> <td>1.188</td> </tr> <tr> <td>13</td> <td>0.979406</td> <td>0.201901</td> <td>3.336</td> <td>0.7704</td> <td>1.233</td> </tr> <tr> <td>14</td> <td>0.980971</td> <td>0.194154</td> <td>3.4068</td> <td>0.763</td> <td>1.2</td> </tr> <tr> <td>15</td> <td>0.982316</td> <td>0.187231</td> <td>3.4718</td> <td>0.7562</td> <td>1.237</td> </tr> <tr> <td>16</td> <td>0.983484</td> <td>0.180995</td> <td>3.532</td> <td>0.7499</td> <td></td> </tr> <tr> <td>17</td> <td>0.984506</td> <td>0.175351</td> <td>3.5879</td> <td>0.7441</td> <td></td> </tr> <tr> <td>18</td> <td>0.98541</td> <td>0.170197</td> <td>3.6401</td> <td>0.7386</td> <td></td> </tr> <tr> <td>19</td> <td>0.986214</td> <td>0.165475</td> <td>3.689</td> <td>0.7335</td> <td></td> </tr> <tr> <td>20</td> <td>0.986934</td> <td>0.161125</td> <td>3.7349</td> <td>0.7287</td> <td></td> </tr> <tr> <td>21</td> <td>0.987583</td> <td>0.157098</td> <td>3.7783</td> <td>0.7242</td> <td></td> </tr> <tr> <td>22</td> <td>0.98817</td> <td>0.153362</td> <td>3.8194</td> <td>0.7199</td> <td></td> </tr> <tr> <td>23</td> <td>0.988705</td> <td>0.149875</td> <td>3.8583</td> <td>0.7159</td> <td></td> </tr> <tr> <td>24</td> <td>0.989193</td> <td>0.146619</td> <td>3.8953</td> <td>0.7121</td> <td></td> </tr> <tr> <td>25</td> <td>0.98964</td> <td>0.143571</td> <td>3.9306</td> <td>0.7084</td> <td></td> </tr> <tr> <td>26</td> <td>0.990052</td> <td>0.140702</td> <td>3.965</td> <td>0.7041</td> <td></td> </tr> <tr> <td>27</td> <td>0.990433</td> <td>0.137994</td> <td>3.997</td> <td>0.7012</td> <td></td> </tr> <tr> <td>28</td> <td>0.990786</td> <td>0.135437</td> <td>4.028</td> <td>0.6983</td> <td></td> </tr> <tr> <td>29</td> <td>0.991113</td> <td>0.133023</td> <td>4.058</td> <td>0.6956</td> <td></td> </tr> <tr> <td>30</td> <td>0.991418</td> <td>0.13073</td> <td>4.086</td> <td>0.6929</td> <td></td> </tr> <tr> <td>31</td> <td>0.991703</td> <td>0.12855</td> <td>4.113</td> <td>0.6902</td> <td></td> </tr> <tr> <td>32</td> <td>0.991969</td> <td>0.126481</td> <td>4.139</td> <td>0.6877</td> <td></td> </tr> <tr> <td>33</td> <td>0.992219</td> <td>0.124505</td> <td>4.164</td> <td>0.6852</td> <td></td> </tr> <tr> <td>34</td> <td>0.992454</td> <td>0.122618</td> <td>4.189</td> <td>0.6828</td> <td></td> </tr> <tr> <td>35</td> <td>0.992675</td> <td>0.120815</td> <td>4.213</td> <td>0.6804</td> <td></td> </tr> <tr> <td>36</td> <td>0.992884</td> <td>0.119086</td> <td>4.236</td> <td>0.6781</td> <td></td> </tr> <tr> <td>37</td> <td>0.99308</td> <td>0.11744</td> <td>4.258</td> <td>0.6758</td> <td></td> </tr> <tr> <td>38</td> <td>0.993267</td> <td>0.115848</td> <td>4.28</td> <td>0.6736</td> <td></td> </tr> <tr> <td>39</td> <td>0.993443</td> <td>0.114328</td> <td>4.301</td> <td>0.6715</td> <td></td> </tr> <tr> <td>40</td> <td>0.993611</td> <td>0.112859</td> <td>4.322</td> <td>0.6694</td> <td></td> </tr> <tr> <td>41</td> <td>0.99377</td> <td>0.11145</td> <td>4.342</td> <td>0.6674</td> <td></td> </tr> <tr> <td>42</td> <td>0.993922</td> <td>0.110087</td> <td>4.361</td> <td>0.6654</td> <td></td> </tr> <tr> <td>43</td> <td>0.994066</td> <td>0.108779</td> <td>4.38</td> <td>0.6635</td> <td></td> </tr> <tr> <td>44</td> <td>0.994203</td> <td>0.107519</td> <td>4.398</td> <td>0.6617</td> <td></td> </tr> <tr> <td>45</td> <td>0.994335</td> <td>0.106292</td> <td>4.415</td> <td>0.6598</td> <td></td> </tr> <tr> <td>46</td> <td>0.99446</td> <td>0.105116</td> <td>4.432</td> <td>0.6581</td> <td></td> </tr> <tr> <td>47</td> <td>0.99458</td> <td>0.103974</td> <td>4.449</td> <td>0.6564</td> <td></td> </tr> <tr> <td>48</td> <td>0.994695</td> <td>0.102868</td> <td>4.466</td> <td>0.6547</td> <td></td> </tr> <tr> <td>49</td> <td>0.994806</td> <td>0.101789</td> <td>4.482</td> <td>0.6531</td> <td></td> </tr> <tr> <td>50</td> <td>0.994911</td> <td>0.100758</td> <td>4.498</td> <td>0.6515</td> <td></td> </tr> </tbody> </table> <p>Table: Constants for <span class="arithmatex">\(c_4\)</span>, <span class="arithmatex">\(c_5\)</span>, <span class="arithmatex">\(d_2\)</span>, <span class="arithmatex">\(d_3\)</span> and <span class="arithmatex">\(e_1\)</span></p> </article>
+</body>
+</html>

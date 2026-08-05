@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-material">Create Material<a class="headerlink" href="#create-material" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>Create</strong></p> <p>🔒 Material.<strong>CreateTemplate</strong></p> <p>🔒 Material.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>The operation is used to create a <strong>Material</strong>. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu.</p> <div class="admonition smart-barcode"> <p class="admonition-title">Supports Smart Barcodes</p> <p>You can use <a href="../../../general/smart_barcode_scanning/">Smart Barcode Scanning</a> to perform this operation.</p> </div> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Material</strong> name is unique within the system.</li> <li>The <strong>Product</strong> and <strong>Flow</strong> associated with the <strong>Material</strong> exist, are Active, and are not disabled.</li> <li>The <strong>Step</strong> associated with the <strong>Material</strong> exists, is Active, and belongs to the same Facility where the Material is being created (through an Area relation).</li> <li>If defined, the Primary Quantity and the Secondary Quantity of the <strong>Material</strong> must always be equal or greater than <code>0</code>.</li> <li> <p>The Primary and Secondary Quantities can only be decimal if the Is Decimal Quantity Allowed property of the <strong>Step</strong> is set to <code>true</code> and the Is Discrete property of the <strong>Product</strong> is set to <code>false</code>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <ul> <li>The cost of the Material will be displayed if enough information is available to make the calculation.</li> <li>If the Product Type is Parts, the default Quantity is equal to <code>1</code>. If the Part Type is set to Repairable, the Quantity must be equal to <code>1</code>.</li> </ul> </div> </li> <li> <p>If assigning a <strong>Material</strong> to <strong>Production Order</strong> with an Owner defined, the user must belong to that Role.</p> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-general">Step 1: General<a class="headerlink" href="#step-1-general" title="Direct link to this section">#</a></h3> <ol> <li> <p>Enter the <strong>Material</strong> name. The name can be left blank if there is a name generator configured to provide unique <strong>Material</strong> names.</p> </li> <li> <p>Optionally, enter a <strong>Material</strong> description.</p> </li> <li> <p>Select the <strong>Material</strong> type. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/materialtype/">MaterialType</a> Lookup Table.</p> <ul> <li>If the user selects a <strong>Product</strong>, the default <strong>Material</strong> type is automatically pre-selected but it can be overridden by the user.</li> </ul> </li> <li> <p>If available, select the State Model and the initial State Model state (by default the initial State Model state of the selected State Model is taken).</p> </li> <li> <p>Select the <strong>Material</strong> <strong>Facility</strong>.</p> </li> <li> <p>Select the <strong>Material</strong> <strong>Product</strong>:</p> <ul> <li>If there is a default Flow Path associated with the <strong>Product</strong> or its <strong>Product Group</strong>, the default Flow Path is automatically pre-selected for the <strong>Material</strong> but it can be overridden by the user.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If the Step where the Material will be created has the Print Material Labels Automatically property set to <code>true</code>, that information will be displayed on the bottom section of the wizard.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/material_label_printing_automatically.png"><img alt="Screenshot showing a checkbox setting for automatic print of material labels." src="../images/material_label_printing_automatically.png"/></a></p> <ul> <li>If the selected <strong>Material Product</strong> has configured characteristics, a <strong>Characteristics</strong> step is enabled (see below).</li> </ul> </li> <li> <p>Select the <strong>Material</strong> form. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/materialform/">MaterialForm</a> Lookup Table.</p> <ul> <li>If the user selects a <strong>Product</strong>, the default <strong>Material</strong> form is automatically pre-selected but it can be overridden by the user.</li> </ul> </li> <li> <p>Select the Bin Code for the <strong>Material</strong> (when the selected <strong>Product</strong> requires one).</p> </li> <li> <p>Specify the quantities of the <strong>Material</strong>, following the rules in the diagram below:</p> <pre class="mermaid"><code>graph LR
+    A{Set Units&lt;br&gt;in Step True?} --&gt;|Yes| B(Primary and&lt;br&gt;Secondary Units &lt;br&gt; set  automatically);
+    A --&gt;|No| C(Primary and&lt;br&gt;Secondary Units&lt;br&gt;set  manually);
+    E{Product has&lt;br&gt;Default Units?} --&gt;|Yes| F(Primary Units&lt;br&gt;set automatically);
+    E --&gt;|No| G{Product Group&lt;br&gt;has Default Units?};
+    G --&gt;|Yes| F;
+    G --&gt;|No| D(Primary Units&lt;br&gt;set manually);
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_entity</code></pre> </li> <li> <p>Optionally, specify the <strong>Material</strong> expiration date - an expired <strong>Material</strong> cannot be used as a consumable. The expiration date is checked in the following transactions: Assemble Material, Disassemble Material, Replace Assembled Material, Attach Material as Consumable, Combine Material, Compose Material, and Prepare Material Transfer.</p> </li> <li> <p>If desired, enter information on the Manufacturer and Supplier, including Part and Lot Number, Date Code and Purchase Order Number.</p> </li> <li>If needed, set the Restriction of Hazardous Substances Directive (RoHS) compliance flag.</li> <li>Define the Moisture Sensitivity Level for the <strong>Material</strong>. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/moisturesensitivitylevel/">MoistureSensitivityLevel</a> Lookup Table.</li> <li>Define the number of remaining hours of Floor Life of the <strong>Material</strong>.</li> <li>Define the Floor Life Counter State:<ul> <li>Running - if the <strong>Material</strong> is still within the defined Floor Life Time (Floor Life remaining time is higher than zero)</li> <li>Stopped - if the Floor Life time has already expired</li> </ul> </li> <li>Define the Floor Life Open Date.</li> <li>Specify the priority of the <strong>Material</strong> (1 to 10).</li> <li>Specify whether Splits are allowed for the <strong>Material</strong>.</li> <li>Specify whether Merges are allowed for the <strong>Material</strong>.</li> <li>Check the Hot checkbox to indicate that the <strong>Material</strong> is a hot lot. A hot lot is always placed at the top of the dispatch lists and has the highest priority when used in scheduling.</li> <li>Check the Exclude From Scheduling checkbox to exclude the <strong>Material</strong> from Scheduling.</li> <li>Optionally, specify the Production Order for the <strong>Material</strong>.</li> <li>Optionally, define the Order number (free text) for the <strong>Material</strong>.</li> <li>Optionally, specify the <strong>Material</strong> possible start date, used for scheduling purposes only.</li> <li>Optionally specify the <strong>Material</strong> due date.</li> <li>Specify the Target Material Quantity. Value must be higher than 0. If defined, the Target Quantity Units field also needs to be defined.</li> <li>Optionally specify the Target Material Units for the <strong>Material</strong>.</li> <li>Define the Capacity Class for the <strong>Material</strong>. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/capacityclass/">CapacityClass</a> Lookup Table.</li> <li> <p>Select <strong>Create</strong> to complete the operation or <strong>Next</strong> to define Characteristics.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_material_general_data.png"><img alt='Screenshot showing a UI with options to "Create" and "Next".' src="../images/create_material_general_data.png"/></a></p> </li> </ol> <h3 id="step-2-characteristics">Step 2: Characteristics<a class="headerlink" href="#step-2-characteristics" title="Direct link to this section">#</a></h3> <ol> <li> <p>This step is displayed when the selected <strong>Product</strong> has Characteristics configured to <code>true</code>. For this operation, you must provide a value for each characteristic, either by entering manually as free text or by selecting a predefined value from the specified Source Lookup Table.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>For more information on how to configure Characteristics, see <a href="../../product/manage_product_characteristics/#step-1-general">Manage Characteristics</a>.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_material_characteristics.png"><img alt='Screenshot showing a UI form with fields to input material characteristics, including "Create Material" and "Dexa".' src="../images/create_material_characteristics.png"/></a></p> </li> <li> <p>Select <strong>Create</strong> to complete the operation.</p> </li> </ol> </article>
+</body>
+</html>

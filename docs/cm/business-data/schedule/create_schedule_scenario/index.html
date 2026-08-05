@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Schedule Scenario - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-schedule-scenario">Create Schedule Scenario<a class="headerlink" href="#create-schedule-scenario" title="Direct link to this section">#</a></h1> <p>🔒 ScheduleScenario.<strong>Create</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>In order to create a <strong>Schedule Scenario</strong> for a <strong>Schedule</strong> click the Create New Schedule Scenario in the Schedule View of a <strong>Schedule</strong>.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>If the current <strong>Schedule</strong> has an owner role defined, the user must belong to that role.</li> </ul> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>This section contains the information associated with the creation of a <strong>Schedule Scenario</strong>. The wizard is accessible from the Scenarios View within a Schedule, by selecting the <strong>Create</strong> dropdown button on top of the Scenarios grid, followed by <strong>New Schedule Scenario</strong>.</p> <ol> <li>Enter a Name.</li> <li>Optionally, enter a Description.</li> <li>Choose the Planning Start Date (defaults to the current date/time).</li> <li> <p>Choose the Type for the <strong>Schedule Scenario</strong>. Available options are:</p> <ul> <li>OperationalScheduleAccurate - Schedules only already existing <strong>Materials</strong>, that is, it only takes in consideration work in progress (<abbr title="Work In Progress - also referred to as Work In Process">WIP</abbr>). It will attempt to schedule all the jobs for all the materials which have at least one job starting within the planning horizon.</li> <li>OperationalScheduleFast - Schedules only already existing <strong>Materials</strong>, that is, it only takes in consideration work in progress (<abbr title="Work In Progress - also referred to as Work In Process">WIP</abbr>). It will attempt to predict, for each <strong>Material</strong>, which jobs will fall within the fast planning horizon - these jobs will be scheduled, and a rough cut estimation.</li> <li>OperationalScheduleFast.</li> <li>PlanningSchedule.</li> </ul> </li> <li> <p>Optionally, override the Planning Horizon, (in days), defined in the <strong>Schedule</strong>.</p> </li> <li>Optionally, override the Frozen Period, (in hours), defined in the <strong>Schedule</strong>.</li> <li>Select <strong>Create</strong> to perform the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/createScheduleScenario.gif"><img alt="Create Schedule Scenario" src="../../../images/createScheduleScenario.gif"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>You can create a copy of an existing <strong>Schedule Scenario</strong> by selecting the <strong>Copy of Schedule Scenario</strong> option in the same <strong>Create</strong> dropdown button used above. Alternatively, you can perform the same operation from the details page of an existing <strong>Schedule Scenario</strong> by selecting the <strong>Copy schedule</strong> button on the top ribbon.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_new_scenario_from_scenario.png"><img alt='Screenshot showing the "Create" dropdown button with options for creating a new schedule scenario, including the ability to copy an existing one.' src="../images/create_new_scenario_from_scenario.png"/></a></p> </article>
+</body>
+</html>

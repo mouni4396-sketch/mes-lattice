@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bill-Of-Materials (BOM) - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../tags/#tag:assembly">assembly</a> </nav> <h1 id="bill-of-materials-bom">Bill-Of-Materials (<abbr title="Bill-Of-Materials">BOM</abbr>)<a class="headerlink" href="#bill-of-materials-bom" title="Direct link to this section">#</a></h1> <p>🔒 <abbr title="Bill-Of-Materials">BOM</abbr>.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> (Bill-Of-Materials) represents the source <strong>Products</strong> and respective quantities which are needed to assemble one unit of a target <strong>Product</strong> at a given <strong>Step</strong> or the list of parts to be used in a particular <em>Maintenance Activity</em>.</p> <p>For Material Tracking, the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> to be used at a particular context is determined by the <abbr title="Bill-Of-Materials">BOM</abbr> Context. For Maintenance Management, the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> is referenced directly by a <strong>Maintenance Activity</strong> within a <strong>Maintenance Plan</strong>.</p> <h2 id="global-and-versioned-data">Global and Versioned Data<a class="headerlink" href="#global-and-versioned-data" title="Direct link to this section">#</a></h2> <p>A <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>, being a change-controlled object, contains global data and versioned data components, as shown in the next picture.</p> <pre class="mermaid"><code>graph TD
+subgraph BOM
+Main1["Global Data&lt;br&gt;(Without Change Control)"] --- A1[Target Product]
+Main2["Versioned Data&lt;br&gt;(With Change Control)"] --- A2[All other]
+end
+
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main1,Main2 mermaid_entity
+class A1,A2 mermaid_entitylinked</code></pre> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    A1[Material] --- Main[BOM]
+    A2[Maintenance Activity] --- Main[BOM]
+    A3[Resource] --- Main[BOM]
+    Main[BOM] === L1[BOM Product]
+    L1[BOM Product] --- |substitutes| L1[BOM Product]
+    Main[BOM] -.- C1[BOM Context]
+
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/bom"
+click A1 "../../business-data/material"
+click A2 "../../business-data/maintenance-plan"
+click A3 "../../business-data/resource"
+click C1 "../../administration/tables/smart-tables/bomcontext"</code></pre> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly using a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> are the following:</p> <ol> <li>Create the necessary referenced <strong>Products</strong> upfront.</li> <li>Create a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> - note that it is necessary to associate with the <strong><abbr title="Bill-Of-Materials">BOM</abbr> Version</strong> to a <strong>Change Set</strong>.</li> <li>Approve the <strong>Change Set</strong>, which contains the <strong><abbr title="Bill-Of-Materials">BOM</abbr> Version</strong> that has been created.</li> </ol> <div class="admonition note"> <p class="admonition-title">Note</p> <p>For convenience, the <abbr title="Bill-Of-Materials">BOM</abbr> can be configured to use implicit Change Sets. Please refer to the <a href="../change-set/">Change Set</a> section for more information.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see the <a href="../../../tutorials/modules/new-product-introduction/npi/">New Product Introduction (NPI)</a> tutorial.</p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Bom:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="bom_page/"><abbr title="Bill-Of-Materials">BOM</abbr> Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_bom/">Clone <abbr title="Bill-Of-Materials">BOM</abbr></a></li> <li><a href="create_bom/">Create <abbr title="Bill-Of-Materials">BOM</abbr></a></li> <li><a href="edit_bom/">Edit <abbr title="Bill-Of-Materials">BOM</abbr></a></li> <li><a href="terminate_bom/">Terminate <abbr title="Bill-Of-Materials">BOM</abbr></a></li> <li><a href="unterminate_bom/">Unterminate <abbr title="Bill-Of-Materials">BOM</abbr></a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="manage_bomitems/">Manage <abbr title="Bill-Of-Materials">BOM</abbr> Items</a></li> </ul> </article>
+</body>
+</html>

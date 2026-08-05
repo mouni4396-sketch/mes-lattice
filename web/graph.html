@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MES Lattice — Ontology Graph</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.6/dist/vis-network.min.js"></script>
+<style>
+  :root{
+    --bg:#0f1720; --panel:#16212e; --ink:#e6edf3; --muted:#93a1b0;
+    --ref:#c9a227;      /* reference spine — amber */
+    --v1:#4c8bf5;       /* vendor 1 — blue */
+    --v2:#e0662b;       /* vendor 2 — orange */
+    --v3:#3fb489;       /* vendor 3 — green */
+    --v4:#a970d6;       /* vendor 4 — purple */
+    --edge:#5a6b7b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font-family:Arial,Helvetica,sans-serif}
+  #bar{display:flex;gap:14px;align-items:center;padding:10px 14px;
+    background:var(--panel);border-bottom:1px solid #24303f;flex-wrap:wrap}
+  #bar h1{font-size:15px;margin:0 10px 0 0;font-weight:700;letter-spacing:.3px}
+  select,button{background:#0f1a25;color:var(--ink);border:1px solid #2b3a4d;
+    border-radius:6px;padding:6px 10px;font-size:13px;cursor:pointer}
+  button:hover{border-color:#3d5group}
+  label{font-size:12px;color:var(--muted);margin-right:4px}
+  #net{width:100%;height:calc(100vh - 52px)}
+  #legend{position:fixed;right:14px;bottom:14px;background:rgba(22,33,46,.94);
+    border:1px solid #2b3a4d;border-radius:8px;padding:10px 12px;font-size:12px;
+    line-height:1.7;max-width:230px}
+  #legend b{display:block;margin-bottom:4px;color:var(--muted);font-weight:700}
+  .sw{display:inline-block;width:11px;height:11px;border-radius:50%;
+    margin-right:6px;vertical-align:middle}
+  .ln{display:inline-block;width:22px;height:0;border-top-width:2px;
+    border-top-style:solid;margin-right:6px;vertical-align:middle}
+  #status{font-size:12px;color:var(--muted);margin-left:auto}
+  #hint{color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+  <div id="bar">
+    <h1>MES Lattice · Ontology Graph</h1>
+    <label>Layer</label>
+    <select id="layer"><option value="all">All (merged)</option></select>
+    <label style="margin-left:8px"><input type="checkbox" id="ops"> show operations</label>
+    <label><input type="checkbox" id="attrs"> show data properties</label>
+    <button id="reload">Reload</button>
+    <button id="fit">Fit</button>
+    <span id="hint">tip: click a node to expand its neighbours · drag to pan · scroll to zoom</span>
+    <span id="status"></span>
+  </div>
+  <div id="net"></div>
+
+  <div id="legend">
+    <b>LAYERS</b>
+    <div><span class="sw" style="background:var(--ref)"></span>reference (ref:)</div>
+    <div id="legend-vendors"></div>
+    <b style="margin-top:8px">MATCH TYPE</b>
+    <div><span class="ln" style="border-top-color:var(--edge)"></span>closeMatch</div>
+    <div><span class="ln" style="border-top-color:var(--edge);border-top-style:dashed"></span>broad / narrow</div>
+    <div><span class="ln" style="border-top-color:var(--edge);border-top-style:dotted"></span>relatedMatch</div>
+  </div>
+
+<script>
+const API = ""; // same origin; set to "http://localhost:8000" if serving html separately
+
+const VENDOR_COLORS = ["--v1","--v2","--v3","--v4"];
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+let network = null;
+let nodesDS = new vis.DataSet();
+let edgesDS = new vis.DataSet();
+let vendorColorMap = {};   // layer prefix -> css var
+let full = {nodes:[], edges:[]}; // last fetched full payload (for expand)
+
+function edgeStyle(matchType){
+  const mt = (matchType||"").toLowerCase();
+  if(mt.includes("close"))   return {dashes:false};
+  if(mt.includes("related")) return {dashes:[1,4]};
+  if(mt.includes("broad")||mt.includes("narrow")) return {dashes:[6,4]};
+  return {dashes:false};
+}
+
+function colorForLayer(layer){
+  if(layer === "ref") return cssv("--ref");
+  if(!(layer in vendorColorMap)){
+    const idx = Object.keys(vendorColorMap).length % VENDOR_COLORS.length;
+    vendorColorMap[layer] = VENDOR_COLORS[idx];
+  }
+  return cssv(vendorColorMap[layer]);
+}
+
+function renderLegendVendors(){
+  const box = document.getElementById("legend-vendors");
+  box.innerHTML = "";
+  Object.keys(vendorColorMap).forEach(layer=>{
+    const d = document.createElement("div");
+    d.innerHTML = `<span class="sw" style="background:${cssv(vendorColorMap[layer])}"></span>${layer}:`;
+    box.appendChild(d);
+  });
+}
+
+function toVisNodes(nodes){
+  return nodes.map(n=>({
+    id:n.id,
+    label:n.label || n.id,
+    title: (n.layer? n.layer+" · ":"") + (n.verdict? "verdict: "+n.verdict : (n.type||"")),
+    color:{background:colorForLayer(n.layer), border:"#0c141d",
+           highlight:{background:colorForLayer(n.layer),border:"#fff"}},
+    shape: n.kind==="datatype" ? "box" : "dot",
+    size: n.layer==="ref" ? 20 : 15,
+    font:{color:"#e6edf3", size:13, face:"Arial"},
+    _layer:n.layer, _isOp: n.type==="Operation"
+  }));
+}
+function toVisEdges(edges){
+  return edges.map(e=>({
+    id:e.id || (e.from+"__"+e.to+"__"+(e.matchType||e.label||"")),
+    from:e.from, to:e.to,
+    label: e.label || e.matchType || "",
+    arrows: e.directed===false ? "" : "to",
+    color:{color:cssv("--edge"), highlight:"#fff"},
+    font:{color:"#8fa1b3", size:10, strokeWidth:0, align:"middle"},
+    ...edgeStyle(e.matchType)
+  }));
+}
+
+function applyFilter(){
+  const showOps = document.getElementById("ops").checked;
+  const keepNodes = full.nodes.filter(n => showOps || n.type!=="Operation");
+  const keepIds = new Set(keepNodes.map(n=>n.id));
+  const keepEdges = full.edges.filter(e=>keepIds.has(e.from)&&keepIds.has(e.to));
+  nodesDS.clear(); edgesDS.clear();
+  nodesDS.add(toVisNodes(keepNodes));
+  edgesDS.add(toVisEdges(keepEdges));
+  document.getElementById("status").textContent =
+    `${keepNodes.length} nodes · ${keepEdges.length} edges`;
+}
+
+async function loadLayers(){
+  try{
+    const r = await fetch(`${API}/api/graph/layers`);
+    if(!r.ok) throw new Error(r.status);
+    const layers = await r.json();   // e.g. ["ref","cm","opc"]
+    const sel = document.getElementById("layer");
+    layers.forEach(l=>{
+      const o=document.createElement("option");o.value=l;o.textContent=l;sel.appendChild(o);
+    });
+  }catch(e){
+    // endpoint optional; "All" still works
+    console.warn("layers endpoint unavailable:", e);
+  }
+}
+
+async function loadGraph(){
+  const layer = document.getElementById("layer").value;
+  const attrs = document.getElementById("attrs").checked;
+  document.getElementById("status").textContent = "loading…";
+  try{
+    const r = await fetch(`${API}/api/graph?layer=${encodeURIComponent(layer)}&attrs=${attrs}`);
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    full = await r.json();          // {nodes:[...], edges:[...]}
+    // (re)build vendor colors from whatever layers came back
+    vendorColorMap = {};
+    [...new Set(full.nodes.map(n=>n.layer))].filter(l=>l&&l!=="ref").forEach(colorForLayer);
+    renderLegendVendors();
+    applyFilter();
+    if(network) network.fit();
+  }catch(e){
+    document.getElementById("status").textContent = "error: "+e.message;
+    console.error(e);
+  }
+}
+
+function initNetwork(){
+  const container = document.getElementById("net");
+  const data = {nodes:nodesDS, edges:edgesDS};
+  const options = {
+    physics:{
+      solver:"forceAtlas2Based",
+      forceAtlas2Based:{gravitationalConstant:-45, springLength:120, springConstant:0.08},
+      stabilization:{iterations:180}
+    },
+    interaction:{hover:true, tooltipDelay:120, multiselect:false},
+    nodes:{borderWidth:2},
+    edges:{smooth:{type:"dynamic"}, width:1.5}
+  };
+  network = new vis.Network(container, data, options);
+
+  // click-to-expand: pull neighbours of the clicked node from `full`
+  network.on("click", params=>{
+    if(!params.nodes.length) return;
+    const id = params.nodes[0];
+    const showOps = document.getElementById("ops").checked;
+    const neigh = full.edges.filter(e=>e.from===id||e.to===id);
+    const addIds = new Set();
+    neigh.forEach(e=>{addIds.add(e.from);addIds.add(e.to);});
+    const addNodes = full.nodes.filter(n=>addIds.has(n.id) && (showOps||n.type!=="Operation"));
+    // merge (DataSet.update is idempotent on id)
+    nodesDS.update(toVisNodes(addNodes));
+    const cur = new Set(nodesDS.getIds());
+    edgesDS.update(toVisEdges(neigh.filter(e=>cur.has(e.from)&&cur.has(e.to))));
+  });
+}
+
+document.getElementById("reload").onclick = loadGraph;
+document.getElementById("fit").onclick = ()=> network && network.fit();
+document.getElementById("layer").onchange = loadGraph;
+document.getElementById("ops").onchange = applyFilter;
+document.getElementById("attrs").onchange = loadGraph;
+
+initNetwork();
+loadLayers().then(loadGraph);
+</script>
+</body>
+</html>

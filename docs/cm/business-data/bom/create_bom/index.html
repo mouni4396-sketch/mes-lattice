@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create BOM - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-bom">Create <abbr title="Bill-Of-Materials">BOM</abbr><a class="headerlink" href="#create-bom" title="Direct link to this section">#</a></h1> <p>🔒 <abbr title="Bill-Of-Materials">BOM</abbr>.<strong>Create</strong></p> <p>🔒 <abbr title="Bill-Of-Materials">BOM</abbr>.<strong>CreateTemplate</strong></p> <p>🔒 <abbr title="Bill-Of-Materials">BOM</abbr>.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> does not currently exist in the system.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>There are several ways to create a new versioned object. Depending on the level, follow these steps to get started:</p> <ul> <li>Entity - in the landing page of this entity type in the Business Data menu or in the details page of an existing entity of the same type, select <strong>New</strong> on the top ribbon. For more information, see <a href="../../../general/creating_entity_objects/">Creating Entity Objects</a>.</li> <li>Revision - if you want to create a new revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Revision</strong>. For more information, see <a href="../../../general/revisions/">Revisions</a>.</li> <li>Version - if you want to create a version associated to an existing revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Version</strong>. For more information, see <a href="../../../general/versions/">Versions</a>.</li> </ul> <h3 id="step-1-change-set">Step 1: Change Set<a class="headerlink" href="#step-1-change-set" title="Direct link to this section">#</a></h3> <ol> <li>Choose an existing Change Set or select <strong>Create</strong> to create a new Change Set. If configured to support implicit Change Sets, it is also possible to check the Use Automatic Change Set option.</li> <li>Optionally, select an Approval Role.</li> <li>Optionally, set the Make Change Set Items Effective on Approval to <code>true</code> so that the Change Set items become effective when the Change Set is approved.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see <a href="../../change-set/create_change_set/">Create Change Set</a>.</p> </div> <h3 id="step-2-general-data">Step 2: General Data<a class="headerlink" href="#step-2-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Provide a name for the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>.</li> <li>If you are creating a new version, the revision that was selected when you started the process will be the revision to which this version will be associated. If you are creating a new entity or revision (with a new version associated to it), provide a name for the revision or it will be automatically generated for you. For more information, see <a href="../../../general/revisions/#naming">Revision Naming</a>.</li> <li>Optionally, provide a description of the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>.</li> <li>Select the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> type. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/bomtype/">BOMType</a> Lookup Table.</li> <li>Select the scope of the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>: Compose Map, Durables, Materials, Packing, Parts or Weigh And Dispense.</li> <li> <p>Depending on the scope, you may need to provide the following information:</p> <div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><input id="__tabbed_1_3" name="__tabbed_1" type="radio"/><input id="__tabbed_1_4" name="__tabbed_1" type="radio"/><input id="__tabbed_1_5" name="__tabbed_1" type="radio"/><input id="__tabbed_1_6" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Compose Map</label><label for="__tabbed_1_2">Durables</label><label for="__tabbed_1_3">Materials</label><label for="__tabbed_1_4">Packing</label><label for="__tabbed_1_5">Parts</label><label for="__tabbed_1_6">Weigh And Dispense</label></div> <div class="tabbed-content"> <div class="tabbed-block"> <ul> <li><strong>Positions</strong> - specify the number of positions in the <abbr title="Bill-Of-Materials">BOM</abbr>.</li> <li><strong>Orientation</strong> - specify if the positions will be arranged from Bottom To Top or from Top To Bottom</li> <li><strong>Drawing</strong> - optionally, specify a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> drawing (associated with the versioned portion). Select the drawing to import by dragging a file from the file explorer or by selecting the <strong>Browse Files</strong> button and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right hand side of the entry will remove the file from the import queue.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_bom_compose_map.png"><img alt='Screenshot showing a Create New DOM dialog with fields for "ean one" and "nm am", along with a filename hint to select a BOM drawing.' src="../images/create_bom_compose_map.png"/></a></p> </div> <div class="tabbed-block"> <ul> <li><strong>Drawing</strong> - optionally, specify a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> drawing (associated with the versioned portion). Select the drawing to import by dragging a file from the file explorer or by selecting the <strong>Browse Files</strong> button and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right hand side of the entry will remove the file from the import queue.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_bom_durables.png"><img alt="Screenshot showing a UI with options for creating a new Bill of Materials (BOM)." src="../images/create_bom_durables.png"/></a></p> </div> <div class="tabbed-block"> <ul> <li><strong>Product</strong> - the selected Product will allow you to link the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> to that specific Product and to reuse the Product CAD, Drawing, and Schematic files.</li> <li><strong>Base Quantity</strong> - specify the Base Quantity (defaults to 1) for the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>.</li> <li><strong>Units</strong> - specify the Units of the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> (from the <a href="../../../administration/tables/lookup-tables/units/">Units</a> Lookup Table). The units will be matched against the Material primary units. </li> <li> <p><strong>Use Tolerances</strong> - enables the ability to register the actual consumed quantity when it differs from the theoretical value. This property is disabled by default. When enabled, it also allows you to override the predefined quantity during the assembly operation.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Even when Use Tolerances is enabled, the consumed quantity cannot exceed the available raw material quantity.</p> </div> </li> <li> <p><strong>Use Mixed Assembly</strong> - specify whether the <abbr title="Bill-Of-Materials">BOM</abbr> allows Mixed Assembly Type consumptions.</p> </li> <li> <p><strong>Mixed Assembly Type</strong> - if <strong>Use Mixed Assembly</strong> is enabled, specify the type of Explicit Assembly (Explicit, Explicit Add and Explicit Long Running) that is considered the main Assembly Type.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Before setting a new <abbr title="Bill-Of-Materials">BOM</abbr> version as Effective, ensure the Use Mixed Assembly setting matches the current effective version. If not, any active references in Experiments, Product Rules, or <abbr title="Bill-Of-Materials">BOM</abbr> Contexts must be removed.</p> </div> </li> <li> <p><strong>Drawing</strong> - optionally, specify a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> drawing (associated with the versioned portion). Select the drawing to import by dragging a file from the file explorer or by selecting the <strong>Browse Files</strong> button and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right hand side of the entry will remove the file from the import queue.</p> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_bom_materials.png"><img alt='Screenshot showing a user interface for creating a new Bill of Materials (BOM) with an input field labeled "create bom materials".' src="../images/create_bom_materials.png"/></a></p> </div> <div class="tabbed-block"> <ul> <li><strong>Product</strong> - the selected Product will allow you to link the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> to that specific Product and to reuse the Product CAD, Drawing, and Schematic files.</li> <li><strong>Base Quantity</strong> - specify the Base Quantity (defaults to 1) for the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>.</li> <li><strong>Enforce Package Quantity</strong> - specify if you want to Enforce Package Quantity for the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> (optional). This property is set to <code>false</code> by default.</li> <li><strong>Units</strong> - specify the Units of the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> (from the <a href="../../../administration/tables/lookup-tables/units/">Units</a> Lookup Table). The units will be matched against the Material primary or secondary units to determine on which quantity the assemble will take place. </li> <li><strong>Drawing</strong> - optionally, specify a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> drawing (associated with the versioned portion). Select the drawing to import by dragging a file from the file explorer or by selecting the <strong>Browse Files</strong> button and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right hand side of the entry will remove the file from the import queue.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_bom_packing.png"><img alt="Screenshot showing a UI for importing a BOM drawing." src="../images/create_bom_packing.png"/></a></p> </div> <div class="tabbed-block"> <ul> <li><strong>Resource</strong> - optionally, specify a <strong>Resource</strong> that has Resource Parts defined.</li> <li><strong>Drawing</strong> - optionally, specify a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> drawing (associated with the versioned portion). Select the drawing to import by dragging a file from the file explorer or by selecting the <strong>Browse Files</strong> button and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right hand side of the entry will remove the file from the import queue.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_bom_parts.png"><img alt="Screenshot showing a user interface with a file explorer and a drag-and-drop area to import a BOM drawing." src="../images/create_bom_parts.png"/></a></p> </div> <div class="tabbed-block"> <ul> <li><strong>Product</strong> - the selected Product will allow you to link the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> to that specific Product and to reuse the Product CAD, Drawing, and Schematic files.</li> <li><strong>Units</strong> - specify the Units of the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> (from the <a href="../../../administration/tables/lookup-tables/units/">Units</a> Lookup Table). The units will be matched against the Material primary or secondary units to determine on which quantity the assemble will take place.</li> <li><strong>Drawing</strong> - optionally, specify a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> drawing (associated with the versioned portion). Select the drawing to import by dragging a file from the file explorer or by selecting the <strong>Browse Files</strong> button and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right hand side of the entry will remove the file from the import queue.</li> <li><strong>Weigh and Dispense Label</strong> - specify the <strong>Printable Document</strong> to be used as label.</li> <li> <p><strong>Formula Type</strong> - specify if the formula used will be:</p> <ul> <li>Absolute - Quantities are entered with absolute values in their respective units. In this case, the sum of <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> quantities can add to any value and tolerances are entered in absolute mode. Example: for a 1000g batch a certain ingredient quantity is defined as 100g with a lower tolerance of 2 (g) and a upper tolerance of 1 (g); if the target batch quantity is 1000g, the valid range of dispensed quantity will be between (100-2 and 100+1), that is between 98g and 101g.</li> <li>Relative - Quantities entered refer to percentages. In this case, the sum of <abbr title="Bill-Of-Materials">BOM</abbr> quantities must be within 99 and 101 and tolerances are also entered in a percentage mode. Example: if a certain ingredient quantity is 10 (%) with a lower tolerance of 2 (%) and a upper tolerance of 1 (%); if the target batch quantity is 1000 g, the valid range of dispensed quantity for this ingredient will be (1000g x 10% - 1000g x 10% x 2%) and (1000g x 10% + 1000 x 10% x 1%), that is between 98g and 101g.</li> </ul> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_bom_weight_and_dispense.png"><img alt='Screenshot showing a user interface with a field labeled "BOM quantities" and another for "tolerances".' src="../images/create_bom_weight_and_dispense.png"/></a></p> </div> </div> </div> </li> <li> <p>Select <strong>Create</strong> to complete the transaction and a new object will be created.</p> </li> </ol> </article>
+</body>
+</html>

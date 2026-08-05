@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Substrate Map - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../tags/#tag:mapping">mapping</a> </nav> <h1 id="substrate-map">Substrate Map<a class="headerlink" href="#substrate-map" title="Direct link to this section">#</a></h1> <p>🔒 SubstrateMap.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Substrate Map</strong> is an entity that represents a map of a substrate which can be a wafer, frame, strip or tray in SEMI E142 format (XML and Unit Level).</p> <p>SEMI E142 is a standard that provides a way to report, store and transmit <strong>Substrate Maps</strong> between semiconductor manufacturing sites by describing the layout of devices on a substrate.</p> <p>You can have various maps, such as: BinCodeMap, DeviceIdMap, TransferMap, and DeviceDataMap.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/e142_object-model.png"><img alt="E142 Object Model" src="images/e142_object-model.png"/></a></p> <p>This Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> feature allows you to visualize an array of <code>xml</code> <strong>Substrate Maps</strong> because of the customizations performed on the original SEMI E142 standard. For more information and supported SEMI E142 values, see <a href="cm_semi_e142_schema/">CM SEMI E142 schema</a>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Substrate Maps are part of Mapping, which is a Critical Manufacturing optional module.</p> </div> <p>To better understand the <strong>Substrate Map</strong> entity, the following concepts and definitions are relevant:</p> <table> <thead> <tr> <th>Concept</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><strong>Axis Direction</strong> (see also <strong>Origin Location</strong>)</td> <td>Defines in which direction of the axis, X and Y, values increase. These can be Up Right, Down Right, Up Left, and Down Left. The default value is Up Right.</td> </tr> <tr> <td><strong>Frame</strong></td> <td>A wafer mounted on a film frame so that it may be diced, and the die is picked and placed in a package.</td> </tr> <tr> <td><strong>Layout</strong></td> <td>The logical and physical dimensions of a two-dimensional array of devices to which a map may be assigned.</td> </tr> <tr> <td><strong>Map</strong></td> <td>A two-dimensional array of data for a specific layout on a substrate.</td> </tr> <tr> <td><strong>Orientation</strong></td> <td>The rotation of the substrate (0, 90, 180, or 270 degrees). The default value is 0 degrees.</td> </tr> <tr> <td><strong>Origin Location</strong></td> <td>Where the (0,0) coordinate is located. It can be Lower Left, Lower Right, Upper Left, Upper Right, or Center. The default value is Lower Left.</td> </tr> <tr> <td><strong>Panel</strong></td> <td>A rectangular or square substrate on which an array of devices are fabricated.</td> </tr> <tr> <td><strong>Strip</strong></td> <td>A lead frame, board, or other container on which an array of devices are fabricated.</td> </tr> <tr> <td><strong>Substrate</strong></td> <td>A surface upon which something is deposited, etched, attached, or otherwise prepared or fabricated. Examples of substrates are wafers, frames, strips, and trays.</td> </tr> <tr> <td><strong>Wafer</strong></td> <td>A round substrate on which an array of devices are fabricated.</td> </tr> </tbody> </table> <p>Table 1: Substrate Map Concepts and Definitions</p> <h2 id="system-configurations">System Configurations<a class="headerlink" href="#system-configurations" title="Direct link to this section">#</a></h2> <p>The following system configurations, located under <code>/Cmf/System/Configuration/Mapping/&lt;Key&gt;</code>, control the behavior of Overlay creation, activation, validation, and historical data storage. These settings allow administrators to define whether activation is handled automatically or by user decision, as well as to balance traceability requirements with performance considerations.</p> <table> <thead> <tr> <th>Key</th> <th>Default Value</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><code>ActiveBinCodeMapMode</code></td> <td><code>System</code></td> <td>Determines how the Bin Code Map Overlay becomes active upon creation. If set to <code>System</code>, the newly created Overlay automatically becomes the Active version. If set to <code>User</code>, you can decide whether to activate the newly created Overlay; otherwise, the previously Active version remains unchanged.</td> </tr> <tr> <td><code>ActiveDeviceIdMapMode</code></td> <td><code>System</code></td> <td>Determines how the Device ID Map Overlay becomes active upon creation. If set to <code>System</code>, the newly created Overlay automatically becomes the Active version. If set to <code>User</code>, you can decide whether to activate the newly created Overlay; otherwise, the existing Active version is maintained.</td> </tr> <tr> <td><code>CheckUpdatesAgainstMask</code></td> <td><code>false</code></td> <td>Specifies whether Map value updates are validated against the defined mask. Enabling this option introduces a significant performance overhead and should only be used when strict validation is required.</td> </tr> <tr> <td><code>OverlayVersioningMode</code></td> <td><code>System</code></td> <td>Defines how Overlay version conflicts are handled during insertion. If set to <code>System</code>, the Overlay is inserted regardless of existing version numbers. If set to <code>User</code>, insertion is allowed only if the version does not already exist.</td> </tr> <tr> <td><code>StoreDeviceBinCodeMapHistory</code></td> <td><code>true</code></td> <td>Indicates whether Device Bin Code Map History data is stored for Substrate Maps. Disabling this option reduces storage usage but removes historical traceability for map changes.</td> </tr> <tr> <td><code>StoreDeviceTraceability</code></td> <td><code>true</code></td> <td>Indicates whether Device Traceability data is stored for Substrate Maps. Disabling this option reduces storage usage but impacts downstream traceability and audit capabilities.</td> </tr> </tbody> </table> <p>Table: Overlay And Map System Configuration Parameters</p> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph TD
+    L1[Substrate Map Substrate Alias] --- Main[Substrate Map]
+    Main[Substrate Map] --- L2[Substrate Map Substrate]
+    N1[Substrate Map Content &lt;br&gt; - Raw XML] --&gt; Main
+    Main -.- A1[Bin Converter]
+    Main -.- ST1[Resource Substrate Map&lt;br&gt; Bin Converter]
+    A1 -.- ST1
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6,L7,L8,L9 mermaid_entitylinked
+class ST1 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/substrate-map"
+click A1 "../../business-data/bin-converter"</code></pre> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary step for correctly creating and using a <strong>Substrate Map</strong> is:</p> <ol> <li>Create a <strong>Substrate Map</strong>.</li> </ol> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Substrate Map:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="substrate_map_page/">Substrate Map Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_substrate_map/">Clone Substrate Map</a></li> <li><a href="create_substrate_map/">Create Substrate Map</a></li> <li><a href="edit_substrate_map/">Edit Substrate Map</a></li> <li><a href="terminate_substrate_map/">Terminate Substrate Map</a></li> <li><a href="unterminate_substrate_map/">Unterminate Substrate Map</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="change_bin_values/">Change Bin Values</a></li> <li><a href="cm_semi_e142_schema/">CM SEMI E142 Schema</a></li> <li><a href="coordinate_systems/">Coordinate Systems</a></li> <li><a href="create_substrate_map_overlay/">Create Substrate Map Overlay</a></li> <li><a href="manage_substrate_map_overlay_information/">Manage Substrate Map Overlay Information</a></li> <li><a href="search_substrate_map/">Search Substrate Map</a></li> <li><a href="update_substrate_map_overlay/">Update Substrate Map Overlay</a></li> <li><a href="view_device_bincode_history/">View Device Bin Code History</a></li> <li><a href="view_device_genealogy/">View Device Genealogy</a></li> </ul> </article>
+</body>
+</html>

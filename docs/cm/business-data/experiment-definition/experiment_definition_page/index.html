@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Experiment Definition Page - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="experiment-definition-page">Experiment Definition Page<a class="headerlink" href="#experiment-definition-page" title="Direct link to this section">#</a></h1> <p>🔒 ExperimentDefinition.<strong>Show</strong></p> <p>The <strong>Experiment Definition</strong> page displays general information on the specific <strong>Experiment Definition</strong>. In addition it enables you to perform all the operations that can be performed on a specific <strong>Experiment Definition</strong>.</p> <h2 id="details-view">Details View<a class="headerlink" href="#details-view" title="Direct link to this section">#</a></h2> <p>Depending on the optional modules that are licensed in the system, the <strong>Details</strong> view will display some or all of the following page sections:</p> <ul> <li><strong>Details</strong> - displays general information of the <strong>Experiment Definition</strong>.</li> <li><strong>Objectives</strong> - displays one or multiple pre-defined objectives for the <strong>Experiment</strong> according to your specification of the aim of the <strong>Experiment</strong>. The <strong>Objectives</strong> are presented along with their description (optional) and target value (optional).</li> <li><strong>Main Material Groups</strong> - displays information about the <strong>Main Material Groups</strong> that were previously defined. It is possible to present the data as a List or Matrix by selecting the respective icon.</li> <li><strong>Instances</strong> - displays a list of all the experiment instances associated with the specific <strong>Experiment Definition</strong>. These experiment instances were created based on the settings that were specified when creating the <strong>Experiment Definition</strong>.</li> <li><strong>Attachments</strong> - shows the documents that are attached to the <strong>Experiment Definition</strong> and enables you to attach additional documentation to the <strong>Experiment Definition</strong>.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_details.PNG"><img alt="experiment_details" src="../images/experiment_details.PNG"/></a></p> <h2 id="matrix-view">Matrix View<a class="headerlink" href="#matrix-view" title="Direct link to this section">#</a></h2> <p>The <strong>Matrix</strong> view allows you to have a global view on the assignment of sub-material groups (represented by numbers) and actions (within a step). It is especially recommended to use the <strong>Matrix</strong> view in case you want to see the correlation between the sub-material groups and the steps and actions.</p> <p>In this view, you can collapse and expand Steps by selecting the arrow icon. If the State of the <strong>Experiment Definition</strong> is Created, you can also add Steps by selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> icon. For more information, see <a href="../create_experiment_definition/#step-5-add-experiment-definition-step">Step 5: Add Experiment Definition Step</a>.</p> <p>At each <strong>Step</strong>, it is also possible to Edit or Delete actions and the allocation of materials by selecting the <strong>More</strong> option in the <strong>Matrix</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>To Edit or Delete, the State of the <strong>Experiment Definition</strong> must be Created.</p> </div> <p>By selecting any of the numbers, you have access to the following details on the right panel:</p> <ul> <li><strong>Experiment Definition</strong></li> <li><strong>Step</strong></li> <li><strong>Material Group</strong></li> <li><strong>Action</strong></li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_matrix_details.PNG"><img alt="experiment_matrix_details" src="../images/experiment_matrix_details.PNG"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>For specific actions, information will also be displayed in the Action row itself (e.g. <strong>Recipe</strong> and <strong>Flow Path</strong>).</p> </div> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Different colors are associated to common groups of materials throughout the whole Step actions.</p> </div> <h2 id="references-view">References View<a class="headerlink" href="#references-view" title="Direct link to this section">#</a></h2> <p>This view combines information concerning other objects that have references to the current object:</p> <ul> <li><strong>Relations</strong> - displays the existing <strong>Relations</strong> between the <strong>Experiment Definition</strong> and other entities and allows you to edit them. For more information, see <a href="../../../general/screen-layout/page-sections/relations/">Relations</a>.</li> <li><strong>Where Used</strong> - displays the set of relationships between the <strong>Experiment Definition</strong> and the other objects used throughout the system.</li> </ul> <h2 id="history-view">History View<a class="headerlink" href="#history-view" title="Direct link to this section">#</a></h2> <p>This view combines information concerning other objects that have references to the current <strong>Experiment Definition</strong> object:</p> <ul> <li><strong>History</strong> - displays the history of the operations, associated information, user(s) performing the changes and date and time of the changes.</li> </ul> </article>
+</body>
+</html>

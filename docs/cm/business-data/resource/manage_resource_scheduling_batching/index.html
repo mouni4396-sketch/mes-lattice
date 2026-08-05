@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Scheduling/Batching - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="manage-schedulingbatching">Manage Scheduling/Batching<a class="headerlink" href="#manage-schedulingbatching" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>Edit</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to define and manage the <strong>Resource</strong> Scheduling details.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the precondition of the transaction. </p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>No specific setup is required other than to meet the preconditions of the transaction.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-manage-resource-scheduling">Step 1: Manage Resource Scheduling<a class="headerlink" href="#step-1-manage-resource-scheduling" title="Direct link to this section">#</a></h3> <p>If the <strong>Scheduling</strong> module is properly licensed in the system, the <strong>Scheduling</strong> section will be enabled and you will be able to define the <strong>Resource</strong> <strong>Scheduling</strong> information.</p> <ol> <li> <p>Select the Dispatch Schedule Type which can be Dispatching or Scheduling. If Dispatching is selected, the <strong>Resource</strong>, when marked as Include in Planning, will be considered for Planning. If Scheduling is selected, the <strong>Resource</strong> will be both considered for Planning and Scheduling.</p> </li> <li> <p>Specify whether the <strong>Resource</strong> should be included in Schedules of type Planning or not. If a <strong>Resource</strong> has the Dispatch Schedule Type set as Scheduling, it is both considered for Planning and Scheduling.</p> </li> <li> <p>Define the Scheduling Type: </p> <ul> <li>Batch - a <strong>Resource</strong> of a certain capacity, capable of processing multiple <strong>Materials</strong> together, where the start and end job is the same for all.</li> <li>Machine - a <strong>Resource</strong> that processes only one <strong>Material</strong> at a time.</li> <li>Tunnel - a <strong>Resource</strong> like a conveyor belt that processes multiple <strong>Materials</strong> continuously.</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the Scheduling Type is Batch, please refer to the <a href="./#step-2-manage-batching">Manage Batching</a> section.</p> </div> </li> <li> <p>Select whether an operation can continue in non-working time, if it has started during a working time period.</p> </li> <li>Specify the Saturation (between 0-1). This is a cut-off value after which the scheduler will look for alternative <strong>Resources</strong> when scheduling an operation. Zero means saturated - the scheduler will always look for an alternative when the higher priority ones are busy. One means non-saturated - the scheduler will always try to schedule the operations on their high-priority <strong>Resources</strong>, unless their delivery dates are at risk. When that happens, it will try to use the all alternative <strong>Resources</strong>.</li> <li>Optionally, select a Setup Matrix to be used when scheduling the <strong>Resource</strong>.</li> <li>Define the default Setup Time and the time frame (Days, Hours, Minutes or Seconds).</li> <li>Optionally, define the Track-In Tolerance. This defines the number of jobs ahead that you can start at the particular <strong>Resource</strong>, with the normal Track-In. For example, if it is defined as one, it indicates that one of the two first <strong>Material</strong> jobs for the <strong>Resource</strong> can be tracked-in.</li> <li>Define whether the <strong>Resource</strong> is set as the preferred <strong>Resource</strong>.</li> <li> <p>Select the Resource Capacity Mode out of the two options: Finite or Infinite.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The Resource Capacity Mode property is directly related to the <code>RESINFINITE</code> property in the Scheduling engine, with the direct mapping:</p> <ul> <li>0 - Finite capacity</li> <li>1 - Infinite capacity</li> </ul> </div> </li> <li> <p>Select whether to exclude the <strong>Resource</strong> from Scheduling, typically a temporary exclusion.</p> </li> <li>Optionally, define an Availability Date. If defined, for Scheduling purposes, the <strong>Resource</strong> will only be considered after that date.</li> <li>Define the Efficiency (between 0 and 1). The efficiency is used to adjust the processing time - for example, a <strong>Resource</strong> with an efficiency of 0.5 (50%) takes twice the processing time to perform a certain operation.</li> <li>Define the Default Schedule View (Day, Week or Month).</li> <li>Check the Use Timeline Time as Default to use a timeline as the default schedule view.</li> <li>Optionally, define the number of hours to restrict the Scheduling jobs to be displayed in the <strong>Resource</strong> view.</li> <li> <p>Specify the Scheduling View Mode for this <strong>Resource</strong>. The available options are:</p> <ul> <li>Material - The scheduling engine will take the existing work in progress in its current form and schedule it appropriately.</li> <li>Production Order - The scheduling engine will set production quantity targets per Production Order Step, schedule them to <strong>Resources</strong> and track the quantities.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see <a href="../../../../tutorials/modules/advanced-planning-and-scheduling/scheduling/scheduling_modes/">Scheduling Modes</a>.</p> </div> </li> <li> <p>Select <strong>Update</strong> to complete the operation.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_scheduling.PNG"><img alt='Screenshot showing a resource management interface with a "Manage Resource Scheduling" heading and an update button.' src="../images/manage_scheduling.PNG"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If the Resource State Model State contains a defined Exclude From Scheduling attribute, the system will automatically set the Exclude From Scheduling property, based on the Resource's current State.</p> </div> <h3 id="step-2-manage-batching">Step 2: Manage Batching<a class="headerlink" href="#step-2-manage-batching" title="Direct link to this section">#</a></h3> <p>If the Scheduling Type is <strong>Batch</strong>, a new section named <strong>Batch Configuration</strong> will be available in the <strong>Manage Resource Scheduling</strong> wizard, and you will be able to define the <strong>Resource</strong> <strong>Batching</strong> information.</p> <ol> <li>Optionally, define the Minimum Batch Capacity Usage after which the <strong>Resource</strong> can begin processing.</li> <li>Define the Material Split Mode - Allowed or Not Allowed. This option defines if the system is allowed to split the Material quantity of a chosen Batch Material if it surpasses the maximum limit of the Batch Size.</li> <li> <p>Optionally, choose the Processing Mode - Batch or Material. If the Processing Mode chosen is Batch, choose:</p> <ul> <li>Batch Type - from the Lookup table <a href="../../../administration/tables/lookup-tables/batchtype/">BatchType</a>.</li> <li>Load Mode - None, Offline, or Resource. If you choose Offline or Resource, you will need to specify the Load Start Mode (After Release or Before Release). The default state for the Load Start Mode is After Release.</li> <li>Container Type - from the Lookup table <a href="../../../administration/tables/lookup-tables/containertype/">ContainerType</a>.</li> </ul> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_batching.png"><img alt='Screenshot showing a UI with options for managing batching, including a field referencing the "Container Type" from the nearby lookup table.' src="../images/manage_batching.png"/></a></p> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>The settings you choose in the Manage Batching section will dictate the Resource Information associated with a given <a href="../../batch/">Batch</a>. Once you associate a Resource with a Batch, the changes in the Manage Batching section will not carry over to the Resource Information in the <a href="../../batch/batch_page/">Batch Page</a>. Additionally, if the Resource Container Type and Batch Container Type are defined, they must match.</p> </div> </article>
+</body>
+</html>

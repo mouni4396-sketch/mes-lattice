@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Post Data to Data Collection Instance - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../../tags/#tag:data-collection">data collection</a> </nav> <h1 id="post-data-to-data-collection-instance">Post Data to Data Collection Instance<a class="headerlink" href="#post-data-to-data-collection-instance" title="Direct link to this section">#</a></h1> <p>🔒 DataCollectionInstance.<strong>Post</strong></p> <p>🔒 DataCollectionInstance.<strong>PostDataForInspection</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to post data to an existing long-running <strong>Data Collection Instance</strong>. Data can be posted multiple times until the <strong>Data Collection Instance</strong> is Closed.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>A Data Point (the smallest unit which can be posted) represents a complete Sample.</p> </div> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Data Collection Instance</strong> is Open.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <ol> <li>From a <strong>Material</strong> associated to the <strong>Data Collection</strong> or directly on the <strong>Data Collection</strong> instance, select <strong>Post</strong> on the top ribbon.</li> <li> <p>Provide the data as described by the <strong>Data Collection</strong> definition. It is important to understand that:</p> <ul> <li>Mandatory readings of mandatory samples of mandatory <strong>Parameters</strong> are pre-filled with the default values, if defined.</li> <li>The cells with the red asterisk refer to mandatory values.</li> <li>In case that there are limits defined (not possible for Ad-hoc <strong>Data Collections</strong>), they are shown on the top-right corner of the <strong>Parameter</strong> and the color of the cell will change accordingly. If multiple sample limits are defined, they will be displayed according to the sample ID.</li> <li>Depending on the type of user interface you have selected, entering the data can be done in separate text areas corresponding to different fields or they can be entered in grid form. For more information, see <a href="../../create_data_collection/#user-interfaces-classic-vs-modern">User Interfaces: Classic vs Modern</a>.</li> </ul> </li> <li> <p>Select <strong>Post</strong> to complete the operation.</p> </li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The <strong>Data Collection</strong> parameters may have validation ranges that have to be followed in order for the values to be accepted.</p> </div> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Validation ranges are always checked when data is posted. Warning and error limit evaluation depends on both limit checking settings configured in the <strong>Data Collection</strong>:</p> <ul> <li>Data Collection - On Post: warning and error limits are evaluated during posting, and any configured protocols can be opened at that time.</li> <li>Data Collection - On Close: warning and error limits are not evaluated during posting; they are evaluated only when the <strong>Data Collection Instance</strong> is closed.</li> <li>Data Collection parameter - Individual Value: limits are evaluated against each posted value.</li> <li>Data Collection parameter - Calculated Value: limits are evaluated against the calculated value defined by the parameter calculation and grouping mode.</li> </ul> </div> <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Classic</label><label for="__tabbed_1_2">Modern</label></div> <div class="tabbed-content"> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/post_data_to_data_collection.png"><img alt="classic" src="../../images/post_data_to_data_collection.png"/></a></p> </div> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/post_data_to_data_collection_modern.png"><img alt="modern" src="../../images/post_data_to_data_collection_modern.png"/></a>|</p> </div> </div> </div> <p>A <strong>Data Collection</strong> may be configured to send data to <abbr title="Statistical Process Control">SPC</abbr>, in which case one or more <abbr title="Statistical Process Control">SPC</abbr> Charts will appear. The context exchanged with <abbr title="Statistical Process Control">SPC</abbr> may include the parameters in the table below.</p> <table> <thead> <tr> <th>Parameter</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><strong>Facility</strong></td> <td><strong>Facility</strong> associated with the selected <strong>Material</strong></td> </tr> <tr> <td><strong>Material</strong></td> <td>The selected <strong>Material</strong></td> </tr> <tr> <td><strong>MaterialType</strong></td> <td>Type of <strong>Material</strong></td> </tr> <tr> <td><strong>Step</strong></td> <td>Current Step associated with the selected <strong>Material</strong></td> </tr> <tr> <td><strong>Resource</strong></td> <td>Resource associated with the <strong>Material</strong></td> </tr> <tr> <td><strong>Product</strong></td> <td>Product related to the selected <strong>Material</strong></td> </tr> <tr> <td><strong>ProductType</strong></td> <td>Type of Product related to the <strong>Material</strong></td> </tr> <tr> <td><strong>ProductGroup</strong></td> <td>ProductGroup of the Product of the selected <strong>Material</strong></td> </tr> <tr> <td><strong>Flow</strong></td> <td>Flow of the selected the <strong>Material</strong></td> </tr> <tr> <td><strong>FlowPath</strong></td> <td>Flow path of the selected the <strong>Material</strong></td> </tr> <tr> <td><strong>LogicalFlowPath</strong></td> <td>Logical flow path associated with the <strong>Material</strong></td> </tr> <tr> <td><strong>ProcessStep</strong></td> <td>Process Step of the <strong>Material</strong> (determined by the Track In of the last <strong>Step</strong> with a Processing Type of <code>Process</code>)</td> </tr> <tr> <td><strong>ProcessResource</strong></td> <td>Process Resource for the <strong>Material</strong> (determined by the Track In of the last <strong>Step</strong> with a Processing Type of <code>Process</code>)</td> </tr> <tr> <td><strong>SampleId</strong></td> <td>Id of the <strong>Material</strong></td> </tr> </tbody> </table> <p>Table - Possible <abbr title="Statistical Process Control">SPC</abbr> parameters</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>When the <strong>Data Collection</strong> is configured to be used in the context of an <strong>Inspection Plan</strong>, the DataCollectionInstance.<strong>PostDataForInspection</strong> security feature is used.</p> </div> </article>
+</body>
+</html>

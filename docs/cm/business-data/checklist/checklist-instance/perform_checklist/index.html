@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perform Checklist Instance - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="perform-checklist-instance">Perform Checklist Instance<a class="headerlink" href="#perform-checklist-instance" title="Direct link to this section">#</a></h1> <p>🔒 ChecklistInstance.<strong>Perform</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>Performs a <strong>Checklist</strong> either Immediate or Long Running. This is usually integrated into other functionality such as Maintenance Management and Exceptions Management.</p> <ul> <li>A <strong>Checklist</strong> performed in mode Immediate needs to be completed in one snapshot and data is committed all at once.</li> <li>A <strong>Checklist</strong> performed in mode Long Running can be performed over a long period of time and data is committed after the completion of each Checklist Item.</li> </ul> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Checklist</strong> is Active or Checklist Version is Effective.</li> <li>The <strong>Checklist</strong> scope is General.</li> <li>If the <strong>Checklist</strong> is Long Running it must have been opened first.</li> <li>The <strong>Checklist Instance</strong> exists in the system and it is in the Active state.</li> <li>The <strong>Checklist</strong> Execution State cannot be Paused.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>To execute the Checklist Instance, you need to:</p> <ol> <li>Find the desired <strong>Checklist</strong> Instance (for Long Running) or <strong>Checklist</strong> (for Immediate) and select <strong>Perform</strong>.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If the Checklist scope is Material Tracking, select the Perform New button, which will execute the <a href="../../../material/perform_material_checklist_new/">Perform Material Checklist - New</a> operation. You can also perform a Checklist when it is associated to a Material at any processing situation. If you choose to perform the Checklist from the Material, the button will be available on the top ribbon of the Material page in the Details view. For more information, see <a href="../../../material/perform_material_checklist/">Perform Material Checklist</a> and <a href="../../../material/perform_material_checklist_new/">Perform Material Checklist - New</a>.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/perform_checklist_instance.png"><img alt="Screenshot showing a checklist instance with options for performing a new material tracking task." src="../../images/perform_checklist_instance.png"/></a></p> <p>The item list is divided into mandatory and optional and can be switched by selecting the appropriate list on the top right-hand corner of the list.</p> <p>When you perform a Checklist Instance, if the Checklist Item is a Manual Task with the tracking type of Start And End, you may undo the start by selecting the <span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M450,279.116c0,55.225-22.375,105.225-58.575,141.425l-35.35-35.35C383.2,358.016,400,320.516,400,279.116
+	c0-82.85-67.15-150-150-150c-41.425,0-78.925,16.775-106.075,43.925L200,229.116H50v-150l58.575,58.575
+	c36.2-36.2,86.2-58.575,141.425-58.575C360.45,79.116,450,168.641,450,279.116z"></path> </svg> </span> icon. This option will only be available if no <strong>Data Collection</strong> information has been posted and no Parts have been consumed:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/perform_checklist_instance_wizard.png"><img alt="Screenshot showing the undo option for a started manual task in the Checklist Instance Wizard." src="../../images/perform_checklist_instance_wizard.png"/></a></p> <p>Optionally, you may add comments to the Undo Start of Checklist Item, as shown below:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/undo_start_checklist_item.png"><img alt='Screenshot showing the "Undo Start of Checklist Item" button.' src="../../images/undo_start_checklist_item.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The system automatically records the user who initiates the Checklist Instance Item and the user who completes it.</p> </div> <h3 id="checklist-item-type">Checklist Item Type<a class="headerlink" href="#checklist-item-type" title="Direct link to this section">#</a></h3> <p>Items are presented in the following manner:</p> <table> <thead> <tr> <th style="text-align: center;">Icon</th> <th>Type</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M425,243.325V450h-75h-75h-75L83.225,315.2c-20.15-26.85-0.975-65.2,32.6-65.2c11.75,0,22.925,5.075,30.675,13.925
+	L200,312.85V87.5c0-20.7,16.8-37.5,37.5-37.5S275,66.8,275,87.5V175l132.625,44.2C418,222.675,425,232.375,425,243.325z"></path> </svg> </span></span></td> <td>Manual Task</td> <td>If the tracking is Start-End it needs to be started first by selecting the icon on the left of the Checklist Item. <br/> All mandatory parameters must be filled in. <br/> The Checklist Item needs to be completed by then selecting the icon on the left of the Checklist Item.</td> </tr> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M237,125c-13.8,0-25,11.2-25,25v125l-6.3-6.25c-12.025-12-28.35-18.75-45.325-18.75c-19.525,0-30.4,22.6-18.2,37.85
+	l69.7,87.15h50h50H337V242.925c0-10.7-6.85-20.225-17-23.6L262,200v-50C262,136.2,250.8,125,237,125z M138.25,373.75
+	c-68.35-68.35-68.35-179.15,0-247.475c62.4-62.4,160.075-67.625,228.625-16.1L337,150l100,2.775L412,50l-30.125,40.175
+	c-78.35-58.9-190-52.9-261.3,18.4c-78.1,78.1-78.1,204.75,0,282.85s204.75,78.1,282.85,0L385.75,373.75
+	C317.4,442.075,206.6,442.075,138.25,373.75z"></path> </svg> </span></span></td> <td>Manual Action</td> <td>These Checklist Items are executed by selecting the start icon on the left of the Checklist Item.</td> </tr> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M386.25,373.75l17.675,17.675c-78.1,78.1-204.75,78.1-282.85,0s-78.1-204.75,0-282.85c71.3-71.3,182.95-77.3,261.3-18.4
+	L412.5,50l25,102.775L337.5,150l29.875-39.85c-68.55-51.525-166.225-46.275-228.625,16.1c-68.35,68.35-68.35,179.15,0,247.475
+	C207.1,442.075,317.9,442.075,386.25,373.75z M187.5,163.675V336.35c0,10.15,9.35,16.75,17.275,12.2L355.9,262.225
+	c8.8-5.025,8.8-19.375,0-24.4L204.775,151.45C196.85,146.925,187.5,153.525,187.5,163.675z"></path> </svg> </span></span></td> <td>Automatic Action</td> <td>These Checklist Items are only available in Long Running Checklists and they are executed automatically by the system.</td> </tr> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M418.55,156.975L343.025,81.45l24.125-24.125C372,52.45,377.95,50,384.925,50s12.95,2.45,17.85,7.325l39.85,39.85
+	c4.9,4.925,7.375,10.85,7.375,17.85c0,7.025-2.475,12.95-7.375,17.825L418.55,156.975z M125,299.475L326.2,98.25l75.525,75.525
+	L200.525,375H125V299.475z M204.7,261.7c2.8,2.8,5.675,2.725,8.675-0.25l116.8-116.775c2.925-2.975,3-5.85,0.25-8.65
+	c-2.825-2.8-5.7-2.7-8.7,0.275l-116.75,116.775C202,256.025,201.925,258.925,204.7,261.7z M150,325h25v25h15.05l30.4-30.525
+	L180.5,279.6L150,309.95V325z M425,400c0,13.8-11.2,25-25,25H100c-13.8,0-25-11.2-25-25V100c0-13.8,11.2-25,25-25h125l25-25H100
+	c-27.625,0-50,22.375-50,50v300c0,27.625,22.375,50,50,50h300c27.625,0,50-22.375,50-50V250l-25,25V400z"></path> </svg> </span></span></td> <td>Signature</td> <td>All mandatory parameters must be filled in. <br/> The Checklist Item must be signed by selecting the icon on the left of the Checklist Item. <br/> The Checklist signature consists of the username and password.</td> </tr> </tbody> </table> <p>Table: Checklist Item types</p> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>The person that signs the Checklist Item must belong to the defined Checklist Item signature role. The current user is only allowed to sign the Checklist Item if the Checklist Item has the property Allow Self set to <code>true</code>. When token-based authentication is enabled, the user is also able to sign-in by reading his token using the appropriate device.</p> <p>If the Security Portal is enabled for the instance of the Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> where Signature type Checklist Items are created, the user that will sign the Checklist Item must have a PIN defined.</p> </div> <h3 id="checklist-item-state">Checklist Item State<a class="headerlink" href="#checklist-item-state" title="Direct link to this section">#</a></h3> <p>The icon shown on the left of the Checklist Item has the meaning as described in the table below:</p> <table> <thead> <tr> <th style="text-align: center;">Icon</th> <th>Execution State</th> </tr> </thead> <tbody> <tr> <td style="text-align: center;"><div style="display: inline-flex;"><span style="color: #0066A1; font-size: 1.5em; border: 2px solid #0066A1; border-radius: 4px; padding: 1.25px 5px; width: 40x; height: 33px;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M375,250L125,400V100L375,250z"></path> </svg> </span></span></div></td> <td>The Checklist Item can be started - note that floating items can be started at any time. Selecting it will begin the Checklist Item, but the Checklist has been defined as requiring the tracking of the Start and End, so another action is necessary to complete the Checklist Item.</td> </tr> <tr> <td style="text-align: center;"><div style="display: inline-flex;"><span style="color: #C8DCE8; font-size: 1.5em; border: 2px solid #C8DCE8; border-radius: 4px; padding: 1.25px 5px; width: 40x; height: 33px;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M375,250L125,400V100L375,250z"></path> </svg> </span></span></div></td> <td>The Checklist Item cannot be started because the previous item has not been completed yet.</td> </tr> <tr> <td style="text-align: center;"><div style="display: inline-flex;"><span style="color: #F9C833; font-size: 1.5em; border: 2px solid #F9C833; border-radius: 4px; padding: 1.25px 5px; width: 40x; height: 33px;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M375,250L125,400V100L375,250z"></path> </svg> </span></span></div></td> <td>The Checklist Item has been started and selecting it will mark the item as completed, provided that all the mandatory parameters are filled.</td> </tr> <tr> <td style="text-align: center;"><span style="color: #50B450; font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M450,151.25L200.291,400L50,250l50.097-50l100.194,100l200.388-200L450,151.25z"></path> </svg> </span></span></td> <td>The Checklist item has been completed.</td> </tr> <tr> <td style="text-align: center;"><span style="color: grey; font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M300,250L150,425H50l150-175L50.225,75H150L300,250z M300,75h-99.775L350,250L200,425h100l150-175L300,75z"></path> </svg> </span></span></td> <td>The Checklist Item has been skipped.</td> </tr> <tr> <td style="text-align: center;"><div style="display: inline-flex;"><span style="color: #0066A1; font-size: 1.5em; border: 2px solid #0066A1; border-radius: 4px 0 0 4px; padding: 1.25px 5px; width: 40x; height: 33px;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M450,151.25L200.291,400L50,250l50.097-50l100.194,100l200.388-200L450,151.25z"></path> </svg> </span></span><span style="color: #0066A1; font-size: 1.5em; border: 2px solid #0066A1; border-radius: 0 4px 4px 0; border-left: none!important; padding: 1.25px 5px; width: 40x; height: 33px;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M300,250L150,425H50l150-175L50.225,75H150L300,250z M300,75h-99.775L350,250L200,425h100l150-175L300,75z"></path> </svg> </span></span></div></td> <td>The Checklist Item is optional so it can be started and performed or skipped.</td> </tr> </tbody> </table> <p>Table: Checklist Item states</p> <h3 id="checklist-item-information">Checklist Item Information<a class="headerlink" href="#checklist-item-information" title="Direct link to this section">#</a></h3> <p>Additional Checklist Item information is presented on the right of each Checklist Item:</p> <table> <thead> <tr> <th style="text-align: center;">Icon</th> <th>Information</th> </tr> </thead> <tbody> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg id="Layer_1" style="enable-background:new 0 0 500 500;" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;}
+</style> <path class="st0" d="M424.4,75.6C407.3,58.5,384.9,50,362.5,50c-22.4,0-44.8,8.5-61.9,25.6L265.3,111c-28,28-32.7,70.1-14.8,103.2
+	l-36.3,36.3c-12.9-7-27-10.8-41.3-10.8c-22.4,0-44.8,8.5-61.9,25.6l-35.4,35.4c-34.2,34.2-34.2,89.6,0,123.7
+	c17.1,17.1,39.5,25.6,61.9,25.6c22.4,0,44.8-8.5,61.9-25.6l35.4-35.4c28-28,32.7-70.1,14.8-103.2l36.3-36.3
+	c12.9,7,27,10.8,41.3,10.8c22.4,0,44.8-8.5,61.9-25.6l35.4-35.4C458.5,165.2,458.5,109.8,424.4,75.6z M199.4,353.7L164,389
+	c-7.1,7.1-16.5,11-26.5,11s-19.4-3.9-26.5-11c-7.1-7.1-11-16.5-11-26.5s3.9-19.4,11-26.5l35.4-35.4c7.1-7.1,16.5-11,26.5-11
+	c0.7,0,1.3,0.2,2,0.2l-14,14c-9.3,9.3-9.3,24.5,0,33.8l1.6,1.6c9.3,9.3,24.5,9.3,33.8,0l13.8-13.8
+	C210.5,335.6,207.1,345.9,199.4,353.7z M389,164l-35.4,35.4c-7.1,7.1-16.5,11-26.5,11c-0.7,0-1.3-0.2-2-0.2l14-14
+	c9.3-9.3,9.3-24.5,0-33.8l-1.6-1.6c-9.3-9.3-24.5-9.3-33.8,0L290,174.6c-0.5-10.2,2.8-20.5,10.6-28.3L336,111
+	c7.1-7.1,16.5-11,26.5-11s19.4,3.9,26.5,11c7.1,7.1,11,16.5,11,26.5S396.1,156.9,389,164z"></path> </svg> </span></span></td> <td>The Checklist Item has a documentation link that should be followed and perused.</td> </tr> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M450,75.047h-73.818l-41.275,84.339C312.752,96.169,266.359,50,199.868,50C104.171,50,50,145.413,50,250
+	s54.171,200,149.893,200c66.466,0,112.884-46.119,135.04-109.361l41.25,84.364H450L371.164,251.15L450,75.047z M200.521,372.635
+	c-55.024,0-86.238-58.518-86.238-122.66s31.188-122.66,86.238-122.66c55.075,0,86.263,58.518,86.263,122.66
+	S255.595,372.635,200.521,372.635z"></path> </svg> </span></span></td> <td>The Checklist Item has parameters that must be filled before being completed.</td> </tr> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M425,75H250v50h175V75z M400,175H250v50h150V175z M350,275H250v50h100V275z M325,375h-75v50h75V375z M225,350l-75,75l-75-75
+	h50v-25v-25V75h50v225v25v25H225z"></path> </svg> </span></span></td> <td>The Checklist Item is sequential, so it needs to be performed in a certain sequence.</td> </tr> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M375,275l75,75l-75,75v-46.775c-25,0-16.6,0.025-24.425,0.1c-7.9,0.075-16.65,0.175-20.75,0.225
+	c-4.175,0.075-10.975,0-17.675-0.225c-6.7-0.2-12.65-0.575-16.5-1.1c-3.85-0.525-8.95-1.3-14.625-2.35
+	c-5.625-1.05-10.475-2.4-14.175-4.125c-3.7-1.725-8.1-3.8-12.95-6.35c-4.925-2.5-9.35-5.475-13.2-8.875s-7.975-7.375-12.25-11.9
+	c-4.325-4.55-8.525-9.7-12.475-15.5c8.75-13.8,18.8-34.05,30.225-60.775c3.275,6.675,6.075,12.05,8.25,16.15
+	c2.275,4.1,5.25,8.8,9.025,14.125c3.775,5.35,7.575,9.55,11.4,12.575c3.725,3.05,8.4,7.5,14.025,9.65
+	c5.5,2.2,11.575,5.15,18.05,5.15H375V275z M107.5,125H50v50h57.5c6.575,0,12.6,3,18.175,5.15c5.6,2.15,10.25,6.675,14.025,9.7
+	c3.775,3.05,7.55,7.35,11.325,12.7c3.825,5.325,6.8,10.275,9.025,14.325c2.225,4.1,5,9.875,8.2,16.55
+	c11.45-26.85,21.625-46.325,30.55-59.95C175.025,140.075,144.6,125,107.5,125z M450,150l-75-75v50h-68.05
+	c-10.05,0-19.55-0.4-28.475,2.075C269.55,129.5,261.7,131,254.75,134.8c-6.875,3.75-13.55,8.85-20.025,15.225
+	c-6.45,6.4-11.95,12.55-16.425,18.5c-4.55,5.95-9.35,13.375-14.275,22.275c-4.975,8.9-8.975,16.725-12,23.425
+	C188.95,220.9,185.3,229.225,181,239c-6.825,16.175-12.6,28.975-17.375,38.2c-3.55,6.825-6.875,12.8-9.975,17.475
+	c-3.15,4.675-6.95,9.725-11.375,14.175c-4.45,4.45-9.6,8.725-15.35,10.925C121.075,322,114.65,325,107.5,325H50v50h57.5
+	c10.1,0,19.6,0.4,28.525-2.075c8.875-2.45,16.825-3.95,23.675-7.725c6.925-3.775,13.625-8.875,20.1-15.25
+	c6.4-6.375,11.9-12.55,16.45-18.475c4.525-5.95,9.275-13.375,14.225-22.3c4.975-8.9,8.975-16.725,12.025-23.425
+	c3.05-6.7,6.7-14.975,11.05-24.775C240.325,244.8,246.125,232,250.825,222.8c3.6-6.825,6.925-12.825,10.05-17.5
+	s6.925-9.725,11.35-14.175c4.475-4.45,9.6-8.725,15.375-10.95c5.8-2.2,12.275-5.175,19.35-5.175H375v50L450,150z"></path> </svg> </span></span></td> <td>The Checklist Item is floating, so it can be performed at any time.</td> </tr> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M286.866,273.015v1.995L395.93,399.009L307.088,450l-58.571-153.996h-1.995L188.948,450l-86.772-50.991l107.967-125.022
+	l-0.972-1.995L50.711,299.994v-101.01L208.148,231v-2.02L102.176,101.989L191.99,50l55.529,155.018h2.02L308.111,50l87.819,50.991
+	L287.914,228.98V231l161.451-32.016v101.01L286.866,273.015z"></path> </svg> </span></span></td> <td>The Checklist Item is mandatory, so it cannot be skipped.</td> </tr> <tr> <td style="text-align: center;"><span style="font-size: 1.5em;"><span class="twemoji"><?xml version="1.0" encoding="utf-8"?> <svg enable-background="new 0 0 500 500" id="Layer_1" version="1.1" viewbox="0 0 500 500" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <path d="M450,279.116c0,55.225-22.375,105.225-58.575,141.425l-35.35-35.35C383.2,358.016,400,320.516,400,279.116
+	c0-82.85-67.15-150-150-150c-41.425,0-78.925,16.775-106.075,43.925L200,229.116H50v-150l58.575,58.575
+	c36.2-36.2,86.2-58.575,141.425-58.575C360.45,79.116,450,168.641,450,279.116z"></path> </svg> </span></span></td> <td>Undo Start</td> </tr> </tbody> </table> <p>Table: Checklist Item information</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/perform_checklist_instance.gif"><img alt="Screenshot showing a Checklist Item with activity type &quot;Manual Tasks&quot; and tracking type &quot;Start And...&quot; for an item titled &quot;Equipment Cleaning- . '000000001 * po BB&quot;." src="../../images/perform_checklist_instance.gif"/></a></p> <p>If the <strong>Checklist</strong> has an associated <strong>Data Collection</strong>, the parameters of the <strong>Data Collection</strong> must be completely filled in before the Checklist Item can be marked as completed:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/perform_checklist_instance_datacollection.png"><img alt='Screenshot showing a checklist item with activity type "Manual Tasks" and tracking type "Start And...".' src="../../images/perform_checklist_instance_datacollection.png"/></a></p> <p>If the <strong>Checklist</strong> has an associated <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> of scope Parts, for each <strong>Checklist <abbr title="Bill-Of-Materials">BOM</abbr></strong> item provide the following information:</p> <ul> <li>If the <strong><abbr title="Bill-Of-Materials">BOM</abbr> Product</strong> is optional, you must confirm whether you are skipping it.</li> <li>If the Part Type is Consumable and you activated the Consume Quantity property when creating the <strong>Product</strong>, you may add one or more <strong>Materials</strong> to meet the Required Quantity. If you have not enabled the Consume Quantity property, you must enter the Required Quantity manually.</li> <li>If the Part Type is Repairable, and a <strong>Material</strong> already exists at the Resource Part for that <strong>Product</strong> and Designator, you must replace it by removing the existing <strong>Material</strong> and adding a new one. If no <strong>Material</strong> exists, simply add a new one.</li> <li>An Information Value if Information Capture Required is set to <code>true</code>. If partial consumption is not allowed (Consume Quantity is <code>false</code>) and Information Capture Required is <code>true</code>, you must provide the required information and consume the entire quantity in a single step — it cannot be split into parts.</li> </ul> <p>If the <strong>Checklist</strong> has an associated <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> of scope Materials, for each <strong>Checklist <abbr title="Bill-Of-Materials">BOM</abbr></strong> item provide the following information:</p> <ul> <li>Add one or more <strong>Materials</strong> to meet the Required Quantity (Substitute Products are also supported).</li> <li>If the Lower Tolerance and Upper Tolerance Required Quantity are set, the Required Quantity may vary between these values.</li> <li>For <abbr title="Bill-Of-Materials">BOM</abbr> Items with negative quantity, specify exactly one <strong>Material</strong> to fulfill the negative consumption in a single transaction. This quantity is fixed and cannot be modified.</li> <li>An Information Value if Information Capture Required is set to <code>true</code>.</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the <abbr title="Bill-Of-Materials">BOM</abbr> Scope is Materials and the respective <abbr title="Bill-Of-Materials">BOM</abbr> Instance Item has <code>IsDiscrete</code> set to <code>true</code>, or if the <abbr title="Bill-Of-Materials">BOM</abbr> Scope is Parts and the respective <abbr title="Maintenance Activity Order">MAO</abbr> Part has <code>IsDiscrete</code> set to <code>true</code>, the Required Quantity will be rounded up if positive or down if negative. This ensures the system only handles whole units when dealing with discrete items.</p> </div> <p>If a parameter is of type File, you can capture images or upload a file to complete filling in the parameter:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/checklist_parameter_file.png"><img alt="Screenshot showing a checklist item with information on how to complete a parameter of type File." src="../../images/checklist_parameter_file.png"/></a></p> <p>The following table describes the file types that are supported for this parameter:</p> <table> <thead> <tr> <th><strong>File Type</strong></th> <th><strong>Description</strong></th> </tr> </thead> <tbody> <tr> <td>CSV</td> <td>Document</td> </tr> <tr> <td>DOC</td> <td>Document</td> </tr> <tr> <td>DOCX</td> <td>Document</td> </tr> <tr> <td>JPEG</td> <td>Picture</td> </tr> <tr> <td>JPG</td> <td>Picture</td> </tr> <tr> <td>PDF</td> <td>Document</td> </tr> <tr> <td>PNG</td> <td>Picture</td> </tr> <tr> <td>PPT</td> <td>Document</td> </tr> <tr> <td>PPTX</td> <td>Document</td> </tr> <tr> <td>TIF</td> <td>Picture</td> </tr> <tr> <td>TXT</td> <td>Document</td> </tr> <tr> <td>WMF</td> <td>Picture</td> </tr> <tr> <td>XLS</td> <td>Document</td> </tr> <tr> <td>XLSX</td> <td>Document</td> </tr> </tbody> </table> <p>Table: Supported file types</p> <h3 id="correct-checklist-instance">Correct Checklist Instance<a class="headerlink" href="#correct-checklist-instance" title="Direct link to this section">#</a></h3> <p>If you have access to the <code>ChecklistInstance.Correct</code> feature, when there is no Checklist Item in progress and the Checklist Instance is not yet closed, you can go back to a Checklist Item that was completed and edit (correct) the value of a parameter of that Checklist Item:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/correct_checklist_instance_part1.png"><img alt='Screenshot showing a checklist instance with "Check External Bemages" as an unchecked item.' src="../../images/correct_checklist_instance_part1.png"/></a></p> <p>When editing the value of a parameter of a previously completed Checklist Item, the Checklist Item status automatically changes to Edit mode:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/correct_checklist_instance_part2.png"><img alt="Screenshot showing a Checklist Item status changing to Edit mode after editing its parameter." src="../../images/correct_checklist_instance_part2.png"/></a></p> <p>The Checklist Item must have been previously performed for any correction to be applied. If it has not been performed, a warning will be displayed on the bottom-left of the screen:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/correct_checklist_instance_part3.png"><img alt="Screenshot showing a checklist item in edit mode." src="../../images/correct_checklist_instance_part3.png"/></a></p> <p>To make the changes effective and to proceed with the <strong>Checklist</strong>, you must select the icon on the left of the Checklist Item.</p> <h3 id="complete-and-close-the-checklist">Complete and Close the Checklist<a class="headerlink" href="#complete-and-close-the-checklist" title="Direct link to this section">#</a></h3> <p>For <strong>Checklists</strong> performed in Immediate mode, the perform can be concluded by completing all items and selecting Perform Immediate. For <strong>Checklists</strong> performed in Long Running mode, the state of the <strong>Checklist</strong> will be committed to the database after each Checklist Item is completed, or after you choose <strong>Save and Close</strong>. When all Checklist Items are completed for a <strong>Checklist</strong> performed in Long Running mode, you can only select <strong>Close</strong>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If <abbr title="Bill-Of-Materials">BOM</abbr> Products are added or changed via Material Deviation they do not support Substitutes or have a Source Step. Additionally, no consumption is allowed if there is a pending deviation.</p> <p>For more information, see <a href="../open_material_deviation/">Open Material Deviation</a>.</p> </div> </article>
+</body>
+</html>

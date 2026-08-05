@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Running Modes - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="manage-running-modes">Manage Running Modes<a class="headerlink" href="#manage-running-modes" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>ManageRunningModes</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to manage the Running Modes of the <strong>Resource</strong> with regards to Parent Resources and Sub-Resources.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the precondition of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Resource</strong> exists, is Active, and the Processing Type is Process.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>You may need to manage the Running Modes of a <strong>Resource</strong> so that you can select an available Running Mode during Track-In.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Running Mode Sub-Resources are used to determine whether a particular Running Mode is available or not. During Track-In, you can use the Running Mode in association with a Service (that requires a Running Mode) to force the choice of a Running Mode to determine the Recipe.</p> </div> <h3 id="step-1-running-modes">Step 1: Running Modes<a class="headerlink" href="#step-1-running-modes" title="Direct link to this section">#</a></h3> <ol> <li>Select an appropriate <strong>Resource</strong>, navigate to the <strong>Running Modes</strong> section and select the <strong>Manage</strong> button.</li> <li>Add or remove <strong>Running Modes</strong> as needed (select <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> to add, and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> to remove).</li> <li> <p>Provide for each item the following information:</p> <ul> <li>Name (must be unique).</li> <li>Optionally, a description.</li> </ul> </li> <li> <p>Select <strong>Next</strong> to continue.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_running_modes_01.png"><img alt='Screenshot showing a list of available running modes in the "Manage Running Modes" section.' src="../images/manage_running_modes_01.png"/></a></p> <h3 id="step-2-required-sub-resources-optional">Step 2: Required Sub-Resources (optional)<a class="headerlink" href="#step-2-required-sub-resources-optional" title="Direct link to this section">#</a></h3> <ol> <li>Optionally, provide a list of the required Sub-Resources for that running mode, which must refer to Sub-Resources of the current <strong>Resource</strong>, and the Processing Type must be Process.</li> <li>Select <strong>Update</strong> to complete the operation. </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_running_modes_02.png"><img alt='Screenshot showing a list of optional sub-resources, including "Manape Running Mades" and "Ce Coens", in the context of managing running modes.' src="../images/manage_running_modes_02.png"/></a></p> <p>The managed information will be available in the <strong>Running Modes</strong> section:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_running_modes_03.png"><img alt="Diagram showing a screenshot of required sub-resources in a management interface, with an option to update." src="../images/manage_running_modes_03.png"/></a></p> </article>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resource - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="resource">Resource<a class="headerlink" href="#resource" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>Show</strong></p> <p>In broad terms, a <strong>Resource</strong> represents any scarce entity that participates in the processing or storage of <strong>Material</strong>, such as Equipment.</p> <p>A <strong>Resource</strong> belong to an <strong>Area</strong> and, through it, to a <strong>Facility</strong>. A <strong>Resource</strong> can also contain sub <strong>Resources</strong>. <strong>Resource</strong> of type Component can have multiple parent <strong>Resources</strong>.</p> <p>A <strong>Resource</strong> can be one of the following processing types:</p> <ol> <li>Component - a <strong>Resource</strong> that can have multiple parents, that is, it can be shared.</li> <li>Consumable Feed - <strong>Resources</strong> that are used to provide consumables to other <strong>Resources</strong>.</li> <li>Instrument - a <strong>Resource</strong> that is used for measuring a value in a certain unit of measure.</li> <li>Load Port - a <strong>Resource</strong> that serves as an input, output or input/output port for a <strong>Resource</strong>.</li> <li>Process - <strong>Resources</strong> that can process <strong>Material</strong>.</li> <li>Storage - <strong>Resources</strong> that can be used to store and retrieve <strong>Material</strong>.</li> <li>Line - <strong>Resources</strong> for line production.</li> <li>Transport - <strong>Resources</strong> used as transports.</li> </ol> <p>A <strong>Resource</strong> provides <strong>Services</strong>. <strong>Services</strong> are special capabilities required for certain processing operations, such as Dispatch Material and Store Material.</p> <p>A <strong>Resource</strong> has a given capacity which can be expressed in terms of number of <strong>Materials</strong> or <strong>Containers</strong> of a specific type.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For Overall Equipment Efficiency (<abbr title="Overall Equipment Efficiency">OEE</abbr>) purposes the Resource Ideal Cycle Time must be maintained. This information is available in the Ideal Cycle Time tab.</p> </div> <h2 id="state-model">State Model<a class="headerlink" href="#state-model" title="Direct link to this section">#</a></h2> <p>Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> comes with out-of-the-box state models, based on the standards <a href="../../administration/state_models/#semi-e10">SEMI E10</a> and <a href="../../administration/state_models/#semi-e58">SEMI E58</a> (includes reason text). Each state is associated with a set of attributes which are used to determine the Resource System State: the attribute Basic specifies whether the <strong>Resource</strong> should be Up or Down. This attribute is important because there is a <abbr title="Dynamic Evaluation Engine - a runtime execution engine based on C# business rules">DEE</abbr> rule that synchronizes the Resource System State with the value stored in this attribute.</p> <pre class="mermaid"><code>graph TD
+subgraph SEMI E10 and SEMI E58
+    A1[NonScheduled] --&gt;|NonScheduled to Standby| A2[Standby]
+    A2 ---&gt;|Standby to Productive| A3[Productive]
+    A2 ---&gt;|Standby to UnscheduledDown| A4[Unscheduled Down]
+    A2 ---&gt;|Standby to ScheduledDown| A5[Scheduled Down]
+    A2 --&gt;|Standby to Engineering| A6[Engineering]
+    A2 ---&gt;|Standby to NonScheduled| A1
+    A3 ---&gt;|Productive to Standby| A2
+    A4 ---&gt;|UnscheduledDown to Standby| A2
+    A5 ---&gt;|ScheduledDown to Standby| A2
+    A3 ---&gt;|Productive to UnscheduledDown| A4
+    A4 ---&gt;|UnscheduledDown to Productive| A3
+    A6 ---&gt;|Engineering to Standby| A2
+    A6 ---&gt;|Engineering to UnscheduledDown| A4
+    A4 ---&gt;|UnscheduledDown to Engineering| A6
+end
+
+class A1,A2,A3,A6 mermaid_state
+class A4,A5 mermaid_entitylinked
+class N1,N2 mermaid_businessdata</code></pre> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>Some reports assume some states and attributes. Before changing the state model, please check with the application administrator.</p> </div> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    A1[Material] --- L1[Material Resource] --- Main[Resource]
+    A2[Container] --- L2[Container Resource] --- Main
+    A1 --- L8[Resource Durable] --- Main
+    A3[Protocol Instance Resource] --- Main
+    A4[Area] --- Main
+    A5[Sort Rule Set] -.- Main
+    A6[Setup Matrix] -.- Main
+    L3[Sub Resource] --- Main
+    Main --- L4[Resource Service] --- A7[Service]
+    Main -.- A8[Notification]
+    Main --- A9[Schedule Scenario Job]
+    Main --- L5[Resource Employee] --- A10[Employee]
+    Main --- L6[Maintenance Plan Instance] --- A11[Maintenance Plan]
+    L4 --- L7[Resource Personnel Requirements] --- A12[Certification]
+    Main -.- A13[BOM]
+    Main -.- A14[Recipe]
+    Main -.- L9[Storage Bin]
+    Main -.- N1[Resource Measurement Capability]
+    Main -.- C1[Resource Ideal Cycle Time]
+    Main -.- C2[Resource Processing Time]
+    Main -.- C3[Resource Capacity]
+    Main -.- C4[Resource Chart Context]
+    Main -.- C5[Resource Checklist Context]
+    Main -.- C6[Resource Data Collection Context]
+    Main -.- C7[Resource Document Context]
+    Main -.- C8[Resource Replenishment Context]
+    Main -.- C9[Resource Running Mode]
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6,L7,L8,L9 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6,C7,C8,C9 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/resource"
+click A1 "../../business-data/material"
+click A2 "../../business-data/container"
+click A3 "../../business-data/resource"
+click A4 "../../business-data/area"
+click A5 "../../business-data/sort-rule-set"
+click A6 "../../business-data/setup-matrix"
+click A7 "../../business-data/service"
+click A8 "../../business-data/notification"
+click A9 "../../business-data/schedule"
+click A10 "../../business-data/employee"
+click A11 "../../business-data/maintenance-plan"
+click A12 "../../business-data/certification"
+click A13 "../../business-data/bom"
+click A14 "../../business-data/recipe"
+click L3 "../../business-data/resource"
+click L6 "../../business-data/maintenance-plan-instance"
+click C1 "../../administration/tables/smart-tables/resourceidealcycletime"
+click C2 "../../administration/tables/smart-tables/resourceprocesstime"
+click C3 "../../administration/tables/smart-tables/resourcecapacity"
+click C4 "../../administration/tables/smart-tables/resourcechartcontext"
+click C5 "../../administration/tables/smart-tables/resourcechecklistcontext"
+click C6 "../../administration/tables/smart-tables/resourcedatacollectioncontext"
+click C7 "../../administration/tables/smart-tables/resourcedocumentcontext"
+click C8 "../../administration/tables/smart-tables/resourcereplenishmentcontext"
+click C9 "../../administration/tables/smart-tables/resourcerunningmode"</code></pre> <p>A <strong>Resource</strong> is also an optional element in several context resolution tables:</p> <ul> <li><a href="../../administration/tables/smart-tables/materialchecklistcontext/">MaterialChecklistContext</a> </li> <li><a href="../../administration/tables/smart-tables/materialdatacollectioncontext/">MaterialDataCollectionContext</a></li> <li><a href="../../administration/tables/smart-tables/materialdurablescontext/">MaterialDurablesContext</a></li> <li><a href="../../administration/tables/smart-tables/recipecontext/">RecipeContext</a> </li> <li><a href="../../administration/tables/smart-tables/recipeparameteroverridecontext/">RecipeParameterOverrideContext</a></li> <li><a href="../../administration/tables/smart-tables/resourcecapacity/">ResourceCapacity</a></li> <li><a href="../../administration/tables/smart-tables/resourcechartcontext/">ResourceChartContext</a> </li> <li><a href="../../administration/tables/smart-tables/resourcechecklistcontext/">ResourceChecklistContext</a> </li> <li><a href="../../administration/tables/smart-tables/resourcedatacollectioncontext/">ResourceDataCollectionContext</a></li> <li><a href="../../administration/tables/smart-tables/resourcedocumentcontext/">ResourceDocumentContext</a></li> <li><a href="../../administration/tables/smart-tables/resourceidealcycletime/">ResourceIdealCycleTime</a></li> <li><a href="../../administration/tables/smart-tables/resourceprocesstime/">ResourceProcessTime</a></li> <li><a href="../../administration/tables/smart-tables/resourcereplenishmentcontext/">ResourceReplenishmentContext</a></li> <li><a href="../../administration/tables/smart-tables/resourcerunningmode/">ResourceRunningMode</a></li> <li><a href="../../administration/tables/smart-tables/stepchartcontext/">StepChartContext</a> </li> <li><a href="../../administration/tables/smart-tables/stepsamplingpatterncontext/">StepSamplingPatternContext</a></li> </ul> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly using a <strong>Resource</strong> are the following:</p> <ol> <li>Create the desired <a href="../../general/universal_state_model/">State Model</a> upfront.</li> <li>Create the <strong>Resource</strong>.</li> </ol> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Resource:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="resource_page/">Resource Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_resource/">Clone Resource</a></li> <li><a href="create_resource/">Create Resource</a></li> <li><a href="edit_resource/">Edit Resource</a></li> <li><a href="terminate_resource/">Terminate Resource</a></li> <li><a href="unterminate_resource/">Unterminate Resource</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="add_resource_to_container/">Add Resource to Container</a></li> <li><a href="automatic_resource_state_change_transitions/">Automatic Resource State Change Transitions</a></li> <li><a href="begin_line_setup/">Begin Line Setup</a></li> <li><a href="begin_pre_setup/">Begin Pre Setup</a></li> <li><a href="begin_setup/">Begin Setup</a></li> <li><a href="cancel_line_setup/">Cancel Line Setup</a></li> <li><a href="cancel_setup/">Cancel Setup</a></li> <li><a href="change_automation_mode/">Change Automation Mode</a></li> <li><a href="change_instrument_mode/">Change Instrument Mode</a></li> <li><a href="change_product/">Change Product</a></li> <li><a href="change_resource_state/">Change Resource State</a></li> <li><a href="change_running_mode/">Change Running Mode</a></li> <li><a href="change_system_state/">Change System State</a></li> <li><a href="complete_line_setup/">Complete Line Setup</a></li> <li><a href="complete_setup/">Complete Setup</a></li> <li><a href="evaluate_dispatchable_rule/">Evaluate Dispatchable Rule</a></li> <li><a href="manage_resource_consumable_feeds/">Manage Consumable Feeds</a></li> <li><a href="manage_resource_consumables/">Manage Consumables</a></li> <li><a href="manage_resource_costs/">Manage Costs</a></li> <li><a href="manage_resource_dispatch_queue/">Manage Dispatch Queue</a></li> <li><a href="manage_resource_measurement_capabilities/">Manage Measurement Capabilities</a></li> <li><a href="manage_resource_personnel/">Manage Personnel</a></li> <li><a href="manage_repairable_parts/">Manage Repairable Parts</a></li> <li><a href="manage_resource_durables/">Manage Resource Durables</a></li> <li><a href="manage_resource_employees/">Manage Resource Employees</a></li> <li><a href="manage_resource_instruments/">Manage Resource Instruments</a></li> <li><a href="manage_resource_inventory/">Manage Resource Inventory</a></li> <li><a href="manage_resource_lanes/">Manage Resource Lanes</a></li> <li><a href="manage_resource_locations/">Manage Resource Locations</a></li> <li><a href="manage_resource_material_consumables/">Manage Resource Material Consumables</a></li> <li><a href="manage_resource_material_durables/">Manage Resource Material Durables</a></li> <li><a href="manage_resource_parts/">Manage Resource Parts</a></li> <li><a href="manage_resource_recipes/">Manage Resource Recipes</a></li> <li><a href="manage_resource_services/">Manage Resource Services</a></li> <li><a href="manage_resource_storage_bins/">Manage Resource Storage Bins</a></li> <li><a href="manage_resource_trainees/">Manage Resource Trainees</a></li> <li><a href="manage_run_at_risk_materials/">Manage Run At Risk Materials</a></li> <li><a href="manage_running_modes/">Manage Running Modes</a></li> <li><a href="manage_resource_scheduling_batching/">Manage Scheduling/Batching</a></li> <li><a href="manage_resource_structure/">Manage Structure</a></li> <li><a href="perform_line_setup/">Perform Line Setup</a></li> <li><a href="perform_pre_setup/">Perform Pre Setup</a></li> <li><a href="perform_setup/">Perform Setup</a></li> <li><a href="remove_resource_from_container/">Remove Resource from Container</a></li> <li><a href="reset_line_setup/">Reset Line Setup</a></li> <li><a href="reset_setup/">Reset Setup</a></li> <li><a href="resource_oee_configuration/">Resource <abbr title="Overall Equipment Efficiency">OEE</abbr> Configuration</a></li> <li><a href="retrieve_resource/">Retrieve Resource</a></li> <li><a href="set_resource_recipe/">Set Resource Recipe</a></li> <li><a href="store_containers_in_resource/">Store Containers in Resource</a></li> <li><a href="store_materials_in_resource/">Store Materials in Resource</a></li> <li><a href="store_resource/">Store Resource</a></li> <li><a href="transfer_resource_between_containers/">Transfer Resource Between Containers</a></li> <li><a href="using_propagation_validation/">Using State Change Propagations and Validations</a></li> <li><a href="view_line_setup/">View Line Setup</a></li> <li><a href="view_resource_dashboards/">View Resource Dashboards</a></li> <li><a href="view_resource_documents/">View Resource Documents</a></li> <li><a href="view_reports/">View Resource Reports</a></li> <li><a href="view_setup/">View Setup</a></li> </ul> </article>
+</body>
+</html>

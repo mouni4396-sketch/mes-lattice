@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Disassemble Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:assembly">assembly</a> </nav> <h1 id="disassemble-material">Disassemble Material<a class="headerlink" href="#disassemble-material" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>Disassemble</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to disassemble a previously assembled <strong>Material</strong> by returning the consumed quantity to other source Materials, according to a pre-defined Bill-Of-Materials (<abbr title="Bill-Of-Materials">BOM</abbr>).</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>Assembled Material exists and it is Active.</li> <li>Assembled Material is not On Hold and not In Transit.</li> <li>Assembled Material does not have Sub-Products.</li> <li>There is a Current <abbr title="Bill-Of-Materials">BOM</abbr> Version defined for the Top Most of Assembled Material and the Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type for the Top Most of Material is Explicit, Explicit Add, or Replace And Disassemble for the Top Most Material.</li> <li>If Material is Top Most, then it must be In Process (that is, it needs to be performed after Track-In and before Track-Out).</li> <li>If Material is Sub-Material, its Top Most Material must be In Process.</li> <li>Source Materials exist, are Active, Queued or Consumable, are not In Store, and not On Hold.</li> <li>Source Materials must not include the Material being Assembled.</li> <li>Source Materials must not have any open defects (Open Defect Count is zero).</li> <li>Source Materials Floor Life must still be valid: Either Floor Remaining Life is <code>null</code> OR (Floor Life Remaining Life &gt; 0 AND Floor Life Counter State = Stopped) OR (Floor Life Counter State = Running AND [Floor Life Remaining Hours - (Now() - Floor Life Open Date) in Hours &gt; 0])</li> <li>For Top Most of Source Materials:<ul> <li>the <code>PickListItemCount</code> must be <code>null</code></li> <li>the <code>IsInTransferOrderItem</code> must be <code>null</code></li> <li>the <code>MaterialProductInventoryLocked</code> must be <code>false</code></li> <li>the <code>IsApproved</code> must be different from <code>false</code> (could be <code>null</code>)</li> </ul> </li> <li>Source Materials must be in the same Facility of the Assembled Material.</li> <li><abbr title="Bill-Of-Materials">BOM</abbr> must exist and be Active or Effective.</li> <li>If Assembly Type is Explicit, Explicit Add, or Replace And Disassemble:<ul> <li>Material Quantity is greater than zero (it has been previously assembled).</li> <li>The Disassembled Material Quantity must be greater than zero and less or equal to the Assembled Quantity of the Material.</li> </ul> </li> <li>If Assembly Type is Explicit Long Running, there must be at least one <abbr title="Bill-Of-Materials">BOM</abbr> Instance Item with the <code>ActualQuantity = 0</code> and <code>RequiredQuantity = 0</code>, or <code>ActualQuantity &gt; 0</code> and <code>RequiredQuantity &gt; 0</code>.</li> <li>If a Container and Position are defined for the Target Material, the Container Capacity Per Position must be able to hold the Target Material plus the Returned Quantity (Primary or Secondary, as defined in the Container Capacity Units — if matching).</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Disassemble quantity can only be decimal if the Disassembled Material Step <code>IsDecimalQuantityAllowed</code> is set to <code>true</code>.</p> </div> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-disassembly">Step 1: Disassembly<a class="headerlink" href="#step-1-disassembly" title="Direct link to this section">#</a></h3> <ol> <li>Verify the <strong>Material</strong> and <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> information and select <strong>Disassemble</strong>.</li> <li>Specify the quantity of <strong>Material</strong> to disassemble and select <strong>Next</strong>. Note that the <strong>Material</strong> primary quantity will be reduced accordingly and that required quantities will be automatically calculated based on the <abbr title="Bill-Of-Materials">BOM</abbr> definition.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/disassemble_material_disassembly.png"><img alt="Screenshot showing the disassembly process for Material." src="../images/disassemble_material_disassembly.png"/></a></p> <h3 id="step-2-bom">Step 2: <abbr title="Bill-Of-Materials">BOM</abbr><a class="headerlink" href="#step-2-bom" title="Direct link to this section">#</a></h3> <ol> <li> <p>Product <abbr title="Bill-Of-Materials">BOM</abbr> details will be displayed:</p> <ul> <li>the source <strong>Product</strong>;</li> <li>the <strong>Product</strong> description, location and position;</li> <li>the quantity to disassemble along with the tolerance range, if defined for the <abbr title="Bill-Of-Materials">BOM</abbr> Item.</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The tolerance range is applied to the total quantity consumed across all source Materials (including substitutes) and not individually per material.</p> </div> </li> <li> <p>Source Products which are not references require that further details be specified in this step. Verify and complete these details by entering:</p> <ul> <li>the source <strong>Product</strong> (or substitute).</li> </ul> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>It is not possible to change the <abbr title="Bill-Of-Materials">BOM</abbr> Product revision.</p> </div> <ul> <li>the source <strong>Material</strong> and the disassembled quantity (in case they are not already being displayed).</li> <li>a <strong>Material</strong> or list of Materials can be selected, however, if the <abbr title="Bill-Of-Materials">BOM</abbr> Product Quantity is negative, only one <strong>Material</strong> can be specified. For each selected <strong>Material</strong>, enter:<ul> <li>Respective returned quantities.</li> <li>Loss quantities and loss reasons, if the <abbr title="Bill-Of-Materials">BOM</abbr> Product Quantity is positive. </li> </ul> </li> <li>a comment for each target <strong>Material</strong> (optional).</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Disassemble Material operation does not support Information Capture Required; therefore, no Information Value is required.</p> </div> </li> <li> <p>Select <strong>Finish</strong> to disassemble the <strong>Material</strong>.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/disassemble_material_bom.png"><img alt="Screenshot showing a Bill of Materials (BOM) for disassembling a material." src="../images/disassemble_material_bom.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If there is a <abbr title="Bill-Of-Materials">BOM</abbr> of scope Materials associated to a Material that has characteristics, the system will only display <abbr title="Bill-Of-Materials">BOM</abbr> Products that have the same characteristics defined for the selected Material.</p> </div> </article>
+</body>
+</html>

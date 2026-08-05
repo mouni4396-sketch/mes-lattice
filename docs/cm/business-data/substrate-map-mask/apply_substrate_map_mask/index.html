@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Apply Substrate Map Mask - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:mapping">mapping</a> </nav> <h1 id="apply-substrate-map-mask">Apply Substrate Map Mask<a class="headerlink" href="#apply-substrate-map-mask" title="Direct link to this section">#</a></h1> <p>🔒 SubstrateMap.<strong>ApplyMask</strong></p> <p>🔒 SubstrateMapMask.<strong>Apply</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to apply a <strong>Substrate Map Mask</strong>. When applying a <strong>Substrate Map</strong>, all the affected units in the designated region are changed to the Set Value as defined in the mask.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction. </p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Substrate Map Mask</strong> exists and is Active.</li> <li>All the <strong>Substrate Maps</strong> to which the <strong>Substrate Map Mask</strong> will be applied exist, are Active, and non-template.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>A <strong>Substrate Map Mask</strong> can be applied either from the <strong>Substrate Map</strong> page or directly from the <strong>Substrate Map Mask</strong> page. Follow the steps below according to your preferred entry point.</p> <h3 id="apply-substrate-map-mask-from-a-substrate-map-page">Apply Substrate Map Mask From a Substrate Map Page<a class="headerlink" href="#apply-substrate-map-mask-from-a-substrate-map-page" title="Direct link to this section">#</a></h3> <h4 id="raw-no-bin-converter-is-set">Raw (no Bin Converter is set)<a class="headerlink" href="#raw-no-bin-converter-is-set" title="Direct link to this section">#</a></h4> <ol> <li>In the <strong>Substrate Map</strong>, go to the <a href="../../substrate-map/substrate_map_page/#content-view">Content View</a>, and select the Bin Code Map Overlay.</li> <li> <p>Select <strong>Apply Mask</strong> on the top ribbon:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_01.png"><img alt="Screenshot showing a bin converter set in the Content View of the Substrate Map, with the Bin Code Map Overlay selected." src="../images/apply_submap_mask_01.png"/></a></p> </li> <li> <p>In the new window, select which Mask to apply:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_02.png"><img alt='Screenshot showing a UI with "Apply Mask" selected and a dropdown list labeled "* Mask:" with "apply submap mask 02" as an option.' src="../images/apply_submap_mask_02.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The selected Mask must have the same Layout Specifier, Substrate Type, Dimension X, Dimension Y, Orientation, Origin Location, and Axis Direction of the currently selected Overlay.</p> </div> </li> <li> <p>Select <strong>Apply</strong> to preview the Mask:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_03.png"><img alt='Screenshot showing a UI with a filename hint "apply submap mask 03" and an instruction to select "Apply".' src="../images/apply_submap_mask_03.png"/></a></p> </li> <li> <p>In the preview of the Mask, you can Add Units or Remove Units.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If you make changes to the Mask in the preview, the changes will apply to the Map and the Mask.</p> </div> </li> <li> <p>In the Save Substrate Map wizard, you can choose to:</p> <ul> <li><strong>Synchronize Material</strong> - enables synchronization of the <strong>Substrate Map</strong> with the <strong>Material</strong> quantity. For more information, see <a href="../../material/set_material_substrate_map/">Set Material Substrate Map</a> and <a href="../../material/synchronize_material_substrate_map/">Synchronize Material with Substrate Map</a>.</li> <li><strong>Copy Overlay Information</strong> - if enabled, the Substrate Map Overlay Information from the original <strong>Substrate Map</strong> are copied into the newly created Overlay. For more information, see <a href="../../substrate-map/manage_substrate_map_overlay_information/">Manage Substrate Map Overlay Information</a>. This option is only available if you choose to Create New Version or Create New Map Name.</li> <li><strong>Set Overlay as Active</strong> - if you choose to create a new version or a new map, you can designate the newly created Overlay as the active version.</li> <li><strong>Create New Version</strong> - creates a new version for the currently selected Map Name.</li> <li><strong>Create New Map Name</strong> - creates a new Map Name with version 1. When selecting this option, you must provide the following information:<ul> <li><strong>Facility</strong> - optionally, associate a <strong>Facility</strong>.</li> <li><strong>Step</strong> - optionally, associate a <strong>Step</strong>.</li> <li><strong>Resource</strong> - optionally, associate a <strong>Resource</strong>.</li> </ul> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_04.png"><img alt="Apply submap mask 04" src="../images/apply_submap_mask_04.png"/></a></p> </li> <li> <p>Once you have made your selections, choose <strong>Cancel</strong> to discard changes or <strong>Save</strong> to apply them.</p> </li> </ol> <h4 id="converted-a-bin-converter-is-set">Converted (a Bin Converter is set)<a class="headerlink" href="#converted-a-bin-converter-is-set" title="Direct link to this section">#</a></h4> <ol> <li> <p>In the <strong>Substrate Map</strong>, go to the <a href="../../substrate-map/substrate_map_page/#content-view">Content View</a>, and select the Bin Code Map Overlay:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_01.png"><img alt="Screenshot showing a bin converter set in the Content View of the Substrate Map, with the Bin Code Map Overlay selected." src="../images/apply_submap_mask_01.png"/></a></p> </li> <li> <p>If you select <strong>Apply Bin Converter</strong> on the right, a new window will open for you to select the Bin Converter:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_05.png"><img alt='Screenshot showing the "Apply Bin Converter" button in the UI.' src="../images/apply_submap_mask_05.png"/></a></p> </li> <li> <p>Select the Bin Converter followed by <strong>Apply</strong> to access the converted <strong>Substrate Map</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_06.png"><img alt="Screenshot showing a Bin Converter selected in the interface, with a Substrate Map displayed." src="../images/apply_submap_mask_06.png"/></a></p> </li> <li> <p>Select <strong>Apply Mask</strong> on the top ribbon, and select which Mask to apply:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_07.png"><img alt='Screenshot showing a bin converter with an "Apply Mask" option selected from the top ribbon.' src="../images/apply_submap_mask_07.png"/></a></p> </li> <li> <p>Select <strong>Apply</strong> to preview the Mask with the selected Bin Converter:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_08.png"><img alt="Screenshot showing a bin converter applied in the conversion process." src="../images/apply_submap_mask_08.png"/></a></p> </li> <li> <p>In the preview of the Mask, you can Add Units or Remove Units.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If you make changes to the Mask in the preview, the changes will apply to the Map and the Mask.</p> </div> </li> <li> <p>In the Save Substrate Map wizard, you can choose to:</p> <ul> <li><strong>Synchronize Material</strong> - enables synchronization of the <strong>Substrate Map</strong> with the <strong>Material</strong> quantity. For more information, see <a href="../../material/set_material_substrate_map/">Set Material Substrate Map</a> and <a href="../../material/synchronize_material_substrate_map/">Synchronize Material with Substrate Map</a>.</li> <li><strong>Copy Overlay Information</strong> - if enabled, the Substrate Map Overlay Information from the original <strong>Substrate Map</strong> are copied into the newly created Overlay. For more information, see <a href="../../substrate-map/manage_substrate_map_overlay_information/">Manage Substrate Map Overlay Information</a>. This option is only available if you choose to Create New Version or Create New Map Name.</li> <li><strong>Set Overlay as Active</strong> - if you choose to create a new version or a new map, you can designate the newly created Overlay as the active version.</li> <li><strong>Create New Version</strong> - creates a new version for the currently selected Map Name.</li> <li><strong>Create New Map Name</strong> - creates a new Map Name with version 1. When selecting this option, you must provide the following information:<ul> <li><strong>Facility</strong> - optionally, associate a <strong>Facility</strong>.</li> <li><strong>Step</strong> - optionally, associate a <strong>Step</strong>.</li> <li><strong>Resource</strong> - optionally, associate a <strong>Resource</strong>.</li> </ul> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_04.png"><img alt="Apply submap mask 04" src="../images/apply_submap_mask_04.png"/></a></p> </li> <li> <p>Once you have made your selections, choose <strong>Cancel</strong> to discard changes or <strong>Save</strong> to apply them.</p> </li> </ol> <h3 id="apply-substrate-map-mask-from-a-substrate-map-mask-page-bulk">Apply Substrate Map Mask From a Substrate Map Mask Page (Bulk)<a class="headerlink" href="#apply-substrate-map-mask-from-a-substrate-map-mask-page-bulk" title="Direct link to this section">#</a></h3> <p>In the chosen <strong>Substrate Map Mask</strong>, select <strong>Apply Mask</strong> on the top ribbon:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_10.png"><img alt="Screenshot showing a UI with an applied mask, displaying a substrate map." src="../images/apply_submap_mask_10.png"/></a></p> <h4 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h4> <ol> <li> <p>Configure the optional settings:</p> <ul> <li><strong>Synchronize Materials</strong> - enables <strong>Material</strong> synchronization. For more information, see <a href="../../material/set_material_substrate_map/">Set Material Substrate Map</a> and <a href="../../material/synchronize_material_substrate_map/">Synchronize Material with Substrate Map</a>.</li> <li><strong>Create New Version</strong> - creates a new version of the current Substrate Map Overlay.</li> <li><strong>Create New Overlay</strong> - creates a new Substrate Map Overlay.</li> <li><strong>Process Valid Only</strong> - if enabled, only valid Substrate Map Masks will be processed.</li> <li><strong>Copy Overlay Information</strong> - if enabled, the Substrate Map Overlay Information from the original Substrate Map is copied into the newly created Overlay. For more information, see <a href="../../substrate-map/manage_substrate_map_overlay_information/">Manage Substrate Map Overlay Information</a>. This option is only available if you choose to Create New Version or Create New Overlay.</li> </ul> </li> <li> <p>Enable the <strong>Select Mode</strong> option:</p> <ul> <li><strong>Substrate Map</strong> - select <strong>Substrate Maps</strong> directly (see <a href="./#step-2-substrate-maps">Step 2: Substrate Maps</a> below)</li> <li><strong>Materials</strong> - select <strong>Substrate Maps</strong> indirectly (see <a href="./#step-2-materials">Step 2: Materials</a> below)</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Advanced Options for the Select Modes vary. If you select Materials, you can also choose to apply the Substrate Map Mask to Sub-Materials.</p> </div> </li> <li> <p>In the Apply To Values, you can select Raw or Converted (default).</p> </li> <li>You can also use the Map Name Filter to specify where the <strong>Substrate Map Mask</strong> should be applied.</li> <li>Select <strong>Next</strong> to continue.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_mask.png"><img alt="Apply mask" src="../images/apply_mask.png"/></a></p> <h4 id="step-2-substrate-maps">Step 2: Substrate Maps<a class="headerlink" href="#step-2-substrate-maps" title="Direct link to this section">#</a></h4> <ol> <li> <p>Use <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> to add as many <strong>Substrate Maps</strong> as needed:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_12.png"><img alt="Screenshot showing a user interface with multiple Substrate Maps added." src="../images/apply_submap_mask_12.png"/></a></p> </li> <li> <p>Select <strong>Apply</strong> to complete the operation.</p> </li> </ol> <h4 id="step-2-materials">Step 2: Materials<a class="headerlink" href="#step-2-materials" title="Direct link to this section">#</a></h4> <ol> <li> <p>Use <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> to add as many <strong>Materials</strong> as needed:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_13.png"><img alt="Screenshot showing a list of materials." src="../images/apply_submap_mask_13.png"/></a></p> </li> <li> <p>You can chose to filter the <strong>Materials</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/apply_submap_mask_14.png"><img alt="Screenshot showing a list of materials with filtering options." src="../images/apply_submap_mask_14.png"/></a></p> </li> <li> <p>Select <strong>Apply</strong> to complete the operation.</p> </li> </ol> </article>
+</body>
+</html>

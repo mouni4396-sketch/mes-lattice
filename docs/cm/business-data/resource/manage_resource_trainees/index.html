@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Resource Trainees - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="manage-resource-trainees">Manage Resource Trainees<a class="headerlink" href="#manage-resource-trainees" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>ManageTrainees</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to manage the <strong>Employees</strong> set as Trainees for a specific <strong>Resource</strong>, allowing a Trainer to quickly check-in or check-out multiple <strong>Employees</strong> at a <strong>Resource</strong> for which the current user is set as Trainer.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li><strong>Resource</strong> is of Processing Type Process and has both Enable Check-In and Restrict Check-In set to <code>true</code>.</li> <li>For a successful Check-In operation, all selected <strong>Employees</strong> are Active and set as trainee (Is Trainee is <code>true</code> in at least one valid <strong>Certification</strong>, which must be in state Active or Grace Period).</li> <li>Current <strong>Employee</strong> is a Trainer in at least one valid <strong>Certification</strong> (must be in state Active or Grace Period).</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>You can access the Manage Resource Trainees wizard through the Area View or directly through a <strong>Resource.</strong> Using the Area View provides the extra advantage to check-in or check-out multiple <strong>Employees</strong> at multiple <strong>Resources</strong>.</p> <h3 id="step-1-resources-from-area-view">Step 1: Resources (from Area View)<a class="headerlink" href="#step-1-resources-from-area-view" title="Direct link to this section">#</a></h3> <ol> <li>Select a <strong>Resource</strong> and then select <strong>Manage Resource Trainees</strong> from the dropdown button on the top ribbon.</li> <li>A dialog will open, listing all the selected Resources on the left side. Select the ones you want to manage and select <strong>Next</strong>.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_resource_trainees_step1.png"><img alt="Screenshot showing a dialog listing selected Resources on the left side, with options to select and proceed." src="../images/manage_resource_trainees_step1.png"/></a></p> <h3 id="step-2-trainees">Step 2: Trainees<a class="headerlink" href="#step-2-trainees" title="Direct link to this section">#</a></h3> <ol> <li>A list of all available Trainees will be displayed on the right-hand side. Select the Trainees that should be checked-in to the <strong>Resource</strong> or unselect the Trainees that should be checked-out from the Resource.</li> <li>Select <strong>Update</strong> and the system will confirm that the <strong>Employees</strong> are checked-in to or checked-out from the <strong>Resource</strong>.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_resource_trainees_step2.png"><img alt="Screenshot showing a list of trainees with checkboxes indicating their status." src="../images/manage_resource_trainees_step2.png"/></a></p> </article>
+</body>
+</html>

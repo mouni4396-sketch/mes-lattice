@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transfer Material between Containers - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="transfer-material-between-containers">Transfer Material between Containers<a class="headerlink" href="#transfer-material-between-containers" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>TransferBetweenContainers</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to transfer a <strong>Material</strong> from one <strong>Container</strong> to another.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li> <p>For the <strong>Material</strong>:</p> <ul> <li>The <strong>Material</strong> is <em>Active</em>, Not <em>OnHold</em> and not <em>InTransit</em>.</li> <li>The <strong>Material</strong> has a <strong>Container</strong> associated with it.</li> <li>The old <strong>Container</strong> is in state <em>Available</em>.</li> </ul> </li> <li> <p>For the new <strong>Container</strong>:</p> <ul> <li><strong>Container</strong> is <em>Active</em> and UsedPositions &lt; TotalPositions or TotalPositions = -1.</li> <li>The <strong>Container</strong> is in state <em>Available</em>.</li> <li><strong>Container</strong> <em>PositionUnitType</em> must be <strong>Material</strong>.</li> <li>If the <strong>Container</strong> <em>IsAutoGeneratePositionEnabled</em> is set to False, the supplied position must not be in use at the <strong>Container</strong>.</li> <li>Depending on the <em>CapacityValidationMode</em>:<ul> <li><em>Units</em> - <em>CapacityUnits</em> are the same as either the PrimaryUnits or SecondaryUnits of the <strong>Material</strong> being transferred. The units are taken from the <strong>Material</strong>, not the <strong>Step</strong>.</li> <li><em>Form</em> - <em>Form</em> of the <strong>Material</strong> must match the <strong>Container</strong> <em>CapacityForm</em>.</li> <li><em>None</em> - no check.</li> </ul> </li> </ul> </li> <li>If the <em>CapacityValidationMode</em> is <em>Units</em>, the quantity of the <strong>Material</strong> being transferred does not exceed the <em>CapacityPerPosition</em> (or <em>CapacityPerPosition</em> = -1)</li> <li>The new <strong>Container</strong> must be different from the old <strong>Container</strong>.</li> <li>The new <strong>Container</strong> <em>HoldCount</em> must be zero.</li> <li>The <strong>Facility</strong> of the new <strong>Container</strong> must be the same as the <strong>Facility</strong> of the old <strong>Container</strong>.</li> <li> <p>If the property Use Container Restrictions in the <strong>Step</strong> of the <strong>Material</strong> is <code>True</code>, the available containers will be the ones that match the restrictions applied by the context of that <strong>Step</strong>. For more information, see <a href="../../../business-data/step/step_page/#contexts-view">Contexts View</a> or <a href="../../../administration/tables/smart-tables/materialcontainertypecontext/">MaterialContainerTypeContext</a>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Container Used Positions must be less than the Container Max Usable Positions.</p> </div> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>Verify the <strong>Material</strong> information.</li> <li>Select the new <strong>Container</strong> to which the <strong>Material</strong> is going to be transferred.</li> <li>Click <strong>Transfer</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/transfer_material.PNG"><img alt="transfer_material" src="../images/transfer_material.PNG"/></a></p> </article>
+</body>
+</html>

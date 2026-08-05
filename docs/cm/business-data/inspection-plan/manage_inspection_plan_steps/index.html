@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Inspection Plan Steps - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="manage-inspection-plan-steps">Manage Inspection Plan Steps<a class="headerlink" href="#manage-inspection-plan-steps" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>Edit</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to manage all the steps associated to a specific <strong>Inspection Plan</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Inspection Plan</strong> exists and it is in state Created.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>Select an appropriate <strong>Inspection Plan</strong>, navigate to the Steps section and press the <strong>Manage</strong> button.</li> <li> <p>Add as many Inspection Plan Steps as desired (press <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> in the top right of the grid to add, and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> to remove, ordering the contexts with the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg></span> and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"></path></svg></span> buttons) - specifying one Step minimum - providing for each Step the following information:</p> <ul> <li> <p>If the Inspection takes place at the same Step where the Inspection Plan is triggered, set <em>Is in Process Inspection</em> to <code>true</code>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This removes the need for any other Inspection Plan Step configuration.</p> </div> </li> <li> <p>If the <em>Is in Process Inspection</em> is set as <code>false</code>, specify the following information:</p> <ul> <li>The Inspection <strong>Flow</strong> and <strong>Step</strong> where the <strong>Inspection Plan</strong> shall be performed.</li> </ul> </li> <li>The Split Type to be performed:<ul> <li>None - No Split.</li> <li>Permanent - The <strong>Material</strong> will be Split and transformed into several Child Materials.</li> <li>Temporary - The <strong>Materials</strong> created during the Inspection Plan Step shall be merged back with the original Material at the end of the <strong>Flow</strong>.</li> </ul> </li> <li>If a Split is to be performed, specify the Split Mode:<ul> <li>Inspection Step - select one of the Inspection Plan Steps to be used as a Split <strong>Step</strong></li> <li>Process Step - the Split will be performed in the same <strong>Step</strong>.</li> </ul> </li> <li> <p>Choose whether to scrap the <strong>Material</strong> sample used for the inspection. If set as <code>true</code>, select the appropriate <strong>Reason</strong> for the scrap.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The steps can also be copied from other steps that belong to an existing version of the same <strong>Inspection Plan</strong>, by using the Copy Steps option.</p> </div> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>If the <strong>Inspection Plan</strong> contains an In-Process Inspection <strong>Step</strong> and the Results Required Before Track Out property is set to <code>true</code>, both the Close Automatically on Pass and Close Automatically on Fail properties must be set to <code>true</code>.</p> </div> </li> </ul> </li> <li> <p>Select <strong>Update</strong> to complete the operation. </p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_inspection_plan_steps.png"><img alt="Screenshot showing a management interface for inspection plans, highlighting the first step in the process." src="../images/manage_inspection_plan_steps.png"/></a></p> </article>
+</body>
+</html>

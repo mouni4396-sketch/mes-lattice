@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Package - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../tags/#tag:packing">packing</a> </nav> <h1 id="package">Package<a class="headerlink" href="#package" title="Direct link to this section">#</a></h1> <p>🔒 Package.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Package</strong> is created from one or more <strong>Products</strong> of Product Type Packaging. Although associated to a Product, a package hierarchy can have various <strong>Materials</strong>.</p> <p>Packing is understood to be any type of box, package or container used for the purposes of transportation or shipping. Additionally, packing can take place at many levels as shown in the example below:</p> <pre class="mermaid"><code>flowchart LR
+subgraph Product
+  direction LR
+  subgraph Packing["Protective Packaging for every level"]
+    direction LR
+      A1[Transportation Packaging] -.-&gt;|Corrugated Boxes| N1[Level 4]
+      A2[Display Packaging] -.-&gt;|Counter Display| N2[Level 3]
+      A3[Secondary Packaging] -.-&gt;|Folded Carton| N3[Level 2]
+      A4[Primary Packaging] -.-&gt;|Plastic Jar| N4[Level 1]
+  end
+      A5[Finished Product Materials] -.-&gt; Packing
+end
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Main mermaid_entity
+class Start mermaid_start
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_state
+class L1,L2,L3,L4,L5,L6 mermaid_state
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata</code></pre> <h2 id="packing-levels">Packing levels<a class="headerlink" href="#packing-levels" title="Direct link to this section">#</a></h2> <p>Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> distinguishes between two levels of packing as shown in the table below:</p> <table> <thead> <tr> <th><strong>Level</strong></th> <th><strong>Description</strong></th> <th><strong>Driven by</strong></th> <th><strong>Comments</strong></th> </tr> </thead> <tbody> <tr> <td><strong>Level 1<br/>Primary (Product)</strong></td> <td>Packaging of the main product, which is typically a <strong>Manufacturing Process</strong>. This includes all the Materials that make up an individual Product Package.<br/>The contents of Packages at this level consist always of Materials.</td> <td>A <abbr title="Bill-Of-Materials">BOM</abbr>.</td> <td>1. Requires only one Product of Product Type Packaging in the <abbr title="Bill-Of-Materials">BOM</abbr>.<br/>2. Supports Trackable (has a unique Id) and Non-Trackable Packages.</td> </tr> <tr> <td><strong>Level 2 and Above<br/>Secondary, Tertiary, and above (Package)</strong></td> <td>Packing of packages of Level 1 or above into other packages of a higher level (multiple level packaging), which is typically a <strong>Logistics Process</strong>.<br/>The contents of Packages at this level consist always of other Packages.</td> <td>A Step level configuration together with a Packing Context Smart Table.</td> <td>1. Will resolve to one Product of Product Type Packaging per level.<br/>2. Multiple level packing is possible.<br/>3. Level 2 Packages are always Trackable.</td> </tr> </tbody> </table> <p>Table: Different Packing levels</p> <h3 id="primary-packing">Primary Packing<a class="headerlink" href="#primary-packing" title="Direct link to this section">#</a></h3> <p>Primary packing consists of creating the packages of the first level - Level 1 packages. These are the packages that directly contain the <abbr title="Work In Progress - also referred to as Work In Process">WIP</abbr>.</p> <h3 id="secondary-and-above-packing">Secondary and Above Packing<a class="headerlink" href="#secondary-and-above-packing" title="Direct link to this section">#</a></h3> <p>Secondary and above packing consists of packing packages of Level 2 or above in other packages. This operation is referred to as multiple level packing.</p> <h2 id="labeldocument-printing">Label/Document Printing<a class="headerlink" href="#labeldocument-printing" title="Direct link to this section">#</a></h2> <p>Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> supports the printing of one or more labels or documents per package. The table below illustrates some document examples as described by the Electronic Components Industry Association (ECIA) standard:</p> <table> <thead> <tr> <th><strong>Label Type</strong></th> <th><strong>Description</strong></th> <th><strong>Example</strong></th> </tr> </thead> <tbody> <tr> <td><strong>Product Label</strong></td> <td>Primary Packaging<br/><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/primary_packing.png"><img alt="Diagram showing a primary packing process." src="images/primary_packing.png"/></a></td> <td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/label_01.png"><img alt='Screenshot showing a label with the description "were" and example "ag fT".' src="images/label_01.png"/></a></td> </tr> <tr> <td><strong>Intermediate Label (optional)</strong></td> <td>Secondary Packaging<br/><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/secondary_packing.png"><img alt="Diagram showing a secondary packing process." src="images/secondary_packing.png"/></a></td> <td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/label_02.png"><img alt='Screenshot showing a label with the text "TMNT AMINE".' src="images/label_02.png"/></a></td> </tr> <tr> <td><strong>Logistic/Carton Label</strong></td> <td>Logistic Packaging<br/><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/logistic_packing.png"><img alt="Diagram showing a logistics packing process with label printing options." src="images/logistic_packing.png"/></a></td> <td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/label_03.png"><img alt='Screenshot showing a label with type "label 03" displayed on screen.' src="images/label_03.png"/></a></td> </tr> <tr> <td><strong>Packing Slip Label</strong></td> <td>Packing Slip – typically per Purchase Order<br/><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/packing_slip.png"><img alt="Diagram showing a packing slip with label information." src="images/packing_slip.png"/></a></td> <td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="images/label_04.png"><img alt='Screenshot showing a label with the description "Promier Supplier Packing Sti" and example text.' src="images/label_04.png"/></a></td> </tr> </tbody> </table> <p>Table: Label examples</p> <h2 id="packing-object-model">Packing Object Model<a class="headerlink" href="#packing-object-model" title="Direct link to this section">#</a></h2> <p>The high-level Packing object model is shown in the diagram below. The core object is the Package, which is a recursive object constructed from the bottom up.</p> <pre class="mermaid"><code>graph TD
+    Main[Package] --&gt; A1[Package Material]
+    Main --&gt;|Multiple level Package| Main
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Main mermaid_entity
+class Start mermaid_start
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_state
+class L1,L2,L3,L4,L5,L6 mermaid_state
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+click Main "../../business-data/package"
+click A1 "../../business-data/material"</code></pre> <p>The table below provides more detail on the main objects:</p> <table> <thead> <tr> <th><strong>Object</strong></th> <th><strong>Description</strong></th> </tr> </thead> <tbody> <tr> <td><strong>Package</strong></td> <td>This is the main object. Among other things, it contains a reference to the <strong>Product</strong> that represents the package, and it keeps the status of the number of packages, packed quantity, and package weight.</td> </tr> <tr> <td><strong>Package Material</strong></td> <td>This object is only used to store <strong>Material</strong> Ids in case a box contains serialized Ids.</td> </tr> </tbody> </table> <p>Table: Packing objects</p> <h2 id="packing-content-types">Packing Content Types<a class="headerlink" href="#packing-content-types" title="Direct link to this section">#</a></h2> <p>A Package can have content of four different types as described below:</p> <table> <thead> <tr> <th><strong>Object</strong></th> <th><strong>Description</strong></th> </tr> </thead> <tbody> <tr> <td><strong>Material Quantity Single</strong></td> <td>This Content Type is used for <strong>Primary Packing</strong> to store a certain quantity of a particular <strong>Material</strong>.<br/>This type of package can be marked as trackable or not.</td> </tr> <tr> <td><strong>Material Quantity Multiple</strong></td> <td>This Content Type is used for <strong>Primary Packing</strong> to store homogenous sets of material quantity packages in case the package is not trackable. It can significantly reduce the number of objects and facilitate the operations of the logistic operator.<br/>This type of package cannot be marked as trackable.</td> </tr> <tr> <td><strong>Material Ids</strong></td> <td>This Content Type is used for <strong>Primary Packing</strong> to store serialized <strong>Material</strong> Ids.<br/>This type of package can be marked as trackable or not, but unique package Ids will always be generated.</td> </tr> <tr> <td><strong>Packages</strong></td> <td>This Content Type is used for <strong>Secondary and Above Packing</strong> and it can store Primary or other type of Packages for Multiple Level Packing.</td> </tr> </tbody> </table> <p>Table: Packing content types</p> <h2 id="state-model">State Model<a class="headerlink" href="#state-model" title="Direct link to this section">#</a></h2> <p>The <strong>Package</strong> has a system defined state model as shown in the next picture:</p> <pre class="mermaid"><code>graph TD
+    Start --&gt;|Create| A1
+    A1[Open] --&gt;|Close| C1[Closed]
+    C1 --&gt;|Reopen| A1
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+classDef mermaid_initial_state fill:#d7e4bd,stroke:#92d050,stroke-width:3px,color:#000;
+classDef mermaid_final_state fill:#a7e2f2,stroke:#65CDE8,stroke-width:3px,color:#000;
+
+class A1 mermaid_initial_state
+class C1 mermaid_final_state
+class Main mermaid_entity
+class Start mermaid_start
+class A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_state
+class L1,L2,L3,L4,L5,L6 mermaid_state
+class C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata</code></pre> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see <a href="../../../tags#packing">Packing</a>.</p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Package:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="package_page/">Package Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="terminate_package/">Terminate Package</a></li> <li><a href="unterminate_package/">Unterminate Package</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="package_report/">Package Report</a></li> <li><a href="ship_packages/">Ship Packages</a></li> </ul> </article>
+</body>
+</html>

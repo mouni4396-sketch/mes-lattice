@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Production Order - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-production-order">Create Production Order<a class="headerlink" href="#create-production-order" title="Direct link to this section">#</a></h1> <p>🔒 ProductionOrder.<strong>Create</strong></p> <p>🔒 ProductionOrder.<strong>CreateTemplate</strong></p> <p>🔒 ProductionOrder.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>The operation is used to create a <strong>Production Order</strong>. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Order Management</strong> module must be properly licensed in the system.</li> <li>The <strong>Production Order</strong> does not already exist in the system.</li> <li>If a <strong>Facility</strong> is defined, the <strong>Default Flow Path Step</strong> must exist in the defined <strong>Facility</strong>.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The Manage Characteristics wizard can be called from the <strong>Product</strong> page by selecting Characteristics from the section menus on the right.</p> <h2 id="step-1-general">Step 1: General<a class="headerlink" href="#step-1-general" title="Direct link to this section">#</a></h2> <ol> <li>Enter the Name of the <strong>Production Order</strong>. The name can be left blank if there is a name generator configured to provide unique <strong>Material</strong> names.</li> <li>Optionally, enter a Description.</li> <li>Select the <strong>Production Order</strong> Type. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/productionordertype/">ProductionOrderType</a> Lookup Table.</li> <li>Select the <strong>Production Order</strong> State Model and the <strong>Production Order</strong> State Model State.</li> <li>Select the System State of the <strong>Production Order</strong>: Created or Released. If the <strong>Production Order</strong> System State is set to Released it is necessary to specify a Planned Start Date and a Planned End Date.</li> <li>Optionally, specify the Order Number this <strong>Production Order</strong> refers to.</li> <li>Optionally, define the Order Line number for this <strong>Production Order</strong>.</li> <li>Optionally, define an Owner Role for the <strong>Production Order</strong>. If the Owner Role needs to be changed at a later stage, this change can be made by any user (not only by the user(s) that belong(s) to the existing owner role).</li> <li>Optionally select a Customer for the <strong>Production Order</strong>.</li> <li> <p>Optionally, define a <strong>Facility</strong> to be associated with the <strong>Production Order</strong>. This is generally used for filtering.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_production_order.png"><img alt="Create Production Order" src="../images/create_production_order.png"/></a></p> </li> <li> <p>Specify the <strong>Product</strong> the <strong>Production Order</strong> refers to.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the Product of the Production Order has Characteristics with Configurable set to <code>true</code>, the mandatory Production Order Characteristics must be entered (see <a href="./#step-2-characteristics">Step 2: Characteristics</a> below).</p> </div> </li> <li> <p>Optionally, define a <code>Flow Path</code> (formed by a <strong>Flow</strong> and a <strong>Step</strong>) for the <strong>Production Order</strong>.</p> </li> <li>Specify the Quantity of this <strong>Production Order</strong>.</li> <li>Specify the Units of the <strong>Production Order</strong> quantity.</li> <li>Specify the value for the <code>Under Delivery Tolerance</code>, in percentage. A value of 10% means that a delivery 10% below the <strong>Production Order</strong> defined quantity is acceptable. The final minimum acceptable value is automatically calculated and displayed after this field.</li> <li> <p>Specify the value for the <code>Over Delivery Tolerance</code>, in percentage. A value of 10% means that a delivery 10% above the <strong>Production Order</strong> defined quantity is acceptable. The final maximum acceptable value is automatically calculated and displayed after this field.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Product Yield (in percentage) is shown on the screen.</p> </div> </li> <li> <p>Define a Due Date for the <strong>Production Order</strong>.</p> </li> <li> <p>Define the Priority for the <strong>Production Order</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_production_order_01.png"><img alt="Create Production Order 01" src="../images/create_production_order_01.png"/></a></p> </li> <li> <p>Optionally, define a Planned Start Date and a Planned End Date - if the <strong>Production Order</strong> is set as Released, the Planned Start Date and Planned End Date need to be entered (see 5 above).</p> </li> <li>Specify whether the <strong>Production Order</strong> must be included in <strong>Schedules</strong> of type Planning, in which case specify whether the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> explosion must take place for the <strong>Production Order</strong>. This option is also taken into consideration when performing the Start Production Order operation.</li> <li>Specify whether the system must enforce that all the <strong>Materials</strong> that are associated with the <strong>Production Order</strong> belong to the reverse <strong>Product</strong> Sub-Products tree of the <strong>Production Order</strong> <strong>Product</strong> by checking or unchecking the option Validate Material Products.</li> <li>Specify whether the <strong>Production Order</strong> must automatically be restricted when completed, by checking or unchecking the Restrict Order on Completion option. A restricted <strong>Production Order</strong> cannot have <strong>Materials</strong> assigned or removed from it with the exception of Split and Expand Material.</li> <li>Optionally, type a Note in the Additional Information section to capture any remarks related to the <strong>Production Order</strong>.</li> <li>Specifies whether the Product Characteristic Rules are to be applied for this <strong>Production Order</strong> by checking or unchecking the respective option.</li> <li> <p>Specify whether changes in the state of the <strong>Production Order</strong> must be sent to a Distribution List. In this case it is necessary to specify a list.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If notifications have been configured, it is mandatory to specify a Distribution List.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If a Distribution List is defined, it must be well formed - it must contain valid email addresses, and if multiple email addresses are provided, they must be separated by a semicolon.</p> </div> </li> <li> <p>Optionally, define a date when the system should trigger a notification to the defined Distribution List to report on the state of the <strong>Production Order</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>It is possible to release the Production Order at the moment of its creation. To do so, select <code>Released</code> for the System State instead of <code>Created</code> (which is the default System State). Additionally, for a Production Order to be released, it needs to have planned start and end dates.</p> </div> </li> <li> <p>Select <strong>Create</strong> to complete the operation or <strong>Next</strong> to define Characteristics.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_production_order_02.png"><img alt="Create Production Order 02" src="../images/create_production_order_02.png"/></a></p> </li> </ol> <h2 id="step-2-characteristics">Step 2: Characteristics<a class="headerlink" href="#step-2-characteristics" title="Direct link to this section">#</a></h2> <p>Only available if the <strong>Product</strong> associated to the <strong>Production Order</strong> has configurable Characteristics set to <code>true</code>, or if either the <strong>Product</strong> or the <strong>Production Order</strong> has Characteristics.</p> <ol> <li> <p>For this operation, you must provide a value for each characteristic, either by entering manually as free text or by selecting a predefined value from the specified Source Lookup Table.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_production_order_03.png"><img alt="Create Production Order 03" src="../images/create_production_order_03.png"/></a></p> </li> <li> <p>Select <strong>Create</strong> to complete the operation.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>It is possible to define a default value for the Use Product Characteristic Rules by adding the entry Context=ProductionOrder.Create, Element=UseProductCharacteristicRules in the Generic Table GUIElementDefaultValue.</p> </div> </li> </ol> </article>
+</body>
+</html>

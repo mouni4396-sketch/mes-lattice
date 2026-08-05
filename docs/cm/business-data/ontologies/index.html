@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MES Business Data Ontology Directory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #080b11;
+            --bg-secondary: #0e131f;
+            --card-bg: rgba(18, 26, 47, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-blue: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --shadow-neon: 0 0 25px rgba(59, 130, 246, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+            padding-bottom: 4rem;
+        }
+        header {
+            padding: 3rem 4rem;
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(8, 11, 17, 0.85);
+            backdrop-filter: blur(12px);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        header p { font-size: 0.95rem; color: var(--text-secondary); }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .search-bar-wrapper {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.85rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .search-input:focus {
+            border-color: var(--accent-blue);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow-neon);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+        .directory-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+        }
+        .directory-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.08);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        .card-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            color: white;
+        }
+        .badge {
+            background: rgba(249, 115, 22, 0.1);
+            color: #fdba74;
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .view-link { color: var(--accent-blue); font-weight: 600; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Critical Manufacturing MES Ontologies</h1>
+        <p>Explore schemas, properties, relations, and operations across all business data entities</p>
+    </header>
+    <div class="container">
+        <div class="search-bar-wrapper">
+            <input type="text" id="search" class="search-input" placeholder="Search business entities (e.g. Batch, Material)...">
+        </div>
+        <div class="grid" id="grid">
+            
+        <div class="directory-card" onclick="location.href='area_ontology.html'">
+            <div class="card-header">
+                <h3>Area</h3>
+                <span class="badge">8 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Area.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='batch_ontology.html'">
+            <div class="card-header">
+                <h3>Batch</h3>
+                <span class="badge">11 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Batch.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='bin-converter_ontology.html'">
+            <div class="card-header">
+                <h3>Bin Converter</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 BinConverter.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='bom_ontology.html'">
+            <div class="card-header">
+                <h3>Bill-Of-Materials (BOM)</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 BOM.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='business-partner_ontology.html'">
+            <div class="card-header">
+                <h3>Business Partner</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 BusinessPartner.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='calendar_ontology.html'">
+            <div class="card-header">
+                <h3>Calendar</h3>
+                <span class="badge">8 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Calendar.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='certification_ontology.html'">
+            <div class="card-header">
+                <h3>Certification</h3>
+                <span class="badge">9 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Certification.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='change-set_ontology.html'">
+            <div class="card-header">
+                <h3>Change Set</h3>
+                <span class="badge">18 Operations</span>
+            </div>
+            <p class="card-desc">🔒 ChangeSet.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='chart_ontology.html'">
+            <div class="card-header">
+                <h3>Chart</h3>
+                <span class="badge">13 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Chart.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='checklist_ontology.html'">
+            <div class="card-header">
+                <h3>Checklist</h3>
+                <span class="badge">7 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Checklist.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='container_ontology.html'">
+            <div class="card-header">
+                <h3>Container</h3>
+                <span class="badge">17 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Container.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='data-collection_ontology.html'">
+            <div class="card-header">
+                <h3>Data Collection</h3>
+                <span class="badge">10 Operations</span>
+            </div>
+            <p class="card-desc">🔒 DataCollection.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='data-collection-limit-set_ontology.html'">
+            <div class="card-header">
+                <h3>Data Collection Limit Set</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 DataCollectionLimitSet.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='data-silo_ontology.html'">
+            <div class="card-header">
+                <h3>Data Silo</h3>
+                <span class="badge">1 Operations</span>
+            </div>
+            <p class="card-desc">🔒 DataSilo.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='document_ontology.html'">
+            <div class="card-header">
+                <h3>Document</h3>
+                <span class="badge">10 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Document.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='employee_ontology.html'">
+            <div class="card-header">
+                <h3>Employee</h3>
+                <span class="badge">25 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Employee.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='enterprise_ontology.html'">
+            <div class="card-header">
+                <h3>Enterprise</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Enterprise.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='experiment-definition_ontology.html'">
+            <div class="card-header">
+                <h3>Experiment Definition</h3>
+                <span class="badge">9 Operations</span>
+            </div>
+            <p class="card-desc">🔒 ExperimentDefinition.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='facility_ontology.html'">
+            <div class="card-header">
+                <h3>Facility</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Facility.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='flow_ontology.html'">
+            <div class="card-header">
+                <h3>Flow</h3>
+                <span class="badge">9 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Flow.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='inspection-plan_ontology.html'">
+            <div class="card-header">
+                <h3>Inspection Plan</h3>
+                <span class="badge">8 Operations</span>
+            </div>
+            <p class="card-desc">🔒 InspectionPlan.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='kpi_ontology.html'">
+            <div class="card-header">
+                <h3>KPI</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 KPI.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='maintenance-activity-order_ontology.html'">
+            <div class="card-header">
+                <h3>Maintenance Activity Order</h3>
+                <span class="badge">33 Operations</span>
+            </div>
+            <p class="card-desc">🔒 MaintenanceActivityOrder.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='maintenance-plan_ontology.html'">
+            <div class="card-header">
+                <h3>Maintenance Plan</h3>
+                <span class="badge">9 Operations</span>
+            </div>
+            <p class="card-desc">🔒 MaintenancePlan.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='map_ontology.html'">
+            <div class="card-header">
+                <h3>Map</h3>
+                <span class="badge">8 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Map.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='map-definition_ontology.html'">
+            <div class="card-header">
+                <h3>Map Definition</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 MapDefinition.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='material_ontology.html'">
+            <div class="card-header">
+                <h3>Material</h3>
+                <span class="badge">113 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Material.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='material-transfer_ontology.html'">
+            <div class="card-header">
+                <h3>Material Transfer</h3>
+                <span class="badge">19 Operations</span>
+            </div>
+            <p class="card-desc">🔒 MaterialTransfer.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='notification_ontology.html'">
+            <div class="card-header">
+                <h3>Notification</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Notification.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='package_ontology.html'">
+            <div class="card-header">
+                <h3>Package</h3>
+                <span class="badge">4 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Package.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='parameter_ontology.html'">
+            <div class="card-header">
+                <h3>Parameter</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Parameter.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='periodic-inventory_ontology.html'">
+            <div class="card-header">
+                <h3>Periodic Inventory</h3>
+                <span class="badge">11 Operations</span>
+            </div>
+            <p class="card-desc">🔒 PeriodicInventory.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='pick-list_ontology.html'">
+            <div class="card-header">
+                <h3>Pick List</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 PickList.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='plan_ontology.html'">
+            <div class="card-header">
+                <h3>Plan</h3>
+                <span class="badge">9 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Plan.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='printable-document_ontology.html'">
+            <div class="card-header">
+                <h3>Printable Document</h3>
+                <span class="badge">9 Operations</span>
+            </div>
+            <p class="card-desc">🔒 PrintableDocument.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='product_ontology.html'">
+            <div class="card-header">
+                <h3>Product</h3>
+                <span class="badge">26 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Product.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='product-group_ontology.html'">
+            <div class="card-header">
+                <h3>Product Group</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 ProductGroup.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='production-order_ontology.html'">
+            <div class="card-header">
+                <h3>Production Order</h3>
+                <span class="badge">21 Operations</span>
+            </div>
+            <p class="card-desc">🔒 ProductionOrder.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='protocol_ontology.html'">
+            <div class="card-header">
+                <h3>Protocol</h3>
+                <span class="badge">7 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Protocol.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='qualification_ontology.html'">
+            <div class="card-header">
+                <h3>Qualification</h3>
+                <span class="badge">7 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Qualification.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='qualification-check_ontology.html'">
+            <div class="card-header">
+                <h3>Qualification Check</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 QualificationCheck.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='reason_ontology.html'">
+            <div class="card-header">
+                <h3>Reason</h3>
+                <span class="badge">7 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Reason.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='recipe_ontology.html'">
+            <div class="card-header">
+                <h3>Recipe</h3>
+                <span class="badge">12 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Recipe.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='resource_ontology.html'">
+            <div class="card-header">
+                <h3>Resource</h3>
+                <span class="badge">64 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Resource.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='resource-job_ontology.html'">
+            <div class="card-header">
+                <h3>Resource Job</h3>
+                <span class="badge">10 Operations</span>
+            </div>
+            <p class="card-desc">🔒 ResourceJob.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='sampling-pattern_ontology.html'">
+            <div class="card-header">
+                <h3>Sampling Pattern</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 SamplingPattern.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='sampling-plan_ontology.html'">
+            <div class="card-header">
+                <h3>Sampling Plan</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 SamplingPlan.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='schedule_ontology.html'">
+            <div class="card-header">
+                <h3>Schedule</h3>
+                <span class="badge">8 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Schedule.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='schedule-scenario_ontology.html'">
+            <div class="card-header">
+                <h3>Schedule Scenario</h3>
+                <span class="badge">8 Operations</span>
+            </div>
+            <p class="card-desc">Scheduling is an optional Critical Manufacturing module.</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='send-ahead-run_ontology.html'">
+            <div class="card-header">
+                <h3>Send-Ahead Run</h3>
+                <span class="badge">11 Operations</span>
+            </div>
+            <p class="card-desc">🔒 SendAheadRun.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='service_ontology.html'">
+            <div class="card-header">
+                <h3>Service</h3>
+                <span class="badge">9 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Service.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='setup-matrix_ontology.html'">
+            <div class="card-header">
+                <h3>Setup Matrix</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 SetupMatrix.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='shift-definition_ontology.html'">
+            <div class="card-header">
+                <h3>Shift Definition</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 ShiftDefinition.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='shift-logbook_ontology.html'">
+            <div class="card-header">
+                <h3>Shift Logbook</h3>
+                <span class="badge">3 Operations</span>
+            </div>
+            <p class="card-desc">🔒 ShiftLogbook.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='shift-plan_ontology.html'">
+            <div class="card-header">
+                <h3>Shift Plan</h3>
+                <span class="badge">9 Operations</span>
+            </div>
+            <p class="card-desc">🔒 ShiftPlan.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='site_ontology.html'">
+            <div class="card-header">
+                <h3>Site</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Site.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='sort-rule-set_ontology.html'">
+            <div class="card-header">
+                <h3>Sort Rule Set</h3>
+                <span class="badge">6 Operations</span>
+            </div>
+            <p class="card-desc">🔒 SortRuleSet.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='step_ontology.html'">
+            <div class="card-header">
+                <h3>Step</h3>
+                <span class="badge">16 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Step.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='substrate-map_ontology.html'">
+            <div class="card-header">
+                <h3>Substrate Map</h3>
+                <span class="badge">14 Operations</span>
+            </div>
+            <p class="card-desc">🔒 SubstrateMap.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='substrate-map-mask_ontology.html'">
+            <div class="card-header">
+                <h3>Substrate Map Mask</h3>
+                <span class="badge">7 Operations</span>
+            </div>
+            <p class="card-desc">🔒 SubstrateMapMask.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='task_ontology.html'">
+            <div class="card-header">
+                <h3>Task</h3>
+                <span class="badge">11 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Task.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='team_ontology.html'">
+            <div class="card-header">
+                <h3>Team</h3>
+                <span class="badge">5 Operations</span>
+            </div>
+            <p class="card-desc">🔒 Team.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='transfer-order_ontology.html'">
+            <div class="card-header">
+                <h3>Transfer Order</h3>
+                <span class="badge">10 Operations</span>
+            </div>
+            <p class="card-desc">🔒 TransferOrder.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        <div class="directory-card" onclick="location.href='transfer-requirement_ontology.html'">
+            <div class="card-header">
+                <h3>Transfer Requirement</h3>
+                <span class="badge">14 Operations</span>
+            </div>
+            <p class="card-desc">🔒 TransferRequirement.Show</p>
+            <div class="card-meta">
+                <span>🔄 0 Relationships</span>
+                <span class="view-link">View Diagram ➔</span>
+            </div>
+        </div>
+    
+        </div>
+    </div>
+    <script>
+        const searchInput = document.getElementById('search');
+        const cards = document.querySelectorAll('.directory-card');
+        
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const desc = card.querySelector('.card-desc').innerText.toLowerCase();
+                if (title.includes(val) || desc.includes(val)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

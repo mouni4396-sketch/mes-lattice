@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Import Product Information - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="import-product-information">Import Product Information<a class="headerlink" href="#import-product-information" title="Direct link to this section">#</a></h1> <p>🔒 Product.<strong>ImportInformation</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to import information for a specific <strong>Product</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Product</strong> exists in the system.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The <strong>Import Product Information</strong> wizard can be called from the <strong>Product</strong> page within the Business Data Group.</p> <h3 id="step-1-cad">Step 1: CAD<a class="headerlink" href="#step-1-cad" title="Direct link to this section">#</a></h3> <ol> <li> <p>Select the <strong>CAD Type</strong> file to import:</p> <ul> <li>ODB++</li> <li>STEP</li> </ul> </li> <li> <p>Select the <strong>CAD</strong> file to import by dragging a file from the file explorer or by selecting <strong>Browse Files</strong> and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right of the entry will remove the file from the import queue.</p> </li> <li>If the selected <strong>CAD Type</strong> is ODB++, select whether the <strong>Panel Type</strong> is Single or Double sided.</li> <li>If the <strong>Panel Type</strong> is <strong>Double Sided</strong>, provide the <strong>Bottom View Mirror Mode</strong> (defaults to Y Axis).</li> <li> <p>Select if you want to <strong>Import Component Location Information</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/import_product_information_cad.png"><img alt="Screenshot showing CAD product information for import." src="../images/import_product_information_cad.png"/></a></p> </li> <li> <p>Select <strong>Next</strong> to continue.</p> </li> </ol> <h3 id="step-2-bom">Step 2: <abbr title="Bill-Of-Materials">BOM</abbr><a class="headerlink" href="#step-2-bom" title="Direct link to this section">#</a></h3> <ol> <li>If the <strong>CAD</strong> file includes the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>, you can select if you want to <strong>Import <abbr title="Bill-Of-Materials">BOM</abbr> Information from CAD</strong>.</li> <li>Select if you want to <strong>Apply Component Mapping</strong> when importing the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> information (from <strong>CAD</strong> or <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> file).</li> <li>If the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> has not yet been imported, select the <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> file to import by dragging a file from the file explorer or by selecting <strong>Browse Files</strong> and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right of the entry will remove the file from the import queue.</li> <li> <p>Select the <strong>Culture</strong> (defaults to your culture).</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The List Separator character will be inferred from the Culture.</p> </div> </li> <li> <p>Select <strong>Preview</strong> to see the values using the inferred separator:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/import_product_information_bom.png"><img alt="Screenshot showing a Bill of Materials (BOM) import screen with product information fields." src="../images/import_product_information_bom.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The <abbr title="Bill-Of-Materials">BOM</abbr> file is parsed according to the <a href="../../../administration/tables/generic-tables/fileimportinformation/">FileImportInformation</a> Generic Table definition.</p> </div> </li> <li> <p>Select <strong>Next</strong> to continue.</p> </li> </ol> <h3 id="step-3-attachments">Step 3: Attachments<a class="headerlink" href="#step-3-attachments" title="Direct link to this section">#</a></h3> <ol> <li>Select the <strong>Schematic</strong> (a representation of the elements of a system using abstract graphic symbols) files to import by dragging one or more files from the file explorer or by selecting <strong>Browse Files</strong> and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right of the entry will remove the file from the import queue.</li> <li> <p>Select the <strong>Drawing</strong> (a type of technical drawing that is used to convey information about an object) files to import by dragging one or more files from the file explorer or by selecting <strong>Browse Files</strong> and selecting a file manually. File information will be displayed on screen after the file is loaded and analyzed by the system. Selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> button on the right of the entry will remove the file from the import queue.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/import_product_information_attachments.png"><img alt='Screenshot showing a file selection dialog with a filename hint "import product information attachments".' src="../images/import_product_information_attachments.png"/></a></p> </li> <li> <p>Select <strong>Import</strong> to start the import process. When the import is completed, the system will navigate back to the <strong>Product</strong> entity page.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see the <a href="../../../../tutorials/modules/new-product-introduction/npi/">New Product Introduction (NPI)</a> tutorial.</p> </div> </li> </ol> </article>
+</body>
+</html>

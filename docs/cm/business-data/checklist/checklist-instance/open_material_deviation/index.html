@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Material Deviation - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="open-material-deviation">Open Material Deviation<a class="headerlink" href="#open-material-deviation" title="Direct link to this section">#</a></h1> <p>🔒 ChecklistInstance.<strong>OpenMaterialDeviation</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create and open a <strong>Material Deviation</strong> for an item of a <strong>Checklist Instance</strong>. This is usually integrated into other functionality such as Maintenance Management and Exceptions Management.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ol> <li> <p>The Checklist Instance Item belongs to a Checklist Instance that:</p> <ul> <li>Is Active, Open, and Long Running.</li> <li>Has a Material associated to it.</li> <li>Has a Material Deviation Protocol associated to it.</li> </ul> </li> <li> <p>The Checklist Instance Item:</p> <ul> <li>Exists, is Active (not Terminated), and the Is Active is <code>true</code>.</li> <li>The Activity Type is Manual Task, and its State is not Skipped or Completed.</li> <li>If the Deviation Type is Change Checklist Item or Remove Checklist Item, the state must not be Started. Additionally, there must be no Data Collection posted or <abbr title="Bill-Of-Materials">BOM</abbr> Part consumed for that Checklist Instance Item.</li> <li>If the Deviation Type is Add Checklist Item, the base Checklist Instance Item must have the property Is Floating set to <code>false</code>. Additionally, the base Checklist Instance Item must be Not Started if the new Checklist Item is to be added Before.</li> <li>If the Deviation Type is Change <abbr title="Bill-Of-Materials">BOM</abbr> Item, Remove <abbr title="Bill-Of-Materials">BOM</abbr> Item or Add <abbr title="Bill-Of-Materials">BOM</abbr> Item:<ul> <li>Both the previous Quantity for the <abbr title="Bill-Of-Materials">BOM</abbr> Instance Item (for Change <abbr title="Bill-Of-Materials">BOM</abbr> Item and Remove <abbr title="Bill-Of-Materials">BOM</abbr> Item), and the new Quantity for the <abbr title="Bill-Of-Materials">BOM</abbr> Instance Item must be greater than or equal to zero.</li> <li>If the Deviation Type is Change <abbr title="Bill-Of-Materials">BOM</abbr> Item or Remove <abbr title="Bill-Of-Materials">BOM</abbr> Item:<ul> <li>The Checklist Item must have at least a <abbr title="Bill-Of-Materials">BOM</abbr> Instance Item associated with it.</li> <li>Only <abbr title="Bill-Of-Materials">BOM</abbr> Instance Item for which the Is Reference set to <code>false</code> can be Removed or Changed.</li> <li>Only <abbr title="Bill-Of-Materials">BOM</abbr> Instance Item for which the Lower and Upper Tolerances are not defined (or equal to the Required Quantity – this means the upper and lower tolerances are zero) can be Removed or Changed.</li> </ul> </li> <li>If the Deviation Type is Add <abbr title="Bill-Of-Materials">BOM</abbr> Item, the associated Checklist Instance must have a <abbr title="Bill-Of-Materials">BOM</abbr> Instance associated with it.</li> </ul> </li> </ul> </li> </ol> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>Matching the conditions above, from your <strong>Checklist</strong>, create/open a <strong>Checklist Instance</strong> for a <strong>Material</strong>. Go to your <strong>Checklist Instance</strong> and:</p> <ol> <li>Select the item you want to open a deviation for.</li> <li> <p>If the conditions are met, the <strong>Open Deviation</strong> button becomes available on the top ribbon:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_01.png"><img alt="Screenshot showing the Open Deviation button on the top ribbon when conditions are met." src="../../images/open_deviation_01.png"/></a></p> </li> <li> <p>You can select one of the following <strong>Material</strong> deviations:</p> <ul> <li>Add Item After</li> <li>Add Item Before</li> <li>Change Item</li> <li>Remove Item</li> <li>Add <abbr title="Bill-Of-Materials">BOM</abbr> Items</li> <li>Change <abbr title="Bill-Of-Materials">BOM</abbr> Items</li> <li>Remove <abbr title="Bill-Of-Materials">BOM</abbr> Items</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_02.png"><img alt='Screenshot showing a checklist with an item titled "APMaterial Deviation" checked.' src="../../images/open_deviation_02.png"/></a></p> </li> <li> <p>If you add a Checklist Item before (Add Item Before) or after (Add Item After) the selected Checklist Instance Item, you must create a new Checklist Item that meets the conditions above.</p> </li> <li> <p>If you change (Change Item) the selected Checklist Instance Item, a new Checklist Instance Item is created based on the selected one. This option is similar to Add Item Before/Add Item After operation, except that it starts with a pre-filled Checklist Item:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_03.png"><img alt="Screenshot showing a checklist item being changed in a workflow, with a new instance created based on the selected one." src="../../images/open_deviation_03.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The initially set Group property cannot be modified.</p> <p>Furthermore, if any Checklist Instance Item Parameter has a value already, that Checklist Instance Item Parameter cannot be changed in any way.</p> </div> </li> <li> <p>If you remove (Remove Item) the selected Checklist Instance Item, check the information, and select <strong>Remove</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_03a.png"><img alt='Screenshot showing a checklist item being removed with an "i Remove Checklist Item" label.' src="../../images/open_deviation_03a.png"/></a></p> </li> <li> <p>If you Add <abbr title="Bill-Of-Materials">BOM</abbr> Items, you must provide the Product, Quantity, Units and optionally the Color:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_BOM_01.png"><img alt="Screenshot showing a Bill of Materials (BOM) form with fields for Product, Quantity, Units, and optional Color." src="../../images/open_deviation_BOM_01.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If a Product has the Default Units property set, those units will be automatically applied. If needed, you can override them by specifying valid Units from the <a href="../../../../administration/tables/lookup-tables/units/">Units</a> Lookup Table.</p> <p>Additionally, when adding new Products, their Product Type must not be Part, Durable or Packaging, and you can change the order of the newly added <abbr title="Bill-Of-Materials">BOM</abbr> items.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The new <abbr title="Bill-Of-Materials">BOM</abbr> Item can be added even when the Material's current Step does not match the Assembly Step of the <abbr title="Bill-Of-Materials">BOM</abbr> Items already associated with the Checklist.</p> </div> </li> <li> <p>If you Change <abbr title="Bill-Of-Materials">BOM</abbr> Items, you can specify a new Product, a new Quantity, new Units and optionally a new Color:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_BOM_02.png"><img alt="Screenshot showing a BOM (Bill of Materials) change screen with fields for Product, Quantity, Units, and Color." src="../../images/open_deviation_BOM_02.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>When performing Change <abbr title="Bill-Of-Materials">BOM</abbr> Items, at least one of the following properties must be changed: Product or Quantity.</p> <p>If a Product has the Default Units property set, those units will be automatically applied. If needed, you can override them by specifying valid Units from the <a href="../../../../administration/tables/lookup-tables/units/">Units</a> Lookup Table.</p> <p>Additionally, when adding new Products, their Product Type must not be Part, Durable or Packaging, and on changing <abbr title="Bill-Of-Materials">BOM</abbr> Items, the order maintains its original sequence, and cannot be modified.</p> <p>When only the Quantity is changed, Information Capture will be required for the <abbr title="Bill-Of-Materials">BOM</abbr> Item if it is enabled.</p> </div> </li> <li> <p>If you Remove <abbr title="Bill-Of-Materials">BOM</abbr> Items, check the information, use <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> to delete the item directly in the wizard and select <strong>Remove</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_BOM_03.png"><img alt="Screenshot showing a wizard interface with a trash can icon to delete an item directly." src="../../images/open_deviation_BOM_03.png"/></a></p> </li> </ol> <p>For any item, you can view its details (read only) by selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"></path></svg></span> icon:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_03b.png"><img alt="Screenshot showing a wizard interface with a trash can icon used to delete an item." src="../../images/open_deviation_03b.png"/></a></p> <p>Here are some examples:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_04.png"><img alt='Screenshot showing a wizard with a "Remove" option, including a trash can icon.' src="../../images/open_deviation_04.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>In this view, you can choose to see only the modified items by selecting the SHOW MODIFIED ONLY box at the top of the page.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_05.png"><img alt="Screenshot showing the SHOW MODIFIED ONLY checkbox at the top of the page." src="../../images/open_deviation_05.png"/></a></p> <p>And you can also expand items to see their details:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/open_deviation_06.png"><img alt='Screenshot showing a UI with a checkbox labeled "SHOW MODIFIED ONLY" at the top of the page.' src="../../images/open_deviation_06.png"/></a></p> </article>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Map - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../tags/#tag:mapping">mapping</a> </nav> <h1 id="map">Map<a class="headerlink" href="#map" title="Direct link to this section">#</a></h1> <p>🔒 Map.<strong>Show</strong></p> <p>A <strong>Map</strong> can be seen as an instance of a <strong>Map Definition</strong>. It contains the actual data for each layer. A <strong>Map</strong> may be linked to a <strong>Material</strong> and the <strong>Map</strong> quantity can be synchronized with the <strong>Material</strong> quantity if the following conditions are met:</p> <ol> <li>The <strong>Material</strong> master <strong>Map</strong> default layer must be of either type</li> <li>The <strong>Map</strong> units must be defined and match either the <strong>Material</strong> <em>Primary or Secondary Units</em>.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Maps are part of Mapping which is a Critical Manufacturing optional module.</p> </div> <p>Internally, and also for loading and exporting, Critical Manufacturing uses the G85-0703 format. Please refer to <a href="https://store-us.semi.org/products/g08500-semi-g85-specification-for-map-data-format">this link ⧉</a> for more information on the G85 format</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The setting <code>/Cmf/System/Configuration/Mapping/CheckUpdatesAgainstMark</code> determines whether the system checks for every unit update or the unit is part of the Map Definition mask. If set to true, there is a performance penalty incurred for every update.</p> </div> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph TD
+    A1[Step] --- Main[Map]
+    A2[Material] --- Main
+    A3[Resource] --- Main
+    Main === A4[Map Definition]
+    A4 --- A5[Map Definition Layer]
+    A5 --- A6[Map Definition Layer Filter]
+    A5 --- L1[Map Layer]
+    L1 --- L2[Map Layer Content]
+    Main --- L1
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/map"
+click A1 "../../business-data/step"
+click A2 "../../business-data/material"
+click A3 "../../business-data/resource"
+click A4 "../../business-data/map-definition"</code></pre> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly creating and using a <strong>Map</strong> are:</p> <ol> <li>Create a <strong>Map Definition</strong>.</li> <li>If it is intended to link the <strong>Map</strong> to a <strong>Material</strong>, create the <strong>Material</strong>.</li> <li>Create the <strong>Map</strong>.</li> <li>If it is intended to link the <strong>Map</strong> to a <strong>Material</strong>, link the <strong>Material</strong> with the <strong>Map</strong>.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see the <a href="../../../tutorials/modules/mapping/wafermapping/">Wafer Mapping</a> tutorial.</p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Map:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="map_page/">Map Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_map/">Clone Map</a></li> <li><a href="create_map/">Create Map</a></li> <li><a href="edit_map/">Edit Map</a></li> <li><a href="terminate_map/">Terminate Map</a></li> <li><a href="unterminate_map/">Unterminate Map</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="download_map_layer_information/">Download Map Layer Information</a></li> <li><a href="link_map_with_material/">Link Map with Material</a></li> <li><a href="unlink_map_from_material/">Unlink Map from Material</a></li> </ul> </article>
+</body>
+</html>

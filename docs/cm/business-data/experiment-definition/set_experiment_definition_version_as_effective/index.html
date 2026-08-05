@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Set Experiment Definition Version as Effective - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="set-experiment-definition-version-as-effective">Set Experiment Definition Version as Effective<a class="headerlink" href="#set-experiment-definition-version-as-effective" title="Direct link to this section">#</a></h1> <p>🔒 ExperimentDefinition.<strong>SetEffective</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to set an <strong>Experiment Definition</strong> version as Effective. </p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Experiment Definition</strong> version exists in the system and it is Active.</li> <li>The <strong>Experiment Definition</strong> must contain at least one <strong>Experiment Definition Step</strong>.</li> <li>There must be at least one <strong>Experiment Definition Step</strong> that belongs to the <strong>Experiment Definition Flow</strong>.</li> <li> <p>When changing an already Effective version to a new one, the following checks are performed:</p> <ul> <li>If the <strong>Experiment Definition</strong> version being set as Effective defines a <strong>Product</strong> or <strong>Product Group</strong> different from the previous effective <strong>Experiment Definition</strong>, all Active current <strong>Materials</strong> associated with the <strong>Experiment Definition</strong> (via the <strong>Experiment</strong> object) must have that <strong>Product</strong> or <strong>Product Group</strong> set.</li> <li> <p>If the <strong>Experiment Definition</strong> version being set as Effective has any difference from the previous Effective <strong>Experiment Definition</strong> regarding any <strong>Experiment Definition</strong> Step with the respective Contents, then if there are current Active <strong>Materials</strong> associated with the <strong>Experiment Definition</strong> located at that <strong>Experiment Definition</strong> Step Flow Path:</p> <ul> <li>The name of all previous <strong>Experiment Definition</strong> Step Material Groups must be retained.</li> <li>The Mode of the <strong>Experiment Definition</strong> Step Material Groups must remain unchanged.</li> <li>The composition of all previous <strong>Experiment Definition</strong> Step Material Groups remains the same, considering only Material Groups currently at that Experiment Definition Flow Path Step and ignoring No-Action groups. However, an <strong>Experiment Definition</strong> may be divided in two or more.</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>These checks apply only to Experiment Material Groups that are located in the affected Experiment Definition Steps.</p> </div> <ul> <li>The New Processing Required is <code>false</code>.</li> <li>If a Step Material Group within an <strong>Experiment Definition</strong> Step is divided in two or more groups, excluding No-Action groups:<ul> <li>The Mode of the <strong>Experiment Definition</strong> Step Material Groups must be Enter.</li> <li>For the <strong>Experiment Definition</strong> Step Material Group that remains:<ul> <li>There must be a <strong>Material</strong> in state Queued at that <strong>Experiment Definition</strong> Step Flow Path for that <strong>Experiment Definition</strong> Step Material Group - required because the new <strong>Materials</strong> will be split from this one.</li> <li>That <strong>Material</strong> must contain the Sub-Materials required by all the new Material Groups created from it.</li> </ul> </li> <li>There must be a Split Type defined for the new created groups - it cannot be None.</li> <li>The New Processing Required is <code>true</code>.</li> </ul> </li> <li>At that <strong>Experiment Definition</strong> Step, for all retained <strong>Experiment Definition</strong> Step Material Group, the following properties must remain unchanged: Type, Split Type, and Split Scope.</li> </ul> </li> <li> <p>If there are active <strong>Experiments</strong>, there cannot be any change between versions of the following properties:</p> <ul> <li>Auto Close</li> <li>Mode</li> <li>Empty Sub-Materials</li> </ul> </li> <li>The Max Number of Materials, Required Material Form, Required Material Type, and Required Sub-Materials Form is not checked at Set Effective.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>These checks are not performed when setting the Experiment Definition as effective for the first time.</p> </div> </li> <li> <p>If the <strong>Experiment Definition</strong> version being set as Effective defines a Required Sub-Materials Count different from the previous effective <strong>Experiment Definition</strong>, if there are current Active <strong>Materials</strong> associated with the <strong>Experiment Definition</strong>, then the system must abort the use case and report an error.</p> </li> <li>The <strong>Experiment Definition</strong> version is set as Effective, and the previous <strong>Experiment Definition</strong> version that was Effective (if any) is set as Active.</li> <li>If the <strong>Experiment Definition</strong> <code>First Step</code> or <code>Last Step</code> changes in the new Effective version, the system updates those properties on all active <strong>Experiments</strong> in <code>Created</code> or <code>In-Progress</code> state with the values from the new Effective version.</li> <li>If New Processing Required, the system must, for all the <strong>Experiment Definition</strong> Step Material Groups that have been divided and for which a <strong>Material</strong> exists at that <strong>Experiment Definition</strong> Step Flow Path in State Queued:<ul> <li>Run the defined logic to create the Split Future Actions.</li> </ul> </li> <li>If a new version of the <strong>Experiment Definition</strong> version defines actions for a <strong>Material</strong> in the <code>Processed</code> state, those actions will not have any effect even if the associated <strong>Material</strong> is still in the <code>Queued</code> state.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The Set Experiment Definition Version as Effective wizard can be called from the <strong>Experiment Definition</strong> page within the Business Data Group.</p> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Review the information on the Set Experiment Definition Version as Effective wizard.</li> <li>Select <strong>Set Effective</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/set_experiment_definition_version_as_effective.png"><img alt="set_experiment_definition_version_as_effective" src="../images/set_experiment_definition_version_as_effective.png"/></a></p> </article>
+</body>
+</html>

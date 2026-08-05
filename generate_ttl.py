@@ -42,6 +42,16 @@ MATCH_OK = {"closematch", "broadmatch", "narrowmatch", "relatedmatch"}
 # canonical SKOS spelling from a lowercased key
 MATCH_CANON = {"closematch": "closeMatch", "broadmatch": "broadMatch",
                "narrowmatch": "narrowMatch", "relatedmatch": "relatedMatch"}
+VERDICT_OK = {"covered", "partial", "vendor-extension", "absent", "needs-verification"}
+
+# ---------------------------------------------------------------------------
+# MES-Overlay-TEMPLATE.xlsx contract (new template). The legacy CM master
+# (MES-CM-Overlay-MASTER.xlsx) predates this contract: no "0. Guide" version
+# marker, sheets named "1. Data Objects"/"2. Attributes" instead of "1. Nodes"/
+# "2. Data Properties", no context sheets, no Layer column on sheets 2-3.
+# Every check below treats that shape as legacy and degrades gracefully.
+# ---------------------------------------------------------------------------
+EXPECTED_TEMPLATE_VERSION = "1.0"
 
 
 # ---------------------------------------------------------------------------
@@ -76,6 +86,106 @@ class Sheet:
         for row in self.ws.iter_rows(min_row=2, values_only=True):
             yield RowView(row, self.headers)
 
+    def rows_with_index(self):
+        """Like rows(), but also yields the 1-based Excel row number, for validation
+        messages that must name the exact row (min_row=2 => first data row is 2)."""
+        for i, row in enumerate(self.ws.iter_rows(min_row=2, values_only=True), start=2):
+            yield i, RowView(row, self.headers)
+
+
+def sheet_header_names(wb, name):
+    """Lowercased header set of a sheet, read without enforcing any required columns -
+    used to decide (before opening a Sheet, which does enforce) whether an optional-in-
+    legacy column like 'Layer' is actually present on this workbook's copy of a sheet
+    whose NAME is unchanged between the old and new template (e.g. '3. Object Properties')."""
+    if name not in wb.sheetnames:
+        return set()
+    row1 = next(wb[name].iter_rows(min_row=1, max_row=1))
+    return {str(c.value).strip().lower() for c in row1 if c.value is not None}
+
+
+def open_sheet(wb, names, required=(), legacy_required=None, optional=()):
+    """
+    Open a sheet trying each candidate name in order - the new template's name first,
+    then the legacy CM-master name - so a workbook in either shape works unmodified.
+    `names` may be a single sheet name or a tuple of aliases.
+
+    `legacy_required`, if given, is the required-header set used when the LEGACY name
+    resolved (older masters have fewer columns, e.g. no "Layer" on sheets 2-3); when the
+    new name resolved, `required` (the full new-template contract) applies.
+    """
+    if isinstance(names, str):
+        names = (names,)
+    present = [n for n in names if n in wb.sheetnames]
+    if not present:
+        raise BuildError(
+            f"Workbook is missing sheet {names[0]!r}"
+            + (f" (also tried {list(names[1:])})" if len(names) > 1 else "") +
+            f". Sheets present: {wb.sheetnames}")
+    resolved = present[0]
+    is_legacy_name = legacy_required is not None and resolved != names[0]
+    req = legacy_required if is_legacy_name else required
+    return Sheet(wb, resolved, required=req, optional=optional), resolved
+
+
+# ---------------------------------------------------------------------------
+# Row validation (section 3). One shared checker for sheets 1-3: each has a
+# Layer, a name-ish column (Name/Attribute/Property), an optional IRI local
+# name fallback, and the same Match type / VERDICT / Confidence / secondary-
+# mapping shape - only the column names differ per sheet.
+# ---------------------------------------------------------------------------
+def check_row_problems(sheet_label, row_num, r, sh, name_col, mapping_col,
+                        match_col="Match type", verdict_col="VERDICT",
+                        sec_mapping_col="Secondary maps to neutral",
+                        sec_match_col="Secondary match type", warnings=None):
+    problems = []
+    if sh.has("Layer") and not r.str("Layer"):
+        problems.append(f"{sheet_label} row {row_num}: Layer is empty.")
+
+    name_val = r.str(name_col)
+    iri_val = r.str("IRI local name") if sh.has("IRI local name") else ""
+    if not name_val and not iri_val:
+        problems.append(
+            f"{sheet_label} row {row_num}: both '{name_col}' and 'IRI local name' are empty.")
+
+    match_val = r.str(match_col) if sh.has(match_col) else ""
+    if match_val and match_val.lower().replace(" ", "") not in MATCH_OK:
+        problems.append(
+            f"{sheet_label} row {row_num}, {match_col}: {match_val!r} is not one of "
+            f"closeMatch, broadMatch, narrowMatch, relatedMatch.")
+
+    verdict_val = r.str(verdict_col) if sh.has(verdict_col) else ""
+    if verdict_val and verdict_val.strip().lower() not in VERDICT_OK:
+        problems.append(
+            f"{sheet_label} row {row_num}, {verdict_col}: {verdict_val!r} is not one of "
+            f"{sorted(VERDICT_OK)}.")
+
+    conf_val = r.str("Confidence") if sh.has("Confidence") else ""
+    if conf_val:
+        d = as_decimal(conf_val)
+        if d is None or not (0.0 <= float(d) <= 1.0):
+            problems.append(
+                f"{sheet_label} row {row_num}, Confidence: {conf_val!r} does not parse "
+                f"as a decimal in [0,1].")
+
+    mapping_val = r.str(mapping_col) if sh.has(mapping_col) else ""
+    if mapping_val and not match_val and warnings is not None:
+        warnings.append(
+            f"WARNING: {sheet_label} row {row_num}: '{mapping_col}' is set but "
+            f"{match_col} is empty.")
+
+    sec_tgt = r.str(sec_mapping_col) if sh.has(sec_mapping_col) else ""
+    sec_match = r.str(sec_match_col) if sh.has(sec_match_col) else ""
+    if sec_tgt and not sec_match:
+        problems.append(
+            f"{sheet_label} row {row_num}: '{sec_mapping_col}' is set but "
+            f"'{sec_match_col}' is empty.")
+    elif sec_match and sec_match.lower().replace(" ", "") not in MATCH_OK:
+        problems.append(
+            f"{sheet_label} row {row_num}, {sec_match_col}: {sec_match!r} is not one of "
+            f"closeMatch, broadMatch, narrowMatch, relatedMatch.")
+    return problems
+
 
 class RowView:
     def __init__(self, row, headers):
@@ -90,6 +200,10 @@ class RowView:
 
     def str(self, header):
         return str(self.get(header, "")).strip()
+
+    def is_blank(self):
+        """True for a spacer/fully-empty Excel row - never a validation target."""
+        return all(v is None or str(v).strip() == "" for v in self._row)
 
 
 class BuildError(Exception):
@@ -154,6 +268,11 @@ def ref_iri(value):
     return "ref:" + local(s)
 
 
+def yes_no(value):
+    """"Is key"/"Is mandatory" style cells: 'Yes' -> true, anything else (incl. blank) -> false."""
+    return "true" if str(value).strip().lower() == "yes" else "false"
+
+
 # ---------------------------------------------------------------------------
 # Generator
 # ---------------------------------------------------------------------------
@@ -167,6 +286,8 @@ class Generator:
         self.name_to_iri = {}      # display name (normalised) -> minted class IRI
         self.warnings = []
         self.counts = {}
+        self.is_legacy = True      # set by check_template_version(); no "0. Guide" => legacy
+        self.field_iris = {}       # (table name, field display name) -> field IRI, for section 6
         # fix D: verb-axis meta-class is namespaced so a vendor noun ("Operation")
         # can never collide with it.
         self.OP_CLASS = "PortalOperation"
@@ -174,6 +295,10 @@ class Generator:
             "DataObject", "ExternalReference", self.OP_CLASS,
             "operatesOn", "verdict", "sourceDoc", "operationKind", "confidence",
             "confirmsRefConcept", "promotionNote", "promotionEvidence", "UnresolvedReference",
+            # context sheets (section 6)
+            "ContextResolver", "ContextField", "PrecedenceTier", "resolvesTarget",
+            "tableKind", "ofTable", "isKey", "isMandatory", "fieldComment",
+            "keyField", "tierOrder",
         }
 
     def w(self, s=""):
@@ -208,6 +333,139 @@ class Generator:
                 f"(first in {prior}, again in {section}). "
                 f"Qualify the 'IRI local name' in the master to disambiguate.")
         self.defined[name] = section
+
+    # ---- template version check (section 1) ----
+    def check_template_version(self):
+        """
+        Scan '0. Guide' for a cell reading 'Template Version' and read the cell to its
+        right. Absent sheet, absent label, or an empty value cell => legacy CM master;
+        skip silently (self.is_legacy stays True). A present-but-mismatched version is
+        a warning, never fatal.
+        """
+        if "0. Guide" not in self.wb.sheetnames:
+            return
+        ws = self.wb["0. Guide"]
+        for row in ws.iter_rows():
+            for cell in row:
+                if cell.value is not None and str(cell.value).strip().lower() == "template version":
+                    right = ws.cell(row=cell.row, column=cell.column + 1).value
+                    version = str(right).strip() if right is not None else ""
+                    if not version:
+                        return
+                    self.is_legacy = False
+                    if version != EXPECTED_TEMPLATE_VERSION:
+                        self.warnings.append(
+                            f"WARNING: '0. Guide' declares Template Version {version!r}, "
+                            f"this generator expects {EXPECTED_TEMPLATE_VERSION!r}.")
+                    return
+
+    # ---- row validation (section 3) ----
+    def validate_rows(self):
+        """
+        Validate every data row on sheets 1-3, across ALL vendors present in the
+        workbook (not just this build's --prefix) - a bad row for another vendor must
+        not be silently ignored just because this build isn't emitting that vendor's
+        overlay. Collects every problem, then raises ONE BuildError naming them all;
+        the caller (generate()) runs this before writing a single line of TTL, so a
+        partial file is never produced.
+        """
+        problems = []
+
+        sh1, label1 = open_sheet(
+            self.wb, ("1. Nodes", "1. Data Objects"),
+            required=["Layer", "Name", "IRI local name", "Type"],
+            optional=["Maps to neutral", "Match type", "VERDICT",
+                      "Secondary maps to neutral", "Secondary match type", "Confidence"])
+        for i, r in sh1.rows_with_index():
+            if r.is_blank():
+                continue
+            problems += check_row_problems(label1, i, r, sh1, "Name", "Maps to neutral",
+                                            warnings=self.warnings)
+
+        sh2, label2 = open_sheet(
+            self.wb, ("2. Data Properties", "2. Attributes"),
+            required=["Data object", "Attribute", "IRI local name", "Datatype"],
+            optional=["Layer", "Maps to neutral attribute", "Match type", "VERDICT",
+                      "Secondary maps to neutral", "Secondary match type", "Confidence"])
+        for i, r in sh2.rows_with_index():
+            if r.is_blank():
+                continue
+            problems += check_row_problems(label2, i, r, sh2, "Attribute",
+                                            "Maps to neutral attribute", warnings=self.warnings)
+
+        has_layer_col = "layer" in sheet_header_names(self.wb, "3. Object Properties")
+        sh3 = Sheet(self.wb, "3. Object Properties",
+                    required=["Domain", "Property", "IRI local name", "Range"],
+                    optional=(["Layer"] if has_layer_col else [])
+                             + ["Maps to neutral", "Match type", "VERDICT",
+                                "Secondary maps to neutral", "Secondary match type", "Confidence"])
+        for i, r in sh3.rows_with_index():
+            if r.is_blank():
+                continue
+            problems += check_row_problems("3. Object Properties", i, r, sh3, "Property",
+                                            "Maps to neutral", warnings=self.warnings)
+
+        if problems:
+            raise BuildError("Row validation failed - " + str(len(problems)) +
+                              " problem(s):\n  " + "\n  ".join(problems))
+
+    # ---- shared verdict + mapping-edge emission (sections 4 & 5) ----
+    def verdict_for(self, sh, r, mapping_col="Maps to neutral", match_col="Match type",
+                     verdict_col="VERDICT"):
+        """
+        The row's own Verdict wins when the column exists and the cell is non-empty.
+        Otherwise derive it (fix: backward-compat default for masters/rows that never
+        carried a Verdict at all): mapped + closeMatch -> covered; mapped + broad/narrow/
+        related -> partial; not mapped -> vendor-extension. Returns None (omit the triple)
+        when a mapping target is given but the match type is missing/unrecognised - that
+        combination is already flagged as a (non-fatal) row-validation warning.
+        Callers only reach this after filtering out Layer == 'ref' rows, so the "ref-layer
+        rows never get a verdict" rule is satisfied by construction, not checked here.
+
+        If the sheet carries NEITHER a Verdict NOR a mapping column at all (e.g. the legacy
+        CM master's "2. Attributes", which predates verdict/mapping on that sheet entirely),
+        this returns None unconditionally rather than defaulting every row to
+        "vendor-extension" - defaulting is for a sheet that HAS the concept and a blank
+        cell, not for a sheet that never had the concept.
+        """
+        has_verdict_col = sh.has(verdict_col)
+        has_mapping_col = sh.has(mapping_col)
+        if not has_verdict_col and not has_mapping_col:
+            return None
+        if has_verdict_col:
+            explicit = r.str(verdict_col)
+            if explicit:
+                return explicit
+        has_mapping = has_mapping_col and bool(r.str(mapping_col))
+        if not has_mapping:
+            return "vendor-extension"
+        m = r.str(match_col).lower().replace(" ", "") if sh.has(match_col) else ""
+        if m == "closematch":
+            return "covered"
+        if m in ("broadmatch", "narrowmatch", "relatedmatch"):
+            return "partial"
+        return None
+
+    def emit_mapping_edges(self, sh, r, iri, mapping_col="Maps to neutral",
+                            match_col="Match type",
+                            sec_mapping_col="Secondary maps to neutral",
+                            sec_match_col="Secondary match type"):
+        """Emit the primary SKOS mapping edge (existing behaviour) plus, when present, a
+        SECOND edge to 'Secondary maps to neutral' (section 5). A secondary target with a
+        missing/invalid match type is a hard row-validation error caught before generation
+        ever reaches this point, so it is safe to just skip emitting it here."""
+        p = self.p
+        if sh.has(mapping_col) and sh.has(match_col):
+            m = r.str(match_col).lower().replace(" ", "")
+            tgt = r.str(mapping_col)
+            if tgt and m in MATCH_OK:
+                self.w(f"{p}:{iri} skos:{MATCH_CANON[m]} {ref_iri(tgt)} .")
+        if sh.has(sec_mapping_col):
+            sec_tgt = r.str(sec_mapping_col)
+            if sec_tgt and sh.has(sec_match_col):
+                sm = r.str(sec_match_col).lower().replace(" ", "")
+                if sm in MATCH_OK:
+                    self.w(f"{p}:{iri} skos:{MATCH_CANON[sm]} {ref_iri(sec_tgt)} .")
 
     # ---- meta-schema ----
     def header(self):
@@ -247,14 +505,36 @@ class Generator:
         self.w(f"{p}:UnresolvedReference a owl:Class ; rdfs:subClassOf {p}:ExternalReference ; "
                f"rdfs:label {lit('Unresolved Reference')} ; "
                f"rdfs:comment {lit('Placeholder for a domain/range the master marks NEEDS VERIFICATION.')} .")
+        # section 6: context-resolution sheets (optional, new-template only). Vendor-local
+        # classes rather than ref:-namespaced ones - ref: is frozen/imported, never minted.
+        self.w(f"{p}:ContextResolver a owl:Class ; rdfs:subClassOf {p}:DataObject ; "
+               f"rdfs:label {lit(p + ' Context Resolver')} ; "
+               f"rdfs:comment {lit('A table that resolves a target object at runtime from key field(s), rather than a static association.')} .")
+        self.w(f"{p}:ContextField a owl:Class ; rdfs:label {lit(p + ' Context Field')} .")
+        self.w(f"{p}:PrecedenceTier a owl:Class ; rdfs:label {lit(p + ' Context Precedence Tier')} .")
+        self.w(f"{p}:resolvesTarget a owl:ObjectProperty ; rdfs:domain {p}:ContextResolver ; "
+               f"rdfs:label {lit('resolvesTarget')} .")
+        self.w(f"{p}:ofTable a owl:ObjectProperty ; rdfs:range {p}:ContextResolver ; "
+               f"rdfs:label {lit('ofTable')} .")
+        self.w(f"{p}:tableKind    a owl:AnnotationProperty .")
+        self.w(f"{p}:isKey        a owl:DatatypeProperty ; rdfs:domain {p}:ContextField ; rdfs:range xsd:boolean .")
+        self.w(f"{p}:isMandatory  a owl:DatatypeProperty ; rdfs:domain {p}:ContextField ; rdfs:range xsd:boolean .")
+        self.w(f"{p}:fieldComment a owl:AnnotationProperty .")
+        self.w(f"{p}:keyField a owl:ObjectProperty ; rdfs:domain {p}:PrecedenceTier ; "
+               f"rdfs:range {p}:ContextField ; rdfs:label {lit('keyField')} .")
+        self.w(f"{p}:tierOrder a owl:DatatypeProperty ; rdfs:domain {p}:PrecedenceTier ; "
+               f"rdfs:range xsd:integer .")
         self.w()
 
     # ---- data objects ----
     def data_objects(self):
-        sh = Sheet(self.wb, "1. Data Objects",
-                   required=["Layer", "Name", "IRI local name", "Type"],
-                   optional=["Maps to neutral", "Match type", "Confidence",
-                             "VERDICT", "Source doc", "Notes"])
+        sh, section = open_sheet(
+            self.wb, ("1. Nodes", "1. Data Objects"),
+            required=["Layer", "Name", "IRI local name", "Type"],
+            optional=["Belongs to capability", "Affects data object", "ISA-95 area",
+                      "Maps to neutral", "Match type", "VERDICT",
+                      "Secondary maps to neutral", "Secondary match type",
+                      "Confidence", "Source doc", "Notes"])
         p = self.p
         self.w("# ============================================================")
         self.w("# DATA OBJECTS")
@@ -268,7 +548,7 @@ class Generator:
             if not name:
                 continue
             iri = cls_local(r.get("IRI local name") or name)
-            self.define(iri, "1. Data Objects")
+            self.define(iri, section)
             # remember BOTH the display name and the IRI so later sheets can refer to
             # an object by either ("Parametric Data Definition (CDO)" -> ParametricDataDefinition)
             self.name_to_iri[norm(name)] = iri
@@ -277,9 +557,11 @@ class Generator:
             parent = f"{p}:ExternalReference" if "external" in typ.lower() else f"{p}:DataObject"
 
             parts = [f"{p}:{iri} a owl:Class ; rdfs:subClassOf {parent} ; rdfs:label {lit(name)}"]
-            for col, prop in (("VERDICT", "verdict"), ("Source doc", "sourceDoc")):
-                if sh.has(col) and r.str(col):
-                    parts.append(f"    {p}:{prop} {lit(r.str(col))}")
+            v = self.verdict_for(sh, r)
+            if v:
+                parts.append(f"    {p}:verdict {lit(v)}")
+            if sh.has("Source doc") and r.str("Source doc"):
+                parts.append(f"    {p}:sourceDoc {lit(r.str('Source doc'))}")
             if sh.has("Confidence"):                      # fix A/B: optional, numeric only
                 d = as_decimal(r.get("Confidence"))
                 if d is not None:
@@ -288,11 +570,7 @@ class Generator:
                 parts.append(f"    rdfs:comment {lit(r.str('Notes'))}")
             self.w(" ;\n".join(parts) + " .")
 
-            if sh.has("Maps to neutral") and sh.has("Match type"):
-                m = r.str("Match type").lower().replace(" ", "")
-                tgt = r.str("Maps to neutral")
-                if tgt and m in MATCH_OK:
-                    self.w(f"{p}:{iri} skos:{MATCH_CANON[m]} {ref_iri(tgt)} .")
+            self.emit_mapping_edges(sh, r, iri)
             self.w()
             n += 1
         self.counts["data objects"] = n
@@ -337,8 +615,9 @@ class Generator:
 
     # ---- enums & lookups (fix F: keep allowed values) ----
     def enums(self):
-        sh = Sheet(self.wb, "4. Enums & Lookups", required=["Set name", "Kind"],
-                   optional=["Allowed values", "Used by", "Layer", "Notes"])
+        sh = Sheet(self.wb, "4. Enums & Lookups",
+                   required=["Set name", "Kind", "Allowed values", "Layer"],
+                   optional=["Used by", "Notes"])
         p = self.p
         self.w("# ============================================================")
         self.w("# ENUMS & LOOKUPS")
@@ -382,14 +661,25 @@ class Generator:
 
     # ---- attributes (fix C: qualify only on collision) ----
     def attributes(self):
-        sh = Sheet(self.wb, "2. Attributes",
-                   required=["Data object", "Attribute", "IRI local name", "Datatype"],
-                   optional=["Value kind", "Enum/Lookup set", "Cardinality",
-                             "Conditional on", "Source doc", "Notes"])
+        sh, section = open_sheet(
+            self.wb, ("2. Data Properties", "2. Attributes"),
+            required=["Layer", "Data object", "Attribute", "IRI local name", "Datatype"],
+            legacy_required=["Data object", "Attribute", "IRI local name", "Datatype"],
+            optional=["Value kind", "Enum/Lookup set", "Cardinality", "Conditional on",
+                      "Maps to neutral attribute", "Match type", "VERDICT",
+                      "Secondary maps to neutral", "Secondary match type",
+                      "Confidence", "Source doc", "Notes"])
         p = self.p
+        has_layer = sh.has("Layer")
+
+        def in_scope(r):
+            return not has_layer or norm(r.get("Layer")) == norm(p)
+
         # pre-scan to find local names used by more than one owning class
         seen = {}
         for r in sh.rows():
+            if not in_scope(r):
+                continue
             dobj, iri = r.str("Data object"), local(r.get("IRI local name") or r.str("Attribute"))
             if dobj and iri:
                 seen.setdefault(iri, set()).add(dobj)
@@ -401,6 +691,8 @@ class Generator:
         self.w()
         n = 0
         for r in sh.rows():
+            if not in_scope(r):
+                continue
             dobj = r.str("Data object")
             if not dobj:
                 continue
@@ -408,7 +700,7 @@ class Generator:
             base = local(r.get("IRI local name") or attr)
             # only auto-qualify when the hand-authored name is ambiguous
             iri = (local(dobj) + base[:1].upper() + base[1:]) if base in collide else base
-            self.define(iri, "2. Attributes")
+            self.define(iri, section)
 
             vkind = r.str("Value kind").lower()
             eset = r.str("Enum/Lookup set")
@@ -427,6 +719,13 @@ class Generator:
             parts = [f"{p}:{iri} a {ptype} ; rdfs:label {lit(attr)} ; "
                      f"rdfs:domain {p}:{self.resolve_class(dobj)}",
                      f"    rdfs:range {rng}"]
+            v = self.verdict_for(sh, r, mapping_col="Maps to neutral attribute")
+            if v:
+                parts.append(f"    {p}:verdict {lit(v)}")
+            if sh.has("Confidence"):
+                d = as_decimal(r.get("Confidence"))
+                if d is not None:
+                    parts.append(f"    {p}:confidence {d}")
             bits = []
             if r.str("Cardinality"):
                 bits.append(f"cardinality {r.str('Cardinality')}")
@@ -437,19 +736,34 @@ class Generator:
             if bits:
                 parts.append(f"    rdfs:comment {lit('; '.join(bits))}")
             self.w(" ;\n".join(parts) + " .")
+
+            self.emit_mapping_edges(sh, r, iri, mapping_col="Maps to neutral attribute")
             self.w()
             n += 1
         self.counts["attributes"] = n
 
     # ---- object properties (fix F: carry Notes) ----
     def object_properties(self):
+        # sheet name is unchanged between templates; only require "Layer" when the
+        # workbook's copy of this sheet actually has that column (new template does,
+        # the legacy CM master's "3. Object Properties" does not).
+        has_layer_col = "layer" in sheet_header_names(self.wb, "3. Object Properties")
         sh = Sheet(self.wb, "3. Object Properties",
-                   required=["Domain", "Property", "IRI local name", "Range"],
-                   optional=["Cardinality", "Conditional on", "Maps to neutral",
-                             "Match type", "Confidence", "VERDICT", "Source doc", "Notes"])
+                   required=["Domain", "Property", "IRI local name", "Range"]
+                            + (["Layer"] if has_layer_col else []),
+                   optional=["Layer", "Cardinality", "Conditional on", "Maps to neutral",
+                             "Match type", "Secondary maps to neutral", "Secondary match type",
+                             "Confidence", "VERDICT", "Source doc", "Notes"])
         p = self.p
+        has_layer = sh.has("Layer")
+
+        def in_scope(r):
+            return not has_layer or norm(r.get("Layer")) == norm(p)
+
         seen = {}
         for r in sh.rows():
+            if not in_scope(r):
+                continue
             dom, iri = r.str("Domain"), local(r.get("IRI local name") or r.str("Property"))
             if dom and iri:
                 seen.setdefault(iri, set()).add(dom)
@@ -461,6 +775,8 @@ class Generator:
         self.w()
         n = 0
         for r in sh.rows():
+            if not in_scope(r):
+                continue
             dom = r.str("Domain")
             if not dom:
                 continue
@@ -481,19 +797,16 @@ class Generator:
                 bits.append(r.str("Notes"))
             if bits:
                 parts.append(f"    rdfs:comment {lit('; '.join(bits))}")
-            if sh.has("VERDICT") and r.str("VERDICT"):
-                parts.append(f"    {p}:verdict {lit(r.str('VERDICT'))}")
+            v = self.verdict_for(sh, r)
+            if v:
+                parts.append(f"    {p}:verdict {lit(v)}")
             if sh.has("Confidence"):
                 d = as_decimal(r.get("Confidence"))
                 if d is not None:
                     parts.append(f"    {p}:confidence {d}")
             self.w(" ;\n".join(parts) + " .")
 
-            if sh.has("Maps to neutral") and sh.has("Match type"):
-                m = r.str("Match type").lower().replace(" ", "")
-                tgt = r.str("Maps to neutral")
-                if tgt and m in MATCH_OK:
-                    self.w(f"{p}:{iri} skos:{MATCH_CANON[m]} {ref_iri(tgt)} .")
+            self.emit_mapping_edges(sh, r, iri)
             self.w()
             n += 1
         self.counts["object properties"] = n
@@ -590,7 +903,146 @@ class Generator:
             self.w()
         self.counts["promotions"] = n
 
+    # ---- context sheets (section 6, new-template only) ----
+    def context_tables(self):
+        """
+        Sheet '5. Context Tables' is absent from the legacy CM master -> skip silently.
+        Groups rows by Table name; the FIRST row of each group supplies the table-level
+        columns (Resolves (target), Table kind, Maps to neutral, Match type, VERDICT,
+        Source doc, Notes) - later rows for the same table only contribute a field.
+        """
+        if "5. Context Tables" not in self.wb.sheetnames:
+            self.counts["context tables"] = 0
+            return
+        sh = Sheet(self.wb, "5. Context Tables",
+                   required=["Layer", "Table name", "Field"],
+                   optional=["Table kind", "Resolves (target)", "Is key", "Is mandatory",
+                             "Field comment", "Maps to neutral", "Match type", "VERDICT",
+                             "Source doc", "Notes"])
+        p = self.p
+        self.w("# ============================================================")
+        self.w("# CONTEXT TABLES (runtime resolution, not static association)")
+        self.w("# ============================================================")
+        self.w()
+        tables, order = {}, []
+        for r in sh.rows():
+            if norm(r.get("Layer")) != norm(p):
+                continue
+            tname = r.str("Table name")
+            if not tname:
+                continue
+            if tname not in tables:
+                tables[tname] = {"iri": cls_local(tname), "first": r, "fields": []}
+                order.append(tname)
+            tables[tname]["fields"].append(r)
+
+        n = 0
+        for tname in order:
+            t = tables[tname]
+            iri, first = t["iri"], t["first"]
+            self.define(iri, "5. Context Tables")
+            parts = [f"{p}:{iri} a {p}:ContextResolver ; rdfs:label {lit(tname)}"]
+            target = first.str("Resolves (target)")
+            if target:
+                parts.append(f"    {p}:resolvesTarget {p}:{self.resolve_class(target)}")
+            if sh.has("Table kind") and first.str("Table kind"):
+                parts.append(f"    {p}:tableKind {lit(first.str('Table kind'))}")
+            v = self.verdict_for(sh, first)
+            if v:
+                parts.append(f"    {p}:verdict {lit(v)}")
+            if sh.has("Source doc") and first.str("Source doc"):
+                parts.append(f"    {p}:sourceDoc {lit(first.str('Source doc'))}")
+            if sh.has("Notes") and first.str("Notes"):
+                parts.append(f"    rdfs:comment {lit(first.str('Notes'))}")
+            self.w(" ;\n".join(parts) + " .")
+            self.emit_mapping_edges(sh, first, iri)
+            self.w()
+
+            for fi, fr in enumerate(t["fields"], start=1):
+                fname = fr.str("Field")
+                if not fname:
+                    continue
+                field_iri = f"{iri}_field{fi}"
+                self.field_iris[(tname, norm(fname))] = field_iri
+                fparts = [f"{p}:{field_iri} a {p}:ContextField ; rdfs:label {lit(fname)} ; "
+                          f"{p}:ofTable {p}:{iri}",
+                          f"    {p}:isKey {yes_no(fr.get('Is key'))}",
+                          f"    {p}:isMandatory {yes_no(fr.get('Is mandatory'))}"]
+                if sh.has("Field comment") and fr.str("Field comment"):
+                    fparts.append(f"    {p}:fieldComment {lit(fr.str('Field comment'))}")
+                self.w(" ;\n".join(fparts) + " .")
+            self.w()
+            n += 1
+        self.counts["context tables"] = n
+
+    def context_precedence(self):
+        """
+        Sheet '6. Context Precedence' is absent from the legacy CM master -> skip
+        silently. One PrecedenceTier node per row, ordered by the Order column (numeric
+        when it parses, else encounter order), linked to its table and to the
+        ContextField node of each ';'-separated field in Key combination (matched by
+        field DISPLAY NAME against fields emitted in context_tables() for that same
+        table). An unresolvable field name is a warning, not a fatal error - the tier is
+        still emitted with a comment recording the raw name.
+        """
+        if "6. Context Precedence" not in self.wb.sheetnames:
+            self.counts["context precedence tiers"] = 0
+            return
+        sh = Sheet(self.wb, "6. Context Precedence",
+                   required=["Layer", "Table name", "Order", "Key combination"],
+                   optional=["Notes"])
+        p = self.p
+        self.w("# ============================================================")
+        self.w("# CONTEXT PRECEDENCE")
+        self.w("# ============================================================")
+        self.w()
+        groups, order_list = {}, []
+        for r in sh.rows():
+            if norm(r.get("Layer")) != norm(p):
+                continue
+            tname = r.str("Table name")
+            if not tname:
+                continue
+            if tname not in groups:
+                groups[tname] = []
+                order_list.append(tname)
+            groups[tname].append(r)
+
+        def sort_key(r):
+            d = as_decimal(r.get("Order"))
+            return float(d) if d is not None else float("inf")
+
+        n = 0
+        for tname in order_list:
+            tiri = cls_local(tname)
+            for r in sorted(groups[tname], key=sort_key):
+                order_val = r.str("Order")
+                n += 1
+                tier_iri = f"{tiri}_precedence{local(order_val) or n}"
+                parts = [f"{p}:{tier_iri} a {p}:PrecedenceTier ; {p}:ofTable {p}:{tiri}"]
+                d = as_decimal(order_val)
+                if d is not None:
+                    parts.append(f"    {p}:tierOrder {d}")
+                if r.str("Notes"):
+                    parts.append(f"    rdfs:comment {lit(r.str('Notes'))}")
+                self.w(" ;\n".join(parts) + " .")
+                combo = [c.strip() for c in r.str("Key combination").split(";") if c.strip()]
+                for field_name in combo:
+                    key = (tname, norm(field_name))
+                    if key in self.field_iris:
+                        self.w(f"{p}:{tier_iri} {p}:keyField {p}:{self.field_iris[key]} .")
+                    else:
+                        self.warnings.append(
+                            f"WARNING: Context Precedence table {tname!r} order "
+                            f"{order_val!r} references field {field_name!r} not found "
+                            f"among that table's Context Tables fields.")
+                        self.w(f"# unresolved key field for {p}:{tier_iri}: {field_name}")
+                self.w()
+        self.counts["context precedence tiers"] = n
+
     def generate(self):
+        self.check_template_version()
+        self.validate_rows()
         self.header()
         self.data_objects()
         self.enums()
@@ -598,6 +1050,8 @@ class Generator:
         self.object_properties()
         self.operations()
         self.promotions()
+        self.context_tables()
+        self.context_precedence()
         # fix D: meta IRIs must not collide with minted IRIs
         clash = self.meta_iris & set(self.defined)
         if clash:

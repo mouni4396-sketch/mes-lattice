@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Qualification Materials - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:maintenance">maintenance</a> </nav> <h1 id="manage-qualification-materials">Manage Qualification Materials<a class="headerlink" href="#manage-qualification-materials" title="Direct link to this section">#</a></h1> <p>🔒 MaintenanceActivityOrder.<strong>AssignMaterialsToQualification</strong></p> <p>🔒 MaintenanceActivityOrder.<strong>ManageQualificationMaterials</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to manage Qualification Materials in a <strong>Maintenance Activity Order</strong> (<strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>). If you want to assign or unassign <strong>Materials</strong> to each individual <strong><abbr title="Maintenance Activity Order">MAO</abbr> Qualification Check</strong>, use the <a href="../special_manage_qualification_materials/">Special Manage Qualification Materials</a> operation.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> exists and is Active.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Maintenance Type is set to Qualification.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Material Type Restriction Mode is set to Require Specific.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Execution State is Requested, Approved, Released, In Progress, or Waiting For Acceptance.</li> <li>There must be at least one <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> <strong>Qualification Check</strong> whose system state is neither Completed or Obsolete.</li> <li>If assigning the <strong>Material</strong> sets the corresponding <strong><abbr title="Maintenance Activity Order">MAO</abbr> Qualification Check</strong> to <code>In Progress</code>, the additional conditions required for that transition must be satisfied.</li> <li>The <strong>Material</strong> exists, is Active, and Non-Template.</li> <li>The <strong>Material</strong> is Top-Most and not in an Off-Flow (either Temporary Off-Flow or Rework).</li> <li>The <strong>Material</strong> Pick List Item Count must be empty.</li> <li>The <strong>Material</strong> In Transfer Order Item must be empty.</li> <li>If the <strong>Material</strong> is associated with a <strong>Resource</strong>, and the state of the <strong>Material</strong> is Consumable, Durable, Dispatched, In Process, or the property In Store is set to <code>true</code>, the <strong>Resource</strong> Inventory Locked must be <code>false</code>.</li> <li>The <strong>Material</strong> Is Approved property must not be set to <code>false</code>.</li> <li>The <strong>Material</strong> Expiration Date is <code>null</code>, or if defined, it must be in the future.</li> <li>The Source Material Floor Life must be valid. This condition is met if any of the following applies:<ul> <li>Floor Life Remaining Hours is <code>null</code>; or</li> <li>Floor Life Remaining Hours is greater than <code>0</code> and the Floor Life Counter State is Stopped; or</li> <li>The Floor Life Counter State is Running, and the Floor Life Remaining Hours - calculated as <code>Floor Life Remaining Hours - (Now() - Floor Life Open Date)</code> - is greater than <code>0</code>.</li> </ul> </li> <li>The <strong>Material Product</strong> must not be blocked or if blocked, the <strong>Material</strong> property Override Product Block must be <code>true</code>.</li> <li>The <strong>Material</strong> is in the same <strong>Facility</strong> of the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> object (<strong>Resource</strong> or <strong>Area</strong>).</li> <li>The <strong>Material</strong> is Queued or Dispatched.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Material Type matches the Type of the <strong>Material</strong>.</li> <li>If the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> <strong>Product</strong> is set, it must match the <strong>Product</strong> of the Top-Most <strong>Material</strong>.</li> <li>If the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Flow Path is set, it must match the <strong>Flow Path</strong> of the Top-Most <strong>Material</strong>.</li> <li>If the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> Logical Flow Path is set, it must match the <strong>Logical Flow Path</strong> of the Top-Most <strong>Material</strong>.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> <strong>Step</strong> must match the <strong>Step</strong> of the Top-Most <strong>Material</strong>.</li> <li>If a Minimum Quantity is set in the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>, the Material Primary or Secondary Units must match the Minimum Quantity Units defined.<ul> <li>If the Minimum Quantity Units matches the Material Primary Units - the Material Quantity (Primary Quantity + Sub-Materials Primary Quantity) is greater or equal to the Minimum Quantity value defined.</li> <li>If the Minimum Quantity Units matches the Material Secondary Units - the Material Quantity (Secondary Quantity + Sub-Materials Secondary Quantity) is greater or equal to the Minimum Quantity value defined.</li> </ul> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <ol> <li>Select a <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> that matches the preconditions above.</li> <li>On the top ribbon, select the <strong>Manage</strong> dropdown, then choose <strong>Manage Materials</strong>. Alternatively, go to the <strong>Materials</strong> section, open the <strong>Manage</strong> dropdown, and select <strong>Manage Materials</strong>.</li> <li> <p>In the <strong>Manage Qualification Materials</strong> wizard, assign or unassign the required <strong>Materials</strong> using the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> icons. When a <strong>Material</strong> is selected, its details are displayed in the panel below. If no <strong>Materials</strong> are available for selection, review the preconditions described above.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If assigning a Material sets the corresponding <abbr title="Maintenance Activity Order">MAO</abbr> Qualification Check to <code>In Progress</code>, the system also sets the Material-Resource Running Qualification.</p> </div> </li> <li> <p>Optionally, enter a comment.</p> </li> <li>Select <strong>Update</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_qualification_materials.png"><img alt="Screenshot of the Manage Qualification Materials wizard" src="../images/manage_qualification_materials.png"/></a></p> </article>
+</body>
+</html>

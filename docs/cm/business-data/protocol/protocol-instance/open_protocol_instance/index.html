@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Protocol Instance - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="open-protocol-instance">Open Protocol Instance<a class="headerlink" href="#open-protocol-instance" title="Direct link to this section">#</a></h1> <p>🔒 ProtocolInstance.<strong>Open</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to open a new <strong>Protocol Instance</strong>. In order to apply and perform a <strong>Protocol</strong> in a certain production context, you need to open a new <strong>Protocol Instance</strong>, by clicking on the button located in the operations' ribbon. The <strong>Protocol Instance</strong> will inherit all the definitions from the <strong>Protocol</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>A Protocol exists and is active.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li> <p>Fill in the following fields:</p> <ul> <li> <p><strong>General Data</strong></p> <ul> <li><strong>Name</strong> - automatic; generated with the name of the <strong>Protocol</strong> and an incremental counter.</li> <li><strong>Description</strong> - optional, free text.</li> </ul> </li> <li> <p><strong>Information</strong></p> <ul> <li><strong>Owner</strong> - the responsible for the <strong>Protocol Instance</strong> and the only user who can edit the instance.</li> <li><strong>Problem</strong> - description of the problem or event that triggered the <strong>Protocol Instance</strong>.</li> </ul> </li> <li> <p><strong>Options</strong></p> <ul> <li><strong>Inhibit Move From Step</strong> - allows you to choose if you wish to override the inhibition of moving to next step.</li> <li><strong>Inhibit Ship</strong> - allows you to choose if you wish to override the inhibition of shipping.</li> </ul> </li> </ul> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/Protocol_Instance_General_Data.PNG"><img alt="Screenshot showing a protocol instance general data page with an option to inhibit ship." src="../../images/Protocol_Instance_General_Data.PNG"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>These inhibitions are applicable to the materials associated to this Protocol Instance and valid until closure of the Protocol Instance.</p> </div> <h3 id="step-2-materials">Step 2: Materials<a class="headerlink" href="#step-2-materials" title="Direct link to this section">#</a></h3> <ol> <li>To associate <strong>Materials</strong> with a <strong>Protocol Instance</strong>, you have to click <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> and then search and select the <strong>Material</strong>. All the material information (context) will be shown below. You can associate one or several <strong>Materials</strong> to the <strong>Protocol Instance</strong>.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/Protocol_Instance_Materials.PNG"><img alt="Screenshot showing a protocol instance materials selection interface." src="../../images/Protocol_Instance_Materials.PNG"/></a></p> <h3 id="step-3-context">Step 3: Context<a class="headerlink" href="#step-3-context" title="Direct link to this section">#</a></h3> <ol> <li> <p>Identify the context of the <strong>Protocol Instance</strong>, in order to be able to determine, at a later stage, which <strong>Product</strong>, <strong>Step</strong>, <strong>Facility</strong>, <strong>Flow</strong> and <strong>Resource</strong> were involved. The <strong>Product</strong> description will also be displayed for information purposes. If you have previously associated materials in the context tab, the system will provide suggestions for each field:</p> <ul> <li>If you associate one material - the context tab will be filled in with that material's context, although it may be changed.</li> <li>If you associate more than one material<ul> <li>and the context of each one is different, you will have to search for the required context.</li> <li>and the context of each one is the same, the context tab will be already filled in with the unique context.</li> </ul> </li> </ul> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/Protocol_Instance_Context.PNG"><img alt="Screenshot showing a protocol instance context." src="../../images/Protocol_Instance_Context.PNG"/></a></p> <h3 id="step-4-documents">Step 4. Documents<a class="headerlink" href="#step-4-documents" title="Direct link to this section">#</a></h3> <ol> <li> <p>Select <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> and select the source of the documents to attach:</p> <ul> <li><strong>File</strong> - use the Browse button to select the File, select a type from the Generic table <code>AttachmentType</code> and write an optional description.</li> <li><strong><abbr title="Uniform Resource Locator">URL</abbr></strong> - fill in the field with the <abbr title="Uniform Resource Locator">URL</abbr> address, select a type from the Generic table <code>AttachmentType</code> and write an optional description.</li> </ul> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/Protocol_Instance_Documents.PNG"><img alt="Protocol_Instance_Documents" src="../../images/Protocol_Instance_Documents.PNG"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Alternatively, it is possible to create a Protocol Instance by accessing the main tab <strong>Quality</strong>, selecting Protocol Instances and opening a new instance. If you choose to do it this way, you will have to specify which Protocol you are going to use to open a new Protocol Instance.</p> </div> <p>Select <strong>Open</strong> to complete the operation and open a <strong>Protocol</strong> Instance.</p> </article>
+</body>
+</html>

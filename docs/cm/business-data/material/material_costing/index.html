@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material Costing - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="material-costing">Material Costing<a class="headerlink" href="#material-costing" title="Direct link to this section">#</a></h1> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>Critical Manufacturing provides a mechanism to keep track of the current Material cost using the Cost Absorption method. Costs are incurred whenever a Material is processed at a step or incorporates other Materials.</p> <p>The following picture illustrates the objects in the system which support costing.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/materialCosting.png"><img alt="Material Costing" src="../../../images/materialCosting.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Cost Absorption factors are used to add cost to Materials in runtime. Cost Forecast factors are used to forecast a Material or standard Product cost.</p> </div> <h2 id="cost-absorption">Cost Absorption<a class="headerlink" href="#cost-absorption" title="Direct link to this section">#</a></h2> <p>The following list describes in detail the mechanism used to keep track of the Material Cost:</p> <ol> <li>Costs are only applied to the Material primary quantity</li> <li>When a material is created, the standard product initial cost is used. The material will be valued at that product initial cost. </li> <li>Time variable costs (Step, Resource and Labor) are incurred proportionally for every unit.</li> <li>For incorporating time based costs, only the time between TrackIn and Abort as well as TrackIn and TrackOut will be considered. </li> <li>The fixed and unit costs will be incurred only at TrackOut. </li> <li>For Abort Material, time costs and unit costs are incorporated, but not fixed costs. </li> <li>Fixed and unit costs are incurred at TrackOut for non pass-through Steps and at MoveNext, SpecialMoveNext and Rework for pass-through Steps.</li> <li>For labor costs, the system considers the rate and time worked by every Employee that was (or has) Checked-In for any time when the Material was processing. It also includes any Calendar Day overtime as well as any Shift overtime. In case that more than one Material is In-Process at the Resource, costs are distributed in a quantity proportional manner. Note that pass-through steps will not use this information because it's not possible to determine correctly the processing time.</li> <li>Because Employees can Check-in into and Check-out from the Resource at any time, every time an Employee checks-in or checks-out from a Resource with Materials InProcess, the labor costs are calculated and distributed at that time. For that reason, each Resource stores the date and time when the costs were calculated the last time. Also, because there may be already Materials InProcess when performing a Track-In, the labor costs are calculated and distributed for the Materials which are already InProcess. In every case, the labor costs are distributed in a quantity proportional manner.</li> <li>In case that one Employee is checked-in at more than one Resource, costs are distributed proportionally to the quantity of the Materials InProcess at those Resources.</li> <li>Pass-through steps do not incur in variable time costs, only variable units and fixed costs. For pass-through steps, these costs are incurred at MoveNext/SpecialMoveNext. </li> <li>If a Material has SubMaterials and SubMaterial tracking is enabled, cost is nevertheless only incurred when the TopMost Material performs the TrackOut. For performance reasons, the cost will only be incorporated in the SubMaterials when the step of the Material changes. Meanwhile, the SubMaterials cost will be stored in an internal Material property called <code>SubMaterialsDeferredCost</code>. While these costs are not distributed, they are also added to the TopMostMaterial cost so that at any time, the total costs are reflected correctly.</li> <li>Merges, combines, assembles, etc. add the cost of the incorporated source materials in the target material.</li> <li>Splits, expands, etc. will work by distributing the costs proportionally to the quantity of the new materials.</li> <li>Losses and Bonuses do not affect the Material cost (as a whole) although the Material unit costs will be changed proportionally to the new quantities.</li> <li>Unit-of-conversion changes - costs are transferred one-to-one and remain unchanged (of course the material unit cost will be changed).</li> <li>Change Material Quantity, Change Material Product and Change Material Flow and Step do not change the Material cost.</li> <li>The transaction Change Material Cost can be used to adjust manually the cost for a Material.</li> </ol> <h2 id="material-cost-transactions">Material Cost Transactions<a class="headerlink" href="#material-cost-transactions" title="Direct link to this section">#</a></h2> <p>The section below describes the different Material transactions that affect the Cost, <code>SubMaterialsCost</code> and <code>SubMaterialsDeferredCost</code> properties of the Material.</p> <table> <thead> <tr> <th>Transaction</th> <th>Cost</th> <th>SubMaterials Cost</th> <th>SubMaterials Deferred Cost</th> </tr> </thead> <tbody> <tr> <td>• <strong>Create / Clone Material</strong></td> <td>Set with <code>Product Initial Cost x Material Primary Quantity</code></td> <td>Set with zero</td> <td>Set with zero</td> </tr> <tr> <td>• <strong>Change Material Cost</strong></td> <td>Set with the defined Cost (note that it must be greater than the <code>SubMaterialsDeferredCost</code>)</td> <td>Unchanged</td> <td>Unchanged</td> </tr> <tr> <td>• <strong>Abort Material</strong></td> <td>Costs are calculated as:<br/><code>Time Variable Costs = (AbortTime - TrackInTime in hours) x (StepCostPerHour + ResourceCostPerHour) + LaborCost</code><br/>+<br/><code>Unit Variable Costs = (StepCostPerUnit + ResourceCostPerUnit) x Material.TrackInPrimaryQuantity</code><br/><br/>and then distributed (added) proportionally for each Material in the Material hierarchy according its current Quantity<br/><br/>ℹ <code>LaborCost</code> takes into account all Employees which were Checked-In at the time of the Material Track-In or checked-in before the Material Track-Out</td> <td>Refer to the calculation on the column "Cost" at the left.<br/><code>SubMaterialsCost</code> is increased by the Costs proportional to <code>SubMaterialsPrimaryQuantity</code> in relation to (<code>PrimaryQuantity</code> + <code>SubMaterialsPrimaryQuantity</code>) as it's distributed (added) across the Material hierarchy</td> <td>Unchanged</td> </tr> <tr> <td>• <strong>TrackIn Material</strong> (for TopMost <strong>Material</strong>)</td> <td>Labor Costs for other Materials in Process at the Resource are calculated until the current time and distributed in a quantity proportional manner.</td> <td>Unchanged</td> <td>Labor Costs for other Materials in Process at the Resource are calculated until the current time and distributed in a quantity proportional manner.</td> </tr> <tr> <td>• <strong>TrackIn Material</strong> (for non-TopMost <strong>Material</strong>)</td> <td>Unchanged</td> <td>Unchanged</td> <td>Unchanged</td> </tr> <tr> <td>• <strong>Resource Check-In</strong></td> <td>Labor Costs for Materials in Process at the Resource are calculated until the current time and distributed in a quantity proportional manner.</td> <td>Unchanged</td> <td>Labor Costs for Materials in Process at the Resource are calculated until the current time and distributed in a quantity proportional manner.</td> </tr> <tr> <td>• <strong>Resource Check-Out</strong></td> <td>Labor Costs for Materials in Process at the Resource are calculated until the current time and distributed in a quantity proportional manner.</td> <td>Unchanged</td> <td>Labor Costs for Materials in Process at the Resource are calculated until the current time and distributed in a quantity proportional manner.</td> </tr> <tr> <td>• <strong>TrackOut Material</strong> (for TopMost <strong>Material</strong>)</td> <td>Costs are calculated as:<br/><code>Time Variable Costs = (TrackOutTime - TrackInTime in hours) x (StepCostPerHour + ResourceCostPerHour ) + LaborCost</code><br/>+<br/><code>Unit Variable Costs = (StepCostPerUnit + ResourceCostPerUnit) x Material.TrackInPrimaryQuantity</code><br/>+<br/><code>Fixed Costs = (StepFixedCosts + ResourceFixedCosts)</code><br/><br/>and then it's added to the Material Cost<br/><br/>ℹ <code>LaborCost</code> takes into account all Employees which were Checked-In at the time of the Material Track-In or checked-in before the Material Track-Out</td> <td>Unchanged<br/>For performance reasons, the costs are effectively distributed only when the step of the Material changes.</td> <td>Refer to the calculation on the column "Cost" at the left<br/><code>SubMaterialsDeferredCost</code> is set with the Costs proportional to <code>SubMaterialsPrimaryQuantity</code> in relation to (Material.<code>PrimaryQuantity</code> + Material.<code>SubMaterialsPrimaryQuantity</code>) so that it can be distributed later across the Material hierarchy</td> </tr> <tr> <td>• <strong>TrackOut Material</strong> (for non-TopMost <strong>Material</strong>)</td> <td>Unchanged<br/>Costs are distributed (added) only when the Material Step changes or when a Ship transaction occurs</td> <td>Unchanged</td> <td>Unchanged (it's zero)</td> </tr> <tr> <td>• <strong>Material MoveNext</strong> (if <strong>Step</strong> is Pass-Through)</td> <td>Costs are calculated as:<br/><code>Unit Variable Costs = StepCostPerUnit x Material.TrackInPrimaryQuantity</code><br/>+<br/><code>Fixed Costs = StepFixedCosts</code><br/><br/>and then distributed (added) proportionally for each Material in the Material hierarchy according its current Quantity<br/><br/>ℹ <code>LaborCost</code> is taken from the user that performed the Abort</td> <td>Refer to the calculation on the column "Cost" at the left.<br/><code>SubMaterialsCost</code> is increased by the Costs proportional to <code>SubMaterialsPrimaryQuantity</code> in relation to (<code>PrimaryQuantity</code> + <code>SubMaterialsPrimaryQuantity</code>) as it's distributed (added) across the Material hierarchy.</td> <td>Unchanged</td> </tr> <tr> <td>• <strong>Material MoveNext</strong><br/><br/>• <strong>Special Material MoveNext</strong><br/><br/>• <strong>Rework Material</strong><br/><br/>• <strong>Receive Material</strong><br/><br/>• <strong>Change Material Flow/Step</strong><br/><br/>• <strong>Ship Material</strong> (local <strong>Facility</strong>)<br/>(for TopMost <strong>Material</strong>)</td> <td>Decreased by the <code>SubMaterialsDeferredCost</code> as it will be distributed (added) to the SubMaterials</td> <td>Added in the amount of <code>SubMaterialsDeferredCost</code></td> <td>Set with zero</td> </tr> <tr> <td>• <strong>Material MoveNext</strong><br/><br/>• <strong>Special Material MoveNext</strong><br/><br/>• <strong>Rework Material</strong><br/><br/>• <strong>Receive Material</strong><br/><br/>• <strong>Change Material Flow/Step</strong><br/><br/>• <strong>Ship Material</strong> (local <strong>Facility</strong>)<br/>(for non-TopMost <strong>Material</strong>)</td> <td>Increased in the <code>SubMaterialsDeferredCost</code> proportion of the Material <code>PrimaryQuantity</code> in relation to the TopMost Material <code>SubMaterialsPrimaryQuantity</code></td> <td>Increased in the <code>SubMaterialsDeferredCost</code> proportion of the Material <code>SubMaterialsPrimaryQuantity</code> in relation to the TopMost Material <code>SubMaterialsPrimaryQuantity</code></td> <td>Unchanged (it's zero)</td> </tr> <tr> <td>• <strong>Split Material</strong></td> <td>• <em>Main Material</em>:<br/>Decreased proportionally to the Child Material <code>PrimaryQuantity</code> in relation with the original Material.<code>PrimaryQuantity</code><br/><br/>• <em>Child Material:</em><br/>Set proportionally to the Child Material <code>PrimaryQuantity</code> in relation with the original Material.<code>PrimaryQuantity</code></td> <td>• <em>Main Material</em>:<br/>Decreased proportionally to the Child Material SubMaterials PrimaryQuantity in relation with the original Material <code>SubMaterialsPrimaryQuantity</code><br/><br/>• <em>Child Material:</em><br/>Set proportionally to the Child Material SubMaterials <code>PrimaryQuantity</code> in relation with the original Material <code>SubMaterialsPrimaryQuantity</code></td> <td>• <em>Main Material</em>:<br/>If Main Material is TopMost, it's decreased proportionally to the Child Material SubMaterials <code>PrimaryQuantity</code> in relation with the original Material <code>SubMaterialsPrimaryQuantity</code>; otherwise it's unchanged<br/><br/>• <em>Child Material:</em><br/>If Main Materials is TopMost, it's set proportionally to the Child Material SubMaterials PrimaryQuantity in relation with the original Material <code>SubMaterialsPrimaryQuantity</code>; otherwise it's set with zero</td> </tr> <tr> <td>• <strong>Merge Material</strong></td> <td>• <em>Main Material</em>:<br/>Increased by the Child Material Cost<br/><br/>• <em>Child Material:</em><br/>Set with zero</td> <td>• <em>Main Material</em>:<br/>Increased by the Child Material <code>SubMaterialsCost</code><br/><br/>• <em>Child Material:</em><br/>Set with zero</td> <td>• <em>Main Material</em>:<br/>In case that the Main and Child Material belong to different Material hierarchies, if the TopMost of Main Material <code>SubMaterialsDeferredCost</code> &gt; 0 then it's distributed proportionally to the Main Material Hierarchy so it will be zero after the merge; otherwise it will remain unchanged<br/><br/>• <em>Child Material:</em><br/>a) In case that the Main and Child Material belong to different Material hierarchies, if the TopMost of Child Material <code>SubMaterialsDeferredCost</code> &gt; 0, then it's distributed proportionally to the Child Material Hierarchy<br/>b) Set with zero</td> </tr> <tr> <td>• <strong>Combine / Compose Material</strong></td> <td>• <em>Source Material:</em><br/>a) The cost is decreased in proportion to the combined quantity in relation with the original Source Material quantity.<br/>b) In case that the Source is not TopMost and the TopMost of Source has the property <code>SubMaterialsDeferredCost</code> &gt; 0, the cost is further decreased by the <code>SubMaterialsDeferredCost</code> in proportion to the combine quantity in relation to the TopMost of Source SubMaterialsQuantity<br/><br/><br/>• <em>Target Material:</em><br/>a) If TopMost of TargetMaterial <code>SubMaterialsDeferredCost</code> &gt; 0 then it's distributed proportionally to the Target Material Hierarchy<br/>b) Increased by the Cost calculated above for the Source Material</td> <td>• <em>Source Material:</em><br/>Unchanged<br/><br/>• <em>Target Material:</em><br/>Unchanged</td> <td>• <em>Source Material:</em><br/>Reduced by the item b) in column Cost at the left for the Source Material<br/><br/>• <em>Target Material:</em><br/>If TopMost of TargetMaterial <code>SubMaterialsDeferredCost</code> &gt; 0 then it's distributed proportionally to the Target Material Hierarchy; otherwise unchanged</td> </tr> <tr> <td>• <strong>Assemble Material</strong><br/><br/>• <strong>Disassemble Material</strong><br/><br/>• <strong>Replace Assembled Material</strong></td> <td>• <em>Source Material:</em><br/>Decreased in proportion of the assembled quantity in relation to the Material <code>PrimaryQuantity</code><br/><br/>• <em>Target Material:</em><br/>Increased by the source material assembled quantity cost</td> <td>• <em>Source Material:</em><br/>Unchanged<br/><br/>• <em>Target Material:</em><br/>Unchanged</td> <td>• <em>Target Material:</em><br/>Unchanged<br/><br/>• <em>Target Material:</em><br/>Unchanged</td> </tr> <tr> <td>• <strong>Attach Material</strong></td> <td>• <em>Parent Material:</em><br/>In case that the TopMost of Parent Material has the property <code>SubMaterialsDeferredCost</code> &gt; 0 then it's distributed proportionally to the Parent Material Hierarchy; otherwise it remains unchanged<br/><br/>• <em>Child Material:</em><br/>In case that the Child Material has the property <code>SubMaterialsDeferredCost</code> &gt;0 the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the Child Material Hierarchy; otherwise it remains unchanged<br/></td> <td>• <em>Parent Material:</em><br/>Increased by the Child Material Cost (refer to the column Cost at the left for its calculation)<br/><br/>• <em>Child Material:</em><br/>Unchanged<br/></td> <td>• <em>Parent Material:</em><br/>In case that the TopMost of Parent Material has the property <code>SubMaterialsDeferredCost</code> &gt; 0 then it's distributed proportionally to the Material Hierarchy and will be set with zero; otherwise it remains unchanged<br/><br/>• <em>Child Material:</em><br/>a) In case that the Child Material has the property <code>SubMaterialsDeferredCost</code> &gt; 0 the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the Child Material Hierarchy<br/>b) Set with zero</td> </tr> <tr> <td>• <strong>Detach Material</strong></td> <td>• <em>Parent Material:</em><br/>Unchanged<br/><br/>• <em>Child Material:</em><br/>In case that the TopMost of Parent Material has the property <code>SubMaterialsDeferredCost</code> &gt; 0 the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the Child Material <code>PrimaryQuantity</code>; otherwise unchanged<br/></td> <td>• <em>Parent Material:</em><br/>a) Decreased by the Child Material Cost (refer to the column Cost at the left for its calculation)<br/>b) Decreased by the Cost of the Child Material<br/><br/>• <em>Child Material:</em><br/>Unchanged</td> <td>• <em>Parent Material:</em><br/>In case that the Parent Material has the property <code>SubMaterialsDeferredCost</code> &gt; 0 then it's decreased proportionally to the Child Material <code>PrimaryQuantity</code>; otherwise it remains unchanged<br/><br/>• <em>Child Material:</em><br/>Remains unchanged (must be zero)</td> </tr> <tr> <td>• <strong>Expand Material</strong></td> <td>• <em>Main Material</em>:<br/>In case that the TopMost of Main Material has the property <code>SubMaterialsDeferredCost</code> &gt; 0 then it's distributed proportionally to the Main Material Hierarchy; otherwise it remains unchanged<br/><br/>• <em>Sub Material:</em><br/>Set proportionally to the SubMaterial Quantity</td> <td>• <em>Main Material</em>:<br/>Increased by the SubMaterial Cost (refer to the column Cost at the left for its calculation)<br/><br/>• <em>Sub Material:</em><br/>Set with zero</td> <td>• <em>Main Material</em>:<br/>Unchanged<br/><br/>• <em>Sub Material:</em><br/>Unchanged</td> </tr> <tr> <td>• <strong>Collapse Material</strong></td> <td>• <em>Main Material</em>:<br/>If MainMaterial Is<code>SubMaterialsDeferredCost</code> &gt; 0 then the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the the Main Material Hierarchy<br/>The cost is increased by the SubMaterial Cost plus SubMaterial SubMaterials Cost<br/><br/>• <em>Sub Material:</em><br/>Set with zero</td> <td>• <em>Main Material</em>:<br/>Decreased by the SubMaterial Cost plus SubMaterial SubMaterials Cost<br/><br/>• <em>Sub Material:</em><br/>Set with zero</td> <td>• <em>Main Material</em>:<br/>If MainMaterial Is<code>SubMaterialsDeferredCost</code> &gt; 0 then the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the the Main Material Hierarchy; otherwise it remains unchanged<br/><br/>• Sub Material:<br/>Unchanged</td> </tr> <tr> <td>• <strong>Transfer SubMaterial</strong></td> <td>• <em>Old ParentMaterial:</em><br/>Unchanged<br/><br/>• <em>Sub Material:</em><br/>If TopMost of Old ParentMaterial <code>SubMaterialsDeferredCost</code> &gt; 0 then the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the the Old Parent Material Hierarchy; otherwise it remains unchanged<br/><br/>• <em>New ParentMaterial:</em><br/>Unchanged</td> <td>• <em>Old ParentMaterial:</em><br/>Decreased by the SubMaterial Cost (refer to the column Cost at the left for its calculation)<br/><br/>• <em>Sub Material:</em><br/>If TopMost of Old ParentMaterial <code>SubMaterialsDeferredCost</code> &gt; 0 then the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the the Old Parent Material Hierarchy; otherwise it remains unchanged<br/><br/>• <em>New ParentMaterial:</em><br/>Increased by the SubMaterial Cost (refer to the column Cost at the left for its calculation)</td> <td>• <em>Old ParentMaterial:</em><br/>If TopMost of Old ParentMaterial <code>SubMaterialsDeferredCost</code> &gt; 0 then the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the the Old Parent Material Hierarchy; otherwise it remains unchanged<br/><br/>• <em>Sub Material:</em><br/>Unchanged (must be zero)<br/><br/>• <em>New ParentMaterial:</em><br/>If TopMost of New ParentMaterial <code>SubMaterialsDeferredCost</code> &gt; 0 then the <code>SubMaterialsDeferredCost</code> is distributed proportionally to the the New Parent Material Hierarchy; otherwise it remains unchanged</td> </tr> <tr> <td>• <strong>Ship Material</strong> (remote <strong>Facility</strong>)</td> <td>Set with zero</td> <td>Set with zero</td> <td>Set with zero</td> </tr> </tbody> </table> <p>Table: Material Cost Transactions</p> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Batch - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-batch">Create Batch<a class="headerlink" href="#create-batch" title="Direct link to this section">#</a></h1> <p>🔒 Batch.<strong>Create</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>In order to create a <strong>Batch</strong>, select New from the <strong>Batch</strong> Entity Type page. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu. You can also create a New <strong>Batch</strong> from the Resource View by selecting the option <strong>Create Batch for Resource</strong> or from the Material page by selecting the option <strong>Create Batch for Material</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Batch</strong> name must be provided and must be unique.</li> <li>The <strong>Resource</strong> must be Active and non-template.</li> <li>The Resource Material Processing Mode must be <strong>Batch</strong>.</li> <li>The <strong>Step</strong> must be Active and non-template.</li> <li><strong>Containers</strong> can only be added to the <strong>Batch</strong> if a Batch Container Type is defined. All added <strong>Containers</strong> must match that type, be in the same <strong>Facility</strong> as the Batch Resource, be Active, and non-templates.</li> </ul> <h3 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h3> <p>You can create a <strong>Batch</strong> from the <strong>Batch</strong> entity in the Business Data menu by selecting the <strong>New</strong> button. You can also create a <strong>Batch</strong> from the <strong>Material</strong> page or from the Resource Details View or Resource View, as shown below.</p> <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Material Details View</label><label for="__tabbed_1_2">Resource Details View</label></div> <div class="tabbed-content"> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_batch_material_page.png"><img alt="Screenshot showing a material selection interface with fields and options." src="../images/create_batch_material_page.png"/></a></p> </div> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_batch_resource_page.png"><img alt="Screenshot showing a sequence of steps for creating a batch, including options to select from the Business Data menu or Material page." src="../images/create_batch_resource_page.png"/></a></p> </div> </div> </div> <p>When creating a <strong>Batch</strong> from the <strong>Material</strong> page, the system automatically pre-selects the chosen <strong>Material</strong> in <a href="./#step-2-materials">Step 2</a> of the wizard.</p> <p>Similarly, creating a <strong>Batch</strong> from the Resource View pre-selects the corresponding <strong>Resource</strong> in <a href="./#step-1-general-data">Step 1</a>. If you also choose <strong>Materials</strong> while creating a <strong>Batch</strong> from the Resource View, the system will pre-select both the <strong>Resource</strong> and <strong>Step</strong> in <a href="./#step-1-general-data">Step 1</a> and the chosen <strong>Materials</strong> in <a href="./#step-2-materials">Step 2</a>.</p> <p>After starting the <strong>Create Batch</strong> wizard, the system will allow you to configure the new entity through a number of steps.</p> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Optionally, enter a name for the <strong>Batch</strong>. If you do not enter a name, the system will generate one for you.</li> <li>Optionally, enter a description.</li> <li> <p>Select a <strong>Resource</strong>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Only Resources with Batch Scheduling Type will be available for selection. For more information, see <a href="../../resource/manage_resource_scheduling_batching/#step-2-manage-batching">Manage Batching</a>.</p> </div> </li> <li> <p>Select a <strong>Step</strong>.</p> </li> <li>Optionally, define the Priority.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_batch.png"><img alt='Screenshot showing a UI with fields for creating a batch, including a filename input field labeled "create batch".' src="../images/create_batch.png"/></a></p> <h3 id="step-2-materials">Step 2: Materials<a class="headerlink" href="#step-2-materials" title="Direct link to this section">#</a></h3> <p>In this wizard, you can add or remove Batch Materials by selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> icon to add or the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> icon to remove materials. For a <strong>Material</strong> to be eligible as a Batch Material, it must have a defined <strong>Capacity Class</strong>.</p> <p>Each <strong>Batch</strong> must have a designated <strong>Main Material</strong>, which you can set by enabling the <strong>Set as Main Material</strong> option. The <strong>Main Material</strong> dictates the <strong>Batch Size</strong>, which is displayed in the bar below the <strong>Material</strong> list. The <strong>Batch Size</strong> is limited by both minimum and maximum quantities:</p> <ul> <li>The minimum quantity is determined by the <strong>Minimum Batch Capacity Usage</strong>, which is configured in the <a href="../../resource/manage_resource_scheduling_batching/#step-2-manage-batching">Manage Batching</a> section.</li> <li>The maximum quantity is defined in the <a href="../../../administration/tables/smart-tables/resourcecapacity/">ResourceCapacity</a> Smart Table.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_batch_materials.png"><img alt='Screenshot showing a table with batch material details, including "Creste Batch" and sorting options.' src="../images/create_batch_materials.png"/></a></p> <p>When adding more than one Batch Material, a Material Search field will be available with four options:</p> <ul> <li>Any</li> <li>Same Batch Service</li> <li>Same Batch Step and Service</li> <li>Specific Batch Product and Step</li> </ul> <p>When selecting the last option, Specific Batch Product and Step, only <strong>Materials</strong> for the same <strong>Product</strong> and <strong>Step</strong> will be available for selection.</p> <p>For any <strong>Material</strong> that is not Set as Main Material, you can select a different <strong>Step</strong> from the Batch Step, as long as the Required Service of the selected <strong>Step</strong> is either available on the Batch Resource or is a Compatible Service of one of the <strong>Resource</strong> available <strong>Services</strong>. For more information, see <a href="../../service/manage_compatible_services/">Manage Compatible Services</a>.</p> <p>To align the selected <strong>Material</strong> with the Batch Step, you can also use the <strong>Apply Batch Step</strong> button.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_batch_materials_2.png"><img alt="Screenshot showing a list of materials with checkboxes and dropdown menus for selecting batch steps." src="../images/create_batch_materials_2.png"/></a></p> <h3 id="step-3-containers">Step 3: Containers<a class="headerlink" href="#step-3-containers" title="Direct link to this section">#</a></h3> <p>In this wizard, you may add or remove Batch Containers by selecting <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> to add, or <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> to remove.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_batch_containers.png"><img alt="Screenshot showing a wizard step with options to add or remove Batch Containers, including icons for addition and removal." src="../images/create_batch_containers.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>When you create a Batch, the system automatically creates a Resource Job. For more information, see <a href="../../resource-job/">Resource Job</a>.</p> </div> </article>
+</body>
+</html>

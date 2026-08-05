@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Protocol Instance - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="protocol-instance">Protocol Instance<a class="headerlink" href="#protocol-instance" title="Direct link to this section">#</a></h1> <p>🔒 ProtocolInstance.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Protocol Instance</strong> is a run-time occurrence of the workflow based on the <strong>Protocol</strong> definition.</p> <p>A <strong>Protocol Instance</strong> can be associated with one or more <strong>Materials</strong>. There are two important <strong>Protocol Instance</strong> properties which apply to all the <strong>Materials</strong> associated with the <strong>Protocol Instance</strong>:</p> <ul> <li>Inhibit Ship - the Materials cannot be shipped to another Facility while the <strong>Protocol Instance</strong> is open.</li> <li>Inhibit Move From Step - the <em>Material Step</em> cannot be changed while the <strong>Protocol Instance</strong> is open.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Protocols are part of <em>Exception Management</em> which is a Critical Manufacturing optional module.</p> </div> <pre class="mermaid"><code>graph LR
+    A1[Task] --- L1[Protocol Task]
+    A2[Material] --- L2[Protocol Instance Material]
+    L2 === Main[Protocol Instance]
+    Main ===|Related| Main
+    A3[Employee] -.- L3[Protocol]
+    A4[Chart Rule] --- L3
+    A5[Data Collection Parameter] --- L3
+    L3 ==== Main
+    L1 --- L3
+    L2 --- L3
+    L3 --- A6[State Model]
+    A6 --- A7[State Model State]
+    A7 --- L4[Protocol State]
+    L4 -.- A8[Roles]
+    L4 -.- A9[Checklist]
+    L3 --- L5[Protocol Parameter]
+    L3 --- L4
+    L4 --- L6[Protocol State Parameter]
+    L5 --- L6
+    L3 --- L7[Protocol Instance Path]
+    L7 --- L8[Protocol Instance Path Parameter]
+    L7 -.- A8
+    L7 -.- L9[Checklist Instance]
+    L3 -.- A10[Product]
+    L3 -.- A11[Facility]
+    L3 -.- A12[Flow]
+    L3 -.- A13[Step]
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6,L7,L8,L9 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../../business-data/protocol"
+click A1 "../../../business-data/task"
+click A2 "../../../business-data/material"
+click A3 "../../../business-data/employee"
+click A4 "../../../business-data/chart"
+click A5 "../../../business-data/parameter"
+click A6 "../../../administration/state_models"
+click A7 "../../../administration/state_models"
+click A8 "../../../administration/security/roles"
+click A9 "../../../business-data/checklist"
+click A10 "../../../business-data/product"
+click A11 "../../../business-data/facility"
+click A12 "../../../business-data/flow"
+click A13 "../../../business-data/step"
+click L3 "../../../business-data/protocol/protocol-instance"</code></pre> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Protocol Instance:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="protocol_instance_page/">Protocol Instance Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="terminate_protocol_instance/">Terminate Protocol Instance</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="adjust_state_protocol_instance/">Adjust Protocol Instance State</a></li> <li><a href="approve_protocol_instance_dispositions/">Approve Protocol Instance Material Dispositions</a></li> <li><a href="approve_protocol_instance_tasks/">Approve Protocol Instance Tasks</a></li> <li><a href="change_state_protocol_instance/">Change Protocol Instance State</a></li> <li><a href="close_protocol_instance/">Close Protocol Instance</a></li> <li><a href="create_protocol_instance_tasks/">Create Protocol Instance Tasks</a></li> <li><a href="execute_protocol_instance_dispositions/">Execute Protocol Instance Material Dispositions</a></li> <li><a href="manage_protocol_instance_dispositions/">Manage Protocol Instance Material Dispositions</a></li> <li><a href="manage_protocol_instance_materials/">Manage Protocol Instance Materials</a></li> <li><a href="open_protocol_instance/">Open Protocol Instance</a></li> <li><a href="perform_protocol_instance/">Perform Protocol Instance</a></li> <li><a href="take_ownership_protocol_instance/">Take Protocol Instance Ownership</a></li> <li><a href="unapprove_protocol_instance_tasks/">Unapprove Protocol Instance Tasks</a></li> <li><a href="unapprove_protocol_material_dispositions/">Unapprove Protocol Material Dispositions</a></li> <li><a href="protocol_instance_view_report/">View Protocol Instance Reports</a></li> </ul> </article>
+</body>
+</html>

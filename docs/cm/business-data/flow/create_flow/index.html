@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Flow - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-flow">Create Flow<a class="headerlink" href="#create-flow" title="Direct link to this section">#</a></h1> <p>🔒 Flow.<strong>Create</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a <strong>Flow</strong>. For more information, see the <a href="../../../../tutorials/modules/routing-and-dispatching/flow-modeling/flowmodeling/">Creating a Flow Model</a> Tutorial.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Flow</strong> does not currently exist in the system.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>There are several ways to create a new versioned object. Depending on the level, follow these steps to get started:</p> <ul> <li>Entity - in the landing page of this entity type in the Business Data menu or in the details page of an existing entity of the same type, select <strong>New</strong> on the top ribbon. For more information, see <a href="../../../general/creating_entity_objects/">Creating Entity Objects</a>.</li> <li>Revision - if you want to create a new revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Revision</strong>. For more information, see <a href="../../../general/revisions/">Revisions</a>.</li> <li>Version - if you want to create a version associated to an existing revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Version</strong>. For more information, see <a href="../../../general/versions/">Versions</a>.</li> </ul> <h3 id="step-1-change-set">Step 1: Change Set<a class="headerlink" href="#step-1-change-set" title="Direct link to this section">#</a></h3> <ol> <li>Choose an existing Change Set or select <strong>Create</strong> to create a new Change Set. If configured to support implicit Change Sets, it is also possible to check the Use Automatic Change Set option.</li> <li>Optionally, select an Approval Role.</li> <li>Optionally, set the Make Change Set Items Effective on Approval to <code>true</code> so that the Change Set items become effective when the Change Set is approved.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see <a href="../../change-set/create_change_set/">Create Change Set</a>.</p> </div> <h3 id="step-2-general-data">Step 2: General Data<a class="headerlink" href="#step-2-general-data" title="Direct link to this section">#</a></h3> <ol> <li> <p>Provide a name for the <strong>Flow</strong>.</p> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>A Flow name may not contain the following characters: <code>:</code> and <code>/</code>.</p> </div> </li> <li> <p>If you are creating a new version, the revision that was selected when you started the process will be the revision to which this version will be associated. If you are creating a new entity or revision (with a new version associated to it), provide a name for the revision or it will be automatically generated for you. For more information on revision naming, see <a href="../../../general/revisions#Naming/">Revision Naming</a>.</p> </li> <li>Optionally, provide a description of the <strong>Flow</strong>.</li> <li>Select the <strong>Flow</strong> type. The list of possible values is taken from the lookup table <a href="../../../administration/tables/lookup-tables/flowtype/">FlowType</a>.</li> <li> <p>Select the type of <strong>Flow</strong>:</p> <ul> <li>Sequential</li> <li>Alternate (choose Single or Multiple Selection)</li> <li>Non-Sequential Block</li> <li>Line</li> </ul> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>Non-Sequential Block Flows or Line Flows can only contain Steps.</p> </div> </li> <li> <p>Set the <strong>Flow</strong> as enabled or disabled.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>A disabled Flow prevents any Material from being assigned to that Flow, whether from traditional creation or through rework, adjustment or any other reason. However, if the Material already exists in a Flow that is disabled, processing can continue normally.</p> </div> </li> <li> <p>Select <strong>Create</strong> to complete the transaction and a new object will be created.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_flow_wizard_sequential_flow.png"><img alt='Screenshot showing the "Create" button in the context of entering general data for a new object.' src="../images/create_flow_wizard_sequential_flow.png"/></a></p> <h3 id="step-3-flow-items">Step 3: Flow Items<a class="headerlink" href="#step-3-flow-items" title="Direct link to this section">#</a></h3> <p>At this point the <strong>Flow</strong> is created but there are no <strong>Steps</strong> or <strong>Flows</strong> defined for it. To start building the <strong>Flow</strong> structure, select the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"></path></svg></span> button in the center of the window.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_flow_step_two.png"><img alt="Screenshot showing an empty Flow with a highlighted pencil icon to add steps and flows." src="../images/create_flow_step_two.png"/></a></p> <p>To add to the <strong>Flow</strong> structure, select either <strong>Add Step</strong> or <strong>Add Flow</strong>. This action will insert a new row will into the structure.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_flow_step_three.png"><img alt="Screenshot showing the standard cookie flow options in the flow items section of a workflow editor." src="../images/create_flow_step_three.png" width="600"/></a></p> <p>Compose the structure of the <strong>Flow</strong>, bearing in mind the following restrictions:</p> <ul> <li>A <strong>Flow</strong> cannot be empty - it must have at least one Child Flow or one <strong>Step</strong>.</li> <li>When a <strong>Flow</strong> has Steps, the last <strong>Step</strong> cannot be an optional <strong>Step</strong> (even in the case of a Non-Sequential block, although it can be performed at any time).</li> <li>A <strong>Flow</strong> which is Alternate cannot have Optional Steps.</li> <li>A <strong>Flow</strong> which is Non-Sequential Block cannot be Alternate.</li> <li>A <strong>Flow</strong> which is Non-Sequential Block cannot have duplicated Steps.</li> </ul> <p>Each <strong>Step</strong> added to the <strong>Flow</strong> can be customized as outlined by the table below:</p> <table> <thead> <tr> <th>Flow Type</th> <th>Optional</th> <th>Line Step</th> <th>Skippable</th> </tr> </thead> <tbody> <tr> <td>Sequential</td> <td>X</td> <td>X</td> <td>X</td> </tr> <tr> <td>Non-Sequential Block</td> <td>X</td> <td>X</td> <td>X</td> </tr> <tr> <td>Alternate</td> <td></td> <td>X</td> <td>X</td> </tr> <tr> <td>Line</td> <td>X</td> <td></td> <td></td> </tr> </tbody> </table> <p>Table: Flow Types and Step Options</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Skippable option is only used in the context of Experiments. For more information, see <a href="../../experiment-definition/create_experiment_definition/">Create Experiment Definition</a>.</p> </div> <p>You can add any desired <strong>Flow Item</strong> to the structure and rearrange it as needed during the editing process.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_flow_step_four.png"><img alt='Screenshot showing a UI with two editable fields labeled "Coomecn" and "anand ne", alongside a rearrangement option.' src="../images/create_flow_step_four.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If a Step has defined any Logical Names, the same Logical Names can be selected for the Flow, in order to represent a specific logical Step. For more information, see <a href="../../../../tutorials/modules/routing-and-dispatching/flow-modeling/flowmodeling/#logical-names">Flow with Logical Names</a>.</p> </div> <h3 id="optional-flow-items">Optional Flow Items<a class="headerlink" href="#optional-flow-items" title="Direct link to this section">#</a></h3> <p>Optional <strong>Flow Items</strong>, whether <strong>Step</strong> or <strong>Flow</strong>, can be skipped during the process. The decision to skip is made when moving the <strong>Material</strong> to the next <strong>Flow</strong> or <strong>Step</strong>, either manually or via a business rule.</p> <p>You can define conditions for optional <strong>Flow Items</strong> and those in Alternate <strong>Flows</strong> to determine the next <strong>Steps</strong> for a <strong>Material</strong>, based on its state and characteristics. These conditions are set by the Condition Type property and include the following types:</p> <div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><input id="__tabbed_1_3" name="__tabbed_1" type="radio"/><input id="__tabbed_1_4" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Expression</label><label for="__tabbed_1_2">Rule</label><label for="__tabbed_1_3">Step Sampling</label><label for="__tabbed_1_4">Sampling Plan</label></div> <div class="tabbed-content"> <div class="tabbed-block"> <p>Requires a <a href="#case-sensitivity">Case Sensitive</a> expression in <a href="https://jsonata.org/">JSONata ⧉</a> that evaluates the state of the Material and returns <code>true</code> or <code>false</code>. This expression can reference direct properties, attributes, and characteristics of the Material, as well as properties of its Product, Product Group, and Step. Some examples are: <ul><li>Material Primary Quantity is greater than 100: <code>PrimaryQuantity &gt; 100</code></li><li>Material name contains the value "Material A": <code>$contains(Name, 'Material A')</code></li><li>Material Is Hot set to <code>true</code> or <code>false</code>: <code>IsHot = true</code> or <code>IsHot = false</code></li><li>Step name equals "Step A": <code>Step.Name = 'Step A'</code></li><li>Product Group default units are "Kg": <code>Product.ProductGroup.DefaultUnits = 'Kg'</code></li><li>Attribute 'RetailPrice' is greater than 100: <code>Attributes.RetailPrice &gt; 100</code></li><li>Material Characteristics 'Color' is equal to "Red": <code>MaterialCharacteristics.Color = 'Red'</code></li></ul></p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/conditions_wizard_expression_example.png"><img alt="Screenshot showing a JSONata expression for evaluating Material state in a Conditions Wizard." src="../images/conditions_wizard_expression_example.png"/></a></p> <h4 id="case-sensitivity">Case Sensitivity<a class="headerlink" href="#case-sensitivity" title="Direct link to this section">#</a></h4> <p>JSONata is case sensitive by design. This means that an expression must respect the casing of the properties it references, as it can cause issues when comparing values if the actual value is stored in any other casing variation.</p> <p>A workaround to the <strong>case sensitivity issue</strong> when comparing JSONata expressions is to use the built-in <code>$lowercase()</code> or <code>$uppercase()</code> functions to normalize both sides of the comparison. </p> <p>See the example below: </p> <div class="language-js highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nx">$lowercase</span><span class="p">(</span><span class="nx">MaterialCharacteristics</span><span class="p">.</span><span class="nx">Color</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$lowercase</span><span class="p">(</span><span class="s2">"Black"</span><span class="p">)</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="c1">// true if Color is "BLACK", "black", "Black", and other case variations</span>
+</span></code></pre></div> <p>This ensures that expressions behave consistently by converting values to the same case before comparison.</p> </div> <div class="tabbed-block"> <p>Involves a Rule linked to a <abbr title="Dynamic Evaluation Engine - a runtime execution engine based on C# business rules">DEE</abbr> Action of scope 'Flow Item Evaluation', returning <code>true</code> or <code>false</code>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/conditions_wizard_rule_example.png"><img alt="Screenshot showing an optional flow item configuration condition in a sampling plan." src="../images/conditions_wizard_rule_example.png"/></a></p> </div> <div class="tabbed-block"> <p>The Step Sampling condition determines whether a Material should enter an optional Step for sampling based on a Sampling Plan. When a Step is marked with this condition, CM <abbr title="Manufacturing Execution System">MES</abbr> evaluates the associated Sampling Plan at the designated Sampling Evaluation Step to decide if the Material should be processed for inspection or proceed directly to the next Step.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/conditions_wizard_step_sampling_example.png"><img alt="Screenshot showing a configuration screen for Step Sampling, displaying condition rules and settings." src="../images/conditions_wizard_step_sampling_example.png"/></a></p> </div> <div class="tabbed-block"> <p>The Sampling Plan condition applies a specific Sampling Plan directly to a Step. When this condition is set, CM <abbr title="Manufacturing Execution System">MES</abbr> selects Materials for sampling based on the plan’s frequency rules (counter-based or time-based) and processes them in that Step.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/conditions_wizard_sampling_plan_example.png"><img alt="Screenshot showing the Step Configuration page, highlighting the CONDITION AT WORK LISTS and STEP 01 settings." src="../images/conditions_wizard_sampling_plan_example.png"/></a></p> </div> </div> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Only Flow Items of type Step in Flows other than Non-Sequential Blocks or Alternate Flows can use Step Sampling or Sampling Plan as Condition Types.<br/> When adding a condition of type Step Sampling, you must ensure that the selected Sampling Step exists in the Flow before the Step being configured.</p> </div> <h3 id="rework-paths">Rework Paths<a class="headerlink" href="#rework-paths" title="Direct link to this section">#</a></h3> <p>If Rework Paths need to be configured, after saving the <strong>Flow</strong> structure, select the <strong>Step</strong> for which Rework Information will be added, go to the right side of the <strong>Step</strong> section, select the three vertical dots and choose <strong>Step Configuration</strong>.</p> <p>Use the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> icons to add or remove Rework Paths for the <strong>Step</strong>. For each Rework Path, specify:</p> <ul> <li><strong>Reason</strong>, that is applicable for Rework at that <strong>Step</strong>, which will indicate the default Rework Path for that a given <strong>Reason</strong>.</li> <li><strong>Go To Flow Path</strong>, the <strong>Flow</strong> and <strong>Step</strong> where the <strong>Material</strong> should be sent for Rework.</li> <li><strong>Return Flow Path</strong>, where the <strong>Material</strong> will return after it reaches the last <strong>Step</strong> of the Go to Flow Path. The <strong>Material</strong> will return automatically after the Move Next from the last <strong>Step</strong> of the Go to Flow Path. For convenience, use the Browse button to select the Return Flow Path directly from the Flow structure.</li> <li><strong>On Rework Rule</strong> (optional), that will be executed when a <strong>Material</strong> follows a given Rework Path.</li> <li>Toggle <strong>Applicable to Queued</strong> and <strong>Applicable to Processed</strong> to indicate whether the Rework Path applies to <strong>Materials</strong> in Queued and Processed states, respectively.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/rework_wizard.png"><img alt='Screenshot showing a UI with toggle buttons labeled "Applicable to Queued" and "Applicable to Processed".' src="../images/rework_wizard.png"/></a></p> <p>After completing your edits, select <strong>Save</strong> on the top ribbon to update the <strong>Flow</strong> and complete the transaction. At anytime you may select the <a href="../view_rework_paths/">View Rework Paths</a> button to access the Rework Paths configured.</p> <h3 id="rules-on-enterexit-step">Rules on Enter/Exit Step<a class="headerlink" href="#rules-on-enterexit-step" title="Direct link to this section">#</a></h3> <p>You can define <strong>Rules</strong> to be run when a <strong>Material</strong> enters or exists a <strong>Step</strong>. These <strong>Rules</strong> are linked to <strong><abbr title="Dynamic Evaluation Engine - a runtime execution engine based on C# business rules">DEE</abbr> Actions</strong>, enabling you to execute custom code to be triggered when entering or exiting a specific <strong>Step</strong>. The management of these <strong>Rules</strong> is handled by the <strong>Flow</strong> structure. In the Edit Flow Structure view, you can select a <strong>Rule</strong> with the scope Material Tracking to be executed for Enter and Exit events of <strong>Flow Items</strong> of type <strong>Step</strong>. This functionality is controlled by the On Enter Rule and On Exit Rule properties of the <strong>Flow Item</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/rules_wizard_on_enter_on_exit_examples.png"><img alt="Screenshot showing the Rules Wizard configuration for Enter/Exit steps." src="../images/rules_wizard_on_enter_on_exit_examples.png"/></a></p> </article>
+</body>
+</html>

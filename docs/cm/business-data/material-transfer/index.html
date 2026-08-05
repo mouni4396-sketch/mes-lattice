@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material Transfer - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="material-transfer">Material Transfer<a class="headerlink" href="#material-transfer" title="Direct link to this section">#</a></h1> <p>🔒 MaterialTransfer.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Material Transfer</strong> is an object that is used to make requests to and from a warehouse. It typically applies to consumable materials, but it can also apply to Parts.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/material_transfer_process.png"><img alt="Material Transfer Process" src="../../images/material_transfer_process.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Warehouse Management is a Critical Manufacturing optional module.</p> </div> <p>The system currently supports the following <strong>MaterialTransfer</strong> types:</p> <ul> <li><strong>ForCostCenter</strong> - to make a request for a <strong>Material</strong> for a <strong>Cost Center</strong></li> <li><strong>ForMAO</strong> - to make a request to a Part for a <strong>Maintenance Activity Order</strong></li> <li><strong>ForMaterial</strong> - to make a request for a particular <strong>Material</strong> based on a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong></li> <li><strong>ForReturn</strong> - to return a Material to the Warehouse</li> <li><strong>Refusal</strong> - when a Material Transfer is refused</li> </ul> <p>There are four main <strong>MaterialTransfer</strong> Modes, defined at the <strong>Product</strong> Level, which are illustrated in the next picture.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../images/material_transfer_mode.png"><img alt="Material Transfer Modes" src="../../images/material_transfer_mode.png"/></a></p> <p>In addition, also at the <strong>Product</strong> level, there are two relevant <strong>MaterialTransfer</strong> properties:</p> <ul> <li><strong>ApprovalMode</strong> - which can be:<ul> <li>Automatic</li> <li>Manual (by the manager of the requester Employee)</li> </ul> </li> <li><strong>PickupMode</strong> - with four possible values:<ul> <li>Any: any person can pick it up</li> <li>Requester: only the <strong>Employee</strong> that has requested it can pick it up</li> <li>CostCenterEmployee: only an <strong>Employee</strong> of the same CostCenter can pick it up</li> <li>AreaEmployee: only an <strong>Employee</strong> of the same <strong>Area</strong> can pick it up</li> </ul> </li> </ul> <h2 id="materialtransfer-lifecycle">MaterialTransfer Lifecycle<a class="headerlink" href="#materialtransfer-lifecycle" title="Direct link to this section">#</a></h2> <p>Every <strong>MaterialTransfer</strong> follows the life cycle depicted in the next figure:</p> <pre class="mermaid"><code>graph TD
+    A1 ----&gt;|Reject| A3[Rejected]
+    A1 ----&gt;|Cancel| A4[Canceled]
+    A1[Requested] --&gt;|Approve| A2[Approved]
+    A2 --&gt;|Prepare| A5[Ready]
+    A5 --&gt;|Send| A6[In Transport] 
+    A5 ---&gt;|Deliver| A7[Completed]
+    A6 --&gt;|Receive| A7[Completed]
+    A2 --&gt;|Send| A6
+    A2 --&gt;|Cancel| A4[Canceled]
+    A2 ----&gt;|Deliver| A7[Completed]
+
+classDef mermaid_initial_state fill:#d7e4bd,stroke:#92d050,stroke-width:3px,color:#000;
+classDef mermaid_final_state fill:#a7e2f2,stroke:#65CDE8,stroke-width:3px,color:#000;
+
+class A1,A2,A5,A6,A8,A9,A10,A11,A12 mermaid_initial_state
+class A3,A4,A7 mermaid_final_state</code></pre> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+
+    L1[Material Transfer Material] --- Main[Material Transfer]
+    Main --- A3[Product]
+    Main ---|From| A4[Facility]
+    Main ---|To| A4
+    Main -.-|From| A5[Area]
+    Main -.-|To| A5
+    L1 --- A2
+    A6[Employee] --- Main
+
+subgraph "depending on Material Transfer Type"
+    A1[Maintenance Activity Order] -.- Main
+    A2[Material] -.- Main
+    N1[Cost Center] -.- Main
+end
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/material-transfer"
+click A1 "../../business-data/maintenance-activity-order"
+click A2 "../../business-data/material"
+click A3 "../../business-data/product"
+click A4 "../../business-data/facility"
+click A5 "../../business-data/area"
+click A6 "../../business-data/employee"</code></pre> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly creating and using a <strong>MaterialTransfer</strong> are:</p> <ol> <li>Make sure that the customization mentioned above has been deployed to the Critical Manufacturing installation.</li> <li>Define the different urgencies in the Generic Table <em>MaterialTransferUrgency</em>.</li> <li>Create a <strong>Product</strong> and define the MaterialTransfer mode as being different from None.</li> <li>Create Two <strong>Facilities</strong> with shipping enabled between them.</li> <li>Create at least two <strong>Steps</strong> (one in each <strong>Facility</strong>) and mark them with <em>Material Transfer allowed</em>.</li> <li>Create an <strong>Employee</strong> and, for manual approval, assign an Employee Manager to him/her</li> <li> <p>Depending on the <strong>MaterialTransfer</strong> type, it is necessary to create the following:</p> </li> <li> <p>ForCostCenter: assign the current Employee to a Cost Center</p> </li> <li> <p>ForMAO: create a <strong>MaintenancePlan</strong> with a <strong>MaintenanceActivity</strong> with Parts, and create a <strong>Product</strong> matching the Part name</p> </li> <li> <p>Make one of the following request types:</p> </li> <li> <p>ForCostCenter</p> </li> <li>ForMAO</li> <li>ForMaterial</li> <li>ForReturn</li> </ol> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Material Transfer:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="material_transfer_page/">Material Transfer Page</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="approve_material_transfer/">Approve Material Transfer</a></li> <li><a href="cancel_material_transfer/">Cancel Material Transfer</a></li> <li><a href="change_material_transfer_information/">Change Material Transfer Information</a></li> <li><a href="deliver_material_transfer/">Deliver Material Transfer</a></li> <li><a href="prepare_material_transfer/">Prepare Material Transfer</a></li> <li><a href="receive_material_transfer/">Receive Material Transfer</a></li> <li><a href="refuse_material_transfer/">Refuse Material Transfer</a></li> <li><a href="reject_material_transfer/">Reject Material Transfer</a></li> <li><a href="request_for_material/">Request for Material Transfer</a></li> <li><a href="request_for_mao/">Request for Material Transfer for a Maintenance Activity Order</a></li> <li><a href="request_for_cost_center/">Request for Material Transfer for Cost Center</a></li> <li><a href="return_inventory/">Return Inventory</a></li> <li><a href="return_material/">Return Material</a></li> <li><a href="send_material_transfer/">Send Material Transfer</a></li> <li><a href="special_approve_material_transfer/">Special Approve Material Transfer</a></li> <li><a href="special_deliver_material_transfer/">Special Deliver Material Transfer</a></li> <li><a href="special_receive_material_transfer/">Special Receive Material Transfer</a></li> <li><a href="special_request_for_material/">Special Request for Material</a></li> <li><a href="special_send_material_transfer/">Special Send Material Transfer</a></li> </ul> </article>
+</body>
+</html>

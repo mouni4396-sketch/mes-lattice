@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Notification - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:notifications">notifications</a> </nav> <h1 id="create-notification">Create Notification<a class="headerlink" href="#create-notification" title="Direct link to this section">#</a></h1> <p>🔒 Notification.<strong>Create</strong></p> <p>🔒 Notification.<strong>CreateTemplate</strong></p> <p>🔒 Notification.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This <strong>Business Data</strong> entity is used to create a <strong>Notification</strong>. You can also create a template using a similar procedure and use a template to create a new object. This selection is done in the main entity menu.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>notifications</strong> module is properly licensed in the system.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-create-notification">Step 1: Create Notification<a class="headerlink" href="#step-1-create-notification" title="Direct link to this section">#</a></h3> <ol> <li>Enter the notification <strong>Name</strong>. This field can be left empty if there is a <strong>Name Generator</strong> configured to provide unique names automatically.</li> <li>Select the notification <strong>Type</strong>. The list of possible values is taken from the lookup table <strong>Notification Type</strong>.</li> <li> <p>Enter a <strong>Title</strong>. It is possible to add hyperlinks to objects using the following syntax:</p> <ul> <li> <p>Unversioned entities:</p> <ul> <li><code>[Entity Type Entity Name]</code>. For example, the title: <strong>Material [Material Lot1] was put on hold for reason [Reason Reason1]</strong> will create two hyperlinks - one for <strong>Material</strong> Lot1 and another for <strong>Reason</strong> Reason1.</li> </ul> </li> <li> <p>Versioned entities:</p> <ul> <li><code>[Entity Type Revision Name]</code>. For example, the title <strong>[ProductRevision Product1 [B]]</strong> will create a hyperlink to <strong>Product</strong> Product1 <strong>Revision B</strong> with the <strong>Default</strong> version.</li> <li><code>[Entity Type Revision and Version Name]</code>. For example, the title <strong>[ProductRevision Product1 [C.2]]</strong> will create a hyperlink to <strong>Product</strong> Product1 <strong>Revision C</strong> with version <strong>2</strong>.</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>For more information, see <a href="../../../general/revisions/">Revisions</a>.</p> </div> </li> </ul> </li> <li> <p>Optionally, enter the details using the <strong>Rich Text</strong> editor.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>In the <strong>Details</strong> field you can also use the same syntax structure as above to create other/additional hyperlinks.</p> </div> </li> <li> <p>Select the severity of the <strong>Notification</strong>. The severity is taken from the lookup table <em>NotificationSeverity</em>. The generic table <em>NotificationSeverity</em> configures the behavior for the different <strong>Notification</strong> severities defining the colors and display mode of the <strong>Notification</strong>.</p> </li> <li>Select the type of assignment:<ul> <li><strong>Everyone</strong> - for every Employee</li> <li><strong>Employee</strong> - for a particular Employee</li> <li><strong>Role</strong> - for a particular Role</li> </ul> </li> <li>Specify whether an email should be sent to the assigned party.</li> <li>Optionally, specify a distribution list that will receive an email notification.</li> <li>Optionally, define the type of visibility filter to be applied: None, Area, Facility, Resource, Step. Visibility filters can be used to filter the <strong>Notifications</strong> to be displayed in the <strong>Notifications</strong> window according to the user's Employee Workgroup. All the <strong>Notifications</strong> for an Employee regardless of their visibility, will be accessible in the <em>My Notifications</em> page.</li> <li>Optionally, define additional context for the <strong>Notification</strong>, which can also be used for visibility filtering. Some contexts are mandatory, based on the defined visibility:<ul> <li><strong>Facility</strong></li> <li><strong>Area</strong></li> <li><strong>Resource</strong></li> <li><strong>Step</strong></li> <li><strong>Material</strong></li> </ul> </li> <li>Define the Clearance mode:<ul> <li><em>ManualEveryUser</em> - every user must clear it.</li> <li><em>ManualSingleUser</em> - the first user will clear it for everyone.</li> <li><em>Automatic</em> - the notification will be cleared by the system when the Valid To date/time is reached.</li> </ul> </li> <li>In <em>Valid To</em> define the date up to which the clearance is valid. This field is mandatory for ManualEveryUSer and Automatic, but optional for ManualSingleUSer.</li> <li>Select <strong>Create</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_notification.png"><img alt="create_notification" src="../images/create_notification.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Depending on the Future Actions configuration, the <strong>Material</strong> may be put on hold.</p> </div> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Specific configuration entries must be filled so that the <strong>Notification</strong> can be delivered properly via email. To configure this feature, start by editing the following configuration options for <code>/Cmf/System/Configuration/Mail</code> (values listed as an example):</p> </div> <table> <thead> <tr> <th>Configuration Path</th> <th>Value</th> </tr> </thead> <tbody> <tr> <td>LocalSupport</td> <td><code>Local Support Team</code></td> </tr> <tr> <td>Credentials/UserName</td> <td><code><a class="__cf_email__" data-cfemail="13666076617d727e76537c66677f7c7c783d707c7e" href="/cdn-cgi/l/email-protection">[email protected]</a></code></td> </tr> <tr> <td>Credentials/UserPassword</td> <td><code>********</code></td> </tr> <tr> <td>EnableSSL</td> <td><code>true</code></td> </tr> <tr> <td>From</td> <td><code><a class="__cf_email__" data-cfemail="05707660776b646860456a7071696a6a6e2b666a68" href="/cdn-cgi/l/email-protection">[email protected]</a></code></td> </tr> <tr> <td>Port</td> <td><code>25</code></td> </tr> <tr> <td><abbr title="Simple Mail Transfer Protocol">SMTP</abbr></td> <td><code>smtp-mail.outlook.com</code></td> </tr> </tbody> </table> <p>Table: Configurations for Email Notifications</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>More information can be seen in the <a href="../../../administration/configuration/">Configuration</a> section of the user guide.</p> </div> <p>Create the Notification as explained above.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_notification_email_example_step_one.png"><img alt="create_notification_email_example_step_one" src="../images/create_notification_email_example_step_one.png"/></a></p> <p>When the notification is sent, an email will be received in the configured address.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_notification_email_example_step_two.png"><img alt="create_notification_email_example_step_two" src="../images/create_notification_email_example_step_two.png"/></a></p> </article>
+</body>
+</html>

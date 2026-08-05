@@ -201,6 +201,199 @@ def reason(req: ChatRequest, x_user_api_key: str = Header(None)):
         raise HTTPException(status_code=503, detail=str(e))
 
 
+# ---------------------------------------------------------------------------
+# Graph visualizer (/api/graph, /api/graph/layers)
+#
+# Merged from api_graph_endpoint.py. Rewired to this project's real shape:
+#   - all reads go through store.sparql(), which already prepends the prefix
+#     block (ref:/cm:/... + owl:/rdfs:/skos:/...) and runs with
+#     use_default_graph_as_union=True (see store.py) - the placeholder's raw
+#     store.query() call and its _val()/row["s"] unwrapping are gone; graph_engine.py
+#     never does manual pyoxigraph unwrapping either, it just uses store.sparql().
+#   - verdict is VENDOR-namespaced (cm:verdict, a future opc:verdict, ...), not
+#     ref:verdict - there is no single VERDICT_PRED IRI to hard-code, so this
+#     discovers it the same way store.vendors() does: by the "#verdict" suffix.
+#   - the comparison-story mapping edges are direct skos:closeMatch/broadMatch/
+#     narrowMatch/relatedMatch triples from a vendor term to a ref: concept -
+#     the exact pattern every queries/*.rq file uses. ref:productSource /
+#     ref:referenceTarget / ref:matchType (the placeholder's assumption) don't
+#     exist under ref: at all; cm:productSource etc. exist only as a reified
+#     cm:OperationMapping construct for lateral cm->peer-vendor Operations
+#     mapping, a different and much narrower thing.
+#   - structural edges are anything named operatesOn in ANY namespace, found by
+#     the same "#operatesOn" suffix trick - covers both ref:Capability
+#     ->ref:DataObject (what queries/q2 uses) and every vendor's
+#     {prefix}:PortalOperation->{prefix}:DataObject verb axis, with no vendor
+#     namespace hard-coded. ref:affectsDataObject / ref:partOfCapability (the
+#     placeholder's assumption) don't exist anywhere in this schema.
+#   - layer-of-an-IRI uses store.ns_to_prefix (the same map store.pfx() uses),
+#     not a "mes-" string-split heuristic.
+# ---------------------------------------------------------------------------
+def _graph_layer_of(iri: str) -> str:
+    for ns, prefix in store.ns_to_prefix.items():
+        if iri.startswith(ns):
+            return prefix
+    return "unknown"
+
+
+def _graph_local(iri: str) -> str:
+    return iri.rsplit("#", 1)[1] if "#" in iri else iri.rstrip("/").rsplit("/", 1)[-1]
+
+
+def discover_graph_layers():
+    """All layers with at least one owl:Class, ref: first (mirrors store.vendors()'s
+    ref-first-then-sorted convention)."""
+    rows = store.sparql("SELECT DISTINCT ?s WHERE { ?s a owl:Class }")
+    layers = {_graph_layer_of(r["s"]) for r in rows if r.get("s", "").startswith("http")}
+    layers.discard("unknown")
+    return (["ref"] if "ref" in layers else []) + sorted(layers - {"ref"})
+
+
+def build_graph(layer: str = "all", attrs: bool = False):
+    """
+    {nodes, edges} for the graph visualizer.
+      nodes: {id, label, layer, type, verdict?, kind?}
+      edges: {from, to, label, matchType?, directed}
+    `layer="all"` returns everything; a specific prefix returns that vendor's
+    nodes/edges plus the ref: concepts they map to (so the ref spine stays visible).
+    `attrs=True` also adds datatype-property (literal attribute) nodes/edges -
+    off by default since they roughly double node count on a real overlay.
+    """
+    want = None if layer in (None, "", "all") else layer
+    nodes, edges = {}, []
+
+    def add_node(iri, ntype="Class", force=False, kind=None):
+        """force=True bypasses the vendor-scope check for a confirmed edge endpoint
+        (an operatesOn/mapping target) - a scoped view must show those even when they
+        belong to another layer (typically ref:), or the edge that reaches them would
+        have to be dropped too. Without force, section 1's blanket class sweep stays
+        strictly scoped, so e.g. layer=cm doesn't pull in every unrelated ref: concept.
+        kind, when given, is carried onto the node (e.g. "datatype" so the frontend
+        renders it as a box instead of a dot - see graph.html's n.kind check)."""
+        if not iri or not iri.startswith("http"):
+            return
+        lay = _graph_layer_of(iri)
+        if want and not force and lay != want:
+            return
+        if iri not in nodes:
+            node = {"id": iri, "label": _graph_local(iri), "layer": lay, "type": ntype}
+            if kind:
+                node["kind"] = kind
+            nodes[iri] = node
+
+    # 1) core classes: ref: Data Objects / Capabilities, plus every owl:Class
+    #    (covers vendor DataObject/ExternalReference/PortalOperation/etc. subclasses).
+    #    Strictly scoped - a ref: concept only reappears via sections 3/5 below if this
+    #    vendor actually connects to it.
+    for r in store.sparql("""
+        SELECT ?s ?label ?type WHERE {
+          { ?s rdfs:subClassOf+ ref:DataObject . BIND('DataObject' AS ?type) }
+          UNION { ?s rdfs:subClassOf+ ref:Capability . BIND('Capability' AS ?type) }
+          UNION { ?s a owl:Class . BIND('Class' AS ?type) }
+          OPTIONAL { ?s rdfs:label ?label }
+        }"""):
+        s = r.get("s")
+        add_node(s, r.get("type", "Class"))
+        if s in nodes and r.get("label"):
+            nodes[s]["label"] = r["label"]
+
+    # 2) verdict badges - discovered by the "#verdict" suffix, same as store.vendors()
+    for r in store.sparql(
+            'SELECT ?s ?v WHERE { ?s ?vp ?v . FILTER(STRENDS(STR(?vp), "#verdict")) }'):
+        s = r.get("s")
+        if s in nodes:
+            nodes[s]["verdict"] = r.get("v")
+
+    # 3) structural edges: anything named operatesOn, in any namespace - covers both
+    #    ref:Capability->ref:DataObject and every vendor's own verb axis. Scoped by the
+    #    SOURCE's layer (ref: sources always shown, so the neutral skeleton stays
+    #    visible); force-adds both ends since Operation instances aren't classes and
+    #    wouldn't otherwise be on the graph at all.
+    for r in store.sparql(
+            'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(STRENDS(STR(?p), "#operatesOn")) }'):
+        s, o = r.get("s"), r.get("o")
+        if not s or not o:
+            continue
+        if want and _graph_layer_of(s) not in (want, "ref"):
+            continue
+        add_node(s, force=True)
+        add_node(o, force=True)
+        edges.append({"from": s, "to": o, "label": "operatesOn", "directed": True})
+
+    # 4) object properties between two classes already on the graph
+    for r in store.sparql("""
+        SELECT ?p ?dom ?ran ?label WHERE {
+          ?p a owl:ObjectProperty ; rdfs:domain ?dom ; rdfs:range ?ran .
+          OPTIONAL { ?p rdfs:label ?label }
+        }"""):
+        dom, ran = r.get("dom"), r.get("ran")
+        if dom in nodes and ran in nodes:
+            edges.append({"from": dom, "to": ran,
+                          "label": r.get("label") or _graph_local(r["p"]), "directed": True})
+
+    # 5) mapping edges - the comparison story. Direct skos:*Match triples from a
+    #    vendor term to a ref: concept, exactly as every queries/*.rq file reads them.
+    #    force-add: a mapped ATTRIBUTE (owl:DatatypeProperty) isn't a class, and the
+    #    ref: target is out-of-scope by layer - section 1 alone would miss both.
+    for r in store.sparql("""
+        SELECT ?src ?match ?tgt WHERE {
+          ?src ?match ?tgt .
+          FILTER(STRSTARTS(STR(?match), STR(skos:)) && CONTAINS(STR(?match), "Match"))
+        }"""):
+        src, tgt, match = r.get("src"), r.get("tgt"), r.get("match")
+        if not src or not tgt:
+            continue
+        if want and _graph_layer_of(src) != want:
+            continue
+        add_node(src, force=True); add_node(tgt, force=True)
+        mt = _graph_local(match) if match else ""
+        edges.append({"from": src, "to": tgt, "label": mt, "matchType": mt, "directed": True})
+
+    # 6) datatype properties (literal attributes: stepName, processingType, ...) -
+    #    opt-in via attrs=True. Domain must already be a node in this view (respects
+    #    the layer filter the same way section 4's object-property block does); the
+    #    property node itself is force-added since relevance is already established
+    #    via its domain, exactly like the mapping-edge endpoints in section 5.
+    if attrs:
+        for r in store.sparql("""
+            SELECT ?p ?dom ?label ?range WHERE {
+              ?p a owl:DatatypeProperty ; rdfs:domain ?dom .
+              OPTIONAL { ?p rdfs:label ?label }
+              OPTIONAL { ?p rdfs:range ?range }
+            }"""):
+            p, dom = r.get("p"), r.get("dom")
+            if not p or not dom or dom not in nodes:
+                continue
+            add_node(p, ntype="DatatypeProperty", force=True, kind="datatype")
+            if r.get("label"):
+                nodes[p]["label"] = r["label"]
+            rng = r.get("range")
+            edges.append({"from": dom, "to": p,
+                          "label": _graph_local(rng) if rng else "literal", "directed": True})
+
+    seen, uniq = set(), []
+    for e in edges:
+        k = (e["from"], e["to"], e.get("matchType", e.get("label", "")))
+        if k not in seen:
+            seen.add(k)
+            uniq.append(e)
+
+    return {"nodes": list(nodes.values()), "edges": uniq}
+
+
+@app.get("/api/graph/layers")
+def api_graph_layers():
+    """Layer prefixes present in the graph (ref first), for a UI layer filter."""
+    return discover_graph_layers()
+
+
+@app.get("/api/graph")
+def api_graph(layer: str = "all", attrs: bool = False):
+    """Ontology graph shaped for a visualizer: {nodes, edges}. layer='all' or a vendor
+    prefix; attrs=true adds datatype-property (literal attribute) nodes/edges."""
+    return build_graph(layer, attrs)
+
+
 @app.post("/api/load-ttl")
 async def load_ttl(ttl: UploadFile = File(...), prefix: str = Form(...)):
     """
@@ -244,4 +437,4 @@ def index():
     return FileResponse(os.path.join(WEB_DIR, "index.html"))
 
 if os.path.isdir(WEB_DIR):
-    app.mount("/web", StaticFiles(directory=WEB_DIR), name="web")
+    app.mount("/", StaticFiles(directory=WEB_DIR), name="web")

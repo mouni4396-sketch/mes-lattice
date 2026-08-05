@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Parameter - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-parameter">Create Parameter<a class="headerlink" href="#create-parameter" title="Direct link to this section">#</a></h1> <p>🔒 Parameter.<strong>Create</strong></p> <p>🔒 Parameter.<strong>CreateTemplate</strong></p> <p>🔒 Parameter.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a <strong>Parameter</strong>. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Parameter</strong> does not currently exist in the system.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Provide a name for the <strong>Parameter</strong>.</li> <li>Optionally, provide a description of the <strong>Parameter</strong>.</li> <li>Select the <strong>Parameter</strong> type. The list of possible values is taken from the lookup table <em>ParameterType</em>.</li> </ol> <h3 id="step-2-information">Step 2: Information<a class="headerlink" href="#step-2-information" title="Direct link to this section">#</a></h3> <ol> <li> <p>Specify the display name - the display name if present will be displayed in the data collection screens.</p> </li> <li> <p>Select the scope of the <strong>Parameter</strong>:</p> </li> </ol> <table> <thead> <tr> <th>Scope</th> <th style="text-align: center;"><abbr title="Engineering Data Collection">EDC</abbr></th> <th style="text-align: center;"><abbr title="Statistical Process Control">SPC</abbr></th> <th style="text-align: center;">Recipe Management</th> <th style="text-align: center;">KPI Management</th> </tr> </thead> <tbody> <tr> <td>EDC_SPC</td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td style="text-align: center;"></td> </tr> <tr> <td>EDC_SPC_Recipe</td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> </tr> <tr> <td>Recipe</td> <td style="text-align: center;"></td> <td style="text-align: center;"></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> </tr> <tr> <td>KPI</td> <td style="text-align: center;"></td> <td style="text-align: center;"></td> <td style="text-align: center;"></td> <td style="text-align: center;">x</td> </tr> </tbody> </table> <p>Table: Parameter Scope possible values</p> <ol> <li> <p>Select the data type of the <strong>Parameter</strong> (if scope is KPI, the data type must be numeric):</p> <ul> <li>Boolean</li> <li>DateTime</li> <li>Decimal</li> <li>Duration</li> <li>Long</li> <li>String</li> <li><abbr title="Uniform Resource Locator">URL</abbr></li> </ul> </li> <li> <p>Depending on the data type, specify the format of the <strong>Parameter</strong>, used for input and display purposes:</p> <div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><input id="__tabbed_1_3" name="__tabbed_1" type="radio"/><input id="__tabbed_1_4" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Decimal and Long</label><label for="__tabbed_1_2">String</label><label for="__tabbed_1_3">Date and Time</label><label for="__tabbed_1_4">Duration, Boolean and <abbr title="Uniform Resource Locator">URL</abbr></label></div> <div class="tabbed-content"> <div class="tabbed-block"> <ul> <li><code>0</code> - Zero placeholder, replaces the zero with the corresponding digit if one is present; otherwise, zero appears in the result string (example: 1234.5678 ("00000") → 01235).</li> <li><code>#</code> - Digit placeholder, replaces the "#" symbol with the corresponding digit if one is present; otherwise, no digit appears in the result string (example: 1234.5678 ("#####") → 1235); no digit appears in the result string, if the corresponding digit in the input string is a non-significant 0 (example: 0003 ("####") → 3).</li> <li><code>.</code> - Decimal point, determines the location of the decimal separator in the result string (example: 0.45678 ("0.00") → 0.46).</li> <li><code>e</code> - Scientific notation, the number that follows <code>e</code> is the number of decimal places of the base of the result; the exponent of the result will always have three digits (example: 1052.0329112756 ("e2") → 1.05e+003).</li> <li><code>0E00</code>- Custom scientific notation format - (example: 86000 ("0.###E00") → 8.6E04).</li> <li><code>c</code> - Currency pattern (example: 111.23 ("c3") → $111.230).</li> <li><code>f</code> - Fixed-point pattern (example: 50123.36 ("f3") → 50123.360).</li> <li><code>g</code> - General, the number that follows <code>g</code> is the maximum number of digits the number will have (example: 100 ("g3") → 100); if the number has more digits than the configured digits in the format, it is displayed in scientific notation (example: 10000 ("g3") → 1e+04).</li> <li><code>n</code> - Number pattern, this adds the thousand separator whenever necessary (example: 50123.36 ("n3") → 50,123.360).</li> <li><code>p</code> - Percentage (example: 0.523 ("p2") → 52.30%).</li> <li><code>\</code> - Escapes a mask character, turning it into a literal. "\" is the escape sequence for a backslash.</li> <li><code>"ABC"</code> - Literal string - Characters enclosed in single or double quotes are copied to the result string, and do not affect formatting (example: 1200 ("AB 000") → AB 1200).</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the chosen alphanumeric character is reserved to be used to define a pattern, it is necessary to escape it (example: 1200 ("\n000") → n1200).</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see <a href="https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings">Custom numeric format strings</a> and <a href="https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings#exponential-format-specifier-e">Exponential format specifier (E) ⧉</a>.</p> </div> </div> <div class="tabbed-block"> <ul> <li><code>c</code> - Currency pattern. (example: 111.234 ("c3") → $111.234).</li> <li><code>n</code> - Decimal pattern, this adds the thousand separator whenever necessary (example: 50123.36 ("n3") → 50,123.360).</li> <li><code>p</code> - Percentage pattern (example: 111.23 ("p2") → 111.23%).</li> <li><code>d</code> - Digit pattern, required (example: 111.234 ("d3") → 111).</li> <li><code>#</code> - Digit pattern, optional. If this position is blank in the mask, it will be rendered as the character in the Placeholder property. You can add <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> and delete <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> signs (example: 111.234 ("#3.1") → 111.2).</li> <li><code>A</code> - Alphanumeric, required.</li> <li><code>a</code> - Alphanumeric, optional.</li> <li><code>L</code> - Letter, required. Restricts input to the ASCII letters a-z and A-Z. This mask element is equivalent to [a-zA-Z] in regular expressions.</li> <li><code>l</code> - Letter, optional.</li> <li><code>0</code> - Digit. Accepts any digit between 0 and 9.</li> <li><code>9</code> - Digit or space. Accepts any digit between 0 and 9, plus space.</li> <li><code>&amp;</code> - Character. Accepts any character. The rule is equivalent to S in regular expressions.</li> <li><code>C</code> - Character or space. Accepts any character. The rule is equivalent to . in regular expressions.</li> <li><code>&lt;</code> - To lower token. Must be included only once in the beginning of the mask (example: &lt;AAA - ccc).</li> <li><code>&gt;</code> - To upper token. Must be included only once in the beginning of the mask (example: &gt;AAA - CCC).</li> <li><code>\</code> - Escapes a mask character, turning it into a literal. "\" is the escape sequence for a backslash.</li> <li><code>All other characters</code> - Literals. All non-mask elements will appear as themselves within the editor. Literals always occupy a static position in the mask at run time, and cannot be moved or deleted by the user.</li> </ul> </div> <div class="tabbed-block"> <ul> <li><code>y</code> - Year as a one or two digit number.</li> <li><code>yy</code> - Year as a two digit number.</li> <li><code>yyyy</code> - Year as a four digit number.</li> <li><code>M</code>- Month as a number from 1 through 12. A single-digit month is formatted without a leading zero.</li> <li><code>MM</code>- Month as a number from 1 through 12. A single-digit month is formatted with a leading zero.</li> <li><code>d</code>- Day of the month as a number form 1 through 31. A single digit day is formatted without a leading zero.</li> <li><code>dd</code>- Day of the month as a number form 1 through 31. A single digit day is formatted with a leading zero.</li> <li><code>ddd</code>- Abbreviated name of the day of the day of the week (example: "Fri").</li> <li><code>dddd</code>- Full name of the day of the day of the week (example: "Friday")</li> <li><code>h</code>- Hour as a number from 1 through 12. A single-digit month is formatted without a leading zero.</li> <li><code>hh</code>- Hour as a number from 1 through 12. A single-digit month is formatted with a leading zero.</li> <li><code>H</code>- Hour as a number from 0 through 23. A single-digit month is formatted without a leading zero.</li> <li><code>HH</code>- Hour as a number from 0 through 23. A single-digit month is formatted with a leading zero.</li> <li><code>m</code>- Minute as a number from 1 through 59. A single-digit month is formatted without a leading zero.</li> <li><code>mm</code>- Minute as a number from 1 through 59. A single-digit month is formatted with a leading zero.</li> <li><code>s</code>- Seconds as a number from 1 through 59. A single-digit month is formatted without a leading zero.</li> <li><code>ss</code>- Seconds as a number from 1 through 59. A single-digit month is formatted with a leading zero.</li> <li><code>f</code>- Tenths of a second in a date and time value.</li> <li><code>ff</code>- Hundredths of a second in a date and time value.</li> <li><code>fff</code>- Milliseconds of a second in a date and time value.</li> <li><code>tt</code>- AM/PM indicator.</li> </ul> </div> <div class="tabbed-block"> <p>Does not need format specification.</p> </div> </div> </div> </li> <li> <p>Specify the units of the <strong>Parameter</strong>.</p> </li> <li> <p>Optionally, define a scale for the <strong>Parameter</strong> in terms of powers of 10.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>This field is typically used for reporting purposes with no functional effect on the system. As an example, you can create a Megawatt parameter and set the scale to 6 representing 10^6; or a Picoampere and set the scale to -12 representing 10^-12.</p> </div> </li> <li> <p>Optionally, define a minimum value for the <strong>Parameter</strong> (only for numeric parameters).</p> </li> <li>Optionally, define a maximum value for the <strong>Parameter</strong> (only for numeric parameters).</li> <li>Optionally, define a lookup table to be used as a source of values for the <strong>Parameter</strong> (note that depending on the type the lookup table must contain values that match that type).</li> <li>Select <strong>Create</strong> to complete the operation and the new <strong>Parameter</strong> will be created.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_parameter.png"><img alt='Screenshot showing a UI with a "Create" button being selected to complete an operation, resulting in a new Parameter creation.' src="../images/create_parameter.png"/></a></p> </article>
+</body>
+</html>

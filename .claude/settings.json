@@ -16,7 +16,19 @@
       "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted8.js\")",
       "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted10.js\")",
       "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/extracted11.js\")",
-      "Bash(grep -n '\"\\\\.\\\\./\\\\|os\\\\.path\\\\.join\\(WEB_DIR\\\\|FileResponse\\\\|StaticFiles' api.py)"
+      "Bash(grep -n '\"\\\\.\\\\./\\\\|os\\\\.path\\\\.join\\(WEB_DIR\\\\|FileResponse\\\\|StaticFiles' api.py)",
+      "Bash(python generate_ttl.py MES-CM-Overlay-MASTER.xlsx --prefix cm --out /tmp_baseline.ttl)",
+      "Bash(python generate_ttl.py MES-CM-Overlay-MASTER.xlsx --prefix cm --out \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/baseline.ttl\")",
+      "Bash(python generate_ttl.py MES-CM-Overlay-MASTER.xlsx --prefix cm --out \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/test1.ttl\")",
+      "Bash(python generate_ttl.py MES-CM-Overlay-MASTER.xlsx --prefix cm --out \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/test2.ttl\")",
+      "Bash(grep -c cm:verdict __TRACKED_VAR__/baseline.ttl)",
+      "Bash(grep -c cm:verdict __TRACKED_VAR__/test2.ttl)",
+      "Bash(python generate_ttl.py MES-CM-Overlay-MASTER.xlsx --prefix cm --out \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/test3.ttl\")",
+      "Bash(python generate_ttl.py \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/new_template_ok.xlsx\" --prefix opc --out \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/opc_out.ttl\")",
+      "Bash(python generate_ttl.py \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/new_template_bad.xlsx\" --prefix opc --out \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/should_not_exist.ttl\")",
+      "Bash(echo \"EXIT CODE: $?\")",
+      "Bash(python generate_ttl.py \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/version_mismatch_ok.xlsx\" --prefix opc --out \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/vm_out.ttl\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/graph_extracted.js\")"
     ]
   }
 }

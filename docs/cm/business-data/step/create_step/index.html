@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Step - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-step">Create Step<a class="headerlink" href="#create-step" title="Direct link to this section">#</a></h1> <p>🔒 Step.<strong>Create</strong></p> <p>🔒 Step.<strong>CreateTemplate</strong></p> <p>🔒 Step.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a <strong>Step</strong>. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the precondition of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Step</strong> name cannot contain special characters such as <em>:</em> or <em>/</em>.</li> <li>The <strong>Step</strong> name does not exist in the system.</li> <li>The system only allows the properties Fixed Cost, Cost Per Unit, and Cost Per Hour to be modified if the Costing module is properly licensed in the system.</li> <li>If the property Is Material Transfer Step in the <strong>Step</strong> is changed from <code>true</code> to <code>false</code>, there must not be any active Material Transfer that references that <strong>Step</strong> as either a From Step or To Step.</li> <li>If <strong>Step</strong> Use In Step Sampling is <code>true</code>, the <strong>Step</strong> Sub-Material Track State Depth must be below or equal to 1.</li> <li>If the Pass-Through property is set to <code>true</code>, the <strong>Step</strong> cannot be referenced either as From Step or To Step in any active Material Dependency entry.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <ol> <li>Provide a name for the <strong>Step</strong>.</li> <li>Optionally, enter a description of the <strong>Step</strong>.</li> <li>Select the <strong>Step</strong> Type. The list of possible values is taken from the <a href="../../../administration/tables/lookup-tables/steptype/">StepType</a> Lookup Table.</li> <li> <p>Define the <strong>Step</strong> processing type:</p> <ul> <li>Logistical - a <strong>Step</strong> that serves as a waystation between other <strong>Steps</strong>, such as warehouse depositing, storage or physical hold.</li> <li>Metrology - a <strong>Step</strong> typically used for measurement, quality control or inspection procedures.</li> <li>Process (default) - a <strong>Step</strong> used for <strong>Material</strong> processing and transformation.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>When a Material is tracked in at a Resource in a Step defined as having processing type Process, the value for Last Process Resource of the Material is set with that Resource.</p> </div> </li> <li> <p>Specify the display order (for reporting and display purposes). <strong>Steps</strong> are first sorted by their display order and afterwards, by their name.</p> </li> <li>Optionally, select a Material Sort Rule Set to be used for sorting the Materials in the <strong>Step</strong> View. If not specified, the Materials will be sorted by name.</li> <li> <p>Optionally, select a Resource Sort Rule Set to be used for sorting the Resources when selecting a <strong>Resource</strong> for a <strong>Material</strong>. If not specified, Resources will be unsorted.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_step_step1.png"><img alt="Screenshot showing a resource selection interface with options for sorting resources." src="../images/create_step_step1.png"/></a></p> </li> <li> <p>Optionally, specify a <strong>Printable Document</strong> to be used as Lot Traveler for this <strong>Step</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Only the Printable Documents of type Lot Traveler can be selected.</p> </div> </li> <li> <p>Optionally, specify a <strong>Printable Document</strong> to be used as a Material Label for this <strong>Step</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Only the Printable Documents of type Label can be selected.</p> </div> </li> <li> <p>Specify whether the <strong>Step</strong> is Pass-Through. A <strong>Material</strong> in a Pass-Through Step can only be moved next, it cannot be dispatched or tracked in.</p> </li> <li>If the <strong>Step</strong> is not Pass-Through, define whether the <strong>Step</strong> is a Packing Step. If the Packing Step property is set to <code>true</code>, you need to enter the following information:<ul> <li>From Packing Level</li> <li>To Packing Level</li> </ul> </li> <li>If the <strong>Step</strong> is not Pass-Through, define whether the <strong>Step</strong> Enables In-Process Verification.</li> <li> <p>Specify the Sub-Material Track State Depth - 0 (default) means that only the Top-Most Material State is tracked, 1 means that only the first level of Sub-Materials are tracked and so forth.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information on Sub-Material Track State Depth, see the <a href="../../../../tutorials/modules/materials-and-containers/submaterialprocessing/">Sub-Material Processing</a> tutorial.</p> </div> </li> <li> <p>Specify the Setup Characteristics (defaults to Null). If you set this property to Rule, you must provide a Setup Calculation Rule.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information on Setup Characteristics, see <a href="../../../../tutorials/modules/advanced-planning-and-scheduling/scheduling/s-functionalities/sched_setup/">Scheduling Setups</a>.</p> </div> </li> <li> <p>Specify whether Dispatch and Track-In are linked by default, that is, if they are performed together. This determines the default button that is shown in the <strong>Resource</strong> and <strong>Step</strong> views when a <strong>Material</strong> is Queued.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the Dispatch and Track-In by Default flag is <code>true</code> for a given Step, in Step View, Resource View and Material Details, the Dispatch and Track In operation remains in the ribbon and the Dispatch operation is moved to the More section of the ribbon. If the Dispatch and Track-In by Default flag is <code>false</code>, the Dispatch operation will remain in the ribbon and the Dispatch and Track-In is moved to the ribbon.</p> </div> </li> <li> <p>Specify whether Track-Out and Move Next are linked by default, that is, they are performed together.This determines the default button that is shown in the <strong>Resource</strong> and <strong>Step</strong> views when a <strong>Material</strong> is In Process.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the Track-Out and Material Move Next by Default flag is <code>true</code> for a given Step, in Step View, Resource View and Material Details, the Track-Out and Material Move Next operation remains in the ribbon and the Track-Out operation is moved to the More section of the ribbon. If the Track-Out and Material Move Next by Default flag is <code>false</code>, the Track-Out operation will remain in the ribbon and the Track-Out and Material Move Next is moved to the ribbon.</p> </div> </li> <li> <p>Select the Track-Out Losses Mode:</p> <ul> <li>Main Material - losses for main material screen are shown during the track out.</li> <li>None - no loss screen is shown during the track out.</li> <li>Sub-Materials - losses for sub-materials screen are shown during the track out.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_step_step2.png"><img alt='Screenshot showing a motor tachometer display with "Creawseep" and "@ usa one" labels.' src="../images/create_step_step2.png"/></a></p> </li> <li> <p>Select whether the <strong>Step</strong> can be used in Split and Track-Out operations, allowing partial <strong>Material</strong> quantities to be tracked out while the main <strong>Material</strong> remains tracked in.</p> </li> <li>Select whether the <strong>Step</strong> sets the <strong>Material</strong> units or not by setting the Set Units property. If the <strong>Step</strong> sets units, upon arriving to the <strong>Step</strong> the <strong>Material</strong> will have their units converted to the <strong>Step</strong> units. If the <strong>Step</strong> does not set units, upon arriving to the <strong>Step</strong>, Materials will retain their original units.</li> <li>If the Set Units property is set to <code>true</code>, it is necessary to specify the primary units and optionally, the secondary units of the <strong>Step</strong>.</li> <li>Select whether Shipping is allowed for this <strong>Step</strong>.</li> <li>Select whether Material Transfers are allowed from/to this <strong>Step</strong>.</li> <li>Select whether Decimal quantities are allowed. If no Decimal quantities are allowed, only integer quantities can be specified for the <strong>Material</strong> in this <strong>Step</strong>.</li> <li>Select whether Auto Split by Product is allowed - this is only applicable for binning. When set, if the <strong>Material</strong> is graded at Track-Out, it will automatically be split by <strong>Product</strong>.</li> <li>Select whether the <strong>Step</strong> is allowed to count the quantities as volumes for <strong>Plan</strong>.</li> <li> <p>Select whether the <strong>Step</strong> marks the Product Completion or not. When a <strong>Step</strong> marks the Product completion, if a <strong>Material</strong> arrives at the <strong>Step</strong> and it is associated to a <strong>Production Order</strong>, the system will enforce that the Material Product and Units match the Production Order Product and Units and the <strong>Material</strong> will be considered Completed in the <strong>Production Order</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_step_step3.png"><img alt="Screenshot showing a step creation interface with fields for step details." src="../images/create_step_step3.png"/></a></p> </li> <li> <p>Select whether Enable In-Process Verification should be enabled for this <strong>Step</strong> (in accordance with 12 above).</p> </li> <li> <p>Select whether the Enable Step Certifications Requirements should be available for this <strong>Step</strong>. These Certifications are checked in addition to the Resource Personnel Requirements.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If you want the Enable Step Certification Requirements property to be available for use at the Step level, the Integration User property must be set to <code>false</code>. For more information, see <a href="../../../administration/security/users/">Users</a>.</p> </div> </li> <li> <p>Select whether Time Constraints are enabled from/to this <strong>Step</strong>.</p> </li> <li>Select whether Instruments (<strong>Resources</strong> of Processing Type equal to Instrument) are required for Track-In operations.</li> <li>Select whether Instruments should be disassociated from the <strong>Resource</strong> at Track-Out.</li> <li>Define whether Pass Yield should be calculated at this <strong>Step</strong>.</li> <li>Define whether to Use Container Restrictions or not (defaults to <code>false</code>).</li> <li> <p>Select the behavior regarding Checklist Instances when splitting a <strong>Material</strong>:</p> <ul> <li>Create Copy - a copy of the existing Checklist Instance in its current state is copied to the Child Material(s).</li> <li>Create New - a new Checklist Instance is created.</li> <li>Create None - no Checklist Instance is created.</li> </ul> </li> <li> <p>Select whether when using mapping and recording losses in the <abbr title="Graphical User Interface">GUI</abbr>, the loss classifications should be considered mandatory or not in this <strong>Step</strong>.</p> </li> <li>Define whether the Default Execution Mode for the Future Logistic Actions is manual or automatic. Logistic Actions include Splits, Splits For Step and Merges.</li> <li> <p>Define whether if Material Labels are automatically printed at this <strong>Step</strong>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If the Print Material Labels Automatically property is enabled, Material Labels are automatically printed at this step for the following Material Operations:</p> <ul> <li><a href="../../material/create_material/">Create Material</a></li> <li><a href="../../../planning-and-logistics/material-logistics/register_materials/">Register Materials</a></li> <li><a href="../../material/split_material/">Split Material</a></li> <li><a href="../../material/seal_material/">Seal Material</a></li> </ul> <p>For more information on how to set up and manage printable documents, see <a href="../../printable-document/">Printable Document</a>.</p> </div> </li> <li> <p>Optionally, select the Queued and Processed services used for Storage of <strong>Material</strong> at this <strong>Step</strong> - these services must be of type Storage and they will be used by the Store Material operation for queued and processed <strong>Material</strong> respectively.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_step_step4.png"><img alt='Screenshot showing a UI with fields labeled "Create Siep Py" and "peter", likely related to user input.' src="../images/create_step_step4.png"/></a></p> </li> </ol> <h3 id="step-2-areas">Step 2: Areas<a class="headerlink" href="#step-2-areas" title="Direct link to this section">#</a></h3> <ol> <li>Specify the Areas to which the <strong>Step</strong> belongs, by using the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> buttons in the grid's toolbar. A <strong>Step</strong> must belong to at least one <strong>Area</strong> and it can only belong to one <strong>Area</strong> per <strong>Facility</strong>.</li> <li>Select <strong>Create</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_step_areas.PNG"><img alt='Screenshot showing a UI with options "Crea Siep" and "ro see +O reesei".' src="../images/create_step_areas.PNG"/></a></p> <div class="admonition tip"> <p class="admonition-title">Tip</p> <p>In case you later want to change the Areas information, you can do so by accessing the Areas section in the Details page.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>When generating a Schedule in Planning Mode, for the Products that are marked with Use Stock In Scheduling, the system will first try to use inventory from Steps that are marked as SemiFinishedProducts, then from Steps that are marked as In Progress and finally from Steps that are marked with Raw Materials.</p> </div> </article>
+</body>
+</html>

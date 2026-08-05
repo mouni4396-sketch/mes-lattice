@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reprint Material Documents - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="reprint-material-documents">Reprint Material Documents<a class="headerlink" href="#reprint-material-documents" title="Direct link to this section">#</a></h1> <p>🔒 PrintableDocument.<strong>Reprint</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation allows you to reprint printable documents configured for the <strong>Material</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>To be able to reprint a document for a <strong>Material</strong> it is necessary to:</p> <ol> <li>Have a <strong>Printable Document</strong> that is created and effective and that applies to <strong>Material</strong>. For more information on how to create a <strong>Printable Document</strong>, please refer to the section <a href="../../printable-document/">Printable Document</a>.</li> <li>Define the necessary context in the smart table <a href="../../../administration/tables/smart-tables/materialprintabledocumentcontext/">MaterialPrintableDocumentContext</a>. To define a default document to generate a Lot Traveler or Label, it is necessary to edit the smart table <a href="../../../administration/tables/smart-tables/areaprintabledocumentcontext/">AreaPrintableDocumentContext</a>.</li> </ol> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li><strong>Material</strong> exists and it is not a Template.</li> <li><strong>Material</strong> has a <strong>Printable Document</strong> associated to it.</li> <li><strong>Material</strong> has a print history of <strong>Printable Documents</strong>.</li> <li>Details of the <strong>Printable Document</strong> must have Store Print History and Store Layout History set to <code>True</code>.</li> <li>If there are Data Contexts for the <strong>Printable Document</strong> they must have Store Print History set to <code>True</code>.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="reprint-documents-for-material">Reprint Documents for Material<a class="headerlink" href="#reprint-documents-for-material" title="Direct link to this section">#</a></h3> <p>The <strong>Reprint Documents</strong> wizard will show a document or a list of documents that are associated to the <strong>Material</strong> and that are able to be reprinted.</p> <h3 id="step-1-documents">Step 1: Documents<a class="headerlink" href="#step-1-documents" title="Direct link to this section">#</a></h3> <ol> <li>Select the document(s) to be reprinted by selecting the respective checkbox(es).</li> <li>Optionally, enter a comment.</li> <li> <p>Select <strong>Next</strong> to continue.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/reprint_documents.png"><img alt='Screenshot showing a document selection interface with "Repu Dowureeens" and "rons" listed, alongside an option to reprint documents.' src="../images/reprint_documents.png"/></a></p> </li> </ol> <h3 id="step-2-printer">Step 2: Printer<a class="headerlink" href="#step-2-printer" title="Direct link to this section">#</a></h3> <ol> <li> <p>Select the print option:</p> <ul> <li>Original</li> <li>New Printer - you must configure the printer in the <a href="../../../administration/tables/smart-tables/printertypeprinterscontext/">PrinterTypePrintersContext</a> Smart Table.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Only documents for which the Printing Integration is <code>null</code> can be printed to a different printer. All documents for which a Printing Integration is set, must use the original Printer.</p> </div> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If multiple documents to reprint have been selected, a New Printer can only be set if the Printer Type of all the selected documents is the same.</p> </div> </li> <li> <p>Specify the number of copies (defaults to 1) to reprint.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Only documents for which the Printing Integration is <code>null</code> can have a user defined number of copies. All documents for which a Printing Integration is set, must use the original number of copies.</p> </div> </li> <li> <p>By selecting the <strong>Preview</strong> button, it is possible to visualize the document before it is reprinted.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/reprint_documents_preview.png"><img alt="Screenshot showing the printer settings and options for previewing a document before reprinting." src="../images/reprint_documents_preview.png"/></a></p> </li> <li> <p>Optionally, enter a comment.</p> </li> <li> <p>Select <strong>Reprint</strong> to complete the operation.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/reprint_documents_printer.png"><img alt='Screenshot showing a printer interface with "Reprint Documents" button.' src="../images/reprint_documents_printer.png"/></a></p> </li> </ol> </article>
+</body>
+</html>

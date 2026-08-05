@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Experiment Definition - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-experiment-definition">Create Experiment Definition<a class="headerlink" href="#create-experiment-definition" title="Direct link to this section">#</a></h1> <p>🔒 ExperimentDefinition.<strong>Create</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a new <strong>Experiment Definition</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>You must have the <strong>Experiment Management</strong> module properly licensed in the system.</li> <li>The <strong>Experiment Definition</strong> name must be unique.</li> <li>If an <strong>Owner Role</strong> is defined, you must belong to that role.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>There are several ways to create a new versioned object. Depending on the level, follow these steps to get started:</p> <ul> <li>Entity - in the landing page of this entity type in the Business Data menu or in the details page of an existing entity of the same type, select <strong>New</strong> on the top ribbon. For more information, see <a href="../../../general/creating_entity_objects/">Creating Entity Objects</a>.</li> <li>Revision - if you want to create a new revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Revision</strong>. For more information, see <a href="../../../general/revisions/">Revisions</a>.</li> <li>Version - if you want to create a version associated to an existing revision, go to the <strong>New</strong> dropdown button on the top ribbon and select <strong>Version</strong>. For more information, see <a href="../../../general/versions/">Versions</a>.</li> </ul> <h3 id="step-1-change-set">Step 1: Change Set<a class="headerlink" href="#step-1-change-set" title="Direct link to this section">#</a></h3> <ol> <li>Choose an existing Change Set or select <strong>Create</strong> to create a new Change Set. If configured to support implicit Change Sets, it is also possible to check the Use Automatic Change Set option.</li> <li>Optionally, select an Approval Role.</li> <li>Optionally, set the Make Change Set Items Effective on Approval to <code>true</code> so that the Change Set items become effective when the Change Set is approved.</li> </ol> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see <a href="../../change-set/create_change_set/">Create Change Set</a>.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_experiment_definition.PNG"><img alt="Screenshot showing an error message with details about a forgotten errand." src="../images/create_experiment_definition.PNG"/></a></p> <h3 id="step-2-general-data">Step 2: General Data<a class="headerlink" href="#step-2-general-data" title="Direct link to this section">#</a></h3> <ol> <li> <p>Fill in the mandatory fields:</p> <ul> <li><strong>General Data</strong><ul> <li><strong>Name</strong> - provide a name for the <strong>Experiment Definition</strong>. This name must be unique.</li> <li><strong>Description</strong> - enter a description for the <strong>Experiment</strong> (optional).</li> <li><strong>Type</strong> - define a logical grouping for the experiment definitions by selecting one of the options from the lookup table <a href="../../../administration/tables/lookup-tables/experimentdefinitiontype/">ExperimentDefinitionType</a>.</li> </ul> </li> <li> <p><strong>Information</strong></p> <ul> <li><strong>Owner Role</strong> - choose a role that is used to restrict who can manage the <strong>Experiment</strong> (optional).</li> <li><strong>Purpose</strong> - describe the purpose of the <strong>Experiment</strong> (optional).</li> <li><strong>Note</strong> - add a note if you want to capture additional information about the <strong>Experiment</strong> (optional).</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_general_data.PNG"><img alt='Screenshot showing a UI with fields for "Create Expenment Definition" and "General Data".' src="../images/experiment_general_data.PNG"/></a></p> </li> <li> <p><strong>Settings</strong></p> <ul> <li><strong>Applicable to</strong> - you can restrict the material that can be affected by each <strong>Experiment</strong>. You can do so by restricting it to a <strong>Product</strong> or to a <strong>Product Group</strong>. All materials that do not belong to that <strong>Product</strong> cannot be selected when creating the <strong>Experiment</strong>. Select one of the following options:<ul> <li><strong>Product</strong> - if the <strong>Experiment</strong> will be carried out on a <strong>Product</strong>. If you select this option, you will have to indicate the product name in the <strong>Product</strong> field below.</li> <li><strong>Product Group</strong> - if the <strong>Experiment</strong> will be carried out on a <strong>Product Group</strong>. If you select this option, you will have to indicate the product group name in the <strong>Product Group</strong> field below.</li> </ul> </li> <li><strong>Flow</strong> - define the <strong>Flow</strong> in which the <strong>Experiment</strong> will be carried out.</li> <li><strong>Maximum Number of Materials</strong> - define the number of <strong>Materials</strong> to be used for the <strong>Experiment</strong>.</li> <li><strong>Required Material Type</strong> - define the required <strong>Material</strong> type for the <strong>Experiment</strong> execution.</li> <li><strong>Required Material Form</strong> - define the required <strong>Material</strong> form for the <strong>Experiment</strong> execution.</li> <li><strong>Mode</strong> - this option allows you to determine if the <strong>Experiment</strong> will be using Sub-Materials (for example, materials of a lot), or Full Materials (unitary materials). Select one of the following options:<ul> <li><strong>Sub-Materials</strong> - if you select this option, you will have to indicate the number of Sub-Materials in the Required Sub-Materials Count field below. The value to enter in Required Sub-Materials Count must be &gt; 0 (zero), because a value of zero means that this <strong>Experiment Definition</strong> refers to a full lot experiment. Additionally, you will have to enter the Required Sub-Materials Form.</li> <li><strong>Full Material</strong> - only Materials without Sub-Materials can be used.</li> </ul> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_general_data2.PNG"><img alt='Screenshot showing a form with fields for "Caeate" and "Behmton" related to general data entry.' src="../images/experiment_general_data2.PNG"/></a></p> <ul> <li><strong>Planned Start Date</strong> - define the planned start date for the execution of the <strong>Experiment</strong>.</li> <li><strong>Planned End Date</strong> - define the planned end date for the execution of the <strong>Experiment</strong>.</li> </ul> </li> <li> <p><strong>Options</strong></p> <ul> <li><strong>Ignore in Sampling Plans</strong> - determine if the execution of the <strong>Experiment</strong> must ignore predefined Sampling Plans (defaults to <code>true</code>).</li> <li><strong>Ignore in <abbr title="Statistical Process Control">SPC</abbr> Charts</strong> - determine if the execution of the <strong>Experiment</strong> must ignore predefined <abbr title="Statistical Process Control">SPC</abbr> Charts (defaults to <code>true</code>).</li> <li><strong>Close Experiment Automatically</strong> - determine whether the <strong>Experiment Definition</strong> executions will be closed automatically when they complete the last Step in the <strong>Experiment Definition</strong> (defaults to <code>false</code>). The <strong>Experiment Definition</strong> will still appear in the list of <strong>Experiments</strong> and you can still edit it as needed.</li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_general_data3.PNG"><img alt="Screenshot showing a step to create an experiment definition, with fields for general data." src="../images/experiment_general_data3.PNG"/></a></p> </li> </ul> </li> </ol> <h3 id="step-3-objectives">Step 3: Objectives<a class="headerlink" href="#step-3-objectives" title="Direct link to this section">#</a></h3> <ol> <li>Define a set of objectives for the <strong>Experiment Definition</strong>, by adding, removing, and editing the objective records of the <strong>Experiment Definition</strong>.</li> <li>Select <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> to create a unique name for the objective of the <strong>Experiment Definition</strong>. Even though this name is unique, it can be duplicated across several <strong>Experiment Definitions</strong>. Along with the name, you can also associate a description and a target for each objective.</li> <li> <p>In <strong>Name</strong>, select one of the objectives from the lookup table <a href="../../../administration/tables/lookup-tables/experimentdefinitionobjective/">ExperimentDefinitionObjective</a>. This unique name was previously filled in the mentioned lookup table.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_experiment_definition_objectives.png"><img alt='Screenshot showing a lookup table with various experiment objectives, including "Improve Performance" and "Reduce Costs".' src="../images/create_experiment_definition_objectives.png"/></a></p> </li> </ol> <h3 id="step-4-material-groups">Step 4: Material Groups<a class="headerlink" href="#step-4-material-groups" title="Direct link to this section">#</a></h3> <p>If you previously selected the option <strong>Sub-Materials</strong> in <strong>Mode</strong>, you will need to specify the <strong>Main Material Groups</strong>.</p> <p>The <strong>Sub-Materials</strong> are mapped in Sub-Material numbers by Slot ID.</p> <p>This mapping is defined when the <strong>Material</strong> is first assigned to the <strong>Experiment</strong>. To simplify and organize the material assignment process, you can define <strong>Main Material Groups</strong>, which are a predefined group of sub-material numbers. You can later assign an entire <strong>Main Material Group</strong> to several actions without having to select each sub-material, one by one.</p> <p>Nevertheless, when assigning, you have the flexibility to deselect or add a sub-material to the final sub-material list.</p> <ol> <li> <p>Fill in the fields as instructed below:</p> <ul> <li><strong>Main Material Group Details</strong><ul> <li><strong>Name</strong> - add a unique name within the <strong>Experiment Definition</strong>.</li> <li><strong>Description</strong> - enter a description of the main material (optional).</li> <li><strong>Shippable</strong> - set to <code>true</code> or <code>false</code>, depending on your preferences. Define if shipping these <strong>Sub-Materials</strong> is allowed during the experiment.</li> <li><strong>Material Type</strong> - restrict the material type by defining the type of <strong>Sub-Materials</strong> that will be set when assigned to the <strong>Experiment Definition</strong> - only if Group is <strong>Main</strong>.</li> <li><strong>Mandatory Sub-Materials</strong> - mark the sub-material numbers that this <strong>Main Material Group</strong> must include.</li> <li><strong>Optional Sub-Materials</strong> - mark the sub-material numbers that you want to select as optional for this <strong>Main Material Group</strong>.</li> </ul> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_definition_materials.PNG"><img alt="Screenshot showing a material group selection interface with options for marking sub-material numbers as optional." src="../images/experiment_definition_materials.PNG"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If any <strong>Sub-Material</strong> is left unselected for any <strong>Material Group</strong>, a visual indication will be displayed below the <strong>Main Material Groups</strong> panel.</p> </div> </li> <li> <p>At the top of the screen, select the <strong>Matrix</strong> view icon and change the view type to have an overview of the assignment:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_definition_materials_matrix.PNG"><img alt="Screenshot showing a material groups table within an experiment definition materials matrix." src="../images/experiment_definition_materials_matrix.PNG"/></a></p> </li> <li> <p>It is possible to assign or dissociate any sub-material numbers to any <strong>Material Group</strong> by selecting it on the matrix. All numbers need to be assigned and each number can only be part of a single <strong>Material Group</strong>. When finished, select <strong>Create</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_definition_materials_matrix2.PNG"><img alt="Screenshot showing a matrix for assigning sub-material numbers to Material Groups in an Experiment Definition." src="../images/experiment_definition_materials_matrix2.PNG"/></a></p> </li> <li> <p>When viewing the <strong>Material Groups</strong> as a matrix, you can choose a specific <strong>Sub-Material</strong> as mandatory or optional by selecting the proper option on the top right of the matrix and picking the right cell on the matrix.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_definition_materials_matrix_select.PNG"><img alt="Screenshot showing a material groups matrix with options for making a sub-material mandatory or optional." src="../images/experiment_definition_materials_matrix_select.PNG"/></a></p> </li> </ol> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Based on the <strong>Required Sub-Materials Count</strong> number (defined in <a href="./#step-2-general-data">Step 2: General Data</a>), the system will generate that amount of sub-material numbers. Sub-material numbers are used to predefine the <strong>Main Material Groups</strong> and later (when <a href="../experiment/create_experiment/">creating an experiment</a>), each number will have a specific sub-material assigned.</p> </div> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>At the end of the <strong>Experiment Definition</strong> creation, you are required to create at least one Step, so that the experiment is made effective.</p> </div> <h3 id="step-5-add-experiment-definition-step">Step 5: Add Experiment Definition Step<a class="headerlink" href="#step-5-add-experiment-definition-step" title="Direct link to this section">#</a></h3> <ol> <li> <p>Select <strong>Add Step</strong> and complete the fields:</p> <ul> <li><strong>General Data</strong><ul> <li><strong>Flow and Step</strong> - Experiment Definition is based on an existing <strong>Flow</strong>, but you can have actions triggered by an operation in a <strong>Step</strong> that does not belong to that <strong>Flow</strong>. Select a <strong>Step</strong> by entering the <strong>Flow and Step</strong> information.</li> <li><strong>Material Groups Mode</strong> - define how different <strong>Material Groups</strong> are defined for entering and leaving the <strong>Step</strong>. The available options are:<ul> <li>Enter - <strong>Material Groups</strong> are defined when entering the <strong>Step</strong>.</li> <li>Enter and Exit - <strong>Material Groups</strong> can be defined on entering and leaving the <strong>Step</strong>.</li> </ul> </li> <li><strong>Exit Step Split and Merge Type</strong> - If the Material Groups Mode is set to Enter and Exit, you can define whether split and merge operations are logistical or physical.</li> <li><strong>Ignore in Sampling Plans</strong> - determine if the execution of the <strong>Experiment</strong> must ignore predefined Sampling Plans (defaults to <code>true</code>).</li> <li><strong>Ignore in <abbr title="Statistical Process Control">SPC</abbr> Charts</strong> - determine if the execution of the <strong>Experiment</strong> must ignore predefined <abbr title="Statistical Process Control">SPC</abbr> Charts (defaults to <code>true</code>).</li> </ul> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/add_experiment_definition_step.png"><img alt='Screenshot showing a UI with a checkbox labeled "Ignore in SPC Charts" and a default value of "true".' src="../images/add_experiment_definition_step.png"/></a></p> </li> <li> <p>Select one or more <strong>Step Material Groups</strong> and fine-tune the selection by selecting or deselecting the individual sub-material number checkboxes.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/add_experiment_definition_step_material_groups.png"><img alt="Screenshot showing a UI with selected Step Material Groups and sub-material number checkboxes." src="../images/add_experiment_definition_step_material_groups.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If you have defined the Material Groups Mode as Enter and Exit, you will have two separate sections to define <strong>Material Groups</strong>: Enter and Exit.</p> </div> </li> <li> <p>If you want to have a clearer overview of the <strong>Step Material Groups</strong> and sub-material assignment, select the matrix icon, on the top-right corner of the screen, to see the assignment grid.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_definition_material_groups_matrix.png"><img alt="Screenshot showing a matrix icon for selecting experiment definition material groups." src="../images/experiment_definition_material_groups_matrix.png"/></a></p> </li> <li> <p>By selecting the <strong>Split Type</strong>, you will be defining the type of Split to be performed for the <strong>Step Material Group</strong> of this <strong>Experiment</strong>. Choose from:</p> <ul> <li><strong>None</strong> - no split (default).</li> <li><strong>Logical</strong> - a split where no physical separation takes places (example: in a semiconductor container, wafers from both parent and child materials remain in the container).</li> <li><strong>Physical</strong> - a split where a physical separation must take place (example: wafers from the child lot must be moved to a different container).</li> </ul> </li> <li> <p>The <strong>Split Scope</strong> option will allow you to determine the type of split to be performed for the <strong>Step Material Group</strong> of this <strong>Experiment</strong>. Choose from <strong>For Current Step</strong> (default), <strong>For Multiple Steps</strong> or <strong>Permanent</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the Split Scope is set to For Current Step, the system does not allow actions for Processed Materials.</p> </div> </li> <li> <p>Define the <strong>Merge Flow Path</strong>. If the <strong>Split Type</strong> chosen above is <strong>For Multiple Steps</strong>, this selection will determine the <strong>Flow Path</strong> to where the <strong>Material Group</strong> will be merged back.</p> </li> <li> <p>Define the <strong>Merge State</strong>. In case the Merge is not <strong>Permanent</strong>, it determines the Material system state in which the <strong>Material</strong> will be merged.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_definition_material_groups_split.png"><img alt="Screenshot showing an experiment definition step with material groups split." src="../images/experiment_definition_material_groups_split.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The <strong>Split Scope</strong> can only be set if the <strong>Split Type</strong> is <strong>Physical</strong>, and the <strong>Merge Flow Path</strong> can only be set if the <strong>Split Scope</strong> is <strong>For Multiple Steps</strong>.</p> <p>If the Experiment Definition Material Group is <strong>Full Material</strong>, the <strong>Split Type</strong> must be <strong>None</strong>. </p> </div> </li> <li> <p>Provide an <strong>Action</strong> for any <strong>Material Groups</strong>, at any given step. In the <strong>Action Details</strong>, choose the Action and Event at which the step operation is going to be triggered. For more information, see <a href="../experiment_actions/">Experiment Actions</a>.</p> </li> <li>Optionally, enter a comment and the name of a distribution list so the persons on that list will be informed of the start of the action.</li> <li>Depending on the Action chosen above, additional information fields will be enabled. Provide the necessary information and when completed, select <strong>Add</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/experiment_definition_change_flow_step.png"><img alt="Screenshot showing the Experiment Definition step in a workflow." src="../images/experiment_definition_change_flow_step.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>In cases where the same Step is repeated within the Flow and the Material is in a Processed state, you may opt to enable Force Queued State. Otherwise, the Material will stay in the Processed state. Additionally, you can define the default value for the Force Queued State by editing the entry Context = <code>Material.ChangeFlowAndStep</code> for the Element = <code>ForceQueuedState</code> in the <a href="../../../administration/tables/generic-tables/guielementdefaultvalue/">GUIElementDefaultValue</a> Generic Table.</p> </div> </article>
+</body>
+</html>

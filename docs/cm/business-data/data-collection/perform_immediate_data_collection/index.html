@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perform Immediate Data Collection - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:data-collection">data collection</a> </nav> <h1 id="perform-immediate-data-collection">Perform Immediate Data Collection<a class="headerlink" href="#perform-immediate-data-collection" title="Direct link to this section">#</a></h1> <p>🔒 DataCollectionInstance.<strong>PerformImmediate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to perform an immediate data collection. There are two types of immediate data collections:</p> <ul> <li>Immediate - which uses an existing data collection definition.</li> <li>Immediate ad-hoc - which does not follow any data collection definition, that is, it is completely arbitrary. </li> </ul> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction. For more information, see <a href="../">Data Collection</a>.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>All optional references to Resource, Material, Data Collection and Data Collection Limit Sets must be Active.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-instance-details">Step 1: Instance Details<a class="headerlink" href="#step-1-instance-details" title="Direct link to this section">#</a></h3> <ol> <li>Optionally, enter a Data Collection Instance name - otherwise, an automatic name will be provided by a name generator.</li> <li>Optionally, enter a description.</li> <li>If you want to create a user-defined <strong>Data Collection</strong>, activate the Ad-hoc Data Collection. An Ad-hoc Data Collection allows data to be collected without using any pre-defined <strong>Data Collection</strong>.</li> <li> <p>If the Ad-hoc Data Collection option has not been activated, it is necessary to select a pre-existing <strong>Data Collection</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the wizard is called from a specific Data Collection, this value will be automatically pre-filled and cannot be changed.</p> </div> </li> <li> <p>Optionally, select a Data Collection Limit Set, which needs to belong to the selected <strong>Data Collection</strong>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>This transaction can be called from the Data Collection, from a Material or from a Resource. Depending from where it is called, some information is automatically pre-filled and cannot be changed.</p> </div> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_data_collection_instance_step_one.png"><img alt="Screenshot showing a data collection instance setup screen with fields for farm name and measurement type." src="../images/perform_data_collection_instance_step_one.png"/></a></p> <h3 id="step-2-parameters-only-for-ad-hoc-data-collections">Step 2: Parameters (only for Ad-hoc Data Collections)<a class="headerlink" href="#step-2-parameters-only-for-ad-hoc-data-collections" title="Direct link to this section">#</a></h3> <ol> <li> <p>Enter as many parameters as desired, using the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span> buttons, specifying for each parameter:</p> <ul> <li>The Parameter.</li> <li>The minimum number of samples.</li> <li>The maximum number of samples.</li> <li>The minimum of readings per sample.</li> <li>The maximum number of readings per sample.</li> </ul> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_data_collection_instance_step_two.png"><img alt="Screenshot showing the parameters for an Ad-hoc Data Collection, including maximum readings per sample." src="../images/perform_data_collection_instance_step_two.png"/></a></p> <h3 id="step-3-data-collection">Step 3: Data Collection<a class="headerlink" href="#step-3-data-collection" title="Direct link to this section">#</a></h3> <ol> <li> <p>Provide the data as required by the <strong>Data Collection</strong> definition. It is important to understand that:</p> <ul> <li>Mandatory readings of mandatory samples of mandatory parameters are pre-filled with the default values, if defined.</li> <li>If there are defined limits (not possible for Ad-hoc Data Collections), they are shown on the top-right corner of the parameter and the color of the cell will change accordingly. </li> <li>At any time, it is possible to select the Preview mode to preview the <strong>Data Collection</strong>.</li> <li>Depending on the type of user interface you have selected, entering the data can be done in separate text areas corresponding to different fields or they can be entered in grid form. For more information, see <a href="../create_data_collection/#user-interfaces-classic-vs-modern">User Interfaces: Classic vs Modern</a>.</li> </ul> </li> <li> <p>Optionally, enter a comment.</p> </li> <li>Select <strong>Perform</strong> to complete the operation.</li> </ol> <table> <thead> <tr> <th>Classic</th> <th>Modern</th> </tr> </thead> <tbody> <tr> <td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_data_collection_instance_step_three.png"><img alt="Perform data collection instance step three" src="../images/perform_data_collection_instance_step_three.png"/></a></td> <td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_data_collection_instance_step_three_modern.png"><img alt="Perform data collection instance step three modern" src="../images/perform_data_collection_instance_step_three_modern.png"/></a></td> </tr> </tbody> </table> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Parameters may have validation ranges that have to be followed in order for the values to be accepted.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>A Data Collection may be configured to send data to <abbr title="Statistical Process Control">SPC</abbr>, in which case one or more <abbr title="Statistical Process Control">SPC</abbr> Charts will appear.</p> </div> </article>
+</body>
+</html>

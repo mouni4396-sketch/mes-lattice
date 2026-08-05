@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Change Material Flow/Step - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="change-material-flowstep">Change Material Flow/Step<a class="headerlink" href="#change-material-flowstep" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>ChangeFlowAndStep</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to change the <strong>Flow</strong> or the <strong>Step</strong> of a <strong>Material</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Material</strong> is active and is not In Transit.</li> <li>The <strong>Material</strong> is Top-Most, that is, it has no parent.</li> <li>If changing the <strong>Flow</strong>:<ul> <li>The new <strong>Flow</strong> is active and enabled.</li> </ul> </li> <li>If changing the <strong>Step</strong>:<ul> <li>The <strong>Material</strong> must not be On Hold.</li> </ul> </li> <li>The new <strong>Step</strong> must be defined in the current <strong>Material</strong> <strong>Facility</strong>.</li> <li>The <strong>Material</strong> is not In Store, In Process, Consumable or Durable.</li> <li>The new <strong>Step</strong> is active.</li> <li>Either the <strong>Material</strong> retains the units in the the new <strong>Step</strong> or there are Unit of Conversion Factors defined for the <strong>Material Product</strong> and all of the <strong>Products</strong> of its <strong>Sub-Materials</strong>.</li> <li>The new <strong>Flow Path</strong> must be different from the current <strong>Flow Path</strong> and it must exist in the new <strong>Flow</strong>.</li> <li>If the <strong>Step</strong> is being changed, there are no active <strong>Protocol</strong> instances that contain the <strong>Material</strong> being moved and that have the property Inhibit Move From Step set to <code>true</code>.</li> <li>There must not be any required Future Action for the <strong>Material</strong>.</li> <li>There must not be any Material Time Constraint violated for the <strong>Material</strong> for the current context and transaction.</li> </ul> <h2 id="preconditions-for-bulk">Preconditions for Bulk<a class="headerlink" href="#preconditions-for-bulk" title="Direct link to this section">#</a></h2> <ul> <li> <p>In addition to the preconditions mentioned above, all <strong>Materials</strong> must:</p> <ul> <li>Be either Top-Most or Sub-Material of the same Parent <strong>Material</strong>.</li> <li>Have the same <strong>Flow Path</strong>.</li> <li>Be in the same System State.</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>All the Materials will be assigned to the new Flow and Step.</p> </div> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <ol> <li>Select a <strong>Material</strong> that meets the preconditions listed above.</li> <li>Optionally, review the <strong>Material</strong> details by expanding the Material section.</li> <li> <p>Choose a new Flow Path by selecting a <strong>Flow</strong> followed by a <strong>Step</strong>, or directly in the <strong>Flow</strong> structure. When altering <strong>Steps</strong>, the system will revert the <strong>Material</strong> state to Queued. In cases where the same <strong>Step</strong> is repeated in the <strong>Flow</strong> and the <strong>Material</strong> is in a Processed state (as depicted in the image below), you may opt to enable Force Queued State. Otherwise, the <strong>Material</strong> will stay in the Process state.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>It is possible to define the default value for the Force Queued State by editing the entry Context = <code>Material.ChangeFlowAndStep</code> for the Element = <code>ForceQueuedState</code> in the <a href="../../../administration/tables/generic-tables/guielementdefaultvalue/">GUIElementDefaultValue</a> Generic Table.</p> </div> </li> <li> <p>Select <strong>Change</strong> to complete the operation.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/force_queued_change_material_flow_step.png"><img alt="Change Material Flow and Step" src="../images/force_queued_change_material_flow_step.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <ul> <li>Depending on the Future Actions configuration, the Material may be put on hold.</li> <li>If the Material is currently part of an Inspection Order, changing the Material Flow may invalidate the Inspection.</li> <li>If the Material is currently in a rework or off-flow Flow and the new Flow Path does not belong to the current rework or off-flow Flow, you will be informed that the off-flow information will be cleared.</li> <li>If the Qualification Count of the Material is greater than <code>0</code>, changing the Material Flow may invalidate the Qualification Check.</li> </ul> </div> </article>
+</body>
+</html>

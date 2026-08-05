@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Special Create Transfer Requirement for Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:material-logistics">material logistics</a> </nav> <h1 id="special-create-transfer-requirement-for-material">Special Create Transfer Requirement for Material<a class="headerlink" href="#special-create-transfer-requirement-for-material" title="Direct link to this section">#</a></h1> <p>🔒 TransferRequirement.<strong>SpecialCreateForMaterial</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a new <strong>Transfer Requirement</strong> for a specific <strong>Material</strong> using a selected <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> context.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Material</strong> exists and is Active.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>In the entity page of a <strong>Material</strong> that fulfils the criteria, navigate to the <strong>Transfer Requirements</strong> section and select the <strong>Create</strong> button in the section.</li> <li>Optionally select a Data Group for the <strong>Transfer Requirement</strong>.</li> <li>Select the appropriate <strong>Area</strong> for which the Transfer Requirement will be created.</li> <li>Select the Request Type to be fulfilled.</li> <li> <p>The values for Source Location and Destination Location will be automatically filled:</p> <ul> <li>Source Location will be set according to the Transfer Requirement Type of the For Location Area</li> <li>If the For Location is a Storage Area, the Destination Location is set with that Storage Area; if the For Location is a Production Line, the Destination Location is set with the defined Destination Location of the Transfer Requirement Type if it is configured therein or with the For Location if it is not configured.</li> <li>Information on Flow, Step and Flow Path will be automatically displayed since they are inherited from the Material.</li> </ul> </li> <li> <p>Specify the Priority of the <strong>Transfer Requirement</strong>.</p> </li> <li> <p>Define the delivery due date. The due date is the latest point in time when the <strong>Transfer Requirement</strong> must be completed. Pick a date from the calendar and a time by clicking on the clock icon.</p> </li> <li> <p>Select <strong>Next</strong> to define the <strong>Transfer Requirement</strong> Items.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Special_Create_Transfer_Requirement_for_material_step_one.png"><img alt="Special_Create_Transfer_Requirement_for_material_step_one" src="../images/Special_Create_Transfer_Requirement_for_material_step_one.png"/></a></p> <h3 id="step-2-bom">Step 2 - <abbr title="Bill-Of-Materials">BOM</abbr><a class="headerlink" href="#step-2-bom" title="Direct link to this section">#</a></h3> <ol> <li>On the left side panel, select the items from the <strong>Material <abbr title="Bill-Of-Materials">BOM</abbr></strong> that will be included in the <strong>Transfer Requirement</strong>. Select <strong>Next</strong> to edit information for those items.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Special_Create_Transfer_Requirement_for_material_step_two.png"><img alt="Special_Create_Transfer_Requirement_for_material_step_two" src="../images/Special_Create_Transfer_Requirement_for_material_step_two.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If there is a <abbr title="Bill-Of-Materials">BOM</abbr> of scope Materials associated to a Material that has characteristics, the system will only display <abbr title="Bill-Of-Materials">BOM</abbr> Products that have the same characteristics defined for the selected Material.</p> </div> <h3 id="step-3-transfer-requirement-items">Step 3 - Transfer Requirement Items<a class="headerlink" href="#step-3-transfer-requirement-items" title="Direct link to this section">#</a></h3> <ol> <li> <p>For each of the <strong>Products</strong> displayed in the left side panel, specify the Requested Quantity.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The system will only consider <abbr title="Bill-Of-Materials">BOM</abbr> Items with positive Quantity.</p> </div> </li> <li> <p>Optionally, if the Source Location Area is not external, a specific existing <strong>Material</strong> can be requested.</p> </li> <li>Select the <strong>Create</strong> button to complete the creation of the <strong>Transfer Requirement</strong>.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/Special_Create_Transfer_Requirement_for_material_step_three.png"><img alt="Special_Create_Transfer_Requirement_for_material_step_three" src="../images/Special_Create_Transfer_Requirement_for_material_step_three.png"/></a></p> </article>
+</body>
+</html>

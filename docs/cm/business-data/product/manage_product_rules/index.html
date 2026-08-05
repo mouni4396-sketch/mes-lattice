@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Rules - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="manage-rules">Manage Rules<a class="headerlink" href="#manage-rules" title="Direct link to this section">#</a></h1> <p>🔒 Product.<strong>Edit</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to manage the Rules of the Characteristics of the Product.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the precondition of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>Product exists in the system and it is Created.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The Manage Rules wizard can be called from the <strong>Product</strong> page by selecting <strong>Characteristics and Rules</strong> from the section menus on the right, and then selecting the <strong>Rules</strong> tab.</p> <h3 id="step-1-context">Step 1: Context<a class="headerlink" href="#step-1-context" title="Direct link to this section">#</a></h3> <ol> <li>Specify as many contexts as you need by using <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span>. You can also delete or order information, and use the Search to find a specific <strong>Step</strong>.</li> <li> <p>Specify the Context Details by providing the following for each:</p> <ul> <li>Step</li> <li>Logical Flow Path (optional)</li> <li>Context (<abbr title="Bill-Of-Materials">BOM</abbr>, Checklist, Data Collection, Document, Durables, Recipe, Recipe Parameter, Service, and Inspection Plan)</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For the same Step, there cannot be two Rules where one Rule defines a Logical Flow Path and another does not. Hence, for the same Step, either all Rules define a Logical Flow Path or all Rules do not define one.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The Step and Logical Flow Path Order is defined by you and you can choose to change the Step Order, which will affect all Rules of that Step and Logical Flow Path combination.</p> </div> </li> <li> <p>Select <strong>Next</strong> to continue.</p> </li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_rules_01.png"><img alt='Screenshot showing a management interface with rule settings, including "Conse" and "Coear Geet".' src="../images/manage_rules_01.png"/></a></p> <h3 id="step-2-rules">Step 2: Rules<a class="headerlink" href="#step-2-rules" title="Direct link to this section">#</a></h3> <ol> <li>Specify as many <strong>Rules</strong> as you need by using <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span>. You can also delete or order information, and use the Search to find a specific <strong>Step</strong> or <strong>Context</strong>.</li> <li> <p>Specify the Rules Details by providing the Condition:</p> <ul> <li> <p>If needed use the Help Condition</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_rules_help_condition.png"><img alt="Screenshot showing a help condition for managing rules." src="../images/manage_rules_help_condition.png"/></a></p> </li> <li> <p>The Product Characteristic Rule Condition supports a subset of the JSONata query syntax. If needed use the <span class="twemoji"><svg viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75M8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2"></path></svg></span> icon to view supported expression format as follows:</p> <ul> <li>Equal to/Not equal to comparison operators ('='/'!=').</li> <li>Less than/Less than or equal to comparison operators ('&lt;'/'&lt;=').</li> <li> <p>Greater than/Greater than or equal to comparison operators ('&gt;'/'&gt;=').</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>These operators work with strings and numbers, so on writing the conditions, you must ensure you understand when you want to compare strings and when you want to compare numbers (do not use inverted commas).<br/>Additionally, if you intend to compare numbers, guarantee that the source Lookup Table only has numeric values.</p> </div> </li> <li> <p>And/Or boolean operators ('and'/'or').</p> </li> <li>Boolean values for ensuring a expression are always true or false ('true'/'false').</li> <li>Quotation marks to define Product Characteristic values (for example, "Dark Blue" or 'Soft Blue').</li> <li>Reference to Product Characteristic without whitespaces (for example, Color = 'Blue').</li> <li>Reference to Product Characteristic with whitespaces or special characters (for example, `Wheel color` = 'Blue')</li> <li>Parentheses for precedence in compound expressions (for example, Color = "Blue" and (Size = "Small" or Size = "Medium") ).</li> </ul> </li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The system validates only characteristic values defined in Lookup Tables, and autocomplete suggestions during condition editing are available only for characteristics linked to those Lookup Tables.</p> </div> </li> <li> <p>Specify other mandatory information depending on the selected contexts.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/manage_rules_02.png"><img alt="Screenshot showing a management interface for setting up rules." src="../images/manage_rules_02.png"/></a></p> </li> <li> <p>Select <strong>Update</strong> to complete the operation.</p> </li> </ol> </article>
+</body>
+</html>

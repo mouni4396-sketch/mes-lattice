@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MAO Page - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:maintenance">maintenance</a> </nav> <h1 id="maintenance-activity-order-page">Maintenance Activity Order Page<a class="headerlink" href="#maintenance-activity-order-page" title="Direct link to this section">#</a></h1> <p>🔒 MaintenanceActivityOrder.<strong>Show</strong></p> <h2 id="details">Details<a class="headerlink" href="#details" title="Direct link to this section">#</a></h2> <p>The <strong>Maintenance Activity Order</strong> (<strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>) page displays all the operations that can be performed within a specific <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>. Additionally, it displays the <strong>Details</strong> of the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>, as illustrated below:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/maintenance_activity_order_details.png"><img alt="Screenshot showing maintenance activity order details." src="../images/maintenance_activity_order_details.png"/></a></p> <h2 id="data-collection">Data Collection<a class="headerlink" href="#data-collection" title="Direct link to this section">#</a></h2> <p>By selecting the <strong>Data Collection</strong> section, on the right of the screen, all the <strong>Data Collection</strong> Parameters are displayed, alongside their Sample IDs and Readings, in read-only mode:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/maintenance_activity_order_datacollection.png"><img alt="&quot;Screenshot showing a maintenance activity order data collection screen with 'EE GOW' and 'GF 3' labels.&quot;" src="../images/maintenance_activity_order_datacollection.png"/></a></p> <h2 id="checklist">Checklist<a class="headerlink" href="#checklist" title="Direct link to this section">#</a></h2> <p>The <strong>Checklist</strong> section displays the existing checklist(s), associated with the current <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> and all the <strong>Checklist</strong> items:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/maintenance_activity_order_checklist.png"><img alt="Screenshot showing a maintenance activity order checklist." src="../images/maintenance_activity_order_checklist.png"/></a></p> <h2 id="parts">Parts<a class="headerlink" href="#parts" title="Direct link to this section">#</a></h2> <p>The <strong>Parts</strong> section displays a list of the parts that are necessary to execute a <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> and, consequently, a <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>, and that are associated to a specific <strong>Product</strong>. For each Part, information on quantities and cost are also displayed.</p> <h2 id="labor">Labor<a class="headerlink" href="#labor" title="Direct link to this section">#</a></h2> <p>The <strong>Labor</strong> section displays the name of the <strong>Employee(s)</strong> associated with the current <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> and all the related Employee-specific information, such as <strong>Certifications</strong>, Checked-In Date, Begin and End Dates, Duration, Cost, and Exclusiveness.</p> <h2 id="personnel">Personnel<a class="headerlink" href="#personnel" title="Direct link to this section">#</a></h2> <p>The <strong>Personnel</strong> section displays a summary of the previously defined Check-in Options and of the Labor Hours.</p> <h2 id="transfer-requirements">Transfer Requirements<a class="headerlink" href="#transfer-requirements" title="Direct link to this section">#</a></h2> <p>All <strong>Transfer Requirements</strong> associated to the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> are listed in this section.</p> <h2 id="qualifications">Qualifications<a class="headerlink" href="#qualifications" title="Direct link to this section">#</a></h2> <p>The <strong>Qualifications</strong> section displays a summary of the <a href="../../qualification-check/">Qualification Checks</a> and the Qualification Items associated with the current <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>. This section is only displayed if the <strong>Maintenance Plan</strong> scope is set to Qualification. For more information, see <a href="../../maintenance-plan/create_maintenance_plan/">Create Maintenance Plan</a>.</p> <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Qualification Checks</label><label for="__tabbed_1_2">Qualification Items</label></div> <div class="tabbed-content"> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/maintenance_activity_order_qualification_checks.png"><img alt="summary of the qualification checks associated with the current maintenance activity order" src="../images/maintenance_activity_order_qualification_checks.png"/></a></p> </div> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/maintenance_activity_order_qualification_items.png"><img alt="summary of the qualification items associated with the current maintenance activity order" src="../images/maintenance_activity_order_qualification_items.png"/></a></p> </div> </div> </div> <h2 id="documents">Documents<a class="headerlink" href="#documents" title="Direct link to this section">#</a></h2> <p>The <strong>Documents</strong> associated to this <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> are available in this section.</p> <h2 id="past-maos-joined-maos">Past MAOS / Joined MAOS<a class="headerlink" href="#past-maos-joined-maos" title="Direct link to this section">#</a></h2> <p>When selected, these sections display, respectively, a list of past <strong>MAOs</strong> or active <strong>MAOs</strong> that were joined with a Parent <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>. From this list you can obtain information on the execution or the schedule states of the <strong>MAOs</strong>, along with their begin and end dates. </p> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weigh and Dispense Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="weigh-and-dispense-material">Weigh and Dispense Material<a class="headerlink" href="#weigh-and-dispense-material" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>WeighAndDispense</strong></p> <p>In order to be able to enter the weight manually, it's necessary to have access to the Material.WeighAndDispenseManual feature. In case it's intended to add an electronic signature at the end of the transactions, it's necessary to enable the <em>Force signature</em> option on the Material.CompleteWeighAndDispense feature.</p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to <strong>Weigh &amp; Dispense</strong> ingredients or components of source <strong>Materials</strong> into a target <strong>Material</strong>.</p> <p>As a naming convention, the <strong>Materials</strong> which are consumed are referred to as <em>Source Materials</em> and the consumed quantity is referred to as <em>Consumed Quantity</em>, whereas the assembled <strong>Material</strong> is referred to as <em>Assembled Material</em>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Note: This transaction must be completed in one single transaction.</p> </div> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Note: <em>Technical Data Sheets</em> and <em>Safety Data Sheet</em> displayed in this transaction are based on the respective Product attachments that have a type matching the <code>/Cmf/System/Configuration/Product/SafetyDataSheet</code> and <code>/Cmf/System/Configuration/Product/TechnicalDataSheet</code> configuration entries.</p> </div> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The current user is associated to an Employee object.</li> <li>The <em>Assembled Material</em> exists and it is Active.</li> <li>The <em>Assembled Material</em> is topmost, its <em>PrimaryQuantity</em> must be &gt;= 0 and &lt; QuantityToAssemble of the <abbr title="Bill-Of-Materials">BOM</abbr> Instance Material. The <abbr title="Bill-Of-Materials">BOM</abbr> Instance System State must be <em>Open</em> and the <em>Assembled Material</em> <em>SecondaryQuantity</em> must not be defined for the <strong>Material</strong> (Null).</li> <li>The <em>Assembled Material</em> is not On Hold and not InTransit.</li> <li>The <em>Assembled Material</em> does not have Sub-Materials.</li> <li>There is a <em>CurrentBOMVersion</em> defined for the <em>AssembledMaterial</em> and the AssemblyType is <em>WeighAndDispense</em>.</li> <li>The <em>Assembled Material</em> must be <em>InProcess</em> (that is - it needs to be performed after Track-In and before Track-Out).</li> <li><em>Source Materials</em> exist, are Active, Queued or Consumable and are not On Hold.</li> <li><em>Source Materials</em> have the MaintenanceHoldCount = 0 and have not Expired (ExpirationDate &gt;= CurrentDate Or ExpirationDate = Null) and (MaximumAssembleDate &gt;= CurrentDate Or MaximumAssembleDate = Null), do not have Sub-Materials and must be in the Step defined in the <abbr title="Bill-Of-Materials">BOM</abbr>.</li> <li>Source Materials Floor Life must still be valid: Either Floor Remaining Life is Null OR (Floor Life Remaining Life &gt; 0 AND Floor Life Counter State = <em>Stopped</em>) OR (Floor Life Counter State = <em>Running</em> AND [Floor Life Remaining Hours - (Now() - Floor Life Open Date) in Hours &gt; 0] ).</li> <li><em>Source Materials</em> must not have any open defects (Open Defect Count is zero).</li> <li>For all <abbr title="Bill-Of-Materials">BOM</abbr> Products, if the Material Reservation Mode is different to None:<ul> <li>If the Material Reservation Mode is Production Order, and the TopMost Material of the Assembled Material has a Production Order defined, the Source Material for the <abbr title="Bill-Of-Materials">BOM</abbr> Product must have the same Production Order associated to it.</li> <li>If the Material Reservation Mode is Material Dependency, there must be an Active Material Dependency from the Source Material to the TopMost Material of the Assembled Material.</li> </ul> </li> <li> <p>For TopMost of Source Materials:</p> <ul> <li>the PickListItemCount must be Null.</li> <li>the IsInTransferOrderItem must be Null.</li> <li>the Material Product InventoryLocked must be false.</li> <li>the IsApproved must be different from false (could be null).</li> </ul> </li> <li> <p><em>Source Materials</em> must not include the <strong>Material</strong> being Assembled.</p> </li> <li><em>Source Materials</em> must be in the same Facility of the <em>Assembled Material</em> and must be in the Step as defined in the <abbr title="Bill-Of-Materials">BOM</abbr>.</li> <li><abbr title="Bill-Of-Materials">BOM</abbr> must exist and be Active or Effective.</li> <li>The <abbr title="Bill-Of-Materials">BOM</abbr> Products for which the Product's <em>Is Discrete</em> property can only be consumed in discrete quantities.</li> <li>If the properties <em>EnableCheckIn</em> and <em>RequireCheckInForMaterialOperationsResource</em> of the topmost Material are set to true and the user's current <em>IsIntegrationUser</em> property is false, there must be an Employee associated to the current user who is currently associated with the Resource.</li> <li>The Resource has an <em>Instrument Service</em> defined.</li> <li>The Electronic Scale Measurement Units must have a unit of conversion different from the <em>Assemble Material Primary Units</em> (converted within the Generic Table <em>UnitConversionFactors</em>) if the <abbr title="Bill-Of-Materials">BOM</abbr> Formula Type is <em>Absolute</em>, or to the <abbr title="Bill-Of-Materials">BOM</abbr> Units if the <abbr title="Bill-Of-Materials">BOM</abbr> Formula Type is <em>Percentage</em>.</li> <li>The selected Electronic Scale is a Resource which provides the service as defined by the Resource's Instrument Service. The Service is enabled at the Electronic Scale and enabled globally at the service. The Calibration Status must be <em>Calibrated</em>, must not be on hold due to maintenance, its system state must be <em>Up</em>, the Electronic Scale's Resource must exist and be Active and exist in the same Facility (not Area by design) as the Resource where the Weigh&amp;Dispense will take place.</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>When using Weigh and Dispense with a single <abbr title="Bill-Of-Materials">BOM</abbr> across multiple Steps, it's important to begin with the Material Primary Quantity set to zero. The reason is that when the <em>Target Material Quantity</em> and <em>Target Material Units</em> are set, the system will increment the Material Primary Quantity (either directly in the mode <em>Consume</em> or indirectly in the mode Attach) with the dispensed quantity of every Weigh and Dispense operation. This contrasts with the case where the Target Material Quantity is not used, where the Weigh and Dispense operation will set the Material Primary Quantity (directly or indirectly) with the dispensed quantity.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Sub-Materials created during the Weigh and Dispense process do not inherit the Production Order from the Parent Material.</p> </div> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-scale-printer">Step 1: Scale &amp; Printer<a class="headerlink" href="#step-1-scale-printer" title="Direct link to this section">#</a></h3> <ol> <li> <p>Once the <strong>Material</strong> is selected and the Weigh &amp; Dispense wizard is open, proceed to selecting the printer to be used (values are taken from the <a href="../../../administration/tables/smart-tables/printertypeprinterscontext/">PrinterTypePrintersContext</a>/) Smart Table.</p> </li> <li> <p>Confirm the <strong>Resource Details</strong> and select <strong>Next</strong>.</p> </li> </ol> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the <abbr title="Bill-Of-Materials">BOM</abbr> contains a <em>WeighAndDispenseLabel</em>, it is mandatory to select a printer. If no printers are returned or selected, the system is not allowed to proceed.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/weigh_dispense_printer.png"><img alt="weigh_dispense_printer" src="../images/weigh_dispense_printer.png"/></a></p> <h3 id="step-2-safety-information">Step 2: Safety Information<a class="headerlink" href="#step-2-safety-information" title="Direct link to this section">#</a></h3> <ol> <li>A consolidated list of all the potential hazards and protective equipment needed to handle the <strong>Assembled Material</strong> (gathered from all the <abbr title="Bill-Of-Materials">BOM</abbr> Products) is displayed. This list is also available for visualization purposes at any stage of the transaction.</li> <li>Once reviewed, click <strong>Proceed to W&amp;D</strong>.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/weigh_dispense_safety.PNG"><img alt="weigh_dispense_safety" src="../images/weigh_dispense_safety.PNG"/></a></p> <h3 id="step-3-weigh-dispense-page">Step 3: Weigh &amp; Dispense Page<a class="headerlink" href="#step-3-weigh-dispense-page" title="Direct link to this section">#</a></h3> <ol> <li>In case the selected scale is disconnected, a warning sign will be displayed. Otherwise, you can proceed with the weighing.</li> <li>The information regarding the ingredients to be dispensed will be displayed in the wizard. In addition, information on the Source Product, such as its required and dispensed quantities, as well as the <em>Warnings and Documents</em> (Technical and Safety Data Sheets) will be shown.</li> <li>On the top of the page, information on the current operation will be displayed and instructions for the operator on the proper steps to take to continue the process.</li> <li>If the current dispensed quantity is zero, it is possible to select the weighing method: Positive (default) or Negative. The positive weighing is additive and it measures the content of the target <strong>Container</strong> or <em>ContainerType</em>. On the other hand, the negative weighing is subtracting and it measures the source <strong>Material</strong> or <strong>Container</strong>. It is to be used when you wish to reduce the content of the <strong>Container</strong>, therefore reducing its weight. In this case, the weighing shown on the screen will be the weight amount that has been taken from the <strong>Container</strong>.</li> <li>Proceed to choosing the <em>Source Material</em> and <strong>Container</strong> as well as the target <em>Container</em> and <em>ContainerType</em>. If necessary, check the corresponding <strong>Material</strong> details on the right-hand side panel.</li> <li> <p>In <em>Positive Weighing</em>, the <strong>Container</strong> tare will be shown. Click <strong>Set Tare and Begin</strong> to acknowledge the tare value and to begin the weighing. However, depending on the scale used, it may be necessary to enter the tare by hand. If the option <em>Negative Weighing</em> has been selected, click <strong>Begin Weighing</strong>. </p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/weigh_dispense_weighing.PNG"><img alt="weigh_dispense_weighing" src="../images/weigh_dispense_weighing.PNG"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the current <abbr title="Bill-Of-Materials">BOM</abbr> Product has a Quantity Calculation Rule set, after pressing the <strong>Begin Weighing</strong> button the system must call the defined rule, which will return the values for Lower Tolerance, Required Quantity and Upper Tolerance, expressed in the Units defined by the <abbr title="Bill-Of-Materials">BOM</abbr>. A visual notation will be displayed next to the <abbr title="Bill-Of-Materials">BOM</abbr> Product currently being weighed. If the rule returns an error, this will be presented to the user and the operation cannot begin. If the rule is successful, the values for Lower Tolerance, Required Quantity and Upper Tolerance will be updated on-screen and the user can proceed with the operation.</p> </div> </li> <li> <p>The ingredient's weight will be shown. If the weighed-in quantity is less than the required quantity, the button <strong>Partial Dispense</strong> will be made available. Click on it to dispense the indicated amount and the remaining quantity (to complete the required quantity) will be shown in a value bar. If necessary, repeat until the required quantity is achieved (or surpassed, depending on the lower and upper tolerance margins that have been defined beforehand in the <abbr title="Bill-Of-Materials">BOM</abbr>).</p> </li> <li>When the dispensed quantity matches (or surpasses) the required quantity, a label is automatically printed, so that the product can be identified.</li> <li>Repeat the process for every ingredient listed in the <abbr title="Bill-Of-Materials">BOM</abbr>.</li> <li>When all the <abbr title="Bill-Of-Materials">BOM</abbr> Products have been dispensed completely and successfully, click <strong>Complete W&amp;D</strong>.</li> <li>The system will require an electronic signature. Enter your credentials to complete the transaction.</li> </ol> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the scale to be used has been pre-configured to use a specific weighing measurement unit (either kilograms, pounds or ounces) and the material to be weighed in is in a different weighing measurement unit, the system will display an error, since there is a mismatch between measurement units.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see the <a href="../../../../tutorials/modules/weigh-and-dispense/weighanddispense/">Weigh and Dispense</a> tutorial.</p> </div> </article>
+</body>
+</html>

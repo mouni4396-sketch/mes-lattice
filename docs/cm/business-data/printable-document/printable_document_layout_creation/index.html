@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Printable Document Layout Creation - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="printable-document-layout-creation">Printable Document Layout Creation<a class="headerlink" href="#printable-document-layout-creation" title="Direct link to this section">#</a></h1> <p>🔒 PrintableDocument.<strong>Edit</strong></p> <p>It is not possible to design the layout of a <strong>Printable Document</strong> in the creation wizard. Once created, a default layout will be provided. To modify this layout, you will need to edit the <strong>Printable Document</strong> layout after the document has been created.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>When creating a new version of an existing Printable Document, it is created with the same layout as the version from which the new version was created.</p> </div> <p>To Create/Edit the <strong>Printable Document</strong> layout, select the <strong>Edit Layout</strong> button:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/printable_document4.PNG"><img alt="Screenshot showing the Edit Layout button in a printable document creation interface." src="../../../images/printable_document4.PNG"/></a></p> <p>By selecting the <strong>Edit Layout</strong> button, you will open the layout editor as shown in the next image:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/printable_document5.PNG"><img alt='Screenshot showing the layout editor interface for editing the "printable document5" layout.' src="../../../images/printable_document5.PNG"/></a></p> <p>For more information on how to edit the layout, see the sections below.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>Due to technical limitations, it's not possible to access the Data Source object directly in the designer and the expression needs to be written manually (for example, <code>{AppliesToValue.Name}</code>).</p> </div> <div class="admonition warning"> <p class="admonition-title">Warning</p> <p>Do not forget to save the changes before exiting the layout editor.<br/> Due to some caching issues related to the editor, it is strongly recommended to use a single session and to edit one printable document at a time.</p> </div> <h2 id="default-printable-document-layout">Default Printable Document Layout<a class="headerlink" href="#default-printable-document-layout" title="Direct link to this section">#</a></h2> <p>The default layout (used when a new <strong>Printable Document</strong> is created), is composed of a single page containing a single Data Band with a few properties set, such as:</p> <ul> <li> <p><strong>Height</strong>, set to the page weight (extends the full page).</p> </li> <li> <p><strong>Width</strong>, set to the page width.</p> </li> <li> <p><strong>DataSourceName</strong>, set to the name of the first Serial Number context item, or to <code>Copies</code> if no Serial Number item exists.</p> </li> <li> <p><strong>NewPageAfter</strong>, set to <code>true</code>, which means that a new page will be created for each value in the Collection pointed by the DataSourceName (see above), that is, it will create as many copies of the page as the number entered in the Number of Copies field.</p> </li> </ul> <h2 id="editing-document-and-page-properties">Editing Document and Page Properties<a class="headerlink" href="#editing-document-and-page-properties" title="Direct link to this section">#</a></h2> <p>Apart from the default properties mentioned above, the properties editor allows you to edit the properties of any layout element, including the page object and the Report (Document).</p> <p>For example, to set the paper size to a size different from the default select the page, and then on the page properties change the Page Width or Page Height as desired:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/printable_document6.PNG"><img alt="Screenshot showing page properties settings for a printable document." src="../../../images/printable_document6.PNG"/></a></p> <h2 id="layout-design">Layout Design<a class="headerlink" href="#layout-design" title="Direct link to this section">#</a></h2> <h3 id="context-items">Context Items<a class="headerlink" href="#context-items" title="Direct link to this section">#</a></h3> <p>All values of the Printable Document Context Items plus the system data items, are available on the layout designer <strong>Dictionary</strong> page, meaning that they can be used on any expression in the layout elements (for example, to calculate their contents, visibility and the style).</p> <p>Scalar type items will be part of the Variables group and object type or collection type items will be part of the Data Sources group:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/printable_document7.PNG"><img alt="Screenshot showing a print preview of a document with variable and data source groupings." src="../../../images/printable_document7.PNG"/></a></p> <h3 id="custom-fonts">Custom Fonts<a class="headerlink" href="#custom-fonts" title="Direct link to this section">#</a></h3> <p>To add Custom Fonts, select the <strong>Dictionary</strong> tab, right click on <strong>Resources</strong> and select <strong>New Resource</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/printable_document8.png"><img alt="Screenshot showing the Dictionary tab with options to add Custom Fonts, including selecting New Resource from the right-click menu." src="../../../images/printable_document8.png"/></a></p> <p>This will open a window where you place the desired font file (use the open file or drag and drop feature). Select <strong>OK</strong> to save and close the window:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/printable_document9.png"><img alt='Screenshot showing a window for selecting and importing a custom font file, with a filename hint indicating "printable document".' src="../../../images/printable_document9.png"/></a></p> <p>Alternatively, you can drag and drop the font file straight under the <strong>Resources</strong> section.</p> <p>When the Custom Fonts are available, they will be displayed under the <strong>Resources</strong> section and in the Fonts dropdown:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/printable_document10.png"><img alt="Screenshot showing a window for selecting and adding a custom font to a layout, with fields for filename and preview." src="../../../images/printable_document10.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The fonts that are available by default are DejaVu Sans, Open Sans, and Roboto.</p> </div> <h3 id="additional-information">Additional Information<a class="headerlink" href="#additional-information" title="Direct link to this section">#</a></h3> <p>The layout designer is an integral part of the third-party software used for document printing in Critical Manufacturing (Stimulsoft Reports.Web). It is a rich designer with many available options. This manual does not cover every feature of this designer; only the basic features. More detailed information on all features can be found on the <a href="https://www.stimulsoft.com">Stimulsoft website ⧉</a>.</p> <p>These links are of special interest:</p> <ul> <li> <p>Documentation: <a href="https://www.stimulsoft.com/Documentation.aspx">https://www.stimulsoft.com/Documentation.aspx ⧉</a></p> </li> <li> <p>Articles: <a href="https://www.stimulsoft.com/Article.aspx">https://www.stimulsoft.com/Article.aspx ⧉</a></p> </li> <li> <p>Videos: <a href="https://www.stimulsoft.com/Videos.aspx">https://www.stimulsoft.com/Videos.aspx ⧉</a></p> </li> </ul> </article>
+</body>
+</html>

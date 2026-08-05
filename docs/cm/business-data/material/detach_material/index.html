@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detach Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="detach-material">Detach Material<a class="headerlink" href="#detach-material" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>Detach</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to remove a <strong>Sub-Material</strong> from a Main <strong>Material</strong>. As a naming convention, the <strong>Material</strong> being detached is referred to as <strong>Sub-Material</strong>, and the <strong>Material</strong> losing the <strong>Sub-Material</strong> is referred to as Parent <strong>Material</strong>. The highest parent of the Parent <strong>Material</strong> is referred to as Top-Most of Parent <strong>Material</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The Parent <strong>Material</strong> and the <strong>Sub-Material</strong> exist and are Active.</li> <li>The Top-Most <strong>Material</strong> is not On Hold.</li> <li>The Top-Most <strong>Material</strong> property CurrentMaterialTransfer must be empty.</li> <li>For the Top-Most of the Parent <strong>Material</strong>:<ul> <li>The In Transfer Order Item must be empty.</li> <li>The Pick List Item Count must be empty.</li> <li>If the <strong>Material</strong> is associated with a <strong>Resource</strong>, and the state of the <strong>Material</strong> is Consumable, Durable, Dispatched, In Process, or the property In Store is set to <code>true</code>, the <strong>Resource</strong> Inventory Locked must be <code>false</code>.</li> </ul> </li> <li>The Parent <strong>Material</strong> and <strong>Sub-Material</strong> Package Count must be empty.</li> <li>The <strong>Sub-Material</strong> to be detached has a Parent <strong>Material</strong>.</li> <li>The <strong>Flow</strong> of the <strong>Material</strong> being detached is Enabled.</li> <li> <p>If the property Use Container Restrictions in the <strong>Step</strong> of the <strong>Material</strong> is <code>true</code>, the available containers will be the ones that match the restrictions applied by the context of that <strong>Step</strong>. For more information, see <a href="../../step/step_page/#contexts-view">Contexts View</a> or <a href="../../../administration/tables/smart-tables/materialcontainertypecontext/">MaterialContainerTypeContext</a>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The Container Used Positions must be less than the Container Max Usable Positions.</p> </div> </li> </ul> <h2 id="preconditions-for-bulk">Preconditions for Bulk<a class="headerlink" href="#preconditions-for-bulk" title="Direct link to this section">#</a></h2> <ul> <li>In addition to the preconditions mentioned above, all Sub-Materials must:<ul> <li>Be detached from the same Parent <strong>Material</strong>.</li> </ul> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The Detach Material wizard is called from the Details page of the selected <strong>Material</strong>. Depending on the current system status, the <strong>Detach Material</strong> button may be visible on the top ribbon or under the <strong>More</strong> actions button.</p> <h3 id="step-1-sub-materials">Step 1: Sub-Materials<a class="headerlink" href="#step-1-sub-materials" title="Direct link to this section">#</a></h3> <ol> <li>Select the <strong>Material</strong> you need.</li> <li>Select <strong>Detach</strong>.</li> <li>In the Detach Material wizard, select the <strong>Sub-Materials</strong> to detach by selecting the respective checkbox(es).</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/detach_material2.PNG"><img alt="Screenshot showing a wizard with checkboxes for selecting sub-materials to detach." src="../images/detach_material2.PNG"/></a></p> <h3 id="step-2-containers">Step 2: Containers<a class="headerlink" href="#step-2-containers" title="Direct link to this section">#</a></h3> <ol> <li>Optionally, expand the <strong>Options</strong> section.</li> <li>If the main <strong>Material</strong> has future holds associated to it, define if the <strong>Sub-Material</strong> will Copy Future Holds.</li> <li>Define if the <strong>Sub-Material</strong> will Terminate Material on Zero Quantity(ies) and no <strong>Sub-Materials</strong>.</li> <li>Define if the <strong>Sub-Material</strong> will Copy Characteristics.</li> <li>Select the container, if one exists, for the <strong>Sub-Material</strong>.</li> <li>Select <strong>Detach</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/detach_material3.png"><img alt='Screenshot showing a UI with a button labeled "Detach" in the context of detaching a container.' src="../images/detach_material3.png"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>It is possible to define a default value for the Copy Future Holds, Terminate Material on Zero Quantity(ies) and No Sub-Materials, and Copy Characteristics options by adding the entries Context = <code>Material.Detach</code> and Element = <code>CopyFutureHolds</code>, Context = <code>Material.Detach</code> and Element = <code>TerminateOnZeroQuantity</code>, Context = <code>Material.Detach</code> and Element = <code>CopyCharacteristics</code> in the <a href="../../../administration/tables/generic-tables/guielementdefaultvalue/">GUIElementDefaultValue</a> Generic Table.</p> </div> </article>
+</body>
+</html>

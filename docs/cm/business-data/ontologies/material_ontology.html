@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Ontology & Relations - Critical Manufacturing MES</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="vis-network.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #080b11;
+            --bg-secondary: #0e131f;
+            --card-bg: rgba(18, 26, 47, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --color-core: #8b5cf6;
+            --color-subclass: #a78bfa;
+            --color-related: #10b981;
+            --color-operation: #f97316;
+            --accent-blue: #3b82f6;
+            --shadow-neon: 0 0 25px rgba(139, 92, 246, 0.25);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.07) 0px, transparent 50%);
+        }
+        header {
+            padding: 1.25rem 2.5rem;
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(8, 11, 17, 0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        .brand h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand p { font-size: 0.8rem; color: var(--text-secondary); }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            flex-grow: 1;
+            height: calc(100vh - 78px);
+            min-height: 0;
+            position: relative;
+        }
+        #networkContainer {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(8, 11, 17, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .overlay-panel {
+            position: absolute;
+            left: 2rem;
+            bottom: 2rem;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            pointer-events: none;
+        }
+        .legend-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+        }
+        .legend-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+        .legend-items { display: flex; flex-direction: column; gap: 0.5rem; }
+        .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; }
+        .legend-color { width: 12px; height: 12px; border-radius: 4px; }
+        .inspector-panel {
+            border-left: 1px solid var(--card-border);
+            background: rgba(14, 19, 31, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
+            z-index: 5;
+        }
+        .inspector-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 1rem;
+        }
+        .node-type-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            width: fit-content;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+        }
+        .badge-core { background: rgba(139, 92, 246, 0.15); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .badge-related { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-operation { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+        .node-title { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 600; color: white; margin-top: 0.5rem; }
+        .node-description { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+        .info-section { display: flex; flex-direction: column; gap: 0.75rem; }
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.35rem;
+        }
+        .prop-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        .prop-name { font-weight: 600; color: white; }
+        .prop-val { color: var(--text-secondary); }
+        .op-meta-card {
+            background: rgba(249, 115, 22, 0.05);
+            border: 1px solid rgba(249, 115, 22, 0.15);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .op-lock { display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: #fb923c; font-weight: 600; }
+        @media (max-width: 768px) {
+            .main-container { grid-template-columns: 1fr; grid-template-rows: 500px auto; height: auto; overflow-y: auto; }
+            body { overflow: auto; }
+            .inspector-panel { border-left: none; border-top: 1px solid var(--card-border); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <h1>Material Ontology & Relations</h1>
+            <p>Critical Manufacturing MES Domain Schema Model</p>
+        </div>
+        <a class="back-btn" href="index.html">➔ Back to Directory</a>
+    </header>
+    <div class="main-container">
+        <div id="networkContainer">
+            <div class="overlay-panel">
+                <div class="legend-card">
+                    <h3 class="legend-title">Entity / Node Types</h3>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--color-core); box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);"></div>
+                            <span>Core Entity Class</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--color-related); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);"></div>
+                            <span>Related Domain Class</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: var(--color-operation); box-shadow: 0 0 10px rgba(249, 115, 22, 0.4);"></div>
+                            <span>Entity Transaction (Op)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="inspector-panel" id="inspector"></div>
+    </div>
+    <script>
+        const ontologyData = {
+            classes: {"Material": {"type": "core_class", "title": "Material", "description": "\ud83d\udd12 Material.Show", "properties": [{"name": "Name", "value": "String (Unique identifier)"}, {"name": "Description", "value": "String (Optional description)"}], "associations": []}},
+            operations: {"AbortMaterialProcess": {"type": "operation", "title": "Abort Material", "description": "\ud83d\udd12 Material.Abort", "security": ["Material.Abort Overview#"], "preconditions": [], "steps": []}, "AddMaterialToContainer": {"type": "operation", "title": "Add Material to Container", "description": "\ud83d\udd12 Material.AddToContainer", "security": ["Material.AddToContainer Overview#"], "preconditions": [], "steps": []}, "ApproveMaterial": {"type": "operation", "title": "Approve Material", "description": "\ud83d\udd12 Material.Approve", "security": ["Material.Approve Overview#"], "preconditions": [], "steps": []}, "AssembleMaterial": {"type": "operation", "title": "Assemble Material", "description": "\ud83d\udd12 Material.Assemble", "security": ["Material.Assemble Overview#"], "preconditions": [], "steps": []}, "AttachAsConsumable": {"type": "operation", "title": "Attach as Consumable", "description": "\ud83d\udd12 Material.AttachConsumable", "security": ["Material.AttachConsumable Overview#"], "preconditions": [], "steps": []}, "AttachMaterial": {"type": "operation", "title": "Attach Material", "description": "\ud83d\udd12 Material.Attach", "security": ["Material.Attach Overview#"], "preconditions": [], "steps": []}, "ChangeMaterialCharacteristics": {"type": "operation", "title": "Change Material Characteristics", "description": "\ud83d\udd12 Material.ChangeCharacteristics", "security": ["Material.ChangeCharacteristics Overview#"], "preconditions": [], "steps": []}, "ChangeMaterialCost": {"type": "operation", "title": "Change Material Cost", "description": "\ud83d\udd12 Material.ChangeCost", "security": ["Material.ChangeCost Overview#"], "preconditions": [], "steps": []}, "ChangeMaterialFlowStep": {"type": "operation", "title": "Change Material Flow/Step", "description": "\ud83d\udd12 Material.ChangeFlowAndStep", "security": ["Material.ChangeFlowAndStep Overview#"], "preconditions": [], "steps": []}, "ChangeMaterialOffFlowInformation": {"type": "operation", "title": "Change Material Off-Flow Information", "description": "\ud83d\udd12 Material.ChangeOffFlowInformation", "security": ["Material.ChangeOffFlowInformation Overview#"], "preconditions": [], "steps": []}, "ChangeMaterialProduct": {"type": "operation", "title": "Change Material Product", "description": "\ud83d\udd12 Material.ChangeProduct", "security": ["Material.ChangeProduct Overview#"], "preconditions": [], "steps": []}, "ChangeMaterialProductionOrder": {"type": "operation", "title": "Change Material Production Order", "description": "\ud83d\udd12 Material.ChangeProductionOrder", "security": ["Material.ChangeProductionOrder Overview#"], "preconditions": [], "steps": []}, "ChangeMaterialQuantity": {"type": "operation", "title": "Change Material Quantity", "description": "\ud83d\udd12 Material.ChangeQuantity", "security": ["Material.ChangeQuantity Overview#"], "preconditions": [], "steps": []}, "ChangeMaterialType": {"type": "operation", "title": "Change Material Type", "description": "\ud83d\udd12 Material.ChangeType", "security": ["Material.ChangeType Overview#"], "preconditions": [], "steps": []}, "ChangeSubmaterialsProductionOrder": {"type": "operation", "title": "Change Sub-Materials Production Order", "description": "\ud83d\udd12 Material.ChangeProductionOrder", "security": ["Material.ChangeProductionOrder Overview#"], "preconditions": [], "steps": []}, "ClearMaterialSubstrateMap": {"type": "operation", "title": "Clear Material Substrate Map", "description": "\ud83d\udd12 Material.ClearSubstrateMap", "security": ["Material.ClearSubstrateMap Overview#"], "preconditions": [], "steps": []}, "CloneMaterial": {"type": "operation", "title": "Clone Material", "description": "\ud83d\udd12 Material.Clone", "security": ["Material.Clone Overview#"], "preconditions": [], "steps": []}, "CollapseMaterial": {"type": "operation", "title": "Collapse Material", "description": "\ud83d\udd12 Material.Collapse", "security": ["Material.Collapse Overview#"], "preconditions": [], "steps": []}, "CombineMaterial": {"type": "operation", "title": "Combine Material", "description": "\ud83d\udd12 Material.Combine", "security": ["Material.Combine Overview#"], "preconditions": [], "steps": []}, "ComposeMaterial": {"type": "operation", "title": "Compose Material (Quantities)", "description": "\ud83d\udd12 Material.Compose", "security": ["Material.Compose Overview#"], "preconditions": [], "steps": []}, "ComposeMaterialSubmaterials": {"type": "operation", "title": "Compose Material (Sub-Materials)", "description": "\ud83d\udd12 Material.Compose", "security": ["Material.Compose Overview#"], "preconditions": [], "steps": []}, "ComposeNewMaterial": {"type": "operation", "title": "Compose New Material", "description": "\ud83d\udd12 Material.ComposeNew", "security": ["Material.ComposeNew", "Material.Create", "Material.CreateTemplate", "Material.CreateFromTemplate Overview#"], "preconditions": [], "steps": []}, "CreateAdhocJob": {"type": "operation", "title": "Create Ad-Hoc Job", "description": "\ud83d\udd12 Material.CreateJob", "security": ["Material.CreateJob Overview#"], "preconditions": [], "steps": []}, "CreateInspectionOrderSamples": {"type": "operation", "title": "Create Inspection Order Samples", "description": "\ud83d\udd12 Material.CreateInspectionOrderSamples", "security": ["Material.CreateInspectionOrderSamples Overview#"], "preconditions": [], "steps": []}, "CreateMaterial": {"type": "operation", "title": "Create Material", "description": "\ud83d\udd12 Material.Create", "security": ["Material.Create", "Material.CreateTemplate", "Material.CreateFromTemplate Overview#"], "preconditions": [], "steps": []}, "CreateMaterialSubproduct": {"type": "operation", "title": "Create Material Sub-Product", "description": "\ud83d\udd12 Material.CreateSubProduct", "security": ["Material.CreateSubProduct Overview#"], "preconditions": [], "steps": []}, "DetachConsumable": {"type": "operation", "title": "Detach Consumable", "description": "\ud83d\udd12 Material.DetachConsumable", "security": ["Material.DetachConsumable Overview#"], "preconditions": [], "steps": []}, "DetachMaterial": {"type": "operation", "title": "Detach Material", "description": "\ud83d\udd12 Material.Detach", "security": ["Material.Detach Overview#"], "preconditions": [], "steps": []}, "DisassembleMaterial": {"type": "operation", "title": "Disassemble Material", "description": "\ud83d\udd12 Material.Disassemble", "security": ["Material.Disassemble Overview#"], "preconditions": [], "steps": []}, "DispatchAndTrackInMaterial": {"type": "operation", "title": "Dispatch and Track-In Material", "description": "\ud83d\udd12 Material.DispatchAndTrackIn", "security": ["Material.DispatchAndTrackIn Overview#"], "preconditions": [], "steps": []}, "DispatchAndTrackInMaterialAtRisk": {"type": "operation", "title": "Dispatch and Track-In Material At Risk", "description": "\ud83d\udd12 Material.DispatchAndTrackIn", "security": ["Material.DispatchAndTrackIn", "Material.DispatchAtRisk", "Material.TrackInAtRisk Overview#"], "preconditions": [], "steps": []}, "DispatchMaterial": {"type": "operation", "title": "Dispatch Material", "description": "\ud83d\udd12 Material.Dispatch", "security": ["Material.Dispatch Overview#"], "preconditions": [], "steps": []}, "DispatchMaterialAtRisk": {"type": "operation", "title": "Dispatch Material At Risk", "description": "\ud83d\udd12 Material.DispatchAtRisk", "security": ["Material.DispatchAtRisk Overview#"], "preconditions": [], "steps": []}, "EditMaterial": {"type": "operation", "title": "Edit Material", "description": "\ud83d\udd12 Material.Edit", "security": ["Material.Edit Overview#"], "preconditions": [], "steps": []}, "EvaluateMaterialRequiredService": {"type": "operation", "title": "Evaluate Material Required Service", "description": "\ud83d\udd12 Material.EvaluateDispatchableRule", "security": ["Material.EvaluateDispatchableRule Overview#"], "preconditions": [], "steps": []}, "ExpandMaterial": {"type": "operation", "title": "Expand Material", "description": "\ud83d\udd12 Material.Expand", "security": ["Material.Expand Overview#"], "preconditions": [], "steps": []}, "FutureActionsPrecedenceKeys": {"type": "operation", "title": "Future Actions Precedence Keys", "description": "Table: Future Action Precedence Keys", "security": [], "preconditions": [], "steps": []}, "GradeMaterial": {"type": "operation", "title": "Grade Material", "description": "\ud83d\udd12 Material.Grade", "security": ["Material.Grade Overview#"], "preconditions": [], "steps": []}, "HoldMaterial": {"type": "operation", "title": "Hold Material", "description": "\ud83d\udd12 Material.Hold", "security": ["Material.Hold Overview#"], "preconditions": [], "steps": []}, "InsertMaterialIntoLine": {"type": "operation", "title": "Insert Material into Line", "description": "\ud83d\udd12 Material.InsertIntoLine", "security": ["Material.InsertIntoLine Overview#"], "preconditions": [], "steps": []}, "ManageMaterialDependencies": {"type": "operation", "title": "Manage Material Dependencies", "description": "\ud83d\udd12 Material.ManageDependencies", "security": ["Material.ManageDependencies Overview#"], "preconditions": [], "steps": []}, "ManageMaterialFutureActions": {"type": "operation", "title": "Manage Material Future Actions", "description": "\ud83d\udd12 Material.ManageFutureActions", "security": ["Material.ManageFutureActions Overview#"], "preconditions": [], "steps": []}, "ManageMaterialMaps": {"type": "operation", "title": "Manage Material Maps", "description": "\ud83d\udd12 Material.ManageMaps", "security": ["Material.ManageMaps Overview#"], "preconditions": [], "steps": []}, "ManageMaterialTimeConstraints": {"type": "operation", "title": "Manage Material Time Constraints", "description": "\ud83d\udd12 Material.ManageTimeConstraints", "security": ["Material.ManageTimeConstraints Overview#"], "preconditions": [], "steps": []}, "Material-defects": {"type": "operation", "title": "Material Defects", "description": "The Material Defects functionality will allow you to capture defects manually or automatically via inspection equipment.", "security": [], "preconditions": [], "steps": []}, "Material-reports": {"type": "operation", "title": "Material Reports", "description": "Dive into the pages below to explore more about Material Reports:", "security": [], "preconditions": [], "steps": []}, "MaterialCosting": {"type": "operation", "title": "Material Costing", "description": "Critical Manufacturing provides a mechanism to keep track of the current Material cost using the Cost Absorption method. Costs are incurred whenever a Material is processed at a step or incorporates other Materials.", "security": [], "preconditions": [], "steps": []}, "MaterialMoveNext": {"type": "operation", "title": "Material Move-Next", "description": "\ud83d\udd12 Material.MoveNext", "security": ["Material.MoveNext Overview#"], "preconditions": [], "steps": []}, "MaterialQuantityUnitChanges": {"type": "operation", "title": "Material Quantity Unit Changes", "description": "Critical Manufacturing MES always tracks a primary quantity, and optionally a secondary quantity, for every Material. The primary and secondary units are stored at the Material level, but are defined at the Step level. A Step can define whether it defines the units with the property Set Units or not. If a Step does not define the units, when a Material arrives at that Step, it maintains its units. When a Material is moved to a Step that defines units, the quantities are preserved if the units are the same, otherwise the table below applies for converting the quantities to the new units. The conversion factors are defined at the Product level in the Unit Conversion Factors.", "security": [], "preconditions": [], "steps": []}, "MergeMaterial": {"type": "operation", "title": "Merge Material", "description": "\ud83d\udd12 Material.RecordLossBonus", "security": ["Material.RecordLossBonus Overview#"], "preconditions": [], "steps": []}, "PackMaterial": {"type": "operation", "title": "Pack Material", "description": "\ud83d\udd12 Material.Pack", "security": ["Material.Pack Overview#"], "preconditions": [], "steps": []}, "PackMaterialPackages": {"type": "operation", "title": "Pack Material Packages", "description": "\ud83d\udd12 Material.PackPackages", "security": ["Material.PackPackages", "Material.PackPackagesMultiple", "Material.PackPackagesManual Overview#"], "preconditions": [], "steps": []}, "PerformFutureAction": {"type": "operation", "title": "Perform Future Action", "description": "\ud83d\udd12 Material.PerformFutureAction", "security": ["Material.PerformFutureAction Overview#"], "preconditions": [], "steps": []}, "PerformMaterialChecklist": {"type": "operation", "title": "Perform Material Checklist", "description": "\ud83d\udd12 Material.PerformChecklistClassic", "security": ["Material.PerformChecklistClassic Overview#"], "preconditions": [], "steps": []}, "PerformMaterialChecklistNew": {"type": "operation", "title": "Perform Material Checklist - New", "description": "\ud83d\udd12 Material.PerformChecklist", "security": ["Material.PerformChecklist Overview#"], "preconditions": [], "steps": []}, "PrintMaterialDocuments": {"type": "operation", "title": "Print Material Documents", "description": "\ud83d\udd12 PrintableDocument.Print", "security": ["PrintableDocument.Print", "PrintableDocument.PrintLotTraveler Overview#"], "preconditions": [], "steps": []}, "ProcessMaterial": {"type": "operation", "title": "Process Material", "description": "\ud83d\udd12 Material.PerformProcess", "security": ["Material.PerformProcess Overview#"], "preconditions": [], "steps": []}, "ReceiveMaterial": {"type": "operation", "title": "Receive Material", "description": "\ud83d\udd12 Material.Receive", "security": ["Material.Receive Overview#"], "preconditions": [], "steps": []}, "RecordAssembledMaterialLossBonus": {"type": "operation", "title": "Record Assembled Material Loss/Bonus", "description": "\ud83d\udd12 Material.RecordAssembledLossBonus", "security": ["Material.RecordAssembledLossBonus Overview#"], "preconditions": [], "steps": []}, "RecordMaterialLossBonus": {"type": "operation", "title": "Record Material Loss/Bonus", "description": "\ud83d\udd12 Material.RecordLossBonus", "security": ["Material.RecordLossBonus Overview#"], "preconditions": [], "steps": []}, "RecordSubmaterialLosses": {"type": "operation", "title": "Record Sub-Material Losses", "description": "\ud83d\udd12 Material.RecordSubMaterialLosses", "security": ["Material.RecordSubMaterialLosses Overview#"], "preconditions": [], "steps": []}, "ReleaseMaterial": {"type": "operation", "title": "Release Material", "description": "\ud83d\udd12 Material.Release", "security": ["Material.Release Overview#"], "preconditions": [], "steps": []}, "RemoveMaterialFromContainer": {"type": "operation", "title": "Remove Material from Container", "description": "\ud83d\udd12 Material.RemoveFromContainer", "security": ["Material.RemoveFromContainer Overview#"], "preconditions": [], "steps": []}, "RemoveMaterialFromLine": {"type": "operation", "title": "Remove Material from Line", "description": "\ud83d\udd12 Material.RemoveFromLine", "security": ["Material.RemoveFromLine Overview#"], "preconditions": [], "steps": []}, "ReplaceAssembledMaterial": {"type": "operation", "title": "Replace Assembled Material", "description": "\ud83d\udd12 Material.ReplaceAssemble", "security": ["Material.ReplaceAssemble Overview#"], "preconditions": [], "steps": []}, "ReprintMaterialDocuments": {"type": "operation", "title": "Reprint Material Documents", "description": "\ud83d\udd12 PrintableDocument.Reprint", "security": ["PrintableDocument.Reprint Overview#"], "preconditions": [], "steps": []}, "ResetFloorLifeCounter": {"type": "operation", "title": "Reset Floor Life Counter", "description": "\ud83d\udd12 Material.ResetFloorLife", "security": ["Material.ResetFloorLife Overview#"], "preconditions": [], "steps": []}, "ResetMaterialReworkCounters": {"type": "operation", "title": "Reset Material Rework Counters", "description": "\ud83d\udd12 Material.ResetMaterialReworkCounters", "security": ["Material.ResetMaterialReworkCounters Overview#"], "preconditions": [], "steps": []}, "RetrieveMaterial": {"type": "operation", "title": "Retrieve Material", "description": "\ud83d\udd12 Material.Retrieve", "security": ["Material.Retrieve Overview#"], "preconditions": [], "steps": []}, "ReworkMaterial": {"type": "operation", "title": "Rework Material", "description": "\ud83d\udd12 Material.Rework", "security": ["Material.Rework", "Material.ReworkOverride Overview#"], "preconditions": [], "steps": []}, "SealMaterial": {"type": "operation", "title": "Seal Material", "description": "\ud83d\udd12 Material.Seal", "security": ["Material.Seal Overview#"], "preconditions": [], "steps": []}, "SetMaterialSubstrateMap": {"type": "operation", "title": "Set Material Substrate Map", "description": "\ud83d\udd12 Material.SetSubstrateMap", "security": ["Material.SetSubstrateMap Overview#"], "preconditions": [], "steps": []}, "ShipMaterial": {"type": "operation", "title": "Ship Material", "description": "\ud83d\udd12 Material.Ship", "security": ["Material.Ship Overview#"], "preconditions": [], "steps": []}, "SkipMaterialProcess": {"type": "operation", "title": "Skip Material Process", "description": "\ud83d\udd12 Material.SkipProcess", "security": ["Material.SkipProcess Overview#"], "preconditions": [], "steps": []}, "SpecialChangeMaterialProduct": {"type": "operation", "title": "Special Change Material Product", "description": "\ud83d\udd12 Material.SpecialChangeProduct", "security": ["Material.SpecialChangeProduct Overview#"], "preconditions": [], "steps": []}, "SpecialCollapseMaterial": {"type": "operation", "title": "Special Collapse Material", "description": "\ud83d\udd12 Material.SpecialCollapse", "security": ["Material.SpecialCollapse Overview#"], "preconditions": [], "steps": []}, "SpecialInsertMaterialIntoLine": {"type": "operation", "title": "Special Insert Material into Line", "description": "\ud83d\udd12 Material.InsertIntoLine", "security": ["Material.InsertIntoLine Overview#"], "preconditions": [], "steps": []}, "SpecialManageMaterialFutureActions": {"type": "operation", "title": "Special Manage Material Future Actions", "description": "\ud83d\udd12 Material.SpecialManageFutureActions", "security": ["Material.SpecialManageFutureActions Overview#"], "preconditions": [], "steps": []}, "SpecialMaterialMoveNext": {"type": "operation", "title": "Special Material Move-Next", "description": "\ud83d\udd12 Material.SpecialMoveNext", "security": ["Material.SpecialMoveNext Overview#"], "preconditions": [], "steps": []}, "SpecialReleaseMaterial": {"type": "operation", "title": "Special Release Material", "description": "\ud83d\udd12 Material.SpecialRelease", "security": ["Material.SpecialRelease Overview#"], "preconditions": [], "steps": []}, "SpecialRemoveMaterialFromLine": {"type": "operation", "title": "Special Remove Material from Line", "description": "\ud83d\udd12 Material.RemoveFromLine", "security": ["Material.RemoveFromLine Overview#"], "preconditions": [], "steps": []}, "SplitMaterial": {"type": "operation", "title": "Split Material", "description": "\ud83d\udd12 Material.Split", "security": ["Material.Split Overview#"], "preconditions": [], "steps": []}, "SplitMaterialByProduct": {"type": "operation", "title": "Split Material by Product", "description": "\ud83d\udd12 Material.SplitByProduct", "security": ["Material.SplitByProduct Overview#"], "preconditions": [], "steps": []}, "StartFloorLifeCounter": {"type": "operation", "title": "Start Floor Life Counter", "description": "\ud83d\udd12 Material.StartFloorLifeCounter", "security": ["Material.StartFloorLifeCounter Overview#"], "preconditions": [], "steps": []}, "StopFloorLifeCounter": {"type": "operation", "title": "Stop Floor Life Counter", "description": "\ud83d\udd12 Material.StopFloorLifeCounter", "security": ["Material.StopFloorLifeCounter Overview#"], "preconditions": [], "steps": []}, "StoreMaterial": {"type": "operation", "title": "Store Material", "description": "\ud83d\udd12 Material.Store", "security": ["Material.Store Overview#"], "preconditions": [], "steps": []}, "SynchronizeMapQuantity": {"type": "operation", "title": "Synchronize Map Quantity", "description": "\ud83d\udd12 Material.SynchronizeMapQuantity", "security": ["Material.SynchronizeMapQuantity Overview#"], "preconditions": [], "steps": []}, "SynchronizeMaterialSubstrateMap": {"type": "operation", "title": "Synchronize Material with Substrate Map", "description": "\ud83d\udd12 Material.SynchronizeWithSubstrateMap", "security": ["Material.SynchronizeWithSubstrateMap Overview#"], "preconditions": [], "steps": []}, "TemporaryOffFlow": {"type": "operation", "title": "Temporary Off-Flow", "description": "\ud83d\udd12 Material.TemporaryOffFlow", "security": ["Material.TemporaryOffFlow Overview#"], "preconditions": [], "steps": []}, "TerminateMaterial": {"type": "operation", "title": "Terminate Material", "description": "\ud83d\udd12 Material.Terminate", "security": ["Material.Terminate Overview#"], "preconditions": [], "steps": []}, "TrackInMaterial": {"type": "operation", "title": "Track-In Material", "description": "\ud83d\udd12 Material.TrackIn", "security": ["Material.TrackIn Overview#"], "preconditions": [], "steps": []}, "TrackInMaterialAtRisk": {"type": "operation", "title": "Track-In Material At Risk", "description": "\ud83d\udd12 Material.TrackInAtRisk", "security": ["Material.TrackInAtRisk Overview#"], "preconditions": [], "steps": []}, "TrackInMaterialForMaintenance": {"type": "operation", "title": "Track-In Material for Maintenance", "description": "\ud83d\udd12 Material.MaintenanceTrackIn", "security": ["Material.MaintenanceTrackIn Overview#"], "preconditions": [], "steps": []}, "TrackInOverride": {"type": "operation", "title": "Track-In Override", "description": "\ud83d\udd12 Material.TrackInOverride", "security": ["Material.TrackInOverride Overview#"], "preconditions": [], "steps": []}, "TrackInScheduleOverride": {"type": "operation", "title": "Track-In with Schedule Override", "description": "\ud83d\udd12 Material.TrackInOverride", "security": ["Material.TrackInOverride Overview#"], "preconditions": [], "steps": []}, "TrackInSubmaterial": {"type": "operation", "title": "Track-In Sub-Material", "description": "This operation is used to track in a Sub-Material into a Resource, meaning that the Sub-Material begins being processed at the physical Resource. This operation can be performed from both the Material and Resource perspectives.", "security": [], "preconditions": [], "steps": []}, "TrackOutAndMaterialMoveNext": {"type": "operation", "title": "Track-Out and Material Move-Next", "description": "\ud83d\udd12 Material.TrackOutAndMoveNext", "security": ["Material.TrackOutAndMoveNext"], "preconditions": [], "steps": []}, "TrackOutMaterial": {"type": "operation", "title": "Track-Out Material", "description": "\ud83d\udd12 Material.TrackOut", "security": ["Material.TrackOut", "Material.TrackOutQuantityManual", "Material.TrackOutSetMaterialName"], "preconditions": [], "steps": []}, "TrackOutSubmaterial": {"type": "operation", "title": "Track-Out Sub-Material", "description": "This operation is used to track out a Sub-Material. A track-out means that the Material has completed processing at a given Resource.", "security": [], "preconditions": [], "steps": []}, "TransferMaterialBetweenContainers": {"type": "operation", "title": "Transfer Material between Containers", "description": "\ud83d\udd12 Material.TransferBetweenContainers", "security": ["Material.TransferBetweenContainers Overview#"], "preconditions": [], "steps": []}, "TransferSubmaterials": {"type": "operation", "title": "Transfer Sub-Materials", "description": "\ud83d\udd12 Material.TransferSubMaterial", "security": ["Material.TransferSubMaterial Overview#"], "preconditions": [], "steps": []}, "UnapproveMaterial": {"type": "operation", "title": "Unapprove Material", "description": "\ud83d\udd12 Material.Unapprove", "security": ["Material.Unapprove Overview#"], "preconditions": [], "steps": []}, "UndispatchMaterial": {"type": "operation", "title": "Undispatch Material", "description": "\ud83d\udd12 Material.Undispatch", "security": ["Material.Undispatch Overview#"], "preconditions": [], "steps": []}, "UnshipMaterial": {"type": "operation", "title": "Unship Material", "description": "\ud83d\udd12 Material.Unship", "security": ["Material.Unship Overview#"], "preconditions": [], "steps": []}, "UnterminateMaterial": {"type": "operation", "title": "Unterminate Material", "description": "\ud83d\udd12 Material.Unterminate", "security": ["Material.Unterminate Overview#"], "preconditions": [], "steps": []}, "UpdateMaterialAssemblyHistory": {"type": "operation", "title": "Update Assembly History", "description": "\ud83d\udd12 Material.RemoveAssemblyHistoryItem", "security": ["Material.RemoveAssemblyHistoryItem", "Material.AddAssemblyHistoryItem", "Material.ReplaceAssemblyHistoryItem Overview#"], "preconditions": [], "steps": []}, "UpdateMaterialProcessProgress": {"type": "operation", "title": "Update Material Process Progress", "description": "\ud83d\udd12 Material.UpdateProcessProgress", "security": ["Material.UpdateProcessProgress Overview#"], "preconditions": [], "steps": []}, "VerifyMapQuantity": {"type": "operation", "title": "Verify Map Quantity", "description": "\ud83d\udd12 Material.ManageMaps", "security": ["Material.ManageMaps Overview#"], "preconditions": [], "steps": []}, "ViewMaterialAssemblyHistory": {"type": "operation", "title": "View Assembly History", "description": "This operation is used to view the full Material Assembly History for a given Material. It will include a list with all the BOM Instance Items, and a list of all BOM Items and Materials for a given Material.", "security": [], "preconditions": [], "steps": []}, "ViewMaterialDocuments": {"type": "operation", "title": "View Material Documents", "description": "\ud83d\udd12 Material.ViewDocuments", "security": ["Material.ViewDocuments Overview#"], "preconditions": [], "steps": []}, "ViewMaterialNote": {"type": "operation", "title": "View Material Note", "description": "This operation is used to view a Note that is associated with the current Material context.", "security": [], "preconditions": [], "steps": []}, "ViewMaterialReports": {"type": "operation", "title": "View Material Reports", "description": "\ud83d\udd12 Material.CostHistoryReport", "security": ["Material.CostHistoryReport", "Material.FutureFlowReport", "Material.GenealogyReport", "Material.HistoryReport Overview#"], "preconditions": [], "steps": []}, "WeighAndDispenseMaterial": {"type": "operation", "title": "Weigh and Dispense Material", "description": "\ud83d\udd12 Material.WeighAndDispense", "security": ["Material.WeighAndDispense"], "preconditions": [], "steps": []}}
+        };
+        let network = null;
+        function initNetwork() {
+            const container = document.getElementById('networkContainer');
+            const nodes = [];
+            const edges = [];
+            Object.keys(ontologyData.classes).forEach(id => {
+                const cls = ontologyData.classes[id];
+                let color = '#8b5cf6';
+                let shadowColor = 'rgba(139, 92, 246, 0.4)';
+                let size = 25;
+                if (cls.type === 'related') {
+                    color = '#10b981';
+                    shadowColor = 'rgba(16, 185, 129, 0.3)';
+                    size = 18;
+                }
+                nodes.push({
+                    id: id, label: cls.title, shape: 'dot', size: size,
+                    color: { background: color, border: 'rgba(255, 255, 255, 0.8)', highlight: { background: color, border: '#ffffff' } },
+                    shadow: { enabled: true, color: shadowColor, size: 15, x: 0, y: 0 },
+                    font: { color: '#ffffff', face: 'Plus Jakarta Sans', size: 12, strokeWidth: 0 }
+                });
+                if (cls.associations) {
+                    cls.associations.forEach(assoc => {
+                        edges.push({ from: id, to: assoc.target, label: assoc.label, color: { color: '#10b981' } });
+                    });
+                }
+            });
+            Object.keys(ontologyData.operations).forEach(id => {
+                const op = ontologyData.operations[id];
+                nodes.push({
+                    id: id, label: op.title, shape: 'diamond', size: 16,
+                    color: { background: '#f97316', border: 'rgba(255, 255, 255, 0.8)', highlight: { background: '#f97316', border: '#ffffff' } },
+                    shadow: { enabled: true, color: 'rgba(249, 115, 22, 0.4)', size: 12, x: 0, y: 0 },
+                    font: { color: '#ffffff', face: 'Plus Jakarta Sans', size: 11, strokeWidth: 0 }
+                });
+                edges.push({ from: id, to: 'Material', label: 'modifies', color: { color: '#f97316' } });
+            });
+            const data = { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
+            const options = {
+                physics: { barnesHut: { gravitationalConstant: -2000, centralGravity: 0.15, springLength: 120, springConstant: 0.04 }, stabilization: { iterations: 150 } },
+                edges: { arrows: { to: { enabled: true, scaleFactor: 0.8 } }, font: { color: '#9ca3af', size: 9, face: 'Plus Jakarta Sans', strokeWidth: 2, strokeColor: '#080b11' }, color: { color: '#374151', highlight: '#ffffff' } },
+                interaction: { hover: true, dragNodes: true, zoomView: true, dragView: true }
+            };
+            network = new vis.Network(container, data, options);
+            network.on("selectNode", function (params) { inspectNode(params.nodes[0]); });
+            inspectNode('Material');
+        }
+        function inspectNode(id) {
+            const panel = document.getElementById('inspector');
+            panel.innerHTML = '';
+            let node = ontologyData.classes[id];
+            let isOp = false;
+            if (!node) { node = ontologyData.operations[id]; isOp = true; }
+            if (!node) return;
+            const badgeClass = isOp ? 'badge-operation' : (node.type === 'core_class' ? 'badge-core' : 'badge-related');
+            const badgeText = isOp ? 'Transaction (Op)' : (node.type === 'core_class' ? 'Core Domain Class' : 'Domain Class');
+            let headerHTML = `
+                <div class="inspector-header">
+                    <span class="node-type-badge ${badgeClass}">${badgeText}</span>
+                    <h2 class="node-title">${node.title}</h2>
+                </div>
+                <p class="node-description">${node.description}</p>
+            `;
+            let bodyHTML = '';
+            if (isOp) {
+                let lockHTML = '';
+                if (node.security && node.security.length > 0) {
+                    lockHTML = `<div class="info-section"><h3 class="section-title">Security Privilege</h3><div class="op-meta-card">${node.security.map(sec => `<div class="op-lock">🔑 <span>${sec}</span></div>`).join('')}</div></div>`;
+                }
+                let preconditionHTML = '';
+                if (node.preconditions && node.preconditions.length > 0) {
+                    preconditionHTML = `<div class="info-section"><h3 class="section-title">State Preconditions</h3><ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">${node.preconditions.map(pre => `<li style="background: rgba(239, 68, 68, 0.05); border-left: 3px solid #ef4444; padding: 0.5rem 0.75rem; border-radius: 4px;">${pre}</li>`).join('')}</ul></div>`;
+                }
+                let stepsHTML = '';
+                if (node.steps && node.steps.length > 0) {
+                    stepsHTML = `<div class="info-section"><h3 class="section-title">Workflow Steps</h3><ol style="margin-left: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem;">${node.steps.map(step => `<li>${step}</li>`).join('')}</ol></div>`;
+                }
+                bodyHTML = lockHTML + preconditionHTML + stepsHTML;
+            } else {
+                let propertiesHTML = '';
+                if (node.properties && node.properties.length > 0) {
+                    propertiesHTML = `<div class="info-section"><h3 class="section-title">Data Properties</h3><div style="display: flex; flex-direction: column; gap: 0.5rem;">${node.properties.map(prop => `<div class="prop-item"><span class="prop-name">${prop.name}</span><span class="prop-val">${prop.value}</span></div>`).join('')}</div></div>`;
+                }
+                let associationsHTML = '';
+                if (node.associations && node.associations.length > 0) {
+                    associationsHTML = '<div class="info-section"><h3 class="section-title">Object Relationships</h3><div style="display: flex; flex-direction: column; gap: 0.5rem;">';
+                    node.associations.forEach(assoc => {
+                        let sentenceHTML = assoc.sentence ? `<span class="prop-val" style="display: block; margin-top: 0.25rem; font-size: 0.75rem; color: #6b7280; font-style: italic;">"${assoc.sentence}"</span>` : '';
+                        associationsHTML += `
+                            <div class="prop-item" style="border-left: 3px solid var(--accent-blue);">
+                                <span class="prop-name">\${node.title} ➔ <span style="font-style: italic; color: #fb923c;">"\${assoc.label}"</span> ➔ <span style="color: var(--color-related);">\${assoc.target}</span></span>
+                                <span class="prop-val">\${assoc.description}</span>
+                                \${sentenceHTML}
+                            </div>
+                        `;
+                    });
+                    associationsHTML += '</div></div>';
+                }
+                bodyHTML = propertiesHTML + associationsHTML;
+            }
+            panel.innerHTML = headerHTML + bodyHTML;
+        }
+        window.onload = function() {
+            try {
+                if (typeof vis === 'undefined') { throw new Error("Vis.js failed to load locally."); }
+                initNetwork();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('networkContainer').innerHTML = `<div style="padding: 2.5rem; color: #f87171; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; margin: 2rem; font-family: monospace;"><h3>⚠️ Visualization failed to load</h3><p>\${err.message}</p></div>`;
+            }
+        };
+    </script>
+</body>
+</html>

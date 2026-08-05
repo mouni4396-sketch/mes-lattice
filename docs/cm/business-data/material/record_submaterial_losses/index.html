@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Record Sub-Material Losses - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="record-sub-material-losses">Record Sub-Material Losses<a class="headerlink" href="#record-sub-material-losses" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>RecordSubMaterialLosses</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>The user accesses the system in order to record a quantity loss or bonus for all <strong>Sub-Materials</strong> (first level only).</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction. Note that the Loss and Bonus <strong>Reason(s)</strong> must be associated with the current <strong>Material</strong> <em>Step</em>.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li><strong>Material</strong> exists, is Active and is not InTransit.</li> <li><strong>Material</strong> has <strong>Sub-Materials</strong>.</li> <li><strong>Sub-Materials</strong> Package Count must be empty.</li> <li>Used Loss <strong>Reasons</strong> are the ones defined for the current <strong>Material</strong> <em>Step</em>.</li> <li><strong>Sub-Materials</strong> on which a loss is being recorded has a <em>Primary Quantity</em> or <em>Secondary Quantity</em> greater than zero.</li> <li>If <strong>Material</strong> current <strong>Step</strong> <em>IsDecimalQuantityAllowed</em> is set to true then the user can specify decimal quantity losses, otherwise, they must be integer.</li> <li>If the Topmost of the <strong>Material</strong> on which the loss is being recorded has the <strong>CurrentBOMVersion</strong> different from Null, then the final <strong>Material</strong> <em>Primary Quantity</em> must be greater or equal to the <strong>Material</strong> <em>Assembled Quantity</em>.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>Choose the Record SubMaterial loss, under the Record loss/bonus button.</li> <li>Optionally, review the <strong>Material</strong> details, by expanding the Material section.</li> <li>Optionally, expanding the Options section will allow two properties to be changed:</li> <li><em>Terminate Material on zero quantities and no Sub-Materials</em>, which, if checked, will terminate the <strong>Material</strong> under those circumstances.</li> <li><em>Defining final quantity manually</em>, which, if checked, allows the user to define the final quantity, in which case the delta will be automatically calculated and shown.</li> <li>Choose a <strong>Reason</strong> for the Loss.</li> <li>It is possible to check Full Loss option to record a full quantity loss on a particular <strong>Sub-Material</strong>.</li> <li>If the Loss is not full, enter the <em>Quantity</em> lost. The final quantity will be calculated automatically and displayed both in the Final Quantity text box as well as below the <strong>Sub-Material</strong> list.</li> <li>Optionally enter a <em>Comment</em>.</li> <li>Press Record Loss to complete the operation.</li> </ol> <p>ℹ Only losses which have been qualified to apply to Record Loss appear listed.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/recordSubMaterialLoss.gif"><img alt="recordSubmaterialLosses" src="../../../images/recordSubMaterialLoss.gif"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>It is possible to define the default value for checkbox Terminate Material on zero quantity(ies) and no SubMaterials by adding the entry Context = <code>Material.RecordSubMaterialLosses</code>, <code>Element = TerminateOnZeroQuantity</code> as context in the Generic Table <em>GUIElementDefaultValue</em>.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The Parent <strong>Material</strong> will be terminated if the flag <em>Terminate Material on zero quantity(ies) and no Submaterials</em> is checked and all <strong>Sub-Materials</strong> are terminated and there is no <em>Primary Quantity</em> or <em>Secondary Quantity</em> left in the Parent.</p> </div> </article>
+</body>
+</html>

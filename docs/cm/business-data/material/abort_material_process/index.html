@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Abort Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="abort-material">Abort Material<a class="headerlink" href="#abort-material" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>Abort</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This transaction aborts a process on a <strong>Material</strong> that has been tracked in.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>It is only possible to abort the complete job, that is, to abort the process for Top-Most Materials and not for individual Sub-Material jobs.</p> </div> <div class="admonition smart-barcode"> <p class="admonition-title">Supports Smart Barcodes</p> <p>You can use <a href="../../../general/smart_barcode_scanning/">Smart Barcode Scanning</a> to perform this operation.</p> </div> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li><strong>Material</strong> is Active.</li> <li><strong>Material</strong> is a Top-Most <strong>Material</strong> (has no Parent <strong>Material</strong>).</li> <li><strong>Material</strong> is not In Transit and not On Hold.</li> <li><strong>Material</strong> is in the State In Process.</li> <li>If the <strong>Resource</strong> has the properties Enable Check-In and Require Check-In For Material Operations set to <code>true</code>, and the current user Is Integration User is set to <code>false</code>, there must be an <strong>Employee</strong> associated with the user who is currently associated with the <strong>Resource</strong>.</li> <li>If in the <strong>Step</strong> Enable Step Certification Requirements is set to <code>true</code>, the current user <strong>Employee</strong> must have the required Certifications as defined in the <a href="../../../administration/tables/smart-tables/stepcertificationrequirementscontext/">StepCertificationRequirementsContext</a> Smart Table.</li> <li><strong>Material</strong> has not been partially assembled.</li> <li> <p>If the Current <abbr title="Bill-Of-Materials">BOM</abbr> Type is Packing:</p> <ul> <li>If <strong>Material</strong> is Top-Most:<ul> <li>The QuantityToPack is equal to the <strong>Material</strong> Primary and Sub-Material Quantity combined.</li> <li>The PackedQuantity is equal to the <strong>Material</strong> and Sub-Material Assembled Quantity combined.</li> </ul> </li> <li>If <strong>Material</strong> is Sub-Material:<ul> <li>The QuantityToPack is equal to the <strong>Material</strong> Primary Quantity.</li> <li>The PackedQuantity is equal to the <strong>Material</strong> Assembled Quantity.</li> </ul> </li> <li>For the Abort to succeed, the PackedQuantity must be zero.</li> </ul> </li> <li> <p>If <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Explicit Long Running, the <strong><abbr title="Bill-Of-Materials">BOM</abbr> Instance</strong> referenced in the Current <abbr title="Bill-Of-Materials">BOM</abbr> Instance property will be terminated.</p> </li> <li> <p>If the <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Weigh And Dispense (meaning that either the assembly process is not yet started or the <strong>Material</strong> is already fully assembled):</p> <ul> <li>There are no <abbr title="Bill-Of-Materials">BOM</abbr> Instance Item Material records associated with the Material Current <abbr title="Bill-Of-Materials">BOM</abbr> Instance (meaning that the assembly process has not started) or</li> <li>The <abbr title="Bill-Of-Materials">BOM</abbr> Instance Assembled Quantity matches the Quantity To Assemble.</li> </ul> </li> <li> <p>If the <strong>Material</strong> Current <abbr title="Bill-Of-Materials">BOM</abbr> Assembly Type is Explicit Long Running:</p> <ul> <li>The Material Assembled Quantity must be <code>0</code>.</li> <li>All <strong><abbr title="Bill-Of-Materials">BOM</abbr> Instance</strong> Items must have the System State set to Open and the Assembled Quantity must be <code>0</code>.</li> </ul> </li> </ul> <h2 id="preconditions-for-bulk">Preconditions for Bulk<a class="headerlink" href="#preconditions-for-bulk" title="Direct link to this section">#</a></h2> <ul> <li> <p>In addition to the preconditions mentioned above, all <strong>Materials</strong> must:</p> <ul> <li>Be at the same <strong>Resource</strong> and <strong>Lane</strong>.</li> </ul> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <p>This screen captures all the necessary information for the transaction.</p> <ol> <li>Review the Resource Details and the lane information (if configured and Is Multilane Active enabled).</li> <li>Optionally, change the State of the <strong>Resource</strong>.</li> <li>Optionally, add a comment.</li> <li>Select <strong>Abort</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/abort_material.PNG"><img alt="Screenshot showing a UI with an Abort button, as part of completing an operation." src="../images/abort_material.PNG"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <ul> <li>If there is an open Checklist Instance associated with the Material, it will be terminated and will no longer be associated with the Material.</li> <li>If a Production Order Step connected to the Resource exists and is currently In Progress, the In Progress Quantity will be set to the maximum value (chosen between the <code>In Progress Quantity</code>, the <code>Material Primary Quantity</code>, and the <code>Material SubMaterialsPrimaryQuantity</code>). If the In Progress Quantity is set to <code>0</code>, the Production Order Step will be set as Released.</li> <li>If the aborted Material is running a matching <abbr title="Maintenance Activity Order">MAO</abbr> Qualification Check at the Execution Point, the system changes the check back to <code>Started</code> and undoes the pending disabled counters for <code>When In Progress</code> items only when all Materials tracked in all Resource Qualification Items assigned to that <abbr title="Maintenance Activity Order">MAO</abbr> Qualification Check have been aborted. Otherwise, the Qualification Check remains <code>In Progress</code> and the items remain disabled.</li> </ul> </div> </article>
+</body>
+</html>

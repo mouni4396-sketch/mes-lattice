@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transfer Requirement - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../tags/#tag:material-logistics">material logistics</a> </nav> <h1 id="transfer-requirement">Transfer Requirement<a class="headerlink" href="#transfer-requirement" title="Direct link to this section">#</a></h1> <p>🔒 TransferRequirement.<strong>Show</strong></p> <p>A <strong>Transfer Requirement</strong> is a list that specifies quantity demands for <strong>Products</strong> (Material Definitions) that are required by a storage or production system. It groups a list of <strong>products</strong> and quantities that must be transferred from one <em>Storage Area</em> to another <em>Storage Area</em> or a <strong>Resource</strong>.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The transfer requirement list may contain duplicate products.</p> </div> <h2 id="transfer-requirement-lifecycle">Transfer Requirement Lifecycle<a class="headerlink" href="#transfer-requirement-lifecycle" title="Direct link to this section">#</a></h2> <p>A <strong>Transfer Requirement</strong>, during its life cycle, follows the state model as illustrated in the next picture.</p> <pre class="mermaid"><code>graph TD
+    Start ==&gt;|Create| A1[Requested]
+    A1 ==&gt;|Approve| A2[Approved]
+    A2 --&gt;|Unapprove| A1
+    A1 -----&gt;|Cancel| A8[Canceled]
+    A2 ==&gt;|All quantity released| A3[Released]
+    A2 -----&gt;|Cancel| A8[Canceled]
+    A3 ==&gt;|All quantity picked| A4[Picked]
+    A3 -----&gt;|Cancel| A8[Canceled]
+    A4 ==&gt;|All quantity in-transport| A5[In Transport]
+    A5 ==&gt;|All quantity delivered| A6[Delivered]
+    A6 ==&gt;|All items confirmed| A7[Closed]
+
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+classDef mermaid_initial_state fill:#d7e4bd,stroke:#92d050,stroke-width:3px,color:#000;
+classDef mermaid_final_state fill:#a7e2f2,stroke:#65CDE8,stroke-width:3px,color:#000;
+class Start mermaid_start
+class A1,A2,A3,A4,A5,A6,A9,A10,A11,A12 mermaid_initial_state
+class A7,A8 mermaid_final_state</code></pre> <p>The lifecycle is further described in the table below. Note that there will be some release options that will control the options and degree of tracking that is required. For example, a transfer requirement can be marked to support partial releases and can also be considered automatically delivered after picking thus skipping the need for an explicit transfer order.</p> <table> <thead> <tr> <th>State</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><strong>Requested</strong></td> <td>The Transfer Requirement has been requested</td> </tr> <tr> <td><strong>Approved</strong></td> <td>The Transfer Requirement has been approved (transfer requirements cannot be further be modified at this point)</td> </tr> <tr> <td><strong>Released</strong></td> <td>All required quantity has been released</td> </tr> <tr> <td><strong>Picked</strong></td> <td>All required quantity has been picked</td> </tr> <tr> <td><strong>In Transport</strong></td> <td>All required quantity is assigned to a transport order</td> </tr> <tr> <td><strong>Delivered</strong></td> <td>All required quantity has been delivered</td> </tr> <tr> <td><strong>Closed</strong></td> <td>All required quantity has been delivered and necessary individual packaging units created</td> </tr> <tr> <td><strong>Canceled</strong></td> <td>The Transfer Requirement has been canceled</td> </tr> </tbody> </table> <p>Table: Transfer Requirement lifecycle</p> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    A1[Source Location] --- Main --- A2[Destination Location]
+    Main[Transfer Requirement] === L1[Transfer Requirement Item]
+    L1 --- A3[Product]
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/transfer-requirement"
+click A1,A2 "../../business-data/area"
+click A3 "../../business-data/product"</code></pre> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Transfer Requirement:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="transfer_requirement_page/">Transfer Requirement Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_transfer_requirement/">Clone Transfer Requirement</a></li> <li><a href="create_transfer_requirement/">Create Transfer Requirement</a></li> <li><a href="edit_transfer_requirement/">Edit Transfer Requirement</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="approve_transfer_requirement/">Approve Transfer Requirement</a></li> <li><a href="cancel_transfer_requirement/">Cancel Transfer Requirement</a></li> <li><a href="change_transfer_requirement_information/">Change Transfer Requirement Information</a></li> <li><a href="create_transfer_requirement_for_mao/">Create Transfer Requirement for Maintenance Activity Order</a></li> <li><a href="create_transfer_requirement_for_material/">Create Transfer Requirement for Material</a></li> <li><a href="manage_transfer_requirement/">Manage Transfer Requirement</a></li> <li><a href="release_transfer_requirement_items/">Release Transfer Requirement Items</a></li> <li><a href="special_create_transfer_requirement_for_material/">Special Create Transfer Requirement for Material</a></li> <li><a href="split_transfer_requirement/">Split Transfer Requirement</a></li> <li><a href="unapprove_transfer_requirement/">Unapprove Transfer Requirement</a></li> <li><a href="view_transfer_requirement_report/">View Transfer Requirement Report</a></li> </ul> </article>
+</body>
+</html>

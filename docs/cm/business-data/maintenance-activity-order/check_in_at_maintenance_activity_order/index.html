@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Check-In Employee at MAO - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../../tags/#tag:maintenance">maintenance</a> </nav> <h1 id="check-in-employee-at-maintenance-activity-order">Check-In Employee at Maintenance Activity Order<a class="headerlink" href="#check-in-employee-at-maintenance-activity-order" title="Direct link to this section">#</a></h1> <p>🔒 MaintenanceActivityOrder.<strong>CheckIn</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to check-in an <strong>Employee</strong> at a <strong>Maintenance Activity Order</strong> (<strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>).</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The user has an <strong>Employee</strong> which is Active and it matches the <strong>Employee</strong> for which the Check-In applies.</li> <li>If <strong>Employee</strong> to be checked in has the property Required Clock-In set, the <strong>Employee</strong> Clocked State must be Clocked-In.</li> <li>The <strong>Employee</strong> is not already associated with the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> or any other <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> in exclusive mode.</li> <li>The <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> exists, is Active, In Progress, and has the property Enable Check-In set to <code>true</code>.</li> <li>If the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> property Restrict Check-In is set to <code>true</code>, the <strong>Employee</strong> can only be checked in using a <strong>Certification</strong> that meets the following conditions:<ul> <li>The <strong>Employee</strong> holds the <strong>Certification</strong> in either Active or Grace Period state.</li> <li>The <strong>Certification</strong> is listed in the Maintenance Activity Personnel Requirements of the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>.</li> <li>The number of <strong>Employees</strong> currently checked in with that <strong>Certification</strong> is less than the Quantity specified in the Personnel Requirements. After the check-in, it may be equal to the defined Quantity, but never exceed it.</li> </ul> </li> </ul> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>Verify the information regarding the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong>.</li> <li>In case that the <strong><abbr title="Maintenance Activity Order">MAO</abbr></strong> property Restrict Check-In property is set, you must select one of the <strong>Certifications</strong> on which to perform the Check-In.</li> <li>Optionally, enter a Comment.</li> <li>Select <strong>Check-In</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/check_in_employee_mao.png"><img alt='Screenshot showing a maintenance activity order with "AV Check-in" highlighted, referencing step 1 of completing an operation.' src="../images/check_in_employee_mao.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the Employee that is checking in is a Trainee, the system will request the authentication of a valid certified Trainer.</p> </div> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/check_in_employee_mao1.png"><img alt="Screenshot showing the trainer authentication screen for completing a check-in operation." src="../images/check_in_employee_mao1.png"/></a></p> </article>
+</body>
+</html>

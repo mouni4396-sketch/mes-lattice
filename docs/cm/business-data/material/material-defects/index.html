@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material Defects - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="material-defects">Material Defects<a class="headerlink" href="#material-defects" title="Direct link to this section">#</a></h1> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>The <strong>Material Defects</strong> functionality will allow you to capture defects manually or automatically via inspection equipment.</p> <p>With this feature you will also be able to manage the lifecycle of the defect and use the defect information for First Pass Yield calculations.</p> <p>The defect lifecycle depends on the value of the <code>/Cmf/System/Configuration/MaterialTracking/Defects/ConfirmationRequired</code> system configuration entry. When this configuration is set to <code>true</code>, a defect must be marked as <strong>Confirmed</strong> before it can be <strong>Fixed</strong>. All other defect-handling operations remain available from the Open state. The diagrams below illustrate how the lifecycle changes based on this configuration.</p> <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">Repair Confirmation Required = <code>true</code></label><label for="__tabbed_1_2">Repair Confirmation Required = <code>false</code></label></div> <div class="tabbed-content"> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../diagrams/material_defects_lifecycle_with_confirmed_state.drawio.svg"><img alt="Material defects lifecycle if the /Cmf/System/Configuration/MaterialTracking/Defects/ConfirmationRequired system configuration is required" src="../diagrams/material_defects_lifecycle_with_confirmed_state.drawio.svg"/></a></p> </div> <div class="tabbed-block"> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../diagrams/material_defects.drawio_withoutconfirmedstate.drawio.svg"><img alt="Material defects lifecycle if the /Cmf/System/Configuration/MaterialTracking/Defects/ConfirmationRequired system configuration is not required" src="../diagrams/material_defects.drawio_withoutconfirmedstate.drawio.svg"/></a></p> </div> </div> </div> <p>The <strong>Product Repair Policy</strong> can affect the possibility of repairing the <strong>Material</strong> in the following ways:</p> <ul> <li><strong>Allow All (default)</strong> - repair is possible for all Defect Reasons.</li> <li><strong>Allow Specific</strong> - repair is possible only for the associated Product Defects.</li> <li><strong>Forbid All</strong> - no repair is possible for all Defect Reasons.</li> <li><strong>Forbid Specific</strong> - repair is not possible for the associated Product Defects.</li> </ul> <div class="admonition info"> <p class="admonition-title">Info</p> <p>For more information, see the <a href="../../../../tutorials/modules/materials-and-containers/materialdefects/">Material Defects</a> tutorial.</p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Material Defects:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="./">Material Defects</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="material_defects_mark_as_accepted/">Mark Material Defect as Accepted</a></li> <li><a href="material_defects_mark_as_confirmed/">Mark Material Defect as Confirmed</a></li> <li><a href="material_defects_mark_as_false/">Mark Material Defect as False</a></li> <li><a href="material_defects_mark_as_not_fixable/">Mark Material Defect as Not Fixable</a></li> <li><a href="material_defects_repair/">Mark Material Defect as Repair</a></li> <li><a href="modify_material_defects/">Modify Material Defect</a></li> <li><a href="record_material_defects/">Record Material Defect</a></li> </ul> </article>
+</body>
+</html>

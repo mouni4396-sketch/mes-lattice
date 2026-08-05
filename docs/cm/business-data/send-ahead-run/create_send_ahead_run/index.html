@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Send-Ahead Run - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-send-ahead-run">Create Send-Ahead Run<a class="headerlink" href="#create-send-ahead-run" title="Direct link to this section">#</a></h1> <p>🔒 SendAheadRun.<strong>Create</strong></p> <p>🔒 SendAheadRun.<strong>CreateTemplate</strong></p> <p>🔒 SendAheadRun.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a <strong>Send-Ahead Run</strong> and the <strong>Materials</strong> that will be put in waiting while the send-ahead <strong>Material</strong> is being processed. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Send-Ahead Run</strong> does not currently exist in the system.</li> <li>All <strong>Materials</strong> must be in state Queued and be Top-Most.</li> <li>There is a valid Hold <strong>Reason</strong> under the <code>/Cmf/System/Configuration/SendAheadRun/HoldReason</code> configuration entry. For more information, see the <a href="../../../administration/configuration/#editing-configuration-entries">Editing Configuration Entries</a> section.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>You can create a <strong>Send-Ahead Run</strong> from the <strong>Send-Ahead Run</strong> section in the Business Data menu by selecting the <strong>New</strong> button, from the <strong>Material</strong> details page or through any other location where <strong>Material</strong> details can be accessed. After starting the wizard, the system will allow you to configure the new entity through a number of steps.</p> <h3 id="general-data">General Data<a class="headerlink" href="#general-data" title="Direct link to this section">#</a></h3> <ol> <li>Provide a name for the <strong>Send-Ahead Run</strong>.</li> <li>Optionally, provide a description of the <strong>Send-Ahead Run</strong>.</li> <li>Optionally, define the <strong>Data Group</strong> to which this entity will belong.</li> <li>Select <strong>Next</strong> to continue to the next section.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_send_ahead_run_step_one.png"><img alt='Screenshot showing a "Create Send Ahead Run" dialog with fields for input.' src="../images/create_send_ahead_run_step_one.png"/></a></p> <h3 id="waiting-materials">Waiting Materials<a class="headerlink" href="#waiting-materials" title="Direct link to this section">#</a></h3> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If you started this operation from the Send-Ahead Run section, start by selecting one or more Materials to use for the Send-Ahead Run. If started from the Material details page, a single Material should already be automatically selected.</p> </div> <p>For each of the selected <strong>Waiting Materials</strong>, the system will display their General Data and allow you to define some additional configurations, as described below.</p> <ol> <li> <p>Define the Split Type for the send-ahead scenario:</p> <ul> <li>None</li> <li>Logical</li> <li>Physical</li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This option is only available for Materials with Sub-Materials.</p> </div> </li> <li> <p>If the Split is defined as Logical or Physical, define the Split Scope. There are two options:</p> <ul> <li>Temporary</li> <li>Permanent</li> </ul> </li> <li>If the Split is defined as Logical or Physical, optionally define the default <strong>Container</strong> for the <strong>Sub-Materials</strong>.</li> <li>Select <strong>Next</strong> to continue to the next section.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_send_ahead_run_step_two.png"><img alt='Screenshot showing a list of waiting materials with details for "Wang Morena" and a filename hint "create send ahead run step two".' src="../images/create_send_ahead_run_step_two.png"/></a></p> <h3 id="experiment">Experiment<a class="headerlink" href="#experiment" title="Direct link to this section">#</a></h3> <div class="admonition info"> <p class="admonition-title">Info</p> <p>This section will only be displayed if the preconditions below are met:</p> <ul> <li>There is only one Waiting Material selected.</li> <li>The Waiting Material has an Experiment and an Experiment Material Group Name associated.</li> <li>You can only associate multiple Send-Ahead Runs with the same Experiment if their Sub-Material numbers match exactly.</li> </ul> </div> <p>In the <strong>Experiment</strong> tab, specify whether to: </p> <ul> <li> <p>Relax Material Group Integrity Checks – This option is disabled by default, meaning the system will verify the presence of all <strong>Sub-Materials</strong>. However, if enabled, when processing Experiment Actions for the <strong>Waiting Material</strong>, the system will ignore the <strong>Sub-Materials</strong> assigned to the <strong>Send-Ahead Materials</strong> associated with the <strong>Experiment</strong>, thereby relaxing the Material Group Integrity Checks. </p> </li> <li> <p>Apply Experiment Material Group Actions – This option is disabled by default, meaning the system will skip processing Experiment Actions entirely. If enabled, the system will execute the default logic for processing Experiment Actions. </p> </li> </ul> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_send_ahead_run_step_experiment.png"><img alt='Screenshot showing a UI with options to "Create", "Send Ahead", and "Run" in an Experiment.' src="../images/create_send_ahead_run_step_experiment.png"/></a></p> <h3 id="sub-materials-to-send-ahead">Sub-Materials to Send-Ahead<a class="headerlink" href="#sub-materials-to-send-ahead" title="Direct link to this section">#</a></h3> <div class="admonition info"> <p class="admonition-title">Info</p> <p>If you started this operation from the Send-Ahead Run section, you can select Sub-Materials for each of the Materials you selected in the previous page so that they can be used for the Send-Ahead Run. If started from the Material details page, a single top-most Material should already be automatically selected.</p> <p>This section will only be displayed if the Material selected has Sub-Materials.</p> </div> <p>In this step, select which are the <strong>Sub-Materials</strong> to be included in the <strong>Send-Ahead Run</strong>. At least one <strong>Sub-Material</strong> must be selected.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_send_ahead_run_step_three.png"><img alt='Screenshot showing a UI with options to select sub-materials for a Send-Ahead Run, including "Select Sub Materials" and a list of available materials.' src="../images/create_send_ahead_run_step_three.png"/></a></p> <p>After you select the <strong>Sub-Materials</strong>, select <strong>Next</strong> to continue to the next section.</p> <h3 id="send-ahead-materials">Send-Ahead Materials<a class="headerlink" href="#send-ahead-materials" title="Direct link to this section">#</a></h3> <p>In this step, you can add the Materials that will be used in the Send-Ahead Run. You can add or remove as many Materials as desired by selecting the <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg></span> and <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3zm0 5h2v9H9zm4 0h2v9h-2z"></path></svg></span>, respectively.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_send_ahead_run_step_four.png"><img alt="Screenshot showing a UI for adding materials to a Send-Ahead Run." src="../images/create_send_ahead_run_step_four.png"/></a></p> <h3 id="details">Details<a class="headerlink" href="#details" title="Direct link to this section">#</a></h3> <p>General data will be displayed on the <strong>Flow</strong> and <strong>Step</strong> of the <strong>Materials</strong> for which the <strong>Send-Ahead Run</strong> will be created. You can also define some additional configurations:</p> <ol> <li>Define the Selection Mode to configure the <strong>Steps</strong> and <strong>Flows</strong> where the <strong>Send-Ahead Run</strong> will take place:<ul> <li>Step</li> <li>Logical Flow Path</li> <li>Physical Flow Path</li> </ul> </li> <li>If the Selection Mode was defined as Step, define the <strong>Steps</strong> for the Wait, Evaluate and Merge stages.</li> <li>If the Selection Mode was defined as Logical Flow Path, you can also specify the Logical Flow Path for any of the <strong>Steps</strong> defined above.</li> <li>If the Selection Mode was defined as Physical Flow Path, you must define <strong>Flows</strong> and <strong>Steps</strong> for Wait, Evaluate and Merge stages.</li> <li>Define the Results Capture Mode:<ul> <li>Manual</li> <li>Manual At TrackOut</li> <li><abbr title="Statistical Process Control">SPC</abbr> With No Violation</li> <li>Data Collection Within Limits (this is referring to the Error Limits of the <strong>Data Collection</strong>)</li> </ul> </li> <li>Define whether to Auto Release on Pass, allowing the system to automatically release <strong>Waiting Materials</strong> from Hold when the <strong>Send-Ahead Run</strong> result is Pass (default value: <code>true</code>).</li> <li>Select <strong>Create</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_send_ahead_run_step_five.png"><img alt='Screenshot showing a UI with options for "Create Send-Ahead Run" and "Star Flow and Sep".' src="../images/create_send_ahead_run_step_five.png"/></a></p> </article>
+</body>
+</html>

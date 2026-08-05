@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checklist - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="checklist">Checklist<a class="headerlink" href="#checklist" title="Direct link to this section">#</a></h1> <p>🔒 Checklist.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>A <strong>Checklist</strong> consists of a procedure, in the form of a sequence of <strong>Checklist Items</strong>, that need to be carried out at a specific situation. A good example is a maintenance checklist.</p> <p>The <strong>Checklist Items</strong> can be of four types:</p> <ul> <li><strong>Manual Task</strong> - a manual procedure where additional data can be collected.</li> <li><strong>Manual Action</strong> - a <abbr title="Dynamic Evaluation Engine - a runtime execution engine based on C# business rules">DEE</abbr> action rule which is manually triggered.</li> <li><strong>Automatic Action</strong> - a <abbr title="Dynamic Evaluation Engine - a runtime execution engine based on C# business rules">DEE</abbr> action rule which is automatically triggered.</li> <li><strong>Signature</strong> - as item which needs to be signed with the user name and password.</li> </ul> <p>In addition, each <strong>Checklist Item</strong> can be:</p> <ul> <li><strong>Sequential</strong> - needs to be performed in a sequence.</li> <li><strong>Floating</strong> - can be performed at any time (not possible for Automatic Actions).</li> </ul> <p>A <strong>Checklist Item</strong> can further be:</p> <ul> <li><strong>Optional</strong> - it is not necessary to be carried out (not possible for Automatic Actions), that is, it can be skipped.</li> <li><strong>Mandatory</strong> - it needs to be performed.</li> </ul> <p>A <strong>Checklist</strong> in itself represents only a template or definition, from which instances can be created. A <strong>Checklist Instance</strong> is an active object that is created based on the <strong>Checklist</strong>, and it has a lifetime which is independent from the <strong>Checklist</strong> definition.</p> <p>A <strong>Checklist</strong> can be executed in two modes:</p> <ul> <li><strong>Immediate</strong> - the checklist is completely executed at one time in one shot.</li> <li><strong>Long Running</strong> - the checklist is executed over a long period of time with intermediate data persistency.</li> </ul> <p>It is possible to associate <strong>Checklists</strong> with Material Tracking using the <a href="../../administration/tables/smart-tables/materialchecklistcontext/">MaterialChecklistContext</a> Smart Table.</p> <h2 id="global-and-versioned-data">Global and Versioned Data<a class="headerlink" href="#global-and-versioned-data" title="Direct link to this section">#</a></h2> <p>A <strong>Checklist</strong>, being a change controlled object, contains global data and versioned data components, as show in the next picture.</p> <pre class="mermaid"><code>graph TD
+subgraph Checklist
+Main1["Global Data&lt;br&gt;(Without Change Control)"] --- A1[Scope]
+Main2["Versioned Data&lt;br&gt;(With Change Control)"] --- A2[All other]
+end
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Main1,Main2 mermaid_entity
+class A1,A2 mermaid_entitylinked</code></pre> <p>The scope of the checklist is used to filter the application of the <strong>Checklist</strong>, and can be:</p> <ul> <li><strong>General</strong> - general purpose checklist.</li> <li><strong>Maintenance Management</strong> - applicable to Maintenance Management.</li> <li><strong>Exception Management</strong> - applicable to Exception Management.</li> <li><strong>Material Tracking</strong> - applicable to Material Tracking.</li> <li><strong>Resource Tracking</strong> - applicable to Resource Tracking.</li> </ul> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    A1[Maintenance Activity] --- Main[Checklist]
+    A2[Maintenance Activity Order] --- L1
+    Main === L1[Checklist Instance]
+    N1[Protocol Instance Path] --- L1
+    A3[Material] --- L1
+    L1 === L2[Checklist Instance Item]
+    L2 === L3[Checklist Instance Item Parameter]
+    Main === L4[Checklist Item]
+    L4 -.- A4[Roles]
+    L4 === L5[Checklist Item Parameter]
+    C1[Material Checklist Context] -.- Main
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6,L7,L8,L9 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/checklist"
+click A1 "../../business-data/maintenance-plan"
+click A2 "../../business-data/maintenance-activity-order"
+click A3 "../../business-data/material"
+click A4 "../../administration/security/roles"
+click C1 "../../administration/tables/smart-tables/materialchecklistcontext"</code></pre> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly using a <strong>Checklist</strong> are the following:</p> <ol> <li>Create <strong>Checklist</strong> - note that it is necessary to associate the <strong>Checklist Version</strong> to a <strong>Change Set</strong>.</li> <li>Approve the Change Set, which contains the <strong>Checklist Version</strong> that has been created. </li> </ol> <div class="admonition note"> <p class="admonition-title">Note</p> <p>For convenience, the Checklist can be configured to use implicit Change Sets. For more information, see <a href="../change-set/change_set_page/">Change Set Page</a> section for more information.</p> <p>You may also find the <a href="../../../tutorials/modules/new-product-introduction/npi/">New Product Introduction (NPI)</a> tutorial helpful for a practical walkthrough.</p> </div> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Checklist:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="checklist_page/">Checklist Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_checklist/">Clone Checklist</a></li> <li><a href="create_checklist/">Create Checklist</a></li> <li><a href="edit_checklist/">Edit Checklist</a></li> <li><a href="terminate_checklist/">Terminate Checklist</a></li> <li><a href="unterminate_checklist/">Unterminate Checklist</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="preview_checklist/">Preview Checklist</a></li> <li><a href="checklist-instance/">Checklist Instance</a><ul> <li><a href="checklist-instance/checklist_instance_page/">Checklist Instance Page</a></li> <li><a href="checklist-instance/open_checklist_instance/">Open Checklist Instance</a></li> <li><a href="checklist-instance/open_checklist_instance_for_material/">Open Checklist Instance for Material</a></li> <li><a href="checklist-instance/open_material_deviation/">Open Material Deviation</a></li> <li><a href="checklist-instance/pause_checklist_instance/">Pause Checklist Instance</a></li> <li><a href="checklist-instance/perform_checklist/">Perform Checklist Instance</a></li> <li><a href="checklist-instance/perform_checklist_for_material/">Perform Immediate Checklist for Material</a></li> <li><a href="checklist-instance/resume_checklist_instance/">Resume Checklist Instance</a></li> <li><a href="checklist-instance/terminate_checklist_instance/">Terminate Checklist Instance</a></li> </ul> </li> </ul> </article>
+</body>
+</html>

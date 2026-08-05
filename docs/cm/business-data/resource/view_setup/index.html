@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>View Setup - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="view-setup">View Setup<a class="headerlink" href="#view-setup" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>ViewSetup</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to View the setup for the processing of one <strong>Material</strong> at one <strong>Resource</strong>. This is only a visualization facility.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This use-case can only be triggered from the Resource View as it requires both the context of a Material and a Resource.</p> </div> <p>For more information see, <a href="../view_line_setup/">View Line Setup</a>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The applicable <strong>Resource</strong> exists, it is Active and the Processing Type is Process or Line.</li> <li>The selected <strong>Material</strong> must exist and be Active, Queued or Dispatched, at the applicable <strong>Resource</strong>, and must be Top-Most.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-resource">Step 1: Resource<a class="headerlink" href="#step-1-resource" title="Direct link to this section">#</a></h3> <ol> <li>Select a <strong>Resource</strong> and then select <strong>View Setup</strong>.</li> <li> <p>The <strong>Resource</strong> details will be displayed. Review the information and then <strong>Close</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/view_resource_setup.PNG"><img alt="view_resource_setup" src="../images/view_resource_setup.PNG"/></a></p> </li> </ol> <h3 id="step-2-documents">Step 2: Documents<a class="headerlink" href="#step-2-documents" title="Direct link to this section">#</a></h3> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This Step is only available if there are Documents associated with the Resource.</p> </div> <ol> <li> <p>To open a document, you need to select it.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/view_setup_documents.PNG"><img alt="view_setup_documents" src="../images/view_setup_documents.PNG"/></a></p> </li> </ol> <h3 id="step-3-durables">Step 3: Durables<a class="headerlink" href="#step-3-durables" title="Direct link to this section">#</a></h3> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This Step is only available if there are Durables required for the Material at the Step.</p> </div> <ol> <li> <p>In this step, you can view the details of the current <strong>Durables</strong>.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/view_setup_durables.PNG"><img alt="view_setup_durables" src="../images/view_setup_durables.PNG"/></a></p> </li> </ol> <h3 id="step-4-bom">Step 4: <abbr title="Bill-Of-Materials">BOM</abbr><a class="headerlink" href="#step-4-bom" title="Direct link to this section">#</a></h3> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This Step is only available if there is a <abbr title="Bill-Of-Materials">BOM</abbr> required for the Material at the Step and only if the Material is Top-Most.</p> </div> <ol> <li> <p>This step provides information about the current <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong>, if any.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/view_setup_bom.PNG"><img alt="view_setup_bom" src="../images/view_setup_bom.PNG"/></a></p> </li> </ol> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If there is a <abbr title="Bill-Of-Materials">BOM</abbr> of scope Materials associated to a Material that has characteristics, the <abbr title="Bill-Of-Materials">BOM</abbr> will be displayed with the characteristics of the Material.</p> </div> <div class="admonition info"> <p class="admonition-title">Info</p> <p>BOMs are configured in the Step <abbr title="Bill-Of-Materials">BOM</abbr> Context.</p> </div> <h3 id="step-5-recipe">Step 5: Recipe<a class="headerlink" href="#step-5-recipe" title="Direct link to this section">#</a></h3> <div class="admonition note"> <p class="admonition-title">Note</p> <p>This Step is only available if the Resource on which the Material is being tracked-in is configured to enable Recipe Management.</p> </div> <ol> <li> <p>This step is used to visualize the <strong>Recipe</strong> along with its parameter information.</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/view_setup_recipe.PNG"><img alt="view_setup_recipe" src="../images/view_setup_recipe.PNG"/></a></p> </li> </ol> <h3 id="step-6-instruments">Step 6: Instruments<a class="headerlink" href="#step-6-instruments" title="Direct link to this section">#</a></h3> <p>The system displays all the <strong>Parameters</strong> to be measured, showing which ones have at least one available instrument and which ones do not. A list of all attached instruments to the <strong>Resource</strong> is also displayed.</p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>Recipes are configured in the Service Recipe Context.</p> </div> </article>
+</body>
+</html>

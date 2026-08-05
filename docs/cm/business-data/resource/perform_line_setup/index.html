@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perform Line Setup - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="perform-line-setup">Perform Line Setup<a class="headerlink" href="#perform-line-setup" title="Direct link to this section">#</a></h1> <p>🔒 Resource.<strong>PerformLineSetup</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to mark the <strong>Sub-Resource(s)</strong> of a Line <strong>Resource</strong>, indicating that the user is performing setup for a <strong>Material</strong> on a given <strong>Resource</strong>.</p> <p>For more information, see <a href="../perform_setup/">Perform Setup</a> and <a href="../perform_pre_setup/">Perform Pre Setup</a>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special set up is required other than to meet the preconditions of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The <strong>Resource</strong> exists, it is Active and the Processing Type is Line.</li> <li>The selected <strong>Material</strong> must exist, must be Top-Most, must be Active, and the System State must be Queued or Dispatched.</li> <li>The <strong>Resource</strong> and <strong>Sub-Resource(s)</strong> Setup Mode is different from Not Required.</li> <li>The <strong>Resource</strong> must have at least one <strong>Sub-Resource</strong> of which the Processing Type must be Process.</li> </ul> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-general-data">Step 1: General Data<a class="headerlink" href="#step-1-general-data" title="Direct link to this section">#</a></h3> <h4 id="sub-resource-auto-begin-and-complete">Sub-Resource: Auto Begin and Complete<a class="headerlink" href="#sub-resource-auto-begin-and-complete" title="Direct link to this section">#</a></h4> <ol> <li>Select a <strong>Resource</strong> matching the preconditions with the Setup Begin and Complete Mode for the available <strong>Sub-Resource</strong> set to Auto Begin and Complete.</li> <li>Go to the <strong>Resource View</strong> and select a <strong>Material</strong>.</li> <li> <p>In the <strong>Perform</strong> button on the top ribbon, select the <strong>Perform Line Setup</strong> option to open the wizard:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_line_setup_01.png"><img alt="Screenshot showing the Perform Line Setup option in the top ribbon." src="../images/perform_line_setup_01.png"/></a></p> </li> <li> <p>The Perform Line Setup (Sub-Resources) wizard will display the <strong>Sub-Resource(s)</strong> that are available to perform the line setup for the given <strong>Material</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_line_setup_02.png"><img alt="Screenshot showing a list of available sub-resources for performing line setup." src="../images/perform_line_setup_02.png"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The available Sub-Resource(s) will be the one(s) with the Setup Begin and Complete Mode set to Auto Begin and Complete.</p> </div> </li> <li> <p>Select one or more <strong>Sub-Resource(s)</strong> to perform the setup.</p> </li> <li>Optionally, enter a comment.</li> <li>Select <strong>Perform</strong> to complete the operation.</li> </ol> <h4 id="sub-resource-manual-begin-and-complete">Sub-Resource: Manual Begin and Complete<a class="headerlink" href="#sub-resource-manual-begin-and-complete" title="Direct link to this section">#</a></h4> <div class="admonition note"> <p class="admonition-title">Note</p> <p>If the Setup Begin and Complete Mode for the Sub-Resource(s) is set to Manual Begin and Complete, you will need to <a href="../begin_line_setup/">Begin Line Setup</a> in the main Resource.</p> </div> <ol> <li>Select a <strong>Resource</strong> matching the preconditions with the Setup Begin and Complete Mode for the available <strong>Sub-Resource</strong> set to Manual Begin and Complete.</li> <li> <p>In the <strong>Begin</strong> button on the top ribbon, select the <strong>Begin Line Setup</strong> option to open the wizard:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_line_setup_03.png"><img alt='Screenshot showing a UI image of the Begin button on the top ribbon, with options including "Begin Line Setup".' src="../images/perform_line_setup_03.png"/></a></p> </li> <li> <p>In the Begin Line Setup (Sub-Resources) wizard, select the <strong>Sub-Resource</strong> that has the Setup Begin and Complete Mode set to Manual Begin and Complete, and select <strong>Begin</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_line_setup_04.png"><img alt="Screenshot showing a manual begin and complete mode selection in the sub-resource settings." src="../images/perform_line_setup_04.png"/></a></p> </li> <li> <p>Back in the <strong>Resource View</strong>, select a <strong>Material</strong>, and select <strong>Perform Line Setup</strong> in the main Line <strong>Resource</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_line_setup_05.png"><img alt='Screenshot showing the "Perform Line Setup" options in the main Line Resource menu.' src="../images/perform_line_setup_05.png"/></a></p> </li> <li> <p>The Perform Line Setup (Sub-Resources) wizard now displays both <strong>Sub-Resources</strong>:</p> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/perform_line_setup_06.png"><img alt="Screenshot showing a step in the Perform Line Setup wizard, displaying two sub-resources." src="../images/perform_line_setup_06.png"/></a></p> </li> <li> <p>Select one or more <strong>Sub-Resource(s)</strong> to perform the setup.</p> </li> <li>Optionally, enter a comment.</li> <li>Select <strong>Perform</strong> to complete the operation.</li> </ol> </article>
+</body>
+</html>

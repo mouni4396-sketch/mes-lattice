@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create KPI - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="create-kpi">Create KPI<a class="headerlink" href="#create-kpi" title="Direct link to this section">#</a></h1> <p>🔒 KPI.<strong>Create</strong></p> <p>🔒 KPI.<strong>CreateTemplate</strong></p> <p>🔒 KPI.<strong>CreateFromTemplate</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>This operation is used to create a <strong>KPI</strong>, i.e. to define a generic mechanism to store KPI data to be later displayed in reports and Widgets. A template can also be created using a similar procedure and there is also the possibility of using a template to create the new object as well. This selection can be done in the main entity menu.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No specific setup is required other than to meet the precondition of the transaction.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li>The combination of <em>KPI name</em> and <em>EntityType</em> must be unique.</li> <li>If the <em>SourceType</em> is <em>Dynamic</em>:<ul> <li>The <em>EntityType</em> must be defined.</li> <li>At least one <em>KPI Dimension</em> must be defined.</li> </ul> </li> <li>All defaults must respect the Parameter definition datatype and boundaries - note that values can only be specified for numeric parameters.</li> <li>The following properties can only be defined in the following <em>KPITypes</em> and only if the parameter is numeric - must be null in other cases:<ul> <li><em>DefaultCloseToTargetMinimumValue</em> - for KPIs of type Maximum and Deviation only.</li> <li><em>DefaultCloseToTargetMaximumValue</em> - for KPIs of type Minimum and Deviation only.</li> <li><em>DefaultInTargetMinimumValue</em> - for KPIs of type Maximum and Deviation only.</li> <li><em>DefaultInTargetMaximumValue</em> - for KPIs of type Minimum and Deviation only.</li> </ul> </li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1-details">Step 1: Details<a class="headerlink" href="#step-1-details" title="Direct link to this section">#</a></h3> <ol> <li>Provide a name for the <strong>KPI</strong>.</li> <li>Optionally, provide a description for the <strong>KPI</strong>.</li> <li>Select the <em>Type</em> of <strong>KPI</strong>. The list of possible values is taken from the lookup table <em>KPIType</em>.</li> <li>Define the <strong>KPI's</strong> Source type - Static or Dynamic. If the <em>Source Type</em> is Static, the <em>Parameter</em> must be numeric and if the <em>Source Type</em> is <em>Dynamic</em>, it can be of any type.</li> <li>Select the Entity Type.</li> <li>Select the <em>Parameter</em> of <strong>KPI</strong> scope.</li> <li>Select a <strong>KPI</strong> Type from the following options:<ul> <li>Maximum</li> <li>Minimum</li> <li>Deviation</li> </ul> </li> <li>Select the <em>Frequency</em>:<ul> <li>Daily</li> <li>Weekly</li> <li>Monthly</li> <li>Yearly</li> </ul> </li> <li>Optionally, define an owner role.</li> <li>Select <strong>Create</strong> to complete the operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/create_kpi.PNG"><img alt="create_kpi" src="../images/create_kpi.PNG"/></a></p> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The KPI time frames are subject to being modified by accessing the <em>Dimensions and Time Frames</em> tab and selecting <em>Manage</em>. </p> </div> </article>
+</body>
+</html>

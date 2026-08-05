@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Record Material Loss/Bonus - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="record-material-lossbonus">Record Material Loss/Bonus<a class="headerlink" href="#record-material-lossbonus" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>RecordLossBonus</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p>The user accesses the system in order to record a quantity loss or bonus for the <strong>Material</strong>.</p> <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Direct link to this section">#</a></h2> <p>No special setup is required other than to meet the preconditions of the transaction. Note that the Loss and Bonus <strong>Reason(s)</strong> for Record Loss/Bonus must be associated with the current <strong>Material</strong> <strong>Step</strong>.</p> <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Direct link to this section">#</a></h2> <ul> <li><strong>Material</strong> exists, is Active and is In Transit.</li> <li>Used Loss/Bonus <strong>Reasons</strong> are the ones which are defined for the current <strong>Material</strong> <strong>Step</strong> and which are applicable to Record Loss.</li> <li>If <strong>Material</strong> current Step has the Is Decimal Quantity Allowed set to <code>true</code>, you can specify decimal quantity losses, otherwise they must be integer.</li> <li>The <strong>Material</strong> Target Quantity must be empty.</li> <li>If the <strong>Material</strong> Package Count is greater than zero:<ul> <li>If the <strong>Material</strong> is a Sub-Material, the Record Loss operation is not allowed.</li> <li>If the <strong>Material</strong> is TopMost:<ul> <li>The <strong>Material</strong> Primary Units must match the Package Material Packed Quantity Units of any Active Package of that <strong>Material</strong>.</li> <li>The final <strong>Material</strong> Primary Quantity must be greater io equal to the Total Packed Quantity of all the Active Packages that reference that <strong>Material</strong>, with the exclusion of the Packages of Content Type Material Ids.</li> </ul> </li> </ul> </li> <li>If the <strong>Material</strong> Package Count is greater than zero, the <strong>Material</strong> Primary Units must match the Packed Quantity Units of any Active Package of that <strong>Material</strong>.</li> <li>If the property Packing Step of the <strong>Step</strong> associated to the <strong>Material</strong> is set to <code>true</code>, and the <strong>Material</strong> is In-Process or Processed, the Record Bonus operation is not possible.</li> <li>When reporting a loss, the <strong>Material</strong> has a Primary Quantity or a Secondary Quantity greater than zero.</li> <li>For each selected Loss/Bonus reason, either Primary Quantity Loss (Bonus) or Secondary Quantity Loss (Bonus) are greater than zero.</li> <li>If recording a loss for a <strong>Material</strong>, if TopMost of <strong>Material</strong> on which the loss is being recorded has the current <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> Version different from <code>null</code>, the final <strong>Material</strong> Primary Quantity must be greater or equal to the <strong>Material</strong> Assembled Quantity.</li> <li>If recording a bonus for a <strong>Material</strong>, the TopMost of <strong>Material</strong> current <strong><abbr title="Bill-Of-Materials">BOM</abbr></strong> Assembly Type must not be Automatic At Track In or Explicit Add.</li> <li>If recording a bonus for a <strong>Material</strong>, since it is assumed that the bonus quantity will reside at the same Container/Position as the <strong>Material</strong>, if the <strong>Material</strong> is associated with a <strong>Container</strong> with the Capacity Validation Mode defined as Units, that the <strong>Container</strong> Capacity Per Position can hold the <strong>Material</strong> plus the additional bonus quantity (Primary or Secondary, as defined in the <strong>Container</strong> Capacity Units).</li> <li>The TopMost <strong>Material</strong> property Current Material Transfer must be <code>null</code>.</li> <li>If the <strong>Main Material Product</strong> has its Product Type set to Part and the Part Type set to Repairable, the <strong>Material</strong> cannot be referenced in any active Resource Part.</li> </ul> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Direct link to this section">#</a></h3> <ol> <li>Choose the Record loss/bonus option, under the Record loss/bonus button.</li> <li>Optionally, review the <strong>Material</strong> details, by expanding the Material section.</li> <li>Optionally, expanding the Options section will allow two properties to be changed:</li> <li>Terminate Material on zero quantities and no Sub-Materials, which, if checked, will terminate the <strong>Material</strong> under those circumstances.</li> <li>Defining final quantity manually, which, if checked, allows you to define the final quantity, in which case the delta will be automatically calculated and shown.</li> <li>Using the Losses and Bonuses tabs, define, for each Loss and Bonus <strong>Reason</strong> respectively, enter the amount of primary and secondary (if defined) quantities for that loss/bonus Code. You will be able to see a visual example of the loss and bonus if it is defined as a <strong>Multimedia</strong> object associated to the <strong>Reason</strong>.</li> <li>Optionally, enter a Comment.</li> <li>Select <strong>Finish</strong> to complete the Operation.</li> </ol> <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../images/record_loss.gif"><img alt="Record Loss/Bonus" src="../images/record_loss.gif"/></a></p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>It is possible to define the default value for checkbox Terminate Material on zero quantity(ies) and no SubMaterial by adding the entry <code>Context = Material.RecordLossBonus</code>, Element = TerminateOnZeroQuantity as context in the General Table.</p> </div> </article>
+</body>
+</html>

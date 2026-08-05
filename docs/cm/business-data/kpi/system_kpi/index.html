@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>System KPIs - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="system-kpis">System KPIs<a class="headerlink" href="#system-kpis" title="Direct link to this section">#</a></h1> <p>Below you can see a list of all Dynamic KPIs available out of the box in Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr>:</p> <table> <thead> <tr> <th>KPI</th> <th>Entity Type</th> <th>Manual Calculation</th> <th>Description</th> <th>Dimension</th> <th>KPI Type</th> <th>Parameter</th> </tr> </thead> <tbody> <tr> <td><strong>Average Assist Time</strong></td> <td>- Resource</td> <td><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m3.1 5.07c.14 0 .28.05.4.16l1.27 1.27c.23.22.23.57 0 .78l-1 1-2.05-2.05 1-1c.1-.11.24-.16.38-.16m-1.97 1.74 2.06 2.06-6.06 6.06H7.07v-2.06z"></path></svg></span></td> <td>The average time between the start and end of Assist Events for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month<br/>- Current Order</td> <td>Minimum</td> <td>KPI Hours</td> </tr> <tr> <td><strong>Average Changeover Time</strong></td> <td>- Resource</td> <td><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m3.1 5.07c.14 0 .28.05.4.16l1.27 1.27c.23.22.23.57 0 .78l-1 1-2.05-2.05 1-1c.1-.11.24-.16.38-.16m-1.97 1.74 2.06 2.06-6.06 6.06H7.07v-2.06z"></path></svg></span></td> <td>The average Setup Time of complete Setup transitions for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Minutes</td> </tr> <tr> <td><strong>Closed Protocol Duration by Type and Severity</strong></td> <td>- Protocol Instance</td> <td></td> <td>The duration of Protocol Instances having the System State Closed by Type and Severity.</td> <td>- Current<br/>- Current Day<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Hours</td> </tr> <tr> <td><strong>Closed Protocol Duration by Type</strong></td> <td>- Protocol Instance</td> <td></td> <td>The duration of Protocol Instances having the System State Closed by Type.</td> <td>- Current Day<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Closed Protocol Instances</strong></td> <td>- Protocol Instance</td> <td></td> <td>The Number of Protocol Instances in SystemState = Closed</td> <td>- Current Day<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Completed Production Orders</strong></td> <td>- Facility<br/>- Product Group</td> <td></td> <td>The number of Completed Production Orders for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month<br/>- Current Order</td> <td>Maximum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Completed Quantity</strong></td> <td>- Facility<br/>- Product Group</td> <td></td> <td>The Quantity Completed for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Components Placed Per Hour</strong></td> <td>- Resource</td> <td><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m3.1 5.07c.14 0 .28.05.4.16l1.27 1.27c.23.22.23.57 0 .78l-1 1-2.05-2.05 1-1c.1-.11.24-.16.38-.16m-1.97 1.74 2.06 2.06-6.06 6.06H7.07v-2.06z"></path></svg></span></td> <td>The average number of components placed per hour registered on component placement Events for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month<br/>- Current Order</td> <td>Maximum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Defective Units Count</strong></td> <td>- Area<br/>- Facility<br/>- Resource</td> <td></td> <td>The Material Primary Quantity Loss for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Down Reason Count</strong></td> <td>- Resource</td> <td></td> <td>The Reasons for the changes to Universal State Unscheduled Down for the selected Resource.</td> <td>- Current</td> <td>Maximum</td> <td>None</td> </tr> <tr> <td><strong>Down Reason</strong></td> <td>- Resource</td> <td></td> <td>The Down Reason for the selected Resource with System State set as Down.</td> <td>- Last 7 Days</td> <td>Deviation</td> <td>None</td> </tr> <tr> <td><strong>Equipment Recipe</strong></td> <td>- Resource</td> <td></td> <td>The Recipe of the selected Resource.</td> <td>- Current</td> <td>Deviation</td> <td>None</td> </tr> <tr> <td><strong>Equipment State</strong></td> <td>- Resource</td> <td></td> <td>The Universal State of the selected Resource.</td> <td>- Current<br/>- Last 7 Days</td> <td>Deviation</td> <td>None</td> </tr> <tr> <td><strong>Fault Count</strong></td> <td>- Resource</td> <td><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m3.1 5.07c.14 0 .28.05.4.16l1.27 1.27c.23.22.23.57 0 .78l-1 1-2.05-2.05 1-1c.1-.11.24-.16.38-.16m-1.97 1.74 2.06 2.06-6.06 6.06H7.07v-2.06z"></path></svg></span></td> <td>The number of Fault Events for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month<br/>- Current Order</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>First Pass Yield</strong></td> <td>- Resource</td> <td><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m3.1 5.07c.14 0 .28.05.4.16l1.27 1.27c.23.22.23.57 0 .78l-1 1-2.05-2.05 1-1c.1-.11.24-.16.38-.16m-1.97 1.74 2.06 2.06-6.06 6.06H7.07v-2.06z"></path></svg></span></td> <td>The number of OK Units Inspected Events divided by the number of OK and NOK Units Inspected Events for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Job Remaining Time</strong></td> <td>- Resource</td> <td></td> <td>The remaining process time of the last tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Maximum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Loss Reason Sum</strong></td> <td>- Area</td> <td></td> <td>The sum of the losses per Reason recorded in the selected Area.</td> <td>- Last 7 Days</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Material Completed Quantity</strong></td> <td>- Material</td> <td></td> <td>The Processed Quantity of the oldest tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Maximum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Material Customer</strong></td> <td>- Resource</td> <td></td> <td>The Customer of the Production Order of the oldest tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Deviation</td> <td>None</td> </tr> <tr> <td><strong>Material Elapsed Time</strong></td> <td>- Material</td> <td></td> <td>The start processing date of the oldest Material tracked-in in the Resource.</td> <td>- Current</td> <td>Minimum</td> <td>KPI DateTime</td> </tr> <tr> <td><strong>Material Estimated Remaining Time</strong></td> <td>- Material</td> <td></td> <td>The time until the Planned End Date of the oldest tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Minimum</td> <td>KPI DateTime</td> </tr> <tr> <td><strong>Material Product Description</strong></td> <td>- Resource</td> <td></td> <td>The Product Description of the oldest tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Deviation</td> <td>None</td> </tr> <tr> <td><strong>Material Product</strong></td> <td>- Resource</td> <td></td> <td>The Product of the oldest tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Deviation</td> <td>None</td> </tr> <tr> <td><strong>Material Progress</strong></td> <td>- Material</td> <td></td> <td>The progress of the Material's Completed Quantity of the oldest tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>Material Quantity</strong></td> <td>- Material</td> <td></td> <td>The Quantity to Process of the oldest tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Deviation</td> <td>KPI Long</td> </tr> <tr> <td><strong>Material Remaining Quantity</strong></td> <td>- Material</td> <td></td> <td>The remaining Quantity to Process the oldest tracked-in Material in the selected Resource.</td> <td>- Current</td> <td>Minimum</td> <td>KPI</td> </tr> <tr> <td><strong>Material Units Produced</strong></td> <td>- Resource</td> <td></td> <td>The number of Units Produced Events for the selected Resource.</td> <td>- Current Order</td> <td>-</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Medium Time Between Assists</strong></td> <td>- Resource</td> <td></td> <td>The average time between Assist Events for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month<br/>- Current Order</td> <td>Minimum</td> <td>KPI Hours</td> </tr> <tr> <td><strong>Missing Volume by Item</strong></td> <td>- Plan</td> <td></td> <td>The delta between the Planned Volume and the Actual Volume - the unfulfilled volume per Time Frame, per Item</td> <td>- User Defined</td> <td>-</td> <td>KPI Decimal</td> </tr> <tr> <td><strong><abbr title="Mean Time Between Failures">MTBF</abbr></strong></td> <td>- Area<br/>- Facility<br/>- Resource</td> <td></td> <td>The Mean Time Between Failures for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Hours</td> </tr> <tr> <td><strong><abbr title="Mean Time To Repair">MTTR</abbr></strong></td> <td>- Area<br/>- Facility<br/>- Resource</td> <td></td> <td>The Mean Time To Repair for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Hours</td> </tr> <tr> <td><strong><abbr title="Overall Equipment Efficiency">OEE</abbr></strong></td> <td>- Area<br/>- Facility<br/>- Resource</td> <td></td> <td>The Overall Equipment Effectiveness for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>On Hold Quantity</strong></td> <td>- Area<br/>- Facility<br/>- Step</td> <td></td> <td>The total Quantity placed on Hold in the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>On-Time Delivery (%)</strong></td> <td>- Facility<br/>- Product Group</td> <td></td> <td>The percentage of Production Orders closed at least until their Due Date for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>On-Time MAOs</strong></td> <td>- Area<br/>- Facility</td> <td></td> <td>The ratio of on time completed MAOs (before Late Due) for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>Open Protocol Instances by Type</strong></td> <td>- Protocol Instance</td> <td></td> <td>The Number of Protocol Instances having the System State Open by Type.</td> <td>- Current</td> <td>Minimum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Open Protocol Instances</strong></td> <td>- Protocol Instance</td> <td></td> <td>The Number of Protocol Instances having the System State Open.</td> <td>- Current</td> <td>Minimum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Pending Corrective MAOs</strong></td> <td>- Area<br/>- Facility</td> <td></td> <td>The Pending Corrective MAOs for the selected entity.</td> <td>- Total<br/>- By State</td> <td>Minimum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Pending Late Production Orders</strong></td> <td>- Facility<br/>- Product Group</td> <td></td> <td>The number of Pending Late Production Orders for the selected entity.</td> <td>- Current</td> <td>Minimum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Pending Late Quantity</strong></td> <td>- Facility<br/>- Product Group</td> <td></td> <td>The Pending Late Quantity for the selected entity.</td> <td>- Current</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Pending Preventive MAOs</strong></td> <td>- Area<br/>- Facility</td> <td></td> <td>The Pending Preventive MAOs for the selected entity.</td> <td>- Total<br/>- By State</td> <td>Minimum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Performance Efficiency</strong></td> <td>- Resource</td> <td></td> <td>The Performance Efficiency percentage for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>Placement Efficiency</strong></td> <td>- Resource</td> <td><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m3.1 5.07c.14 0 .28.05.4.16l1.27 1.27c.23.22.23.57 0 .78l-1 1-2.05-2.05 1-1c.1-.11.24-.16.38-.16m-1.97 1.74 2.06 2.06-6.06 6.06H7.07v-2.06z"></path></svg></span></td> <td>The number of placed components divided by the number of placed and misplaced components registered on component placement Events for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>Quality Affected Quantity Dataset</strong></td> <td>- Area<br/>- Facility<br/>- Step</td> <td></td> <td>A Dataset containing information about the Quantity put on Hold, sent to Rework, and/or Lost for the selected entity.</td> <td>- Last 7 Days</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Rate of Quality</strong></td> <td>- Resource</td> <td></td> <td>The Rate of Quality percentage for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>Reject Rate</strong></td> <td>- Resource</td> <td><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m3.1 5.07c.14 0 .28.05.4.16l1.27 1.27c.23.22.23.57 0 .78l-1 1-2.05-2.05 1-1c.1-.11.24-.16.38-.16m-1.97 1.74 2.06 2.06-6.06 6.06H7.07v-2.06z"></path></svg></span></td> <td>The number of rejected components divided by the number of total components for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>Resources Down</strong></td> <td>- Area</td> <td></td> <td>The number of Resources with System State Down for the selected Area.</td> <td>- Current</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Resources Up</strong></td> <td>- Area</td> <td></td> <td>The number of Resources with System State Up for the selected Area.</td> <td>- Current</td> <td>Maximum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>State</strong></td> <td>- Resource</td> <td></td> <td>The Universal State for the selected Resource.</td> <td>- Current<br/>- Last 7 Days</td> <td>-</td> <td>None</td> </tr> <tr> <td><strong>Throughput Rate</strong></td> <td>- Plan</td> <td></td> <td>The Produced Quantity per Unit Time, per Manufacturing Unit, connected to a Plan</td> <td>- User Defined</td> <td>-</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Top Products by Loss Quantity</strong></td> <td>- Facility<br/>- Product Group</td> <td></td> <td>The Products with the highest Loss Quantities for the selected Product Group.</td> <td>- Current Day Top 10<br/>- Current Shift Top 10<br/>- Current Week Top 10<br/>- Current Month Top 10</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Top Reasons by Lost Quantity</strong></td> <td>- Facility<br/>- Product Group</td> <td></td> <td>The Loss Reasons with the highest Lost Quantity for the selected Product Group.</td> <td>- Current Day<br/>- Current Shift<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Top Reasons by Quantity on Hold</strong></td> <td>- Facility<br/>- Product Group</td> <td></td> <td>The Hold Reasons with the highest Quantity on Hold for the selected Product Group.</td> <td>- Current Day<br/>- Current Shift<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Top Resources with AdHoc Maintenance</strong></td> <td>- Area<br/>- Facility</td> <td></td> <td>The Resources with the most requests for AdHoc Activities for the selected Facility.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Long</td> </tr> <tr> <td><strong>Unit Cycle Time</strong></td> <td>- Resource</td> <td></td> <td>The average processing time per unit for the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Minimum</td> <td>KPI Seconds</td> </tr> <tr> <td><strong>Uptime %</strong></td> <td>- Resource</td> <td></td> <td>The Up Time percentage of the selected Resource.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>Volume Fulfilment</strong></td> <td>- Plan</td> <td></td> <td>The Percentage of the Total Planned Volume in the Plan that was achieved.</td> <td>- User Defined</td> <td>-</td> <td>KPI Percentage</td> </tr> <tr> <td><strong>Volume In</strong></td> <td>- Resource<br/>- Step</td> <td></td> <td>The In Process Quantity registered for the selected entity.</td> <td>- Current Shift<br/>- Last 7 Days</td> <td>Maximum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Volume Out</strong></td> <td>- Resource<br/>- Step</td> <td></td> <td>The Processed Quantity registered for the selected entity.</td> <td>- Current Shift<br/>- Last 7 Days</td> <td>Maximum</td> <td>KPI Decimal</td> </tr> <tr> <td><strong>Yield</strong></td> <td>- Area<br/>- Facility<br/>- Resource<br/>- Step</td> <td></td> <td>The Processed Quantity divided by the Processed Quantity plus the In Process and the Processed Quantity Losses registered for the selected entity.</td> <td>- Current Day<br/>- Current Shift<br/>- Last 3 Days<br/>- Last 7 Days<br/>- Current Week<br/>- Current Month</td> <td>Maximum</td> <td>KPI Percentage</td> </tr> </tbody> </table> <p>Table: Available Dynamic KPIs</p> <p>In the above table, the KPIs marked with a <span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m3.1 5.07c.14 0 .28.05.4.16l1.27 1.27c.23.22.23.57 0 .78l-1 1-2.05-2.05 1-1c.1-.11.24-.16.38-.16m-1.97 1.74 2.06 2.06-6.06 6.06H7.07v-2.06z"></path></svg></span> need to be calculated by the user through the following steps:</p> <ol> <li>Storing the necessary data in a database where the data will be accessed;</li> <li>Creating a <strong><abbr title="Dynamic Evaluation Engine - a runtime execution engine based on C# business rules">DEE</abbr> Action</strong> to perform the required calculation on that data;</li> <li>Attaching that <strong><abbr title="Dynamic Evaluation Engine - a runtime execution engine based on C# business rules">DEE</abbr> Action</strong> to a <strong>Rule</strong>;</li> <li>Changing the Source Type of the KPI Dimensions to <strong>Rule</strong>, and associating the created <strong>Rule</strong>.</li> </ol> <p>This leads to the data being displayed in dashboards with out-of-the-box KPIs not being ready to be used unless there are extra steps performed to allow applying the calculations to the retrieved values.</p> </article>
+</body>
+</html>

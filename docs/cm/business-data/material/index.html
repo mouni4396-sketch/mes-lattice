@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="material">Material<a class="headerlink" href="#material" title="Direct link to this section">#</a></h1> <p>🔒 Material.<strong>Show</strong></p> <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Direct link to this section">#</a></h2> <p><strong>Material</strong> is one of the most important objects in the system as it represents any raw material, inventory or work-in-progress (wafers, dies, modules, printed circuit boards, capacitors, etc.). A <strong>Material</strong> can also be a Durable - tools used in the manufacturing of other <strong>Materials</strong>. A <strong>Material</strong> can represent an aggregation of <strong>Materials</strong> (a batch is an aggregation of lots, which, in turn, is an aggregation of wafers). A <strong>Material</strong> can have Maintenance Plans associated with it. All <strong>Materials</strong> in the system require a unique system wide identifier (ID).</p> <p>The following diagram shows possible <strong>Material</strong> configurations:</p> <pre class="mermaid"><code>graph LR
+subgraph "Ingot to Wafer"
+    A1[Ingot] --&gt; A2[Brick]
+    A2 --&gt; A3[Wafer]
+end
+
+subgraph "Lot to Wafer"
+    A4[Lot] --&gt; A5[Wafer]
+end
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_entity</code></pre> <p>A <strong>Material</strong> is always in a <strong>Facility</strong>, <strong>Step</strong>, <strong>Flow</strong> (more specifically in a Flow Path) and always has a <strong>Product</strong> associated with it.</p> <p>A <strong>Material</strong> can contain Sub-Materials to any depth. Sub-Materials are added and removed from <strong>Material</strong> using the <strong>Attach Material</strong> and <strong>Detach Material</strong> operations.</p> <p>A <strong>Material</strong> can have up to two quantities: one for the primary quantity and another for the secondary quantity. The units of the two quantities are defined by the <strong>Step</strong> in which the <strong>Material</strong> currently is. Since a <strong>Material</strong> can have Sub-Materials, the <strong>Material</strong> also keeps track of the count of Sub-Materials, as well as their quantities.</p> <p>A <strong>Material</strong> can have <strong>Future Holds</strong>, defined when using <strong>Future Actions</strong>. A <strong>Material</strong> can also have one or more <strong>Time Constraints</strong>, which define minimum or maximum time intervals between <strong>Steps</strong>.</p> <h2 id="state-model">State Model<a class="headerlink" href="#state-model" title="Direct link to this section">#</a></h2> <p>All <strong>Materials</strong> follow the state model detailed in the diagram below. The traditional processing flow is highlighted in bold:</p> <pre class="mermaid"><code>graph LR
+    Start --&gt;|Create Material| A1[Queued]
+    A1 --&gt; |Attach| E1[Durable]
+    E1 ---&gt;|Detach| A1
+    A1 --&gt; |Attach| E2[Consumable]
+    E2 ---&gt;|Detach| A1
+    A1 ---&gt;|"Move-Next (Pass-through)"| A1
+    A1 ==&gt;|Dispatch| A2[Dispatched]
+    A2 --&gt;|Undispatch| A1
+    A5[Skipped] --&gt;|Move-Next| A1
+    A1 -.-&gt;|"Sub-Material Track-In (with Sampling)"| A5
+    A2 ==&gt;|Track-In| A3[In Process]
+    A3 ==&gt;|Track-Out| A4[Processed]
+    A4 ==&gt;|Move-Next| A1
+    A4 --&gt;|Ship| A6[In Transit]
+    A1 --&gt;|Ship| A6[In Transit]
+    A6 --&gt;|Unship| A4
+    A6 --&gt;|Unship| A1
+    A6 --&gt;|Receive| A1
+    A4 -.-&gt;|Sub-Material Track-In| A3
+    A3 -.-&gt;|Sub-Material Track-In| A1
+    A3 --&gt;|Abort| A1
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+classDef mermaid_initial_state fill:#d7e4bd,stroke:#92d050,stroke-width:3px,color:#000;
+classDef mermaid_final_state fill:#a7e2f2,stroke:#65CDE8,stroke-width:3px,color:#000;
+
+class Start mermaid_start
+class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12 mermaid_initial_state
+class E1,E2 mermaid_entity</code></pre> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph LR
+    A1[Resource] --- L1[Material Resource]
+    A2[Container] --- L2[Material Container]
+    L1 --- Main[Material]
+    L2 --- Main
+    A3[Service] --- Main
+    N3[Schedule Scenario Job] --- Main
+    A5[Product] --- Main
+    A6[Facility] --- Main
+    A7[Protocol Material] --- Main
+    A8[Data Collection Instance] --- Main
+    A9[Material Transfer Material] --- Main
+    N1[Future Action] --- Main
+    Main ---|Parent| Main
+    Main --- N2[Material Time Constraint]
+    Main --- A10[Production Order]
+    Main --- L5[Non-sequential Step]
+    Main --- L3[Material Holds]
+    L3 --- A12[Reason]
+    Main --- L4[Material Rework Path]
+    Main --- A13[Flow]
+    Main --- A14[Step]
+    Main --- A15[Notification]
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+classDef mermaid_state color:#000, fill:#d7e4bd, stroke:#000, stroke-width:1px, font-size:100%, font-weight:300;
+class Main mermaid_entity
+class A1,A2,A3,A5,A6,A7,A8,A9,A10,A12,A13,A14,A15 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6 mermaid_entitylinked
+class C1,C2,C3,C4,C5,C6 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/material"
+click A1 "../../business-data/resource"
+click A2 "../../business-data/container"
+click A3 "../../business-data/service"
+click A5 "../../business-data/product"
+click A6 "../../business-data/facility"
+click A7 "../../business-data/material"
+click A8 "../../business-data/data-collection/data-collection-instance"
+click A9 "../../business-data/material"
+click A10 "../../business-data/production-order"
+click A12 "../../business-data/reason"
+click A13 "../../business-data/flow"
+click A14 "../../business-data/step"
+click A15 "../../business-data/notification"</code></pre> <h2 id="sequence-of-steps">Sequence Of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary steps for correctly using a <strong>Material</strong> are the following:</p> <ol> <li>Create a <strong>Facility</strong>.</li> <li>Create a <strong>Product</strong>.</li> <li>Create a <strong>Step</strong>.</li> <li>Create a <strong>Flow</strong>.</li> <li>Create the <strong>Material</strong>.</li> </ol> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Material:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="material_page/">Material Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_material/">Clone Material</a></li> <li><a href="create_material/">Create Material</a></li> <li><a href="edit_material/">Edit Material</a></li> <li><a href="terminate_material/">Terminate Material</a></li> <li><a href="unterminate_material/">Unterminate Material</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="abort_material_process/">Abort Material</a></li> <li><a href="add_material_to_container/">Add Material to Container</a></li> <li><a href="approve_material/">Approve Material</a></li> <li><a href="assemble_material/">Assemble Material</a></li> <li><a href="attach_as_consumable/">Attach as Consumable</a></li> <li><a href="attach_material/">Attach Material</a></li> <li><a href="change_material_characteristics/">Change Material Characteristics</a></li> <li><a href="change_material_cost/">Change Material Cost</a></li> <li><a href="change_material_flow_step/">Change Material Flow/Step</a></li> <li><a href="change_material_off_flow_information/">Change Material Off-Flow Information</a></li> <li><a href="change_material_product/">Change Material Product</a></li> <li><a href="change_material_production_order/">Change Material Production Order</a></li> <li><a href="change_material_quantity/">Change Material Quantity</a></li> <li><a href="change_material_type/">Change Material Type</a></li> <li><a href="change_submaterials_production_order/">Change Sub-Materials Production Order</a></li> <li><a href="clear_material_substrate_map/">Clear Material Substrate Map</a></li> <li><a href="collapse_material/">Collapse Material</a></li> <li><a href="combine_material/">Combine Material</a></li> <li><a href="compose_material/">Compose Material (Quantities)</a></li> <li><a href="compose_material_submaterials/">Compose Material (Sub-Materials)</a></li> <li><a href="compose_new_material/">Compose New Material</a></li> <li><a href="create_adhoc_job/">Create Ad-Hoc Job</a></li> <li><a href="create_inspection_order_samples/">Create Inspection Order Samples</a></li> <li><a href="create_material_subproduct/">Create Material Sub-Product</a></li> <li><a href="detach_consumable/">Detach Consumable</a></li> <li><a href="detach_material/">Detach Material</a></li> <li><a href="disassemble_material/">Disassemble Material</a></li> <li><a href="dispatch_and_track_in_material/">Dispatch and Track-In Material</a></li> <li><a href="dispatch_and_track_in_material_at_risk/">Dispatch and Track-In Material At Risk</a></li> <li><a href="dispatch_material/">Dispatch Material</a></li> <li><a href="dispatch_material_at_risk/">Dispatch Material At Risk</a></li> <li><a href="evaluate_material_required_service/">Evaluate Material Required Service</a></li> <li><a href="expand_material/">Expand Material</a></li> <li><a href="future_actions_precedence_keys/">Future Actions Precedence Keys</a></li> <li><a href="grade_material/">Grade Material</a></li> <li><a href="hold_material/">Hold Material</a></li> <li><a href="insert_material_into_line/">Insert Material into Line</a></li> <li><a href="manage_material_dependencies/">Manage Material Dependencies</a></li> <li><a href="manage_material_future_actions/">Manage Material Future Actions</a></li> <li><a href="manage_material_maps/">Manage Material Maps</a></li> <li><a href="manage_material_time_constraints/">Manage Material Time Constraints</a></li> <li><a href="material_costing/">Material Costing</a></li> <li><a href="material_move_next/">Material Move-Next</a></li> <li><a href="material_quantity_unit_changes/">Material Quantity Unit Changes</a></li> <li><a href="merge_material/">Merge Material</a></li> <li><a href="pack_material/">Pack Material</a></li> <li><a href="pack_material_packages/">Pack Material Packages</a></li> <li><a href="perform_future_action/">Perform Future Action</a></li> <li><a href="perform_material_checklist/">Perform Material Checklist</a></li> <li><a href="perform_material_checklist_new/">Perform Material Checklist - New</a></li> <li><a href="print_material_documents/">Print Material Documents</a></li> <li><a href="process_material/">Process Material</a></li> <li><a href="receive_material/">Receive Material</a></li> <li><a href="record_assembled_material_loss_bonus/">Record Assembled Material Loss/Bonus</a></li> <li><a href="record_material_loss_bonus/">Record Material Loss/Bonus</a></li> <li><a href="record_submaterial_losses/">Record Sub-Material Losses</a></li> <li><a href="release_material/">Release Material</a></li> <li><a href="remove_material_from_container/">Remove Material from Container</a></li> <li><a href="remove_material_from_line/">Remove Material from Line</a></li> <li><a href="replace_assembled_material/">Replace Assembled Material</a></li> <li><a href="reprint_material_documents/">Reprint Material Documents</a></li> <li><a href="reset_floor_life_counter/">Reset Floor Life Counter</a></li> <li><a href="reset_material_rework_counters/">Reset Material Rework Counters</a></li> <li><a href="retrieve_material/">Retrieve Material</a></li> <li><a href="rework_material/">Rework Material</a></li> <li><a href="seal_material/">Seal Material</a></li> <li><a href="set_material_substrate_map/">Set Material Substrate Map</a></li> <li><a href="ship_material/">Ship Material</a></li> <li><a href="skip_material_process/">Skip Material Process</a></li> <li><a href="special_change_material_product/">Special Change Material Product</a></li> <li><a href="special_collapse_material/">Special Collapse Material</a></li> <li><a href="special_insert_material_into_line/">Special Insert Material into Line</a></li> <li><a href="special_manage_material_future_actions/">Special Manage Material Future Actions</a></li> <li><a href="special_material_move_next/">Special Material Move-Next</a></li> <li><a href="special_release_material/">Special Release Material</a></li> <li><a href="special_remove_material_from_line/">Special Remove Material from Line</a></li> <li><a href="split_material/">Split Material</a></li> <li><a href="split_material_by_product/">Split Material by Product</a></li> <li><a href="start_floor_life_counter/">Start Floor Life Counter</a></li> <li><a href="stop_floor_life_counter/">Stop Floor Life Counter</a></li> <li><a href="store_material/">Store Material</a></li> <li><a href="synchronize_map_quantity/">Synchronize Map Quantity</a></li> <li><a href="synchronize_material_substrate_map/">Synchronize Material with Substrate Map</a></li> <li><a href="temporary_off_flow/">Temporary Off-Flow</a></li> <li><a href="track_in_material/">Track-In Material</a></li> <li><a href="track_in_material_at_risk/">Track-In Material At Risk</a></li> <li><a href="track_in_material_for_maintenance/">Track-In Material for Maintenance</a></li> <li><a href="track_in_override/">Track-In Override</a></li> <li><a href="track_in_submaterial/">Track-In Sub-Material</a></li> <li><a href="track_in_schedule_override/">Track-In with Schedule Override</a></li> <li><a href="track_out_and_material_move_next/">Track-Out and Material Move-Next</a></li> <li><a href="track_out_material/">Track-Out Material</a></li> <li><a href="track_out_submaterial/">Track-Out Sub-Material</a></li> <li><a href="transfer_material_between_containers/">Transfer Material between Containers</a></li> <li><a href="transfer_submaterials/">Transfer Sub-Materials</a></li> <li><a href="unapprove_material/">Unapprove Material</a></li> <li><a href="undispatch_material/">Undispatch Material</a></li> <li><a href="unship_material/">Unship Material</a></li> <li><a href="update_material_assembly_history/">Update Assembly History</a></li> <li><a href="update_material_process_progress/">Update Material Process Progress</a></li> <li><a href="verify_map_quantity/">Verify Map Quantity</a></li> <li><a href="view_material_assembly_history/">View Assembly History</a></li> <li><a href="view_material_documents/">View Material Documents</a></li> <li><a href="view_material_note/">View Material Note</a></li> <li><a href="view_material_reports/">View Material Reports</a></li> <li><a href="weigh_and_dispense_material/">Weigh and Dispense Material</a></li> <li><a href="material-defects/">Material Defects</a><ul> <li><a href="material-defects/material_defects_mark_as_accepted/">Mark Material Defect as Accepted</a></li> <li><a href="material-defects/material_defects_mark_as_confirmed/">Mark Material Defect as Confirmed</a></li> <li><a href="material-defects/material_defects_mark_as_false/">Mark Material Defect as False</a></li> <li><a href="material-defects/material_defects_mark_as_not_fixable/">Mark Material Defect as Not Fixable</a></li> <li><a href="material-defects/material_defects_repair/">Mark Material Defect as Repair</a></li> <li><a href="material-defects/modify_material_defects/">Modify Material Defect</a></li> <li><a href="material-defects/record_material_defects/">Record Material Defect</a></li> </ul> </li> <li><a href="material-reports/">Material Reports</a><ul> <li><a href="material-reports/material_cost_history_report/">Material Cost History Report</a></li> <li><a href="material-reports/material_future_flow_report/">Material Future Flow Report</a></li> </ul> </li> </ul> </article>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SPC Indicators Formulas - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="spc-indicators-formulas"><abbr title="Statistical Process Control">SPC</abbr> Indicators Formulas<a class="headerlink" href="#spc-indicators-formulas" title="Direct link to this section">#</a></h1> <h2 id="point-statistics">Point Statistics<a class="headerlink" href="#point-statistics" title="Direct link to this section">#</a></h2> <p>Point statistics are calculated based on the single data point data and are mostly applicable to variable charts. The point statistics that are displayed in the <abbr title="Graphical User Interface">GUI</abbr> are described in the table below:</p> <table> <thead> <tr> <th>Indicator</th> <th style="text-align: center;">Formula</th> <th>Display For</th> </tr> </thead> <tbody> <tr> <td><strong>Count</strong></td> <td style="text-align: center;">Count</td> <td>All Variable Charts</td> </tr> <tr> <td><strong>Max</strong></td> <td style="text-align: center;">Max</td> <td>All Variable Charts</td> </tr> <tr> <td><strong>Min</strong></td> <td style="text-align: center;">Min</td> <td>All Variable Charts</td> </tr> <tr> <td><strong>Mean</strong></td> <td style="text-align: center;"><span class="arithmatex">\(\overline{x}=\frac{x_1+x_2+x_3+\cdots+x_n}{n}\)</span></td> <td>All Variable Charts</td> </tr> <tr> <td><strong>Standard Deviation</strong></td> <td style="text-align: center;"><span class="arithmatex">\(s=\sqrt{\frac{\sum(x_i-\overline{x})^2}{n-1}}\)</span></td> <td>All Variable Charts when the number of readings is greater than one</td> </tr> <tr> <td><strong>Median</strong></td> <td style="text-align: center;"><span class="arithmatex">\(\widetilde{x}\)</span>= The median of a finite list of numbers can be found by arranging all the observations from lowest value to highest value and picking the middle one. If there is an even number of observations, the median is the average of the two middle values.</td> <td>All Variable Charts</td> </tr> <tr> <td><strong>Range</strong></td> <td style="text-align: center;"><span class="arithmatex">\(Range=Max(x_{1\cdots n})-Min(x_{1\cdots n})\)</span></td> <td>All Variable Charts</td> </tr> <tr> <td><strong>Cp - Process Capability</strong></td> <td style="text-align: center;"><span class="arithmatex">\(C_p=\frac{USL-LSL}{6s}\)</span><br/>Note: this value is only calculated in both the USL and the LSL are present for the data point.</td> <td>All Variable Charts when the number of readings is greater than one</td> </tr> <tr> <td><strong>Cpk - Process Capability Index</strong></td> <td style="text-align: center;"><span class="arithmatex">\(Min(\frac{USL-\overline{x}}{3s},\frac{\overline{x}-LSL}{3s})\)</span></td> <td>All Variable Charts when the number of readings is greater than one</td> </tr> <tr> <td><strong>Cir</strong></td> <td style="text-align: center;"><span class="arithmatex">\(Cir=\frac{3\cdot \sqrt{(\overline{x}-TargetSpecValue)^2+s^2}}{Min(USL\;-\;TargetSpecValue,\;TargetSpecValue-LSL)}\)</span></td> <td>All Variable Charts when the number of readings is greater than one</td> </tr> </tbody> </table> <p>Table: Point Statistics</p> <h2 id="chart-statistics">Chart Statistics<a class="headerlink" href="#chart-statistics" title="Direct link to this section">#</a></h2> <p>The Chart statistics described below are calculated based on all the data points that are visible in the <abbr title="Graphical User Interface">GUI</abbr> for the Logical Chart and the calculations exclude Deleted and Excluded data points. All formulas apply to the indicator one only.</p> <p>Some Chart statistics use a single value for specification limits and control limits. Because the specification limits (Lower, Target, Upper) as well as Centerlines and Control Limits (Lower Control Limit and Upper Control Limit) may change from data point to data point, changes in these values will be handled based on the value defined in the configuration entry <code>Cmf/System/Configuration/SPC/MultipleDataPointsStatistics/CalculationMode/</code> that can have two values:</p> <ul> <li><strong>Average</strong> (default and used if no value is present) - uses the average of the values for the considered data points (default). The considered data points are only the ones that contains the required values (Lower Specification Limit, Target Specification Value, Upper Specification, Lower Control Limit, Centerline and Upper Control Limit).</li> <li><strong>Last -</strong> uses the values (Lower Specification Limit, Target Specification Value, Upper Specification, Lower Control Limit, Centerline and Upper Control Limit) from the last data point, if the values are defined for the data point.</li> </ul> <table> <thead> <tr> <th>Indicator</th> <th style="text-align: center;">Formula</th> <th style="text-align: center;">Data Points</th> <th style="text-align: center;">Readings</th> <th>Display For</th> <th>Notes</th> </tr> </thead> <tbody> <tr> <td><strong>Count</strong></td> <td style="text-align: center;">Count</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts</td> <td>All data points</td> </tr> <tr> <td><strong>Max</strong></td> <td style="text-align: center;">Max</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts</td> <td></td> </tr> <tr> <td><strong>Min</strong></td> <td style="text-align: center;">Min</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts</td> <td></td> </tr> <tr> <td><strong>Mean</strong></td> <td style="text-align: center;"><span class="arithmatex">\(\overline{x}=\frac{x_1+x_2+x_3+\cdots+x_n}{n}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts</td> <td></td> </tr> <tr> <td><strong>Overall Mean</strong></td> <td style="text-align: center;"><span class="arithmatex">\(\mu=\frac{x_1+x_2+x_3+\cdots+x_n}{n}\)</span></td> <td style="text-align: center;"></td> <td style="text-align: center;">x</td> <td>Not Displayed</td> <td>This indicator considers all individual readings and it excludes data points which are aggregated</td> </tr> <tr> <td><strong>Standard Deviation</strong></td> <td style="text-align: center;"><span class="arithmatex">\(s=\sqrt{\frac{\sum(x_i-\overline{x})^2}{n-1}}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts (when Data Points <code>&gt;</code> 1)</td> <td></td> </tr> <tr> <td><strong>Overall Standard Deviation</strong></td> <td style="text-align: center;"><span class="arithmatex">\(\delta=\sqrt{\frac{\sum(x_i-\overline{x})^2}{n-1}}\)</span></td> <td style="text-align: center;"></td> <td style="text-align: center;">x</td> <td>Not Displayed</td> <td>This indicator considers all individual readings and it excludes data points which are aggregated</td> </tr> <tr> <td><strong>Median</strong></td> <td style="text-align: center;"><span class="arithmatex">\(\widetilde{x}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts</td> <td>The median of a finite list of numbers can be found by arranging all the observations from lowest value to highest value and picking the middle one. If there is an even number of observations, the median is the average of the two middle values.</td> </tr> <tr> <td><strong>Range</strong></td> <td style="text-align: center;"><span class="arithmatex">\(Range=Max(x_{1\cdots n})-Min(x_{1\cdots n})\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts</td> <td></td> </tr> <tr> <td><strong>Within Standard Deviation</strong></td> <td style="text-align: center;">For Individuals and Moving Range Charts:<br/><span class="arithmatex">\(\hat{\delta}_{Within}=\frac{\overline{MR}}{d2(w)}\)</span><br/>where <span class="arithmatex">\(d2(w)\)</span> with w=2 is <code>1,1284</code>.<br/>For the other types of Variable Charts, the Pooled Standard Deviation <em>(Sp)</em> is calculated according to the formula:<br/><span class="arithmatex">\(S_p=\sqrt{\frac{\left [ \sum_{i}\sum_{j}{(X_{ij} - \overline{X_i})^2} \right ]}{\left [ \sum_{i}{(n_{i} - 1} \right ]}}\)</span><br/>Then, the degrees of freedom <em>(d)</em> is calculated as:<br/><span class="arithmatex">\(\sum(n_i-1)\)</span><br/>And finally, the Within Standard Deviation is calculated using the formula:<br/><span class="arithmatex">\(\hat{\delta}_{Within}=\frac{Sp}{c4(d+1)}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>Not Displayed</td> <td></td> </tr> <tr> <td><strong>Cp - Process Capability</strong></td> <td style="text-align: center;"><span class="arithmatex">\(C_p=\frac{USL-LSL}{6\hat{\delta}_{Within}}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>About the data points to be considered - in case of changing or missing USL/LSL, please refer to the <em>Calculation Mode</em> described earlier in this document.</td> </tr> <tr> <td><strong>Cpu - Upper Process Capability</strong></td> <td style="text-align: center;"><span class="arithmatex">\(C_{p,upper}=\frac{USL-\mu}{3\hat{\delta}_{Within}}\)</span><br/><span class="arithmatex">\(\mu\)</span> to be used is the overall mean for the all the individual readings of the data points considered - same as <strong>Pp</strong></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>Not Displayed</td> <td>About the data points to be considered - in case of changing or missing USL/LSL, please refer to the <em>Calculation Mode</em> described earlier in this document. This indicator considers all individual readings and it excludes data points which are aggregated.</td> </tr> <tr> <td><strong>Cpl - Lower Process Capability</strong></td> <td style="text-align: center;"><span class="arithmatex">\(C_{p,lower}=\frac{\mu-LSL}{3\hat{\delta}_{Within}}\)</span><br/><span class="arithmatex">\(\mu\)</span> to be used is the overall mean for the all the individual readings of the data points considered - same as <strong>Pp</strong></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>Not Displayed</td> <td>Never displayed - used for calculations later; About the data points to be considered - in case of changing or missing USL/LSL, please refer to the <em>Calculation Mode</em> described earlier in this document. This indicator considers all individual readings and it excludes data points which are aggregated.</td> </tr> <tr> <td><strong>Cpk - Process Capability Index</strong></td> <td style="text-align: center;"><span class="arithmatex">\(C_{pk}=min(C_{p,lower},C_{p,upper})\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>If single sided, the system considers only the non-nullable part of the equation</td> </tr> <tr> <td><strong>Z-Score - Standard Score</strong></td> <td style="text-align: center;"><span class="arithmatex">\(Z=3C_{pk}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>Only display if configuration entry <code>/Cmf/System/Configuration/SPC/ChartStatistics/IncludeZScore</code> is set to <code>true</code></td> </tr> <tr> <td><strong>Pp - Process Performance</strong></td> <td style="text-align: center;"><span class="arithmatex">\(P_p=\frac{USL-LSL}{6\delta}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>About the data points to be considered - in case of changing or missing USL/LSL, please refer to the Calculation Mode described earlier in this document. This indicator excludes all the data points which are aggregated.</td> </tr> <tr> <td><strong>Ppu - Upper Process Performance</strong></td> <td style="text-align: center;"><span class="arithmatex">\(P_{p,upper}=\frac{USL-\mu}{3\delta}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>Not Displayed</td> <td>About the data points to be considered - in case of changing or missing USL/LSL, please refer to the Calculation Mode described earlier in this document. This indicator excludes all the data points which are aggregated.</td> </tr> <tr> <td><strong>Ppl - Lower Process Performance</strong></td> <td style="text-align: center;"><span class="arithmatex">\(P_{p,lower}=\frac{\mu-LSL}{3\delta}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>Not Displayed</td> <td></td> </tr> <tr> <td><strong>Ppk - Process Performance Index</strong></td> <td style="text-align: center;"><span class="arithmatex">\(P_{pk}=min(P_{p,lower},P_{p,upper})\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;">x</td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>Note: If single sided, the system considers only the non-nullable part of the equation</td> </tr> <tr> <td><strong><abbr title="Out-Of-Spec">OOS</abbr> - Out of Spec</strong></td> <td style="text-align: center;">Counts the number of all readings of all data points which are either above the upper spec limit or below the lower spec limit.</td> <td style="text-align: center;"></td> <td style="text-align: center;">x</td> <td>All Charts</td> <td></td> </tr> <tr> <td><strong>OOC - Out of Control</strong></td> <td style="text-align: center;">Counts the number of data points which are either above the upper control limit or below the lower control limit.</td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts</td> <td>For the Variable Charts, this indicator only considers the <em>Indicator 1</em></td> </tr> <tr> <td><strong>OOC% - Out of Control Rate</strong></td> <td style="text-align: center;"><span class="arithmatex">\(OOC(\%)=100\%\frac{OOC}{number\;of\;data\;points}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Charts</td> <td></td> </tr> <tr> <td><strong>OTI - On Target Indicator</strong></td> <td style="text-align: center;"><span class="arithmatex">\(OTI=\frac{\overline{x}-Target\;Spec\;Value}{s}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>About the data points to be considered - in case of changing or missing Target Spec Values, please refer to the <em>Calculation Mode</em> described earlier in this document. Only display if configuration entry <code>/Cmf/System/Configuration/SPC/ChartStatistics/IncludeOTISection</code> is set to <code>true</code></td> </tr> <tr> <td><strong>OCI - On Center Indicator</strong></td> <td style="text-align: center;"><span class="arithmatex">\(OCI=\frac{\overline{x}-Centerline}{s}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>About the data points to be considered - in case of changing Centerline Values, please refer to the <em>Calculation Mode</em> described earlier in this document. Only display if configuration entry <code>/Cmf/System/Configuration/SPC/ChartStatistics/IncludeOTISection</code> is set to <code>true</code></td> </tr> <tr> <td><strong>LCLCR - Lower Control Limit Change Ratio</strong></td> <td style="text-align: center;"><span class="arithmatex">\(LCLCR=\frac{LCL-(\overline{x}-3s)}{s}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>About the data points to be considered - in case of changing LCLs, please refer to the <em>Calculation Mode</em> described earlier in this document. Only display if configuration entry <code>/Cmf/System/Configuration/SPC/ChartStatistics/IncludeCLRSection</code> is set to <code>true</code></td> </tr> <tr> <td><strong>UCLCR - Upper Control Limit Change Ratio</strong></td> <td style="text-align: center;"><span class="arithmatex">\(UCLCR=\frac{(\overline{x}+3s)-UCL}{s}\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>About the data points to be considered - in case of changing UCLs, please refer to the <em>Calculation Mode</em> described earlier in this document. Only display if configuration entry <code>/Cmf/System/Configuration/SPC/ChartStatistics/IncludeCLRSection</code> is set to <code>true</code></td> </tr> <tr> <td><strong>CLCR - Control Limits Change Ratio</strong></td> <td style="text-align: center;"><span class="arithmatex">\(CLCR=If\;(Abs(LCLR)\:\gt\:Abs(UCLCR))\;then\;LCLR\;;\;else\;UCLCR\)</span></td> <td style="text-align: center;">x</td> <td style="text-align: center;"></td> <td>All Variable Charts (when Data Points <code>&gt;</code> 1)</td> <td>Only display if configuration entry <code>/Cmf/System/Configuration/SPC/ChartStatistics/IncludeOTISection</code> is set to <code>true</code></td> </tr> </tbody> </table> <p>Table: Chart Statistics</p> </article>
+</body>
+</html>

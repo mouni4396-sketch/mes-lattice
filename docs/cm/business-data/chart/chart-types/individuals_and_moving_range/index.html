@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Individuals And Moving Range (X Rm) - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <h1 id="individuals-and-moving-range-x-rm">Individuals And Moving Range (X Rm)<a class="headerlink" href="#individuals-and-moving-range-x-rm" title="Direct link to this section">#</a></h1> <p>The following table lists the properties of the Individuals And Moving Range (X Rm) chart.</p> <table> <thead> <tr> <th>Property</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><strong>Chart</strong></td> <td>Individuals and Moving Range <em>(I-MR)</em></td> </tr> <tr> <td><strong>Process observation types</strong></td> <td>Variables</td> </tr> <tr> <td><strong>Process observations relationships</strong></td> <td>Independent</td> </tr> <tr> <td><strong>Sample Size</strong></td> <td>1</td> </tr> <tr> <td><strong>Distribution type</strong></td> <td>Normal</td> </tr> <tr> <td><strong>Size of shift to detect</strong></td> <td>Large (≥ 1.5σ)</td> </tr> <tr> <td><strong>Individuals (Indicator 1)</strong></td> <td><span class="arithmatex">\(x\)</span></td> </tr> <tr> <td><strong>Moving Range (Indicator 2)</strong></td> <td><span class="arithmatex">\(r_k = Abs(x_{k+1}-x_k)\)</span></td> </tr> <tr> <td><strong>Mean</strong></td> <td><span class="arithmatex">\(\mu = \overline{\overline{x}} = \frac{\sum{x_i}}{n}\)</span></td> </tr> <tr> <td><strong>Mean Range</strong></td> <td><span class="arithmatex">\(\overline{MR} = \frac{\sum{MR_i}}{i-1}\)</span></td> </tr> <tr> <td><strong>Process Mean</strong></td> <td><span class="arithmatex">\(\mu\)</span></td> </tr> <tr> <td><strong>Process Standard Deviation</strong></td> <td><span class="arithmatex">\(\overline{MR} = \frac{\sum{MR_i}}{i-1}\)</span><br/>Note that the first data point does not have a <span class="arithmatex">\(MR\)</span><br/><span class="arithmatex">\(\sigma = S_{mr} = \frac{\overline{MR}}{d_2(w)}\)</span><br/>Because we only support <span class="arithmatex">\(w=2\)</span>, the <span class="arithmatex">\(d_2(w)\)</span> can be replaced by the constant <code>1,1284</code></td> </tr> <tr> <td><strong>Individuals (Indicator 1) Centerline</strong></td> <td><span class="arithmatex">\(\mu\)</span></td> </tr> <tr> <td><strong>Individuals (Indicator 1) Control Limits</strong></td> <td><span class="arithmatex">\(UCL = \mu + 3 \sigma\)</span><br/><span class="arithmatex">\(LCL = \mu - 3 \sigma\)</span></td> </tr> <tr> <td><strong>Moving Range (Indicator 2) Centerline</strong></td> <td><span class="arithmatex">\(\overline{MR} = \sigma\cdot d_2(w)\)</span></td> </tr> <tr> <td><strong>Moving Range (Indicator 2) Control Limits</strong></td> <td><span class="arithmatex">\(UCL = \overline{MR} + 3\sigma \cdot d_3(w)\)</span><br/><span class="arithmatex">\(LCL = max(\overline{R}_i + 3\sigma \cdot d_3(w);0)\)</span><br/>Where <span class="arithmatex">\(w=2\)</span></td> </tr> </tbody> </table> <p>Table: Individuals and Moving Range chart properties</p> </article>
+</body>
+</html>

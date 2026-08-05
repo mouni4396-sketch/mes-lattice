@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Substrate Map Mask - Critical Manufacturing Documentation Portal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            background-color: #ffffff;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #111;
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+        h2 { font-size: 1.5em; border-bottom: 1px solid #f6f6f6; padding-bottom: 0.3em; }
+        h3 { font-size: 1.25em; }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        pre, code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+        code {
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+        }
+        pre {
+            padding: 1rem;
+            overflow: auto;
+            line-height: 1.45;
+        }
+        pre code {
+            padding: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem 0;
+        }
+        .admonition {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #448aff;
+            background-color: #eef3ff;
+            border-radius: 4px;
+        }
+        .admonition.warning {
+            border-left-color: #ff9100;
+            background-color: #fff9ed;
+            color: #663c00;
+        }
+        .admonition.danger {
+            border-left-color: #ff5252;
+            background-color: #ffebee;
+            color: #4d0000;
+        }
+        .admonition.note {
+            border-left-color: #00b0ff;
+            background-color: #e1f5fe;
+            color: #004d66;
+        }
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+        details.example {
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dfe2e5;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+        details.example summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        details.example summary:hover {
+            color: #0366d6;
+        }
+        .headerlink {
+            display: none;
+        }
+        /* Style inline SVGs to match normal text/character height and vertical alignment */
+        span.twemoji svg, .twemoji svg {
+            width: 1.25em;
+            height: 1.25em;
+            vertical-align: middle;
+            display: inline-block;
+            fill: currentColor;
+        }
+</style>
+</head>
+<body>
+    <article class="md-content__inner md-typeset">  <nav class="md-tags"> <a class="md-tag" href="../../../tags/#tag:mapping">mapping</a> </nav> <h1 id="substrate-map-mask">Substrate Map Mask<a class="headerlink" href="#substrate-map-mask" title="Direct link to this section">#</a></h1> <p>🔒 SubstrateMapMask.<strong>Show</strong></p> <p>A <strong>Substrate Map Mask</strong> is an entity that represents a mask of a substrate which can be a wafer, frame, strip or tray in SEMI E142 format (XML and Unit Level).</p> <p>The purpose of the <strong>Substrate Map Mask</strong> is essentially to control exposure and pattern formation on the surface of a <strong>Material</strong>, ensuring that only the desired areas undergo a certain process, such as etching, deposition, or chemical treatment.</p> <p>SEMI E142 is a standard that provides a way to report, store and transmit <strong>Substrate Maps Masks</strong> between semiconductor manufacturing sites by describing the layout of devices on a substrate.</p> <p>Your <code>xml</code> <strong>Substrate Map Mask</strong> content must comply with the following restrictions:</p> <ul> <li>Contain a single <strong>Substrate Map</strong> with a single <strong>Overlay</strong> of type <code>BinCodeMap</code> with a single <strong>Version</strong></li> <li>Contain only two Bin Definitions with Bin Codes different from <code>NullBinValue</code>:<ul> <li>A <code>BinQuality</code> set to <code>“SetValue”</code> for which the <code>BinCount</code> must be &gt; 0</li> <li>A <code>BinQuality</code> set to <code>“EmptyBinValue”</code> for which the <code>BinCount</code> must be &gt;=0</li> </ul> </li> </ul> <div class="admonition note"> <p class="admonition-title">Note</p> <p>The <code>“SetValue”</code> and <code>“EmptyBinValue”</code> are conventions used for the purposes of a <strong>Substrate Map Mask</strong>. See <a href="substrate_map_mask_page/">Substrate Map Mask Page</a> for an <a href="substrate_map_mask_page/#example-of-substrate-map-mask-file">Example of Substrate Map Mask File</a>.</p> </div> <p>This Critical Manufacturing <abbr title="Manufacturing Execution System">MES</abbr> feature allows you to visualize an array of <code>xml</code> <strong>Substrate Map Masks</strong> because of the customizations performed on the original SEMI E142 standard. For more information, see <a href="../substrate-map/cm_semi_e142_schema/">CM SEMI E142 Schema</a>.</p> <div class="admonition info"> <p class="admonition-title">Info</p> <p>The Substrate Map Mask entity is part of Mapping which is a Critical Manufacturing optional module.</p> </div> <p>To better understand the <strong>Substrate Map Mask</strong> entity, the following concepts and definitions are relevant:</p> <table> <thead> <tr> <th>Concept</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td>Axis Direction (see also Origin Location)</td> <td>Defines in which direction of the axis, X and Y, values increase. These can be Up Right, Down Right, Up Left, and Down Left. The default value is Up Right.</td> </tr> <tr> <td>Frame</td> <td>A wafer mounted on a film frame so that it may be diced, and the die is picked and placed in a package.</td> </tr> <tr> <td>Layout</td> <td>The logical and physical dimensions of a two-dimensional array of devices to which a map may be assigned.</td> </tr> <tr> <td>Map</td> <td>A two-dimensional array of data for a specific layout on a substrate.</td> </tr> <tr> <td>Mask</td> <td>A protective or selective layer used during manufacturing processes to define patterns or regions on a substrate.</td> </tr> <tr> <td>Orientation</td> <td>The rotation of the substrate (0, 90, 180 or 270 degrees). The default value is zero.</td> </tr> <tr> <td>Origin Location</td> <td>Where the (0,0) coordinate is located. It can be Lower Left, Lower Right, Upper Left, Upper Right or Center. The default value is Lower Left.</td> </tr> <tr> <td>Panel</td> <td>A rectangular or square substrate on which an array of devices are fabricated.</td> </tr> <tr> <td>Strip</td> <td>A lead frame, board, or other container on which an array of devices are fabricated.</td> </tr> <tr> <td>Substrate</td> <td>A surface upon which something is deposited, etched, attached, or otherwise prepared or fabricated. Examples of substrates are wafers, frames, strips, and trays.</td> </tr> <tr> <td>Wafer</td> <td>A round substrate on which an array of devices are fabricated.</td> </tr> </tbody> </table> <p>Table 1: Substrate Map Mask Concepts and Definitions</p> <h2 id="tying-everything-together">Tying Everything Together<a class="headerlink" href="#tying-everything-together" title="Direct link to this section">#</a></h2> <pre class="mermaid"><code>graph TD
+    N1[Substrate Map Mask Content - Raw XML] --&gt; Main
+    Main[Substrate Map Mask]
+
+classDef mermaid_title color:#000, fill:#fafafa, stroke:#fafafa, stroke-width:0x, font-size:100%, font-weight:200;
+classDef mermaid_start color:#000, fill:#fafafa, stroke:#fafafa, color:#fafafa, stroke-width:0x, font-size:100%, visibility: hidden;
+classDef mermaid_businessdata color:#000, fill:#65CDE8, stroke:#65CDE8, stroke-width:0px, font-size:100%;
+classDef mermaid_nonbusinessdata color:#000, fill:#B7DEE8, stroke:#B7DEE8, stroke-width:0px, font-size:100%;
+classDef mermaid_entity color:#000, fill:#FB9F53, stroke:#FB9F53, stroke-width:0px, font-size:100%;
+classDef mermaid_entitylinked color:#000, fill:#FCD5B5, stroke:#FCD5B5, stroke-width:0px, font-size:100%;
+classDef mermaid_context color:#000, fill:#B9CDE5, stroke:#B9CDE5, stroke-width:0px, font-size:100%;
+classDef mermaid_optional color:#000, fill:#B7DEE8, stroke:#65CDE8, stroke-width:1px, font-size:100%, stroke-dasharray: 5 5;
+class Main mermaid_entity
+class A1 mermaid_businessdata
+class L1,L2,L3,L4,L5,L6,L7,L8,L9 mermaid_entitylinked
+class ST1 mermaid_context
+class N1,N2,N3,N4,N5,N6 mermaid_nonbusinessdata
+
+click Main "../../business-data/substrate-map-mask"</code></pre> <h2 id="sequence-of-steps">Sequence of Steps<a class="headerlink" href="#sequence-of-steps" title="Direct link to this section">#</a></h2> <p>The necessary step for correctly creating and using a <strong>Substrate Map Mask</strong> is:</p> <ol> <li>Create a <a href="create_substrate_map_mask/">Create Substrate Map Mask</a>.</li> </ol> <h2 id="available-pages">Available Pages<a class="headerlink" href="#available-pages" title="Direct link to this section">#</a></h2> <p>Dive into the pages below to explore more about Substrate Map Mask:</p> <h3 id="main-page">Main Page<a class="headerlink" href="#main-page" title="Direct link to this section">#</a></h3> <ul> <li><a href="substrate_map_mask_page/">Substrate Map Mask Page</a></li> </ul> <h3 id="generic-operations">Generic Operations<a class="headerlink" href="#generic-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="clone_substrate_map_mask/">Clone Substrate Map Mask</a></li> <li><a href="create_substrate_map_mask/">Create Substrate Map Mask</a></li> <li><a href="edit_substrate_map_mask/">Edit Substrate Map Mask</a></li> <li><a href="unterminate_substrate_map_mask/">Unterminate Substrate Map Mask</a></li> </ul> <h3 id="specific-operations">Specific Operations<a class="headerlink" href="#specific-operations" title="Direct link to this section">#</a></h3> <ul> <li><a href="apply_substrate_map_mask/">Apply Substrate Map Mask</a></li> <li><a href="change_substrate_map_mask_information/">Change Substrate Map Mask Information</a></li> <li><a href="terminate_substrate_mask_map/">Terminate Substrate Map Mask</a></li> </ul> </article>
+</body>
+</html>
