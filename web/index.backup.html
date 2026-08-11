@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MES Lattice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F7F8FA;
+  --panel:    #FFFFFF;
+  --ink:      #111318;
+  --ink-2:    #5A6072;
+  --ink-3:    #9AA0AE;
+  --line:     #E2E5EC;
+  --amber:    #E0A500;
+  --amber-s:  #FBF3DA;
+  --blue:     #2C97B8;
+  --blue-s:   #E2F3F8;
+  --violet:   #6B54C9;
+  --violet-s: #EDE9FA;
+  --rail:     #111318;
+  --radius:   10px;
+  --shadow:   0 1px 3px rgba(17,19,24,0.07), 0 4px 12px rgba(17,19,24,0.04);
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+  -webkit-font-smoothing: antialiased; height: 100vh; overflow: hidden;
+}
+mono { font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+
+/* ---- APP SHELL ---- */
+.shell {
+  display: grid;
+  grid-template-columns: 220px 1fr 280px;
+  grid-template-rows: 48px 1fr;
+  height: 100vh; gap: 0;
+}
+
+/* ---- TOPBAR ---- */
+.topbar {
+  grid-column: 1 / -1;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center;
+  padding: 0 18px; gap: 14px;
+}
+.logo {
+  font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 6px;
+}
+.logo-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--amber); box-shadow: 0 0 0 3px rgba(224,165,0,0.18);
+}
+.topbar-status {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--ink-3); margin-left: 8px;
+}
+.topbar-status .live { color: #2FA65A; }
+
+/* ---- LEFT COLUMN ---- */
+.left { display: flex; flex-direction: column; border-right: 1px solid var(--line); overflow: hidden; }
+.api-key-box { padding: 10px 10px 4px; }
+.api-key-box input[type=password] {
+  width: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  padding: 7px 9px; border: 1px solid var(--line); border-radius: 7px; background: #fff;
+}
+
+/* agents */
+.section-head {
+  padding: 14px 16px 8px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-3);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.agents { padding: 0 10px; display: flex; flex-direction: column; gap: 6px; }
+.agent-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: var(--radius);
+  border: 1px solid var(--line); background: var(--panel);
+  cursor: pointer; transition: border-color .15s, box-shadow .15s;
+  text-align: left; width: 100%;
+}
+.agent-btn:hover:not(:disabled) { border-color: var(--ink-3); box-shadow: var(--shadow); }
+.agent-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.agent-btn.active { border-color: var(--violet); background: var(--violet-s); }
+.agent-icon {
+  width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+}
+.agent-icon.violet { background: var(--violet-s); }
+.agent-icon.dim    { background: var(--bg); }
+.agent-label { flex: 1; }
+.agent-label .name { font-size: 13px; font-weight: 600; display: block; }
+.agent-label .sub  { font-size: 11px; color: var(--ink-3); display: block; margin-top: 1px; }
+.tier-chip {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 4px;
+}
+.tc-violet { background: var(--violet-s); color: var(--violet); }
+.tc-dim    { background: var(--bg); color: var(--ink-3); }
+
+/* divider */
+.left-div { margin: 12px 0; border: none; border-top: 1px solid var(--line); }
+
+/* vendors */
+.vendors { padding: 0 10px; flex: 1; overflow-y: auto; }
+.vendor-row {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 10px; border-radius: 8px; margin-bottom: 3px;
+}
+.vendor-row:hover { background: var(--bg); }
+.v-badge {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  font-weight: 600; padding: 2px 7px; border-radius: 5px; flex-shrink: 0;
+}
+.v-ref    { background: #EEF1F4; color: var(--ink-2); }
+.v-vendor { background: var(--blue-s); color: var(--blue); }
+.v-name   { font-size: 12px; color: var(--ink-2); flex: 1; }
+.v-count  { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-3); }
+
+/* vendor filter — scopes queries/exploration to checked vendors */
+.vendor-filter { padding: 2px 10px 8px; display: flex; flex-direction: column; gap: 2px; }
+.vf-row {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; color: var(--ink-2); padding: 4px 6px;
+  border-radius: 6px; cursor: pointer;
+}
+.vf-row:hover { background: var(--bg); }
+.vf-row input[type=checkbox] { cursor: pointer; accent-color: var(--blue); }
+
+/* ---- CENTER COLUMN ---- */
+.center {
+  display: flex; flex-direction: column; overflow: hidden;
+  padding: 14px; gap: 12px;
+}
+
+/* agent work surface */
+.work-surface {
+  background: var(--panel); border: 1px solid var(--line);
+  border-top: 3px solid var(--violet);
+  border-radius: var(--radius); padding: 14px 16px;
+  display: none; flex-direction: column; gap: 10px;
+}
+.work-surface.visible { display: flex; }
+.ws-head { display: flex; align-items: center; justify-content: space-between; }
+.ws-title { font-size: 14px; font-weight: 700; }
+.ws-close {
+  background: none; border: none; cursor: pointer;
+  color: var(--ink-3); font-size: 16px; line-height: 1; padding: 2px 6px;
+}
+.ws-close:hover { color: var(--ink); }
+.ws-desc { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+.upload-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.upload-row input[type=file] { font-size: 12px; font-family: 'IBM Plex Mono', monospace; flex: 1; min-width: 180px; }
+.upload-row input[type=text] {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+  padding: 7px 10px; border: 1px solid var(--line);
+  border-radius: 7px; width: 130px;
+}
+.btn-primary {
+  background: var(--rail); color: #fff; border: none;
+  border-radius: 8px; padding: 8px 16px; font-size: 13px;
+  font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+  white-space: nowrap;
+}
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-violet { background: var(--violet); }
+.ws-out { font-size: 13px; line-height: 1.6; }
+.ws-gate {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  color: var(--violet); margin-top: 4px;
+}
+.ttl-preview {
+  max-height: 160px; overflow: auto;
+  background: #1C1F26; color: #C8CDD8;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
+  line-height: 1.55; padding: 10px 12px; border-radius: 8px;
+  white-space: pre;
+}
+.gen-stats { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+.gen-stat { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-2); }
+.gen-stat b { color: var(--ink); font-size: 14px; display: block; }
+
+/* placeholder surface */
+.placeholder-surface {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; min-height: 80px; text-align: center;
+}
+.placeholder-surface .ph-icon { font-size: 22px; color: var(--ink-3); }
+.placeholder-surface .ph-text { font-size: 13px; color: var(--ink-2); font-weight: 500; }
+.placeholder-surface .ph-sub  { font-size: 11px; color: var(--ink-3); }
+
+/* chat */
+.chat-panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); display: flex;
+  flex-direction: column; flex: 1; overflow: hidden; min-height: 0;
+}
+.chat-toggle-bar {
+  padding: 10px 14px; border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
+}
+.toggle-pill {
+  display: flex; border-radius: 8px; background: var(--bg);
+  border: 1px solid var(--line); overflow: hidden; flex-shrink: 0;
+}
+.toggle-opt {
+  padding: 6px 14px; font-size: 12px; font-weight: 600;
+  cursor: pointer; border: none; background: none; transition: background .15s, color .15s;
+  color: var(--ink-3);
+}
+.toggle-opt.on-amber { background: var(--amber); color: #fff; }
+.toggle-opt.on-blue  { background: var(--blue);  color: #fff; }
+.toggle-desc {
+  font-size: 11px; color: var(--ink-3); line-height: 1.4; flex: 1;
+}
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.chat-empty {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--ink-3); text-align: center; padding: 20px;
+  line-height: 1.5;
+}
+.chat-bubble {
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: 10px; padding: 11px 13px;
+  font-size: 13px; line-height: 1.6;
+}
+.chat-meta {
+  display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap;
+}
+.tier-badge {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px;
+}
+.tb-amber  { background: var(--amber-s); color: var(--amber); }
+.tb-blue   { background: var(--blue-s);  color: var(--blue); }
+.caveat {
+  margin-top: 8px; padding: 8px 10px;
+  background: var(--blue-s); border-left: 3px solid var(--blue);
+  border-radius: 6px; font-size: 11.5px; line-height: 1.5; color: var(--ink-2);
+}
+.trace-txt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-3); }
+.chat-input-row {
+  padding: 10px 14px; border-top: 1px solid var(--line);
+  display: flex; gap: 8px; align-items: center;
+}
+.chat-input {
+  flex: 1; font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+  padding: 9px 12px; border: 1px solid var(--line);
+  border-radius: 8px; outline: none; transition: border-color .15s;
+}
+.chat-input:focus { border-color: var(--amber); }
+.ask-btn {
+  background: var(--rail); color: #fff; border: none;
+  border-radius: 8px; padding: 9px 18px; font-size: 13px;
+  font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+}
+.ask-btn:disabled { opacity: 0.5; }
+
+/* ---- RIGHT COLUMN ---- */
+.right {
+  border-left: 1px solid var(--line);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.right-top {
+  flex: 1; overflow-y: auto; padding: 0 10px 10px;
+  display: flex; flex-direction: column; min-height: 0;
+}
+.queries-grid {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.qcard {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 9px; padding: 10px 12px; cursor: pointer;
+  transition: border-color .15s, box-shadow .12s;
+}
+.qcard:hover { border-color: var(--ink-3); box-shadow: var(--shadow); }
+.qcard.sel   { border-color: var(--amber); background: var(--amber-s); }
+.qcard-num   { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-3); }
+.qcard-name  { font-size: 13px; font-weight: 600; margin: 3px 0 2px; }
+.qcard-desc  { font-size: 11px; color: var(--ink-2); line-height: 1.4; }
+.qcard-foot  { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; }
+.qcard-params { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--violet); }
+.qcard-params.none { color: var(--ink-3); }
+.qcard.ran { border-color: #2FA65A; box-shadow: 0 0 0 2px rgba(47,166,90,0.25); }
+
+/* inline param bar — appears below a card that needs params */
+.param-bar {
+  margin: -3px 0 6px; padding: 8px 10px 9px;
+  border: 1px solid var(--line); border-top: none;
+  border-radius: 0 0 9px 9px; background: var(--bg);
+  display: none; flex-direction: column; gap: 6px;
+}
+.param-bar.visible { display: flex; }
+.param-bar .pbfield label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em;
+  display: block; margin-bottom: 3px;
+}
+.param-bar select, .param-bar input {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px;
+  width: 100%; background: #fff;
+}
+.param-bar-run {
+  background: var(--rail); color: #fff; border: none;
+  border-radius: 7px; padding: 7px 14px; font-size: 12px;
+  font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+}
+
+/* compact result table embedded in a chat bubble */
+.chat-result-wrap { overflow-x: auto; margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; }
+.table-scroll { max-height: 420px; overflow-y: auto; border-radius: 8px; }
+.chat-result-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-2); margin-top: 5px; }
+
+/* Rows / Matrix toggle above a pivotable result table */
+.view-toggle { display: flex; gap: 6px; margin-bottom: 8px; }
+.view-opt {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+  padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line);
+  background: #fff; color: var(--ink-2); cursor: pointer;
+}
+.view-opt.active { background: var(--rail); color: #fff; border-color: var(--rail); }
+
+/* Matrix pivot cells — tinted by verdict, wrap multi-term lists */
+.pivot-empty, .pivot-cell-covered, .pivot-cell-partial, .pivot-cell-ext { white-space: normal; }
+.pivot-empty { color: var(--ink-3); }
+.pivot-cell-covered { background: var(--amber-s); }
+.pivot-cell-partial { background: var(--blue-s); }
+.pivot-cell-ext     { background: var(--violet-s); }
+tr.pivot-group-start td { border-top: 1px solid var(--line); }
+
+table { width: 100%; border-collapse: collapse; font-size: 11px; }
+th {
+  text-align: left; padding: 7px 10px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3);
+  border-bottom: 1px solid var(--line); background: var(--bg);
+  position: sticky; top: 0;
+}
+td {
+  padding: 6px 10px; border-bottom: 1px solid #F2F3F6;
+  font-family: 'IBM Plex Mono', monospace; max-width: 180px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+tr:hover td { background: #FAFBFC; }
+.verd { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+.vc { background: var(--amber-s); color: var(--amber); }
+.vp { background: var(--blue-s);  color: var(--blue); }
+.ve { background: var(--violet-s); color: var(--violet); }
+
+/* upload panel in right-bottom */
+.upload-panel {
+  border-top: 1px solid var(--line); padding: 10px;
+  flex-shrink: 0;
+}
+.up-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.up-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.up-row input[type=file] { font-size: 11px; font-family: 'IBM Plex Mono', monospace; flex: 1; min-width: 120px; }
+.up-row input[type=text] {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; width: 80px;
+}
+.up-btn {
+  background: var(--blue); color: #fff; border: none;
+  border-radius: 7px; padding: 7px 12px; font-size: 11px;
+  font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+}
+.up-btn:disabled { opacity: 0.5; }
+.up-out { font-size: 11px; color: var(--ink-2); margin-top: 6px; line-height: 1.5; }
+.up-note { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-3); margin-top: 3px; }
+
+/* loading state */
+.loading-txt { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-2); }
+.empty-txt   { font-size: 12px; color: var(--ink-3); padding: 12px; }
+a.dl-link {
+  background: var(--rail); color: #fff; text-decoration: none;
+  border-radius: 7px; padding: 7px 14px; font-size: 12px; font-weight: 600;
+  display: inline-block; margin-top: 4px;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo"><div class="logo-dot"></div>MES Lattice</div>
+    <div class="topbar-status" id="statusline">connecting…</div>
+    <a class="btn-primary" href="/graph.html" target="_blank" rel="noopener"
+       style="margin-left:auto; text-decoration:none;">Graph View →</a>
+  </header>
+
+  <!-- LEFT: Agents + Vendors -->
+  <aside class="left">
+    <div class="api-key-box">
+      <input type="password" id="userApiKey" placeholder="Paste your Gemini API key (optional)">
+      <input type="password" id="anthropicApiKey" style="margin-top:6px"
+             placeholder="Anthropic API key (for intake — from console.anthropic.com)">
+      <div class="up-note">This is an API key, not a Claude Pro login.</div>
+    </div>
+    <div class="section-head">Agents</div>
+    <div class="agents">
+
+      <button class="agent-btn" id="btn-a7" onclick="openAgent('a7')">
+        <div class="agent-icon violet">⬡</div>
+        <div class="agent-label">
+          <span class="name">Excel → Ontology</span>
+          <span class="sub">Agent 7 · Ontology Builder</span>
+        </div>
+        <span class="tier-chip tc-violet">Built</span>
+      </button>
+
+      <button class="agent-btn" id="btn-a6" onclick="openAgent('a6')">
+        <div class="agent-icon violet">📄</div>
+        <div class="agent-label">
+          <span class="name">Docs → Draft Sheet</span>
+          <span class="sub">Agent 6 · Intake</span>
+        </div>
+        <span class="tier-chip tc-violet">Built</span>
+      </button>
+
+      <button class="agent-btn" disabled>
+        <div class="agent-icon dim">⇄</div>
+        <div class="agent-label">
+          <span class="name">Map to Reference</span>
+          <span class="sub">Agent 8 · Mapping Agent</span>
+        </div>
+        <span class="tier-chip tc-dim">Soon</span>
+      </button>
+
+      <button class="agent-btn" disabled>
+        <div class="agent-icon dim">✦</div>
+        <div class="agent-label">
+          <span class="name">Custom Model</span>
+          <span class="sub">Agent 4 · Model Author</span>
+        </div>
+        <span class="tier-chip tc-dim">Soon</span>
+      </button>
+
+    </div>
+
+    <hr class="left-div">
+
+    <div class="section-head">Vendors</div>
+    <div class="vendor-filter" id="vendor-filter"></div>
+    <div class="vendors" id="vendors-list">
+      <div class="loading-txt" style="padding:8px 10px;">loading…</div>
+    </div>
+  </aside>
+
+  <!-- CENTER: Agent surface + Chat -->
+  <main class="center">
+
+    <!-- Agent 7 surface -->
+    <div class="work-surface" id="ws-a7">
+      <div class="ws-head">
+        <span class="ws-title">Excel → Ontology</span>
+        <button class="ws-close" onclick="closeAgent()">✕</button>
+      </div>
+      <div class="ws-desc">Drop a filled capture template. The builder emits <span style="font-family:monospace;">{vendor}:</span> TTL — review and download before loading it.</div>
+      <div class="upload-row">
+        <input type="file" id="wbfile" accept=".xlsx,.xlsm">
+        <input type="text" id="wbprefix" placeholder="prefix, e.g. opc" maxlength="12">
+        <button class="btn-primary btn-violet" id="genbtn" onclick="runGenerate()">Generate TTL →</button>
+      </div>
+      <div id="genout" class="ws-out"></div>
+    </div>
+
+    <!-- Agent 6 surface -->
+    <div class="work-surface" id="ws-a6">
+      <div class="ws-head">
+        <span class="ws-title">Docs → Draft Sheet</span>
+        <button class="ws-close" onclick="closeAgent()">✕</button>
+      </div>
+      <div class="ws-desc">Upload HTML, Word (.docx), or PDF documentation. Each one is mapped against the live ref: vocabulary and drafted into an overlay spreadsheet for you to review.</div>
+      <div class="upload-row">
+        <input type="file" id="intakeFiles" multiple accept=".html,.htm,.docx,.pdf">
+        <input type="text" id="intakeVendor" placeholder="vendor prefix, e.g. opc" maxlength="12">
+        <button class="btn-primary btn-violet" id="intakebtn" onclick="runIntake()">Generate draft →</button>
+      </div>
+      <div id="intakeout" class="ws-out"></div>
+      <div class="ws-gate">Uses your Anthropic API key (set in the sidebar). Intake produces a draft spreadsheet for review — it does not change the graph.</div>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat-panel">
+      <div class="chat-toggle-bar">
+        <div class="toggle-pill">
+          <button class="toggle-opt on-amber" id="tog-cmp" onclick="setMode('comparison')">Comparison</button>
+          <button class="toggle-opt" id="tog-rsn" onclick="setMode('reasoner')">Explore</button>
+        </div>
+        <div class="toggle-desc" id="toggle-desc">
+          Answers comparison, gap, and migration questions — exact counts from the graph, always reproducible.
+        </div>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-empty" id="chat-empty">
+          Ask a comparison question — or switch to Explore for structure and relationships.
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chatq" placeholder="Ask a question…">
+        <button class="ask-btn" id="askbtn" onclick="askChat()">Ask</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RIGHT: Queries + Upload -->
+  <aside class="right">
+    <div class="section-head" style="padding-bottom:6px;">8 Vetted Queries</div>
+    <div class="right-top">
+      <div class="queries-grid" id="queries-grid">
+        <div class="loading-txt">loading…</div>
+      </div>
+    </div>
+
+    <!-- Upload -->
+    <div class="upload-panel">
+      <div class="up-title">Load an overlay</div>
+      <div class="up-row">
+        <input type="file" id="ttlfile" accept=".ttl">
+        <input type="text" id="ttlprefix" placeholder="prefix">
+        <button class="up-btn" id="upbtn" onclick="loadTTL()">Load →</button>
+      </div>
+      <div id="up-out" class="up-out"></div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+const API = "";
+
+// ---- USER-SUPPLIED GEMINI KEY (optional) ----
+// sessionStorage wins if already set; otherwise read the sidebar input and cache it there.
+function getUserApiKey(){
+  let key = sessionStorage.getItem("geminiKey");
+  if(!key){
+    const el = document.getElementById("userApiKey");
+    key = el ? el.value.trim() : "";
+    if(key) sessionStorage.setItem("geminiKey", key);
+  }
+  return key;
+}
+function apiKeyHeaders(){
+  const key = getUserApiKey();
+  return key ? {"X-User-API-Key": key} : {};
+}
+
+// ---- USER-SUPPLIED ANTHROPIC KEY (optional, for intake) ----
+// Same pattern as the Gemini key above: sessionStorage wins if already set;
+// otherwise read the sidebar input and cache it there. Not localStorage.
+function getUserAnthropicKey(){
+  let key = sessionStorage.getItem("anthropicKey");
+  if(!key){
+    const el = document.getElementById("anthropicApiKey");
+    key = el ? el.value.trim() : "";
+    if(key) sessionStorage.setItem("anthropicKey", key);
+  }
+  return key;
+}
+function anthropicKeyHeaders(){
+  const key = getUserAnthropicKey();
+  return key ? {"X-Anthropic-API-Key": key} : {};
+}
+
+let VENDORS = [];
+let selectedQuery = null;
+let COMPLETENESS = null;   // { prefix: refObjsMapped }
+let chatMode = "comparison";   // "comparison" or "reasoner"
+const QUERY_MAP = new Map();
+let ACTIVE_VENDORS = [];   // array of prefixes
+let CURRENT_RESULT = null; // { q, rawRows, params, holder, countEl, view, pivotable, groupByCapability } — latest result bubble
+
+// Queries with a Matrix pivot view, and whether that pivot groups by capability first.
+const MATRIX_QUERIES = {
+  q1_coverage_by_dataobject:   { groupByCapability: false },
+  q2_coverage_by_capability:   { groupByCapability: true },
+};
+
+const NICE = {
+  q1_coverage_by_dataobject:   "Coverage by data object",
+  q2_coverage_by_capability:   "Coverage by capability",
+  q3_gap_by_vendor:            "Gap analysis",
+  q4_convergence:              "Convergence",
+  q5_migration_diff:           "Migration diff",
+  q6_vendor_extension_surface: "Vendor extensions",
+  q7_drilldown:                "Drill-down / audit",
+  q8_completeness_guard:       "Completeness guard",
+};
+const DESC = {
+  q1_coverage_by_dataobject:   "Which vendors map to each reference concept, how, and with what verdict.",
+  q2_coverage_by_capability:   "Coverage rolled up to the capability axis.",
+  q3_gap_by_vendor:            "Reference concepts a vendor does NOT map. Read alongside Q8.",
+  q4_convergence:              "Concepts every loaded vendor closeMatches — points of agreement.",
+  q5_migration_diff:           "Concepts source covers that target doesn't — migration risk.",
+  q6_vendor_extension_surface: "A vendor's proprietary concepts with no reference equivalent.",
+  q7_drilldown:                "Every mapping row behind one reference concept — the evidence.",
+  q8_completeness_guard:       "How much of the reference each overlay has engaged with.",
+};
+const MODE_DESC = {
+  comparison: "Answers comparison, gap, and migration questions — exact counts from the graph, always reproducible.",
+  reasoner:   "Explores structure and relationships — traces how concepts connect, what they hold, and how CM resolves them at runtime.",
+};
+
+// ---- BOOT ----
+async function boot(){
+  try{
+    const st = await (await fetch(API+"/api/status")).json();
+    VENDORS = await (await fetch(API+"/api/vendors")).json();
+    ACTIVE_VENDORS = VENDORS.map(v => v.prefix);
+    await loadCompleteness();
+    document.getElementById("statusline").innerHTML =
+      `<span class="live">●</span> ${st.vendors.length} vendor(s) · ${st.query_count} queries · store online`;
+    renderVendors(st.layers);
+    renderVendorFilter();
+    const qs = await (await fetch(API+"/api/queries")).json();
+    renderQueries(qs);
+  }catch(e){
+    document.getElementById("statusline").textContent = "backend not reachable — is uvicorn running?";
+  }
+}
+
+// ---- COMPLETENESS GUARD (Q8) ----
+async function loadCompleteness(){
+  if (COMPLETENESS) return COMPLETENESS;
+  try {
+    const r = await fetch(API + "/api/query/q8_completeness_guard", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({params: {}})
+    });
+    const d = await r.json();
+    COMPLETENESS = {};
+    d.rows.forEach(row => {
+      // vendor comes back like "cm:" — strip the colon
+      const p = String(row.vendor || "").replace(/:$/, "");
+      COMPLETENESS[p] = parseInt(row.refObjsMapped, 10) || 0;
+    });
+  } catch(e) { COMPLETENESS = {}; }
+  return COMPLETENESS;
+}
+
+function nsToPrefix(ns){
+  if (!ns) return null;
+  const v = VENDORS.find(v => v.namespace === ns);
+  return v ? v.prefix : null;
+}
+
+function completenessCaveat(queryName, params){
+  if (!COMPLETENESS) return "";
+  // which vendor's coverage determines whether "gaps" are real?
+  // q3 gap -> VENDOR ; q5 migration -> TO (the target lacks the concepts)
+  let prefix = null;
+  if (queryName.includes("gap")) prefix = nsToPrefix(params.VENDOR);
+  else if (queryName.includes("migration")) prefix = nsToPrefix(params.TO);
+  if (!prefix) return "";
+  const mapped = COMPLETENESS[prefix];
+  const all = Object.values(COMPLETENESS);
+  const best = all.length ? Math.max(...all) : 0;
+  if (mapped === undefined) return "";
+  // flag when this overlay is materially thinner than the richest one
+  if (best > 0 && mapped < best * 0.75) {
+    return `Provisional: the ${prefix} overlay maps ${mapped} reference concepts ` +
+           `versus ${best} for the most complete overlay. These results may reflect ` +
+           `incomplete capture rather than proven absence in the product.`;
+  }
+  return `${prefix} overlay maps ${mapped} reference concepts.`;
+}
+
+function renderVendors(layers){
+  document.getElementById("vendors-list").innerHTML = layers.map(l=>`
+    <div class="vendor-row">
+      <span class="v-badge ${l.is_reference?'v-ref':'v-vendor'}">${l.prefix}</span>
+      <span class="v-name">${l.is_reference?"Neutral reference":l.prefix.toUpperCase()+" overlay"}</span>
+      <span class="v-count">${l.triples.toLocaleString()}</span>
+    </div>`).join("");
+}
+
+// ---- VENDOR SELECTOR — scopes queries + exploration to checked vendors ----
+// ref: is the comparison axis, never a selectable vendor (VENDORS already excludes it).
+function renderVendorFilter(){
+  document.getElementById("vendor-filter").innerHTML = VENDORS.map(v => `
+    <label class="vf-row">
+      <input type="checkbox" data-vf-prefix="${v.prefix}" ${ACTIVE_VENDORS.includes(v.prefix) ? "checked" : ""}>
+      <span>${v.prefix}</span>
+    </label>`).join("");
+
+  document.querySelectorAll("[data-vf-prefix]").forEach(cb => {
+    cb.addEventListener("change", () => {
+      const p = cb.dataset.vfPrefix;
+      if(cb.checked){
+        if(!ACTIVE_VENDORS.includes(p)) ACTIVE_VENDORS.push(p);
+      } else {
+        ACTIVE_VENDORS = ACTIVE_VENDORS.filter(x => x !== p);
+      }
+      onVendorSelectionChanged();
+    });
+  });
+}
+
+function activeVendorList(){
+  return VENDORS.filter(v => ACTIVE_VENDORS.includes(v.prefix));
+}
+
+function onVendorSelectionChanged(){
+  rebuildParamDropdowns();
+  if(CURRENT_RESULT) renderResultInto(CURRENT_RESULT);
+}
+
+// Rebuild VENDOR/FROM/TO <select> options (the only params rendered as <select>)
+// to reflect the current ACTIVE_VENDORS, preserving the prior selection if still valid.
+function rebuildParamDropdowns(){
+  document.querySelectorAll(".param-bar select[data-param]").forEach(sel => {
+    const current = sel.value;
+    const opts = activeVendorList();
+    sel.innerHTML = opts.map(v=>`<option value="${v.namespace}">${v.prefix}</option>`).join("");
+    if(opts.some(v => v.namespace === current)) sel.value = current;
+  });
+}
+
+// Rows with no `vendor` field (unmapped Q1 concepts, Q3/Q5 output) always pass through.
+function filterRowsByActiveVendors(rows){
+  return rows.filter(r => {
+    if(!r.vendor) return true;
+    const p = String(r.vendor).replace(/:$/, "");
+    return ACTIVE_VENDORS.includes(p);
+  });
+}
+
+// ---- MATCH TYPE ABBREVIATION ----
+function shortMatch(m){
+  if (!m) return "";
+  const s = String(m).replace(/^skos:/, "");
+  return { closeMatch: "CM", broadMatch: "BM",
+           narrowMatch: "NM", relatedMatch: "RM" }[s] || s;
+}
+function matchBadge(m){
+  if(!m) return "";
+  const full = String(m).replace(/^skos:/, "");
+  return `<span title="${full}">${shortMatch(m)}</span>`;
+}
+
+function renderQueries(qs){
+  qs.forEach(q => QUERY_MAP.set(q.name, q));
+  document.getElementById("queries-grid").innerHTML = qs.map((q,i)=>{
+    const paramBar = q.params.length ? `
+    <div class="param-bar" id="pb-${q.name}">
+      ${q.params.map(p=>{
+        if(["VENDOR","FROM","TO"].includes(p)){
+          const opts = activeVendorList().map(v=>`<option value="${v.namespace}">${v.prefix}</option>`).join("");
+          return `<div class="pbfield"><label>${p}</label><select data-param="${p}">${opts}</select></div>`;
+        }
+        return `<div class="pbfield"><label>${p}</label><input data-param="${p}" placeholder="full ref: IRI"></div>`;
+      }).join("")}
+      <button class="param-bar-run" data-qname="${q.name}">Run →</button>
+    </div>` : "";
+    return `
+    <div class="qcard" id="qc-${q.name}" data-qname="${q.name}">
+      <div class="qcard-num">Q${i+1}</div>
+      <div class="qcard-name">${NICE[q.name]||q.name}</div>
+      <div class="qcard-desc">${DESC[q.name]||""}</div>
+      <div class="qcard-foot">
+        <span class="qcard-params ${q.params.length?'':'none'}">${q.params.length?"needs: "+q.params.join(", "):"no params"}</span>
+        <span class="tier-chip tc-amber" style="font-size:9px;">Computed</span>
+      </div>
+    </div>${paramBar}`;
+  }).join("");
+
+  document.querySelectorAll(".qcard").forEach(card => {
+    card.addEventListener("click", () => {
+      const name = card.dataset.qname;
+      selectQuery(QUERY_MAP.get(name));
+    });
+  });
+  document.querySelectorAll(".param-bar-run").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const name = btn.dataset.qname;
+      const bar = document.getElementById("pb-"+name);
+      const params = {};
+      bar.querySelectorAll("[data-param]").forEach(el=>{ params[el.dataset.param]=el.value; });
+      executeQuery(QUERY_MAP.get(name), params);
+    });
+  });
+}
+
+// ---- AGENT PANEL ----
+function openAgent(id){
+  document.querySelectorAll(".work-surface").forEach(e=>e.classList.remove("visible"));
+  document.querySelectorAll(".agent-btn").forEach(e=>e.classList.remove("active"));
+  document.getElementById("ws-"+id).classList.add("visible");
+  document.getElementById("btn-"+id).classList.add("active");
+}
+function closeAgent(){
+  document.querySelectorAll(".work-surface").forEach(e=>e.classList.remove("visible"));
+  document.querySelectorAll(".agent-btn").forEach(e=>e.classList.remove("active"));
+}
+
+// ---- GENERATE TTL ----
+async function runGenerate(){
+  const file = document.getElementById("wbfile").files[0];
+  const prefix = document.getElementById("wbprefix").value.trim().toLowerCase();
+  if(!file || !prefix){ alert("Choose a workbook and enter a prefix."); return; }
+  const btn = document.getElementById("genbtn");
+  btn.disabled = true;
+  const out = document.getElementById("genout");
+  out.innerHTML = `<span class="loading-txt">generating ${prefix}: overlay…</span>`;
+  const fd = new FormData();
+  fd.append("workbook", file); fd.append("prefix", prefix);
+  try{
+    const resp = await fetch(API+"/api/generate",{method:"POST",body:fd});
+    if(!resp.ok){ const e=await resp.json(); out.innerHTML=`<span style="color:red;">${e.detail}</span>`; return; }
+    const d = await resp.json();
+    const blob = new Blob([d.ttl],{type:"text/turtle"});
+    const url = URL.createObjectURL(blob);
+    const s = d.stats;
+    out.innerHTML = `
+      <div class="gen-stats">
+        <div class="gen-stat"><b>${s.classes}</b>classes</div>
+        <div class="gen-stat"><b>${s.attributes}</b>attrs</div>
+        <div class="gen-stat"><b>${s.operations}</b>ops</div>
+        <div class="gen-stat"><b>${s.mappings}</b>ref mappings</div>
+      </div>
+      <a class="dl-link" href="${url}" download="${d.filename}">Download ${d.filename}</a>
+      <div class="ws-gate">Generated draft — review before adding to LAYERS and restarting.</div>
+      <div class="ttl-preview">${d.ttl.split("\n").slice(0,30).join("\n").replace(/</g,"&lt;")}\n…</div>`;
+  }catch(e){ out.innerHTML=`<span style="color:red;">Request failed.</span>`; }
+  finally{ btn.disabled=false; }
+}
+
+// ---- INTAKE (Agent 6) ----
+function parseFilename(disposition, fallback){
+  if(!disposition) return fallback;
+  const m = /filename\*?=(?:UTF-8'')?"?([^";]+)"?/i.exec(disposition);
+  return m ? decodeURIComponent(m[1]) : fallback;
+}
+
+async function runIntake(){
+  const files = document.getElementById("intakeFiles").files;
+  const vendor = document.getElementById("intakeVendor").value.trim().toLowerCase();
+  const out = document.getElementById("intakeout");
+
+  if(!files.length || !vendor){
+    out.innerHTML = `<span style="color:red;">Choose at least one .html file and enter a vendor prefix.</span>`;
+    return;
+  }
+  if(files.length > 40){
+    out.innerHTML = `<span style="color:red;">Upload up to ~40 pages (one section) at a time.</span>`;
+    return;
+  }
+
+  const btn = document.getElementById("intakebtn");
+  btn.disabled = true;
+  out.innerHTML = `<span class="loading-txt">Mapping ${files.length} file(s)… this runs a model per concept, may take a minute.</span>`;
+
+  const fd = new FormData();
+  for(const f of files) fd.append("files", f);
+  fd.append("vendor", vendor);
+
+  try{
+    const r = await fetch(API+"/api/intake", {
+      method: "POST",
+      headers: { ...anthropicKeyHeaders() },   // no Content-Type - browser sets the multipart boundary
+      body: fd
+    });
+    if(!r.ok){
+      let msg = "Request failed.";
+      try{ const e = await r.json(); msg = e.detail || msg; }catch(_e){}
+      out.innerHTML = `<span style="color:red;">${msg}</span>`;
+      return;
+    }
+    const mapped = r.headers.get("x-intake-mapped") || "0";
+    const failed = r.headers.get("x-intake-failed") || "0";
+    const filename = parseFilename(r.headers.get("content-disposition"),
+                                   `MES-${vendor.toUpperCase()}-Overlay-DRAFT.xlsx`);
+    const blob = await r.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    out.innerHTML = `<span>Draft ready: ${mapped} concepts mapped, ${failed} need manual capture. `
+                   + `Review the spreadsheet, then load it through the normal generate flow.</span>`;
+  }catch(e){
+    out.innerHTML = `<span style="color:red;">Request failed.</span>`;
+  }finally{
+    btn.disabled = false;
+  }
+}
+
+// ---- CHAT ----
+function setMode(mode){
+  chatMode = mode;
+  document.getElementById("tog-cmp").className = "toggle-opt" + (mode==="comparison"?" on-amber":"");
+  document.getElementById("tog-rsn").className  = "toggle-opt" + (mode==="reasoner"?" on-blue":"");
+  document.getElementById("toggle-desc").textContent = MODE_DESC[mode];
+  document.getElementById("chatq").placeholder =
+    mode==="comparison" ? "e.g. 'what does cm not cover?' or 'where do the vendors agree?'"
+                        : "e.g. 'how is Data Collection related to Step?' or 'how does cm:Step work?'";
+}
+
+async function askChat(){
+  const q = document.getElementById("chatq").value.trim();
+  if(!q) return;
+  const btn = document.getElementById("askbtn");
+  btn.disabled = true;
+  const msgs = document.getElementById("chat-messages");
+  document.getElementById("chat-empty").style.display = "none";
+  const loader = document.createElement("div");
+  loader.className = "loading-txt"; loader.textContent = "thinking…";
+  msgs.appendChild(loader); msgs.scrollTop = msgs.scrollHeight;
+
+  try{
+    let data, tier, trace;
+    if(chatMode === "comparison"){
+      const r = await fetch(API+"/api/chat",{method:"POST",
+        headers:{"Content-Type":"application/json", ...apiKeyHeaders()}, body:JSON.stringify({question:q})});
+      data = await r.json();
+      if(!data.query){
+        // fallback to reasoner
+        const r2 = await fetch(API+"/api/reason",{method:"POST",
+          headers:{"Content-Type":"application/json", ...apiKeyHeaders()}, body:JSON.stringify({question:q})});
+        data = await r2.json(); tier="retrieved";
+        trace = data.concepts ? "traced: "+data.concepts.join(", ") : "graph trace";
+      } else {
+        tier = "computed";
+        trace = `ran ${data.query}${Object.keys(data.params||{}).length?" · "+JSON.stringify(data.params):""} · ${data.count||0} rows`;
+      }
+    } else {
+      const r = await fetch(API+"/api/reason",{method:"POST",
+        headers:{"Content-Type":"application/json", ...apiKeyHeaders()}, body:JSON.stringify({question:q})});
+      data = await r.json(); tier="retrieved";
+      trace = data.concepts ? "traced: "+data.concepts.join(", ") : "graph trace";
+    }
+    loader.remove();
+    const answer = (data.answer||"")
+      .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+      .replace(/^### (.+)$/gm,"<strong>$1</strong>")
+      .replace(/^## (.+)$/gm,"<strong>$1</strong>");
+    const bubble = document.createElement("div");
+    bubble.className = "chat-bubble";
+    bubble.innerHTML = `<div>${answer}</div>
+      <div class="chat-meta">
+        <span class="tier-badge ${tier==="computed"?"tb-amber":"tb-blue"}">${tier}</span>
+        <span class="trace-txt">${trace||""}</span>
+      </div>`;
+    msgs.appendChild(bubble); msgs.scrollTop = msgs.scrollHeight;
+    document.getElementById("chatq").value = "";
+  }catch(e){
+    loader.textContent = "Request failed — is the backend running?";
+  }
+  btn.disabled = false;
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("chatq").addEventListener("keydown",e=>{ if(e.key==="Enter") askChat(); });
+});
+
+// ---- QUERY CARDS ----
+function selectQuery(q){
+  document.querySelectorAll(".qcard").forEach(c=>c.classList.remove("sel"));
+  document.getElementById("qc-"+q.name).classList.add("sel");
+  selectedQuery = q;
+
+  if(q.params.length===0){
+    document.querySelectorAll(".param-bar").forEach(b=>b.classList.remove("visible"));
+    executeQuery(q, {});
+    return;
+  }
+
+  document.querySelectorAll(".param-bar").forEach(b=>{
+    if(b.id !== "pb-"+q.name) b.classList.remove("visible");
+  });
+  document.getElementById("pb-"+q.name).classList.toggle("visible");
+}
+
+async function executeQuery(q, params){
+  const msgs = document.getElementById("chat-messages");
+  document.getElementById("chat-empty").style.display = "none";
+  const loader = document.createElement("div");
+  loader.className = "loading-txt"; loader.textContent = `running ${q.name}…`;
+  msgs.appendChild(loader); msgs.scrollTop = msgs.scrollHeight;
+
+  try{
+    const r = await fetch(API+`/api/query/${q.name}`,{
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({params})});
+    loader.remove();
+    if(!r.ok){
+      const e = await r.json();
+      postQueryResultToChat(q, {rows:[], count:0}, params, e.detail);
+      return;
+    }
+    const d = await r.json();
+    postQueryResultToChat(q, d, params);
+  }catch(e){
+    loader.remove();
+    postQueryResultToChat(q, {rows:[], count:0}, params, "Request failed — is the backend running?");
+  }
+}
+
+function postQueryResultToChat(q, d, params, errorMsg){
+  const msgs = document.getElementById("chat-messages");
+  document.getElementById("chat-empty").style.display = "none";
+  const rows = (d && d.rows) || [];
+  const matrixCfg = MATRIX_QUERIES[q.name];
+  const pivotable = !!matrixCfg;
+  const groupByCapability = !!(matrixCfg && matrixCfg.groupByCapability);
+
+  const bubble = document.createElement("div");
+  bubble.className = "chat-bubble";
+
+  if(errorMsg){
+    bubble.innerHTML = `
+      <div class="empty-txt">${errorMsg}</div>
+      <div class="chat-meta">
+        <span class="tier-badge tb-amber">computed</span>
+        <span class="trace-txt">ran ${q.name}</span>
+      </div>`;
+  } else {
+    const caveat = completenessCaveat(q.name, params || {});
+    bubble.innerHTML = `
+      ${pivotable ? `
+      <div class="view-toggle">
+        <button class="view-opt active" data-view="matrix">Matrix</button>
+        <button class="view-opt" data-view="rows">Rows</button>
+      </div>` : ""}
+      <div class="chat-result-wrap table-scroll" data-table-holder></div>
+      <div class="chat-result-count" data-count-holder></div>
+      <div class="chat-meta">
+        <span class="tier-badge tb-amber">computed</span>
+        <span class="trace-txt">ran ${q.name}</span>
+      </div>
+      ${caveat ? `<div class="caveat">${caveat}</div>` : ""}`;
+
+    const entry = {
+      q, rawRows: rows, params: params || {}, pivotable, groupByCapability,
+      holder: bubble.querySelector("[data-table-holder]"),
+      countEl: bubble.querySelector("[data-count-holder]"),
+      view: pivotable ? "matrix" : "rows",
+    };
+    CURRENT_RESULT = entry;
+    renderResultInto(entry);
+
+    if(pivotable){
+      bubble.querySelectorAll(".view-opt").forEach(btn => {
+        btn.addEventListener("click", () => {
+          bubble.querySelectorAll(".view-opt").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          entry.view = btn.dataset.view;
+          renderResultInto(entry);
+        });
+      });
+    }
+  }
+
+  msgs.appendChild(bubble);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  const card = document.getElementById("qc-"+q.name);
+  if(card){
+    card.classList.add("ran");
+    setTimeout(()=>card.classList.remove("ran"), 900);
+  }
+}
+
+// Re-renders a result entry from its already-fetched rawRows, applying the current
+// ACTIVE_VENDORS filter and view mode. Called on initial display and again whenever
+// the vendor selector or Matrix/Rows toggle changes — never re-fetches.
+function renderResultInto(entry){
+  const { q, rawRows, holder, countEl, groupByCapability } = entry;
+  if(ACTIVE_VENDORS.length === 0){
+    holder.innerHTML = `<div class="empty-txt">select at least one vendor</div>`;
+    if(countEl) countEl.textContent = `select at least one vendor · ${q.name}`;
+    return;
+  }
+  const filtered = filterRowsByActiveVendors(rawRows);
+  const isMatrix = entry.pivotable && entry.view === "matrix";
+  holder.innerHTML = isMatrix ? buildPivotHtml(filtered, groupByCapability) : tableHtml(filtered);
+  if(countEl){
+    if(isMatrix){
+      const nConcepts = new Set(filtered.map(r => r.refObj)).size;
+      countEl.textContent = groupByCapability
+        ? `${nConcepts} reference concepts across ${new Set(filtered.map(r => r.capLabel)).size} capabilities · ${q.name}`
+        : `${nConcepts} reference concepts · ${q.name}`;
+    } else {
+      countEl.textContent = `${filtered.length} rows · ${q.name}`;
+    }
+  }
+}
+
+// Shared Matrix pivot for q1 (by data object) and q2 (by capability, then data object).
+// Shape (groupByCapability=false): Data Object | CM | Match | OPC | Match | ...
+// Shape (groupByCapability=true):  Capability | Data Object | CM | Match | OPC | Match | ...
+function buildPivotHtml(rows, groupByCapability){
+  if(!rows.length) return `<div class="empty-txt">No rows — this may be the meaningful answer.</div>`;
+  const activeVendors = activeVendorList();
+
+  const order = [];
+  const groups = new Map();
+  rows.forEach(r => {
+    const key = groupByCapability ? `${r.capLabel}||${r.refObj}` : r.refObj;
+    if(!groups.has(key)){
+      groups.set(key, { capLabel: r.capLabel || "", refLabel: r.refLabel || r.refObj, cells: {} });
+      order.push(key);
+    }
+    if(!r.vendor) return;   // unmapped placeholder row (vendor columns unbound)
+    const vendorPrefix = String(r.vendor).replace(/:$/, "");
+    const v = activeVendors.find(v => v.prefix === vendorPrefix);
+    if(!v) return;
+    const g = groups.get(key);
+    if(!g.cells[v.prefix]) g.cells[v.prefix] = [];
+    g.cells[v.prefix].push({
+      term: String(r.vendorTerm || "").split(":").slice(1).join(":") || r.vendorTerm || "",
+      match: String(r.match || "").replace(/^skos:/, ""),
+      verdict: r.verdict || ""
+    });
+  });
+
+  // q1's SPARQL already orders by refLabel; q2 needs capLabel-then-refLabel so
+  // each capability's data objects sit together as one scannable block.
+  if(groupByCapability){
+    order.sort((a, b) => {
+      const ga = groups.get(a), gb = groups.get(b);
+      if(ga.capLabel !== gb.capLabel) return ga.capLabel < gb.capLabel ? -1 : 1;
+      return ga.refLabel < gb.refLabel ? -1 : (ga.refLabel > gb.refLabel ? 1 : 0);
+    });
+  }
+
+  const head = (groupByCapability ? `<th>Capability</th>` : "")
+    + `<th>Data Object</th>`
+    + activeVendors.map(v => `<th>${v.prefix.toUpperCase()}</th><th>Match</th>`).join("");
+
+  let lastCap = null;
+  const body = order.map(key => {
+    const g = groups.get(key);
+    const tds = activeVendors.map(v => {
+      const entries = g.cells[v.prefix];
+      if(!entries || !entries.length){
+        return `<td class="pivot-empty">—</td><td class="pivot-empty">—</td>`;
+      }
+      const cls = entries[0].verdict === "covered" ? "pivot-cell-covered"
+                : entries[0].verdict === "partial" ? "pivot-cell-partial"
+                : entries[0].verdict === "vendor-extension" ? "pivot-cell-ext"
+                : "";
+      const termText = entries.map(e => e.term).join(" / ");
+      const matchText = entries.map(e => e.match).join(" / ");
+      return `<td class="${cls}">${termText}</td><td>${matchText}</td>`;
+    }).join("");
+
+    let rowCls = "";
+    let capCell = "";
+    if(groupByCapability){
+      const isNewGroup = g.capLabel !== lastCap;
+      capCell = `<td>${isNewGroup ? g.capLabel : ""}</td>`;
+      rowCls = isNewGroup ? ` class="pivot-group-start"` : "";
+      lastCap = g.capLabel;
+    }
+
+    return `<tr${rowCls}>${capCell}<td>${g.refLabel}</td>${tds}</tr>`;
+  }).join("");
+
+  return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+function tableHtml(rows){
+  if(!rows.length) return `<div class="empty-txt">No rows — this may be the meaningful answer.</div>`;
+  const cols = [];
+  rows.forEach(r => Object.keys(r).forEach(k => {
+    if (!cols.includes(k)) cols.push(k);
+  }));
+  const head = cols.map(c=>`<th>${c}</th>`).join("");
+  const body = rows.map(r=>{
+    const tds = cols.map(c=>{
+      let v = r[c] ?? "";
+      if(c==="verdict"){
+        const cls = v==="covered"?"vc":v==="partial"?"vp":"ve";
+        v=`<span class="verd ${cls}">${v}</span>`;
+      } else if(c==="match" || c==="fromMatch"){
+        v = matchBadge(v);
+      }
+      return `<td title="${String(r[c] ?? "")}">${v}</td>`;
+    }).join("");
+    return `<tr>${tds}</tr>`;
+  }).join("");
+  return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+// ---- LOAD TTL ----
+async function loadTTL(){
+  const file = document.getElementById("ttlfile").files[0];
+  const prefix = document.getElementById("ttlprefix").value.trim().toLowerCase();
+  if(!file||!prefix){ alert("Choose a .ttl file and enter a prefix."); return; }
+  const btn = document.getElementById("upbtn");
+  btn.disabled = true;
+  const out = document.getElementById("up-out");
+  out.textContent = `loading ${prefix}:…`;
+  const fd = new FormData(); fd.append("ttl",file); fd.append("prefix",prefix);
+  try{
+    const r = await fetch(API+"/api/load-ttl",{method:"POST",body:fd});
+    if(!r.ok){ const e=await r.json(); out.textContent=e.detail; return; }
+    const d = await r.json();
+    out.innerHTML = `<strong>${d.prefix}:</strong> ${d.triples.toLocaleString()} triples loaded. Vendors: ${d.vendors_now.join(", ")}.
+      <div class="up-note">${d.note}</div>`;
+    boot();
+  }catch(e){ out.textContent="Request failed."; }
+  finally{ btn.disabled=false; }
+}
+
+boot();
+</script>
+</body>
+</html>

@@ -5,460 +5,560 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MES Lattice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:       #F7F8FA;
-  --panel:    #FFFFFF;
-  --ink:      #111318;
-  --ink-2:    #5A6072;
-  --ink-3:    #9AA0AE;
-  --line:     #E2E5EC;
-  --amber:    #E0A500;
-  --amber-s:  #FBF3DA;
-  --blue:     #2C97B8;
-  --blue-s:   #E2F3F8;
-  --violet:   #6B54C9;
-  --violet-s: #EDE9FA;
-  --rail:     #111318;
-  --radius:   10px;
-  --shadow:   0 1px 3px rgba(17,19,24,0.07), 0 4px 12px rgba(17,19,24,0.04);
-}
-*, *::before, *::after { box-sizing: border-box; }
-body {
-  margin: 0; background: var(--bg); color: var(--ink);
-  font-family: 'Space Grotesk', sans-serif; font-size: 14px;
-  -webkit-font-smoothing: antialiased; height: 100vh; overflow: hidden;
-}
-mono { font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+  /* =========================================================================
+     Visual shell ported from mes-lattice-mockup.html, verbatim where possible.
+     ========================================================================= */
+  :root{
+    --bg:          #0b1220;
+    --panel:       #111c2e;
+    --panel-2:     #16243a;
+    --card:        #142138;
+    --card-hover:  #1a2c48;
+    --stroke:      #223651;
+    --ink:         #eaf1fb;
+    --ink-dim:     #8da0bd;
+    --muted:       #6b7f9c;
+    --cyan:        #35d0e0;
+    --cyan-soft:   rgba(53,208,224,.14);
+    --amber:       #e8b64a;   /* reference layer */
+    --amber-soft:  rgba(232,182,74,.14);
+    --green:       #46c48a;
+    --green-soft:  rgba(70,196,138,.14);
+    --violet:      #8b7ff0;
+    --violet-soft: rgba(139,127,240,.16);
+    --danger:      #f0745f;
+    --radius:      16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:
+      radial-gradient(1200px 700px at 78% -10%, rgba(53,208,224,.10), transparent 60%),
+      radial-gradient(900px 600px at 0% 110%, rgba(139,127,240,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:Inter,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{
+    display:grid;
+    grid-template-columns:76px 1fr 300px;
+    gap:18px;
+    height:100vh;
+    padding:18px;
+  }
 
-/* ---- APP SHELL ---- */
-.shell {
-  display: grid;
-  grid-template-columns: 220px 1fr 280px;
-  grid-template-rows: 48px 1fr;
-  height: 100vh; gap: 0;
-}
+  /* ---------- left rail ---------- */
+  .rail{
+    background:var(--panel);
+    border:1px solid var(--stroke);
+    border-radius:var(--radius);
+    display:flex; flex-direction:column; align-items:center;
+    padding:16px 0; gap:8px;
+  }
+  .logo{
+    width:42px;height:42px;border-radius:12px;
+    background:linear-gradient(135deg,var(--cyan),#2aa7d6);
+    display:grid;place-items:center;margin-bottom:14px;
+    box-shadow:0 6px 18px rgba(53,208,224,.35);
+    font-family:Sora;font-weight:700;color:#04121a;font-size:18px;
+  }
+  .navbtn{
+    width:46px;height:46px;border-radius:12px;border:1px solid transparent;
+    display:grid;place-items:center;color:var(--ink-dim);
+    cursor:pointer;transition:.18s;position:relative;background:transparent;
+    text-decoration:none;
+  }
+  .navbtn:hover{background:var(--panel-2);color:var(--ink)}
+  .navbtn.active{
+    background:var(--cyan-soft);color:var(--cyan);border-color:rgba(53,208,224,.35);
+  }
+  .navbtn:disabled{opacity:.35;cursor:not-allowed}
+  .navbtn svg{width:21px;height:21px}
+  .navbtn .tip{
+    position:absolute;left:56px;white-space:nowrap;
+    background:#0a1524;border:1px solid var(--stroke);color:var(--ink);
+    font-size:12px;padding:5px 9px;border-radius:8px;opacity:0;pointer-events:none;
+    transform:translateX(-4px);transition:.15s;z-index:20;
+  }
+  .navbtn:hover .tip{opacity:1;transform:translateX(0)}
+  .rail .spacer{flex:1}
 
-/* ---- TOPBAR ---- */
-.topbar {
-  grid-column: 1 / -1;
-  background: var(--panel);
-  border-bottom: 1px solid var(--line);
-  display: flex; align-items: center;
-  padding: 0 18px; gap: 14px;
-}
-.logo {
-  font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
-  display: flex; align-items: center; gap: 6px;
-}
-.logo-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--amber); box-shadow: 0 0 0 3px rgba(224,165,0,0.18);
-}
-.topbar-status {
-  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
-  color: var(--ink-3); margin-left: 8px;
-}
-.topbar-status .live { color: #2FA65A; }
+  /* ---------- center ---------- */
+  .center{display:flex;flex-direction:column;gap:18px;min-width:0;overflow-y:auto;padding-right:4px}
+  .topbar{display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .search{
+    flex:1;display:flex;align-items:center;gap:10px;
+    background:var(--panel);border:1px solid var(--stroke);
+    border-radius:12px;padding:8px 8px 8px 16px;
+  }
+  .search input{
+    flex:1;background:transparent;border:0;outline:0;color:var(--ink);
+    font-size:14px;font-family:Inter;
+  }
+  .search input::placeholder{color:var(--muted)}
+  .search svg{width:18px;height:18px;color:var(--muted);flex-shrink:0}
+  .kbd{
+    font-family:JetBrains Mono;font-size:11px;color:var(--muted);
+    border:1px solid var(--stroke);border-radius:6px;padding:2px 6px;flex-shrink:0;
+  }
+  .search-send{
+    background:var(--cyan);color:#04121a;border:0;border-radius:8px;
+    width:34px;height:34px;display:grid;place-items:center;cursor:pointer;flex-shrink:0;
+  }
+  .search-send:disabled{opacity:.5;cursor:not-allowed}
+  .search-send svg{width:16px;height:16px}
 
-/* ---- LEFT COLUMN ---- */
-.left { display: flex; flex-direction: column; border-right: 1px solid var(--line); overflow: hidden; }
-.api-key-box { padding: 10px 10px 4px; }
-.api-key-box input[type=password] {
-  width: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 11px;
-  padding: 7px 9px; border: 1px solid var(--line); border-radius: 7px; background: #fff;
-}
+  .headline{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-shrink:0}
+  .headline h1{
+    font-family:Sora;font-weight:700;font-size:26px;letter-spacing:-.02em;margin:0;
+  }
+  .headline p{margin:4px 0 0;color:var(--muted);font-size:13px}
+  .seg{
+    display:inline-flex;background:var(--panel);border:1px solid var(--stroke);
+    border-radius:11px;padding:4px;gap:4px;flex-shrink:0;
+  }
+  .seg button{
+    border:0;background:transparent;color:var(--ink-dim);
+    font-family:Inter;font-size:13px;font-weight:500;
+    padding:7px 14px;border-radius:8px;cursor:pointer;transition:.15s;
+  }
+  .seg button.on{background:var(--cyan);color:#04121a;font-weight:600}
 
-/* agents */
-.section-head {
-  padding: 14px 16px 8px;
-  font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--ink-3);
-  font-family: 'IBM Plex Mono', monospace;
-}
-.agents { padding: 0 10px; display: flex; flex-direction: column; gap: 6px; }
-.agent-btn {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 12px; border-radius: var(--radius);
-  border: 1px solid var(--line); background: var(--panel);
-  cursor: pointer; transition: border-color .15s, box-shadow .15s;
-  text-align: left; width: 100%;
-}
-.agent-btn:hover:not(:disabled) { border-color: var(--ink-3); box-shadow: var(--shadow); }
-.agent-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.agent-btn.active { border-color: var(--violet); background: var(--violet-s); }
-.agent-icon {
-  width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px;
-}
-.agent-icon.violet { background: var(--violet-s); }
-.agent-icon.dim    { background: var(--bg); }
-.agent-label { flex: 1; }
-.agent-label .name { font-size: 13px; font-weight: 600; display: block; }
-.agent-label .sub  { font-size: 11px; color: var(--ink-3); display: block; margin-top: 1px; }
-.tier-chip {
-  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
-  font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
-  padding: 2px 6px; border-radius: 4px;
-}
-.tc-violet { background: var(--violet-s); color: var(--violet); }
-.tc-dim    { background: var(--bg); color: var(--ink-3); }
+  .section-label{
+    display:flex;align-items:center;gap:10px;margin:2px 0 -4px;flex-shrink:0;
+  }
+  .section-label span{
+    font-family:JetBrains Mono;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .section-label .rule{flex:1;height:1px;background:var(--stroke)}
 
-/* divider */
-.left-div { margin: 12px 0; border: none; border-top: 1px solid var(--line); }
+  .grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex-shrink:0;
+  }
 
-/* vendors */
-.vendors { padding: 0 10px; flex: 1; overflow-y: auto; }
-.vendor-row {
-  display: flex; align-items: center; gap: 9px;
-  padding: 8px 10px; border-radius: 8px; margin-bottom: 3px;
-}
-.vendor-row:hover { background: var(--bg); }
-.v-badge {
-  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-  font-weight: 600; padding: 2px 7px; border-radius: 5px; flex-shrink: 0;
-}
-.v-ref    { background: #EEF1F4; color: var(--ink-2); }
-.v-vendor { background: var(--blue-s); color: var(--blue); }
-.v-name   { font-size: 12px; color: var(--ink-2); flex: 1; }
-.v-count  { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-3); }
+  /* ===== FOCUSED MODE: click a query -> grid collapses to a left icon rail,
+     results fill the freed space. Toggled by .focused on the .center element.
+     Purely visual — the query fetch/render JS is unchanged. ===== */
+  .back-btn{
+    display:none;align-items:center;gap:7px;cursor:pointer;flex-shrink:0;
+    background:var(--panel);border:1px solid var(--stroke);color:var(--ink-dim);
+    border-radius:9px;padding:7px 12px;font-family:Inter;font-size:13px;
+    font-weight:500;transition:.15s;width:max-content;
+  }
+  .back-btn:hover{border-color:var(--cyan);color:var(--ink)}
+  .back-btn svg{width:15px;height:15px}
+  .center.focused .back-btn{display:flex}
 
-/* vendor filter — scopes queries/exploration to checked vendors */
-.vendor-filter { padding: 2px 10px 8px; display: flex; flex-direction: column; gap: 2px; }
-.vf-row {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 12px; color: var(--ink-2); padding: 4px 6px;
-  border-radius: 6px; cursor: pointer;
-}
-.vf-row:hover { background: var(--bg); }
-.vf-row input[type=checkbox] { cursor: pointer; accent-color: var(--blue); }
+  /* hide the "Vetted queries" / "Results" section labels + headline in focus */
+  .center.focused .headline,
+  .center.focused #label-queries,
+  .center.focused #label-results{display:none}
 
-/* ---- CENTER COLUMN ---- */
-.center {
-  display: flex; flex-direction: column; overflow: hidden;
-  padding: 14px; gap: 12px;
-}
+  /* the workspace becomes a 2-col split: icon rail | results */
+  .center.focused .workspace{
+    display:grid;grid-template-columns:74px 1fr;gap:18px;
+    flex:1;min-height:0;
+  }
+  .center:not(.focused) .workspace{display:contents}
 
-/* agent work surface */
-.work-surface {
-  background: var(--panel); border: 1px solid var(--line);
-  border-top: 3px solid var(--violet);
-  border-radius: var(--radius); padding: 14px 16px;
-  display: none; flex-direction: column; gap: 10px;
-}
-.work-surface.visible { display: flex; }
-.ws-head { display: flex; align-items: center; justify-content: space-between; }
-.ws-title { font-size: 14px; font-weight: 700; }
-.ws-close {
-  background: none; border: none; cursor: pointer;
-  color: var(--ink-3); font-size: 16px; line-height: 1; padding: 2px 6px;
-}
-.ws-close:hover { color: var(--ink); }
-.ws-desc { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
-.upload-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.upload-row input[type=file] { font-size: 12px; font-family: 'IBM Plex Mono', monospace; flex: 1; min-width: 180px; }
-.upload-row input[type=text] {
-  font-family: 'IBM Plex Mono', monospace; font-size: 12px;
-  padding: 7px 10px; border: 1px solid var(--line);
-  border-radius: 7px; width: 130px;
-}
-.btn-primary {
-  background: var(--rail); color: #fff; border: none;
-  border-radius: 8px; padding: 8px 16px; font-size: 13px;
-  font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
-  white-space: nowrap;
-}
-.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-violet { background: var(--violet); }
-.ws-out { font-size: 13px; line-height: 1.6; }
-.ws-gate {
-  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-  color: var(--violet); margin-top: 4px;
-}
-.ttl-preview {
-  max-height: 160px; overflow: auto;
-  background: #1C1F26; color: #C8CDD8;
-  font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
-  line-height: 1.55; padding: 10px 12px; border-radius: 8px;
-  white-space: pre;
-}
-.gen-stats { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
-.gen-stat { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-2); }
-.gen-stat b { color: var(--ink); font-size: 14px; display: block; }
+  /* collapse the card grid into a clean scrollable icon column */
+  .center.focused #queries-grid{
+    grid-template-columns:1fr;gap:10px;overflow-y:auto;overflow-x:visible;
+    padding:2px 0;align-content:start;background:var(--panel);
+    border:1px solid var(--stroke);border-radius:14px;padding:8px;
+  }
+  .center.focused .qcard{
+    min-height:0;padding:0;width:56px;height:56px;
+    display:grid;place-items:center;position:relative;margin:0 auto;
+    border-radius:12px;
+  }
+  .center.focused .qcard > *{display:none}
+  .center.focused .qcard .top{
+    display:grid;place-items:center;width:100%;height:100%;margin:0;
+  }
+  .center.focused .qcard .qicon{margin:0;width:34px;height:34px}
+  .center.focused .qcard .qcode{
+    display:block;position:absolute;bottom:1px;right:3px;
+    border:0;padding:0;font-size:8px;background:transparent;
+  }
 
-/* placeholder surface */
-.placeholder-surface {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 8px; min-height: 80px; text-align: center;
-}
-.placeholder-surface .ph-icon { font-size: 22px; color: var(--ink-3); }
-.placeholder-surface .ph-text { font-size: 13px; color: var(--ink-2); font-weight: 500; }
-.placeholder-surface .ph-sub  { font-size: 11px; color: var(--ink-3); }
+  /* results block fills the right; param bar (if any) floats above it */
+  .center.focused .results-block{display:flex;flex-direction:column;min-height:0;gap:10px}
+  .center.focused .results-panel{flex:1;min-height:0;margin-top:0}
+  .center.focused #chat-messages{height:100%}
 
-/* chat */
-.chat-panel {
-  background: var(--panel); border: 1px solid var(--line);
-  border-radius: var(--radius); display: flex;
-  flex-direction: column; flex: 1; overflow: hidden; min-height: 0;
-}
-.chat-toggle-bar {
-  padding: 10px 14px; border-bottom: 1px solid var(--line);
-  display: flex; align-items: center; gap: 10px;
-}
-.toggle-pill {
-  display: flex; border-radius: 8px; background: var(--bg);
-  border: 1px solid var(--line); overflow: hidden; flex-shrink: 0;
-}
-.toggle-opt {
-  padding: 6px 14px; font-size: 12px; font-weight: 600;
-  cursor: pointer; border: none; background: none; transition: background .15s, color .15s;
-  color: var(--ink-3);
-}
-.toggle-opt.on-amber { background: var(--amber); color: #fff; }
-.toggle-opt.on-blue  { background: var(--blue);  color: #fff; }
-.toggle-desc {
-  font-size: 11px; color: var(--ink-3); line-height: 1.4; flex: 1;
-}
-.chat-messages {
-  flex: 1; overflow-y: auto; padding: 12px 14px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.chat-empty {
-  flex: 1; display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: var(--ink-3); text-align: center; padding: 20px;
-  line-height: 1.5;
-}
-.chat-bubble {
-  background: var(--bg); border: 1px solid var(--line);
-  border-radius: 10px; padding: 11px 13px;
-  font-size: 13px; line-height: 1.6;
-}
-.chat-meta {
-  display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap;
-}
-.tier-badge {
-  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
-  font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 4px;
-}
-.tb-amber  { background: var(--amber-s); color: var(--amber); }
-.tb-blue   { background: var(--blue-s);  color: var(--blue); }
-.caveat {
-  margin-top: 8px; padding: 8px 10px;
-  background: var(--blue-s); border-left: 3px solid var(--blue);
-  border-radius: 6px; font-size: 11.5px; line-height: 1.5; color: var(--ink-2);
-}
-.trace-txt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-3); }
-.chat-input-row {
-  padding: 10px 14px; border-top: 1px solid var(--line);
-  display: flex; gap: 8px; align-items: center;
-}
-.chat-input {
-  flex: 1; font-family: 'Space Grotesk', sans-serif; font-size: 13px;
-  padding: 9px 12px; border: 1px solid var(--line);
-  border-radius: 8px; outline: none; transition: border-color .15s;
-}
-.chat-input:focus { border-color: var(--amber); }
-.ask-btn {
-  background: var(--rail); color: #fff; border: none;
-  border-radius: 8px; padding: 9px 18px; font-size: 13px;
-  font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
-}
-.ask-btn:disabled { opacity: 0.5; }
+  /* a hidden param bar stays hidden; a visible one sits as a horizontal bar
+     ABOVE the results (moved out of the cramped rail via JS) */
+  .center.focused .param-bar{display:none}
+  #focus-params{display:none}
+  .center.focused #focus-params.visible{
+    display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;
+    background:var(--panel);border:1px solid var(--stroke);
+    border-radius:12px;padding:12px 14px;
+  }
+  /* once moved into the holder, force the VISIBLE param bar to show as a row,
+     overriding the .center.focused .param-bar{display:none} above */
+  .center.focused #focus-params .param-bar{display:none !important}
+  .center.focused #focus-params .param-bar.visible{
+    display:flex !important;align-items:flex-end;gap:12px;flex-wrap:wrap;
+    background:transparent;border:0;padding:0;margin:0;
+  }
 
-/* ---- RIGHT COLUMN ---- */
-.right {
-  border-left: 1px solid var(--line);
-  display: flex; flex-direction: column; overflow: hidden;
-}
-.right-top {
-  flex: 1; overflow-y: auto; padding: 0 10px 10px;
-  display: flex; flex-direction: column; min-height: 0;
-}
-.queries-grid {
-  display: flex; flex-direction: column; gap: 6px;
-}
-.qcard {
-  background: var(--panel); border: 1px solid var(--line);
-  border-radius: 9px; padding: 10px 12px; cursor: pointer;
-  transition: border-color .15s, box-shadow .12s;
-}
-.qcard:hover { border-color: var(--ink-3); box-shadow: var(--shadow); }
-.qcard.sel   { border-color: var(--amber); background: var(--amber-s); }
-.qcard-num   { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-3); }
-.qcard-name  { font-size: 13px; font-weight: 600; margin: 3px 0 2px; }
-.qcard-desc  { font-size: 11px; color: var(--ink-2); line-height: 1.4; }
-.qcard-foot  { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; }
-.qcard-params { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--violet); }
-.qcard-params.none { color: var(--ink-3); }
-.qcard.ran { border-color: #2FA65A; box-shadow: 0 0 0 2px rgba(47,166,90,0.25); }
+  /* ===== VIEW SWITCHING: only the active view's zones show.
+     Driven by data-view on .center: "compare" | "explore". ===== */
+  /* search bar shows only in explore */
+  .center[data-view="compare"] .topbar .search{visibility:hidden}
+  /* explore: hide the query grid + label + back btn; chat/results fill the area */
+  .center[data-view="explore"] #label-queries,
+  .center[data-view="explore"] #queries-grid,
+  .center[data-view="explore"] .back-btn{display:none !important}
+  .center[data-view="explore"] .workspace{display:block}
+  .center[data-view="explore"] .results-block{width:100%}
 
-/* inline param bar — appears below a card that needs params */
-.param-bar {
-  margin: -3px 0 6px; padding: 8px 10px 9px;
-  border: 1px solid var(--line); border-top: none;
-  border-radius: 0 0 9px 9px; background: var(--bg);
-  display: none; flex-direction: column; gap: 6px;
-}
-.param-bar.visible { display: flex; }
-.param-bar .pbfield label {
-  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-  color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em;
-  display: block; margin-bottom: 3px;
-}
-.param-bar select, .param-bar input {
-  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
-  padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px;
-  width: 100%; background: #fff;
-}
-.param-bar-run {
-  background: var(--rail); color: #fff; border: none;
-  border-radius: 7px; padding: 7px 14px; font-size: 12px;
-  font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
-}
+  /* agent panel open: hide ALL compare/explore content, show only the panel */
+  .center.agent-open .topbar .search,
+  .center.agent-open .headline,
+  .center.agent-open #label-queries,
+  .center.agent-open #label-results,
+  .center.agent-open .back-btn,
+  .center.agent-open .workspace{display:none !important}
 
-/* compact result table embedded in a chat bubble */
-.chat-result-wrap { overflow-x: auto; margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; }
-.table-scroll { max-height: 420px; overflow-y: auto; border-radius: 8px; }
-.chat-result-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-2); margin-top: 5px; }
+  /* ---- query cards: outer shell + click/state classes are what the real JS
+     (renderQueries/selectQuery/postQueryResultToChat) depends on; keep these
+     class names stable, only the visuals below change. ---- */
+  .qcard{
+    background:var(--card);border:1px solid var(--stroke);
+    border-radius:var(--radius);padding:16px;cursor:pointer;
+    transition:.18s;position:relative;overflow:hidden;min-height:132px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .qcard:hover{background:var(--card-hover);border-color:var(--cyan);transform:translateY(-2px)}
+  .qcard.sel{border-color:var(--cyan);background:var(--card-hover)}
+  .qcard.ran{border-color:var(--green);box-shadow:0 0 0 2px rgba(70,196,138,.25)}
+  .qcard .top{display:flex;align-items:center;justify-content:space-between}
+  .qicon{
+    width:40px;height:40px;border-radius:11px;display:grid;place-items:center;
+    background:var(--cyan-soft);color:var(--cyan);flex-shrink:0;
+  }
+  .qicon svg{width:20px;height:20px}
+  .qcode{
+    font-family:JetBrains Mono;font-size:11px;color:var(--muted);
+    border:1px solid var(--stroke);border-radius:6px;padding:2px 7px;
+  }
+  .qcard-name{font-family:Sora;font-weight:600;font-size:15px;margin:0;line-height:1.25}
+  .qcard-desc{margin:0;color:var(--ink-dim);font-size:12.5px;line-height:1.45}
+  .qcard-foot{
+    margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px;
+    color:var(--cyan);font-size:12px;font-weight:500;
+  }
+  .qcard-foot svg{width:14px;height:14px}
+  .qcard-params{font-family:JetBrains Mono;font-size:10px;color:var(--violet)}
+  .qcard-params.none{color:var(--muted)}
+  .qcard.v-amber .qicon{background:var(--amber-soft);color:var(--amber)}
+  .qcard.v-amber:hover{border-color:var(--amber)} .qcard.v-amber .qcard-foot{color:var(--amber)}
+  .qcard.v-green .qicon{background:var(--green-soft);color:var(--green)}
+  .qcard.v-green:hover{border-color:var(--green)} .qcard.v-green .qcard-foot{color:var(--green)}
+  .qcard.v-violet .qicon{background:var(--violet-soft);color:var(--violet)}
+  .qcard.v-violet:hover{border-color:var(--violet)} .qcard.v-violet .qcard-foot{color:var(--violet)}
 
-/* Rows / Matrix toggle above a pivotable result table */
-.view-toggle { display: flex; gap: 6px; margin-bottom: 8px; }
-.view-opt {
-  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
-  padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line);
-  background: #fff; color: var(--ink-2); cursor: pointer;
-}
-.view-opt.active { background: var(--rail); color: #fff; border-color: var(--rail); }
+  /* inline param bar — appears as its own block right after a qcard that needs params */
+  .param-bar{
+    margin-top:-4px; padding:12px 14px 14px;
+    background:var(--panel-2); border:1px solid var(--stroke); border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+    display:none; flex-direction:column; gap:8px;
+  }
+  .param-bar.visible{display:flex}
+  .param-bar .pbfield label{
+    font-family:JetBrains Mono; font-size:10px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.08em; display:block; margin-bottom:3px;
+  }
+  .param-bar select, .param-bar input{
+    font-family:JetBrains Mono; font-size:12px; color:var(--ink);
+    padding:7px 9px; border:1px solid var(--stroke); border-radius:7px;
+    width:100%; background:var(--card);
+  }
+  .param-bar-run{
+    background:var(--cyan); color:#04121a; border:0; border-radius:8px;
+    padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer;
+    font-family:Sora; align-self:flex-start;
+  }
 
-/* Matrix pivot cells — tinted by verdict, wrap multi-term lists */
-.pivot-empty, .pivot-cell-covered, .pivot-cell-partial, .pivot-cell-ext { white-space: normal; }
-.pivot-empty { color: var(--ink-3); }
-.pivot-cell-covered { background: var(--amber-s); }
-.pivot-cell-partial { background: var(--blue-s); }
-.pivot-cell-ext     { background: var(--violet-s); }
-tr.pivot-group-start td { border-top: 1px solid var(--line); }
+  /* ---- agent work-surface panels (Excel->Ontology, Intake) ---- */
+  .work-surface{
+    background:var(--card); border:1px solid var(--stroke);
+    border-top:3px solid var(--violet);
+    border-radius:var(--radius); padding:16px;
+    display:none; flex-direction:column; gap:10px; flex-shrink:0;
+  }
+  .work-surface.visible{display:flex}
+  .ws-head{display:flex;align-items:center;justify-content:space-between}
+  .ws-title{font-family:Sora;font-size:14px;font-weight:700}
+  .ws-close{
+    background:none;border:none;cursor:pointer;color:var(--muted);
+    font-size:16px;line-height:1;padding:2px 6px;
+  }
+  .ws-close:hover{color:var(--ink)}
+  .ws-desc{font-size:12px;color:var(--ink-dim);line-height:1.5}
+  .upload-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .upload-row input[type=file]{font-size:12px;font-family:JetBrains Mono;flex:1;min-width:180px;color:var(--ink-dim)}
+  .upload-row input[type=text]{
+    font-family:JetBrains Mono;font-size:12px;color:var(--ink);
+    padding:7px 10px;border:1px solid var(--stroke);background:var(--panel);
+    border-radius:7px;width:140px;
+  }
+  .btn-primary{
+    background:var(--cyan);color:#04121a;border:none;
+    border-radius:8px;padding:8px 16px;font-size:13px;
+    font-weight:600;cursor:pointer;font-family:Sora;white-space:nowrap;
+  }
+  .btn-primary:disabled{opacity:.5;cursor:not-allowed}
+  .btn-violet{background:var(--violet);color:#0b1220}
+  .ws-out{font-size:13px;line-height:1.6;color:var(--ink-dim)}
+  .ws-gate{font-family:JetBrains Mono;font-size:10px;color:var(--violet);margin-top:4px}
+  .ttl-preview{
+    max-height:160px;overflow:auto;background:#080e18;color:var(--ink-dim);
+    font-family:JetBrains Mono;font-size:10.5px;line-height:1.55;
+    padding:10px 12px;border-radius:8px;white-space:pre;border:1px solid var(--stroke);
+  }
+  .gen-stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+  .gen-stat{font-family:JetBrains Mono;font-size:11px;color:var(--ink-dim)}
+  .gen-stat b{color:var(--ink);font-size:14px;display:block;font-family:Sora}
 
-table { width: 100%; border-collapse: collapse; font-size: 11px; }
-th {
-  text-align: left; padding: 7px 10px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
-  letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3);
-  border-bottom: 1px solid var(--line); background: var(--bg);
-  position: sticky; top: 0;
-}
-td {
-  padding: 6px 10px; border-bottom: 1px solid #F2F3F6;
-  font-family: 'IBM Plex Mono', monospace; max-width: 180px;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-tr:hover td { background: #FAFBFC; }
-.verd { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
-.vc { background: var(--amber-s); color: var(--amber); }
-.vp { background: var(--blue-s);  color: var(--blue); }
-.ve { background: var(--violet-s); color: var(--violet); }
+  /* ---- results / chat surface (not in the mockup screenshot — added since
+     query results and NL answers need somewhere to render) ---- */
+  .results-panel{
+    background:var(--panel);border:1px solid var(--stroke);border-radius:var(--radius);
+    display:flex;flex-direction:column;min-height:220px;flex:1;
+  }
+  .chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+  .chat-empty{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    color:var(--muted);font-size:13px;text-align:center;padding:20px;line-height:1.5;
+  }
+  .chat-bubble{
+    background:var(--card);border:1px solid var(--stroke);border-radius:12px;
+    padding:12px 14px;font-size:13px;line-height:1.6;
+  }
+  .chat-meta{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .tier-badge{
+    font-family:JetBrains Mono;font-size:9px;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;padding:2px 7px;border-radius:4px;
+  }
+  .tb-amber{background:var(--amber-soft);color:var(--amber)}
+  .tb-blue{background:var(--cyan-soft);color:var(--cyan)}
+  .caveat{
+    margin-top:8px;padding:8px 10px;background:var(--cyan-soft);
+    border-left:3px solid var(--cyan);border-radius:6px;
+    font-size:11.5px;line-height:1.5;color:var(--ink-dim);
+  }
+  .trace-txt{font-family:JetBrains Mono;font-size:10px;color:var(--muted)}
 
-/* upload panel in right-bottom */
-.upload-panel {
-  border-top: 1px solid var(--line); padding: 10px;
-  flex-shrink: 0;
-}
-.up-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
-.up-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.up-row input[type=file] { font-size: 11px; font-family: 'IBM Plex Mono', monospace; flex: 1; min-width: 120px; }
-.up-row input[type=text] {
-  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
-  padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; width: 80px;
-}
-.up-btn {
-  background: var(--blue); color: #fff; border: none;
-  border-radius: 7px; padding: 7px 12px; font-size: 11px;
-  font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
-}
-.up-btn:disabled { opacity: 0.5; }
-.up-out { font-size: 11px; color: var(--ink-2); margin-top: 6px; line-height: 1.5; }
-.up-note { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-3); margin-top: 3px; }
+  /* Rows / Matrix toggle above a pivotable result table */
+  .view-toggle{display:flex;gap:6px;margin-bottom:8px}
+  .view-opt{
+    font-family:JetBrains Mono;font-size:10px;font-weight:600;
+    padding:4px 10px;border-radius:6px;border:1px solid var(--stroke);
+    background:var(--panel);color:var(--ink-dim);cursor:pointer;
+  }
+  .view-opt.active{background:var(--cyan);color:#04121a;border-color:var(--cyan)}
 
-/* loading state */
-.loading-txt { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-2); }
-.empty-txt   { font-size: 12px; color: var(--ink-3); padding: 12px; }
-a.dl-link {
-  background: var(--rail); color: #fff; text-decoration: none;
-  border-radius: 7px; padding: 7px 14px; font-size: 12px; font-weight: 600;
-  display: inline-block; margin-top: 4px;
-}
+  .chat-result-wrap{overflow-x:auto;margin-top:8px;border:1px solid var(--stroke);border-radius:8px}
+  .table-scroll{max-height:420px;overflow-y:auto;border-radius:8px}
+  .chat-result-count{font-family:JetBrains Mono;font-size:10px;color:var(--muted);margin-top:5px}
+
+  .pivot-empty,.pivot-cell-covered,.pivot-cell-partial,.pivot-cell-ext{white-space:normal}
+  .pivot-empty{color:var(--muted)}
+  .pivot-cell-covered{background:var(--amber-soft)}
+  .pivot-cell-partial{background:var(--cyan-soft)}
+  .pivot-cell-ext{background:var(--violet-soft)}
+  tr.pivot-group-start td{border-top:1px solid var(--stroke)}
+
+  table{width:100%;border-collapse:collapse;font-size:11px}
+  th{
+    text-align:left;padding:7px 10px;font-family:JetBrains Mono;font-size:9px;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+    border-bottom:1px solid var(--stroke);background:var(--panel-2);
+    position:sticky;top:0;
+  }
+  td{
+    padding:6px 10px;border-bottom:1px solid var(--stroke);
+    font-family:JetBrains Mono;max-width:180px;color:var(--ink-dim);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  tr:hover td{background:var(--card-hover)}
+  .verd{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+  .vc{background:var(--amber-soft);color:var(--amber)}
+  .vp{background:var(--cyan-soft);color:var(--cyan)}
+  .ve{background:var(--violet-soft);color:var(--violet)}
+
+  .loading-txt{font-family:JetBrains Mono;font-size:12px;color:var(--ink-dim)}
+  .empty-txt{font-size:12px;color:var(--muted);padding:12px}
+  a.dl-link{
+    background:var(--cyan);color:#04121a;text-decoration:none;
+    border-radius:7px;padding:7px 14px;font-size:12px;font-weight:600;
+    display:inline-block;margin-top:4px;
+  }
+
+  /* ---------- right panel ---------- */
+  .side{
+    background:var(--panel);border:1px solid var(--stroke);
+    border-radius:var(--radius);padding:18px;overflow:auto;
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .side h2{font-family:Sora;font-weight:600;font-size:15px;margin:0}
+  .status-card{
+    background:linear-gradient(150deg,var(--panel-2),var(--card));
+    border:1px solid var(--stroke);border-radius:14px;padding:16px;
+  }
+  .status-card .big{font-family:Sora;font-weight:700;font-size:30px;line-height:1}
+  .status-card .big small{font-size:13px;color:var(--muted);font-weight:500}
+  .status-row{display:flex;gap:10px;margin-top:14px}
+  .stat{flex:1;background:var(--card);border:1px solid var(--stroke);border-radius:10px;padding:10px 12px}
+  .stat .n{font-family:Sora;font-weight:600;font-size:18px}
+  .stat .l{font-size:11px;color:var(--muted);margin-top:2px}
+
+  .block{display:flex;flex-direction:column;gap:10px}
+  .vrow{
+    display:flex;align-items:center;gap:10px;
+    background:var(--card);border:1px solid var(--stroke);
+    border-radius:10px;padding:10px 12px;transition:.15s;
+  }
+  .vrow.clickable{cursor:pointer}
+  .vrow.clickable:hover{border-color:var(--cyan)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .vrow .name{flex:1;font-size:13px;font-weight:500}
+  .vrow .cnt{font-family:JetBrains Mono;font-size:11px;color:var(--muted)}
+  .check{
+    width:18px;height:18px;border-radius:5px;border:1.5px solid var(--stroke);
+    display:grid;place-items:center;flex:none;
+  }
+  .check.on{background:var(--cyan);border-color:var(--cyan)}
+  .check svg{width:12px;height:12px;color:#04121a;display:none}
+  .check.on svg{display:block}
+  .check.locked{background:var(--amber);border-color:var(--amber)}
+
+  .toggle-row{display:flex;align-items:center;justify-content:space-between}
+  .toggle-row .t{font-size:13px;color:var(--ink-dim)}
+  .switch{width:40px;height:22px;border-radius:12px;background:var(--stroke);position:relative;cursor:pointer;transition:.15s;flex:none}
+  .switch.on{background:var(--cyan)}
+  .switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.15s}
+  .switch.on::after{left:20px}
+
+  .field-note{font-family:JetBrains Mono;font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4}
+  .side input[type=password], .side input[type=text], .side input[type=file]{
+    width:100%; font-family:JetBrains Mono; font-size:11px; color:var(--ink);
+    padding:8px 10px; border:1px solid var(--stroke); border-radius:8px;
+    background:var(--card);
+  }
+  .side input[type=file]{color:var(--ink-dim)}
+
+  .cta{
+    border:0;border-radius:12px;padding:13px;
+    background:var(--cyan);color:#04121a;font-family:Sora;font-weight:600;
+    font-size:14px;cursor:pointer;transition:.15s;
+  }
+  .cta:hover{filter:brightness(1.08)}
+  .cta:disabled{opacity:.5;cursor:not-allowed}
+
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-thumb{background:var(--stroke);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+
+  @media (max-width:1050px){
+    .app{grid-template-columns:70px 1fr}
+    .side{display:none}
+    .grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:680px){
+    .grid{grid-template-columns:1fr}
+    .headline h1{font-size:22px}
+  }
 </style>
 </head>
 <body>
-<div class="shell">
+<div class="app">
 
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="logo"><div class="logo-dot"></div>MES Lattice</div>
-    <div class="topbar-status" id="statusline">connecting…</div>
-    <a class="btn-primary" href="/graph.html" target="_blank" rel="noopener"
-       style="margin-left:auto; text-decoration:none;">Graph View →</a>
-  </header>
+  <!-- ================= LEFT RAIL ================= -->
+  <nav class="rail">
+    <div class="logo">ML</div>
 
-  <!-- LEFT: Agents + Vendors -->
-  <aside class="left">
-    <div class="api-key-box">
-      <input type="password" id="userApiKey" placeholder="Paste your Gemini API key (optional)">
+    <!-- Compare/Explore mirror the headline segmented toggle below: both drive setMode() -->
+    <button class="navbtn active" id="nav-compare" onclick="setMode('comparison')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
+      <span class="tip">Compare</span>
+    </button>
+    <button class="navbtn" id="nav-explore" onclick="setMode('reasoner')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
+      <span class="tip">Explore</span>
+    </button>
+    <a class="navbtn" href="/graph.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M5 8v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M12 13v3"/></svg>
+      <span class="tip">Graph</span>
+    </a>
+    <button class="navbtn" id="btn-a6" onclick="openAgent('a6')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <span class="tip">Intake</span>
+    </button>
+    <!-- Agent 7 (Excel -> Ontology): the mapping brief didn't name a rail slot for
+         this, but it's a working feature today, so it gets one rather than being
+         silently dropped. -->
+    <button class="navbtn" id="btn-a7" onclick="openAgent('a7')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v5h5"/><path d="M8 14h8M8 17h5"/></svg>
+      <span class="tip">Excel → Ontology</span>
+    </button>
+    <!-- Docs: no view exists behind this yet — inert placeholder per brief. -->
+    <button class="navbtn" disabled title="Coming soon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v5h5M8 13h8M8 17h5"/></svg>
+      <span class="tip">Docs (soon)</span>
+    </button>
+
+    <div class="spacer"></div>
+
+    <!-- Settings: opens the panel holding the API key inputs (same fields/logic
+         as before, just relocated out of a permanently-visible sidebar). -->
+    <button class="navbtn" id="nav-settings" onclick="toggleSettings()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.9 1.05V22a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 7 20.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 3.6 15H3.5a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 5 9.4"/></svg>
+      <span class="tip">Settings</span>
+    </button>
+  </nav>
+
+  <!-- ================= CENTER ================= -->
+  <main class="center" data-view="compare">
+    <div class="topbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="chatq" placeholder="Ask a question…" />
+        <span class="kbd">Enter</span>
+        <button class="search-send" id="askbtn" onclick="askChat()" title="Ask">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
     </div>
-    <div class="section-head">Agents</div>
-    <div class="agents">
 
-      <button class="agent-btn" id="btn-a7" onclick="openAgent('a7')">
-        <div class="agent-icon violet">⬡</div>
-        <div class="agent-label">
-          <span class="name">Excel → Ontology</span>
-          <span class="sub">Agent 7 · Ontology Builder</span>
-        </div>
-        <span class="tier-chip tc-violet">Built</span>
-      </button>
-
-      <button class="agent-btn" disabled>
-        <div class="agent-icon dim">📄</div>
-        <div class="agent-label">
-          <span class="name">Docs → Draft Sheet</span>
-          <span class="sub">Agent 6 · Intake</span>
-        </div>
-        <span class="tier-chip tc-dim">Soon</span>
-      </button>
-
-      <button class="agent-btn" disabled>
-        <div class="agent-icon dim">⇄</div>
-        <div class="agent-label">
-          <span class="name">Map to Reference</span>
-          <span class="sub">Agent 8 · Mapping Agent</span>
-        </div>
-        <span class="tier-chip tc-dim">Soon</span>
-      </button>
-
-      <button class="agent-btn" disabled>
-        <div class="agent-icon dim">✦</div>
-        <div class="agent-label">
-          <span class="name">Custom Model</span>
-          <span class="sub">Agent 4 · Model Author</span>
-        </div>
-        <span class="tier-chip tc-dim">Soon</span>
-      </button>
-
+    <!-- Settings panel: API keys (Gemini + Anthropic). Same ids/sessionStorage
+         logic as before — only the container moved from a static sidebar to a
+         toggleable panel under the rail's Settings icon. -->
+    <div class="work-surface" id="settings-panel">
+      <div class="ws-head">
+        <span class="ws-title">Settings</span>
+        <button class="ws-close" onclick="toggleSettings()">✕</button>
+      </div>
+      <div class="ws-desc">API keys are kept in sessionStorage only (never localStorage) and sent per-request as headers.</div>
+      <div>
+        <div class="field-note" style="margin-bottom:4px;">GEMINI API KEY</div>
+        <input type="password" id="userApiKey" placeholder="Paste your Gemini API key (optional)">
+      </div>
+      <div>
+        <div class="field-note" style="margin-bottom:4px;">ANTHROPIC API KEY</div>
+        <input type="password" id="anthropicApiKey" placeholder="Anthropic API key (for intake — from console.anthropic.com)">
+        <div class="field-note">This is an API key, not a Claude Pro login.</div>
+      </div>
     </div>
-
-    <hr class="left-div">
-
-    <div class="section-head">Vendors</div>
-    <div class="vendor-filter" id="vendor-filter"></div>
-    <div class="vendors" id="vendors-list">
-      <div class="loading-txt" style="padding:8px 10px;">loading…</div>
-    </div>
-  </aside>
-
-  <!-- CENTER: Agent surface + Chat -->
-  <main class="center">
 
     <!-- Agent 7 surface -->
     <div class="work-surface" id="ws-a7">
@@ -466,7 +566,7 @@ a.dl-link {
         <span class="ws-title">Excel → Ontology</span>
         <button class="ws-close" onclick="closeAgent()">✕</button>
       </div>
-      <div class="ws-desc">Drop a filled capture template. The builder emits <span style="font-family:monospace;">{vendor}:</span> TTL — review and download before loading it.</div>
+      <div class="ws-desc">Drop a filled capture template. The builder emits <span style="font-family:'JetBrains Mono',monospace;">{vendor}:</span> TTL — review and download before loading it.</div>
       <div class="upload-row">
         <input type="file" id="wbfile" accept=".xlsx,.xlsm">
         <input type="text" id="wbprefix" placeholder="prefix, e.g. opc" maxlength="12">
@@ -475,48 +575,89 @@ a.dl-link {
       <div id="genout" class="ws-out"></div>
     </div>
 
-    <!-- Chat -->
-    <div class="chat-panel">
-      <div class="chat-toggle-bar">
-        <div class="toggle-pill">
-          <button class="toggle-opt on-amber" id="tog-cmp" onclick="setMode('comparison')">Comparison</button>
-          <button class="toggle-opt" id="tog-rsn" onclick="setMode('reasoner')">Explore</button>
-        </div>
-        <div class="toggle-desc" id="toggle-desc">
-          Answers comparison, gap, and migration questions — exact counts from the graph, always reproducible.
-        </div>
+    <!-- Agent 6 surface -->
+    <div class="work-surface" id="ws-a6">
+      <div class="ws-head">
+        <span class="ws-title">Docs → Draft Sheet</span>
+        <button class="ws-close" onclick="closeAgent()">✕</button>
       </div>
-      <div class="chat-messages" id="chat-messages">
-        <div class="chat-empty" id="chat-empty">
-          Ask a comparison question — or switch to Explore for structure and relationships.
-        </div>
+      <div class="ws-desc">Upload HTML, Word (.docx), or PDF documentation. Each one is mapped against the live ref: vocabulary and drafted into an overlay spreadsheet for you to review.</div>
+      <div class="upload-row">
+        <input type="file" id="intakeFiles" multiple accept=".html,.htm,.docx,.pdf">
+        <input type="text" id="intakeVendor" placeholder="vendor prefix, e.g. opc" maxlength="12">
+        <button class="btn-primary btn-violet" id="intakebtn" onclick="runIntake()">Generate draft →</button>
       </div>
-      <div class="chat-input-row">
-        <input class="chat-input" id="chatq" placeholder="Ask a question…">
-        <button class="ask-btn" id="askbtn" onclick="askChat()">Ask</button>
+      <div id="intakeout" class="ws-out"></div>
+      <div class="ws-gate">Uses your Anthropic API key (Settings). Intake produces a draft spreadsheet for review — it does not change the graph.</div>
+    </div>
+
+    <div class="headline">
+      <div>
+        <h1>Comparison workspace</h1>
+        <p id="toggle-desc">Answers comparison, gap, and migration questions — exact counts from the graph, always reproducible.</p>
+      </div>
+      <div class="seg">
+        <button class="on" id="tog-cmp" onclick="setMode('comparison')">Comparison</button>
+        <button id="tog-rsn" onclick="setMode('reasoner')">Explore</button>
       </div>
     </div>
 
-  </main>
+    <div class="back-btn" id="back-btn" onclick="exitFocus()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      All queries
+    </div>
 
-  <!-- RIGHT: Queries + Upload -->
-  <aside class="right">
-    <div class="section-head" style="padding-bottom:6px;">8 Vetted Queries</div>
-    <div class="right-top">
-      <div class="queries-grid" id="queries-grid">
+    <div class="section-label" id="label-queries"><span>Vetted queries</span><div class="rule"></div></div>
+
+    <div class="workspace">
+      <div class="grid" id="queries-grid">
         <div class="loading-txt">loading…</div>
       </div>
+
+      <div class="results-block">
+        <div class="section-label" id="label-results"><span>Results</span><div class="rule"></div></div>
+        <div id="focus-params"></div>
+        <div class="results-panel">
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-empty" id="chat-empty">
+              Ask a comparison question, or run a vetted query above — results and answers land here.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= RIGHT PANEL ================= -->
+  <aside class="side">
+    <h2>Loaded ontology</h2>
+    <div class="status-card" id="status-card">
+      <div class="big">— <small>triples</small></div>
     </div>
 
-    <!-- Upload -->
-    <div class="upload-panel">
-      <div class="up-title">Load an overlay</div>
-      <div class="up-row">
-        <input type="file" id="ttlfile" accept=".ttl">
-        <input type="text" id="ttlprefix" placeholder="prefix">
-        <button class="up-btn" id="upbtn" onclick="loadTTL()">Load →</button>
+    <div class="block">
+      <h2>Vendors in view</h2>
+      <div id="vendor-panel">
+        <div class="loading-txt" style="padding:8px 0;">loading…</div>
       </div>
-      <div id="up-out" class="up-out"></div>
+    </div>
+
+    <div class="block">
+      <h2>Display</h2>
+      <!-- Wired: flips the default view (Matrix vs Rows) new Q1/Q2 results open in. -->
+      <div class="toggle-row"><span class="t">Matrix pivot by default</span><div class="switch on" id="sw-matrix-default" onclick="togglePivotDefault(this)"></div></div>
+      <!-- Not wired to anything yet — abbreviation (CM/BM/NM/RM) is always on. -->
+      <div class="toggle-row"><span class="t">Show match types</span><div class="switch on"></div></div>
+      <!-- Not wired to anything yet — no "gaps only" filter exists in the query results. -->
+      <div class="toggle-row"><span class="t">Only gaps</span><div class="switch"></div></div>
+    </div>
+
+    <div class="block">
+      <h2>Add overlay</h2>
+      <input type="file" id="ttlfile" accept=".ttl">
+      <input type="text" id="ttlprefix" placeholder="prefix">
+      <button class="cta" id="upbtn" onclick="loadTTL()">+ Add overlay</button>
+      <div id="up-out" class="field-note"></div>
     </div>
   </aside>
 
@@ -526,7 +667,7 @@ a.dl-link {
 const API = "";
 
 // ---- USER-SUPPLIED GEMINI KEY (optional) ----
-// sessionStorage wins if already set; otherwise read the sidebar input and cache it there.
+// sessionStorage wins if already set; otherwise read the settings-panel input and cache it there.
 function getUserApiKey(){
   let key = sessionStorage.getItem("geminiKey");
   if(!key){
@@ -541,6 +682,23 @@ function apiKeyHeaders(){
   return key ? {"X-User-API-Key": key} : {};
 }
 
+// ---- USER-SUPPLIED ANTHROPIC KEY (optional, for intake) ----
+// Same pattern as the Gemini key above: sessionStorage wins if already set;
+// otherwise read the settings-panel input and cache it there. Not localStorage.
+function getUserAnthropicKey(){
+  let key = sessionStorage.getItem("anthropicKey");
+  if(!key){
+    const el = document.getElementById("anthropicApiKey");
+    key = el ? el.value.trim() : "";
+    if(key) sessionStorage.setItem("anthropicKey", key);
+  }
+  return key;
+}
+function anthropicKeyHeaders(){
+  const key = getUserAnthropicKey();
+  return key ? {"X-Anthropic-API-Key": key} : {};
+}
+
 let VENDORS = [];
 let selectedQuery = null;
 let COMPLETENESS = null;   // { prefix: refObjsMapped }
@@ -548,6 +706,8 @@ let chatMode = "comparison";   // "comparison" or "reasoner"
 const QUERY_MAP = new Map();
 let ACTIVE_VENDORS = [];   // array of prefixes
 let CURRENT_RESULT = null; // { q, rawRows, params, holder, countEl, view, pivotable, groupByCapability } — latest result bubble
+let PIVOT_DEFAULT = "matrix";   // "matrix" or "rows" — wired to the Display > "Matrix pivot by default" switch
+let STATUS = null;   // last /api/status payload, cached for the vendor panel's triple counts
 
 // Queries with a Matrix pivot view, and whether that pivot groups by capability first.
 const MATRIX_QUERIES = {
@@ -579,23 +739,68 @@ const MODE_DESC = {
   comparison: "Answers comparison, gap, and migration questions — exact counts from the graph, always reproducible.",
   reasoner:   "Explores structure and relationships — traces how concepts connect, what they hold, and how CM resolves them at runtime.",
 };
+// one icon per query card, in Q1..Q8 order (from the mockup)
+const QCARD_ICONS = [
+  '<path d="M4 6h16M4 12h16M4 18h10"/>',
+  '<path d="M12 2l3 6 6 .9-4.5 4.3 1 6-5.5-3-5.5 3 1-6L3 8.9 9 8z"/>',
+  '<circle cx="12" cy="12" r="9"/><path d="M8 12h8"/>',
+  '<path d="M7 12a5 5 0 0 1 5-5M17 12a5 5 0 0 1-5 5M12 3v2M12 19v2"/>',
+  '<path d="M4 7h13M4 7l3-3M4 7l3 3M20 17H7M20 17l-3-3M20 17l-3 3"/>',
+  '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 10v10"/>',
+  '<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="12" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7l8 4M8 17l8-4"/>',
+  '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>',
+];
+const QCARD_VARIANTS = ["", "v-amber", "v-green", "v-violet"];
+// stable per-vendor dot colour, cycling so a 3rd/4th overlay needs no code change
+const VENDOR_DOT_COLORS = ["--cyan", "--violet", "--green", "--amber"];
+let vendorDotMap = {};
+function dotColorForVendor(prefix){
+  if(!(prefix in vendorDotMap)){
+    const idx = Object.keys(vendorDotMap).length % VENDOR_DOT_COLORS.length;
+    vendorDotMap[prefix] = VENDOR_DOT_COLORS[idx];
+  }
+  return vendorDotMap[prefix];
+}
 
 // ---- BOOT ----
 async function boot(){
   try{
     const st = await (await fetch(API+"/api/status")).json();
+    STATUS = st;
     VENDORS = await (await fetch(API+"/api/vendors")).json();
     ACTIVE_VENDORS = VENDORS.map(v => v.prefix);
     await loadCompleteness();
-    document.getElementById("statusline").innerHTML =
-      `<span class="live">●</span> ${st.vendors.length} vendor(s) · ${st.query_count} queries · store online`;
-    renderVendors(st.layers);
-    renderVendorFilter();
+    renderStatusCard(st);
+    renderVendorPanel(st.layers);
+  }catch(e){
+    console.error("boot(): status/vendors failed", e);
+    document.getElementById("status-card").innerHTML =
+      `<div class="big" style="font-size:15px;color:var(--danger);">backend not reachable — is uvicorn running?</div>`;
+  }
+
+  // separate try/catch: a status/vendor failure above must not also prevent the
+  // query cards from rendering (and vice versa) — previously one shared catch
+  // meant any earlier fetch failure silently left #queries-grid on "loading…"
+  // forever, with zero .qcard elements and nothing logged to console.
+  try{
     const qs = await (await fetch(API+"/api/queries")).json();
     renderQueries(qs);
   }catch(e){
-    document.getElementById("statusline").textContent = "backend not reachable — is uvicorn running?";
+    console.error("boot(): /api/queries failed — query cards will not render", e);
+    document.getElementById("queries-grid").innerHTML =
+      `<div class="empty-txt" style="color:var(--danger);">Couldn't load queries — is the backend running?</div>`;
   }
+}
+
+function renderStatusCard(st){
+  const totalTriples = (st.layers || []).reduce((sum, l) => sum + (l.triples || 0), 0);
+  document.getElementById("status-card").innerHTML = `
+    <div class="big">${totalTriples.toLocaleString()} <small>triples</small></div>
+    <div class="status-row">
+      <div class="stat"><div class="n">${st.layers.length}</div><div class="l">layers</div></div>
+      <div class="stat"><div class="n">${st.vendors.length}</div><div class="l">vendors</div></div>
+      <div class="stat"><div class="n">${st.query_count}</div><div class="l">queries</div></div>
+    </div>`;
 }
 
 // ---- COMPLETENESS GUARD (Q8) ----
@@ -645,28 +850,46 @@ function completenessCaveat(queryName, params){
   return `${prefix} overlay maps ${mapped} reference concepts.`;
 }
 
-function renderVendors(layers){
-  document.getElementById("vendors-list").innerHTML = layers.map(l=>`
-    <div class="vendor-row">
-      <span class="v-badge ${l.is_reference?'v-ref':'v-vendor'}">${l.prefix}</span>
-      <span class="v-name">${l.is_reference?"Neutral reference":l.prefix.toUpperCase()+" overlay"}</span>
-      <span class="v-count">${l.triples.toLocaleString()}</span>
-    </div>`).join("");
-}
+// ---- VENDOR PANEL — reference row (always on, non-interactive) + real
+// interactive vendor checks that scope queries/exploration (ACTIVE_VENDORS).
+// Consolidates the old renderVendors()+renderVendorFilter() into the
+// mockup's single .vrow list. ----
+function renderVendorPanel(layers){
+  const ref = layers.find(l => l.is_reference);
+  const checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-11"/></svg>';
 
-// ---- VENDOR SELECTOR — scopes queries + exploration to checked vendors ----
-// ref: is the comparison axis, never a selectable vendor (VENDORS already excludes it).
-function renderVendorFilter(){
-  document.getElementById("vendor-filter").innerHTML = VENDORS.map(v => `
-    <label class="vf-row">
-      <input type="checkbox" data-vf-prefix="${v.prefix}" ${ACTIVE_VENDORS.includes(v.prefix) ? "checked" : ""}>
-      <span>${v.prefix}</span>
-    </label>`).join("");
+  let html = "";
+  if(ref){
+    html += `
+      <div class="vrow">
+        <span class="dot" style="background:var(--amber)"></span>
+        <span class="name">reference (${ref.prefix})</span>
+        <span class="cnt">${ref.triples.toLocaleString()}</span>
+        <span class="check locked">${checkSvg}</span>
+      </div>`;
+  }
+  html += VENDORS.map(v => {
+    const layer = layers.find(l => l.prefix === v.prefix);
+    const cnt = layer ? layer.triples.toLocaleString() : "";
+    const on = ACTIVE_VENDORS.includes(v.prefix);
+    return `
+      <div class="vrow clickable" data-vf-prefix="${v.prefix}">
+        <span class="dot" style="background:var(${dotColorForVendor(v.prefix)})"></span>
+        <span class="name">${v.prefix.toUpperCase()} overlay</span>
+        <span class="cnt">${cnt}</span>
+        <span class="check ${on?'on':''}">${checkSvg}</span>
+      </div>`;
+  }).join("");
 
-  document.querySelectorAll("[data-vf-prefix]").forEach(cb => {
-    cb.addEventListener("change", () => {
-      const p = cb.dataset.vfPrefix;
-      if(cb.checked){
+  document.getElementById("vendor-panel").innerHTML = html;
+
+  document.querySelectorAll("#vendor-panel [data-vf-prefix]").forEach(row => {
+    row.addEventListener("click", () => {
+      const p = row.dataset.vfPrefix;
+      const check = row.querySelector(".check");
+      const nowOn = !check.classList.contains("on");
+      check.classList.toggle("on", nowOn);
+      if(nowOn){
         if(!ACTIVE_VENDORS.includes(p)) ACTIVE_VENDORS.push(p);
       } else {
         ACTIVE_VENDORS = ACTIVE_VENDORS.filter(x => x !== p);
@@ -718,6 +941,12 @@ function matchBadge(m){
   return `<span title="${full}">${shortMatch(m)}</span>`;
 }
 
+// ---- DISPLAY TOGGLE: Matrix pivot default ----
+function togglePivotDefault(el){
+  const on = el.classList.toggle("on");
+  PIVOT_DEFAULT = on ? "matrix" : "rows";
+}
+
 function renderQueries(qs){
   qs.forEach(q => QUERY_MAP.set(q.name, q));
   document.getElementById("queries-grid").innerHTML = qs.map((q,i)=>{
@@ -732,14 +961,19 @@ function renderQueries(qs){
       }).join("")}
       <button class="param-bar-run" data-qname="${q.name}">Run →</button>
     </div>` : "";
+    const variant = QCARD_VARIANTS[i % QCARD_VARIANTS.length];
+    const icon = QCARD_ICONS[i % QCARD_ICONS.length];
     return `
-    <div class="qcard" id="qc-${q.name}" data-qname="${q.name}">
-      <div class="qcard-num">Q${i+1}</div>
+    <div class="qcard ${variant}" id="qc-${q.name}" data-qname="${q.name}">
+      <div class="top">
+        <div class="qicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${icon}</svg></div>
+        <span class="qcode">Q${i+1}</span>
+      </div>
       <div class="qcard-name">${NICE[q.name]||q.name}</div>
       <div class="qcard-desc">${DESC[q.name]||""}</div>
       <div class="qcard-foot">
         <span class="qcard-params ${q.params.length?'':'none'}">${q.params.length?"needs: "+q.params.join(", "):"no params"}</span>
-        <span class="tier-chip tc-amber" style="font-size:9px;">Computed</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </div>
     </div>${paramBar}`;
   }).join("");
@@ -747,6 +981,7 @@ function renderQueries(qs){
   document.querySelectorAll(".qcard").forEach(card => {
     card.addEventListener("click", () => {
       const name = card.dataset.qname;
+      console.log("running query", name);
       selectQuery(QUERY_MAP.get(name));
     });
   });
@@ -757,21 +992,59 @@ function renderQueries(qs){
       const bar = document.getElementById("pb-"+name);
       const params = {};
       bar.querySelectorAll("[data-param]").forEach(el=>{ params[el.dataset.param]=el.value; });
-      executeQuery(QUERY_MAP.get(name), params);
+      collapseParams();              // hide the inputs...
+      executeQuery(QUERY_MAP.get(name), params);   // ...and show results
     });
   });
 }
 
-// ---- AGENT PANEL ----
-function openAgent(id){
+// Hide the focus param bar and empty the holder (moves any bar back out of view).
+function collapseParams(){
+  const fp = document.getElementById("focus-params");
+  if(!fp) return;
+  fp.classList.remove("visible");
+  document.querySelectorAll("#focus-params .param-bar").forEach(b=>{
+    b.classList.remove("visible");
+  });
+}
+
+// ---- AGENT / SETTINGS PANELS ----
+// Settings and the two agent work-surfaces share one "only one open at a time" pool.
+function closeAllPanels(){
   document.querySelectorAll(".work-surface").forEach(e=>e.classList.remove("visible"));
-  document.querySelectorAll(".agent-btn").forEach(e=>e.classList.remove("active"));
-  document.getElementById("ws-"+id).classList.add("visible");
-  document.getElementById("btn-"+id).classList.add("active");
+  document.querySelectorAll(".navbtn").forEach(e=>e.classList.remove("active"));
+  document.querySelector(".center").classList.remove("agent-open");
+}
+function openAgent(id){
+  const wasOpen = document.getElementById("ws-"+id).classList.contains("visible");
+  closeAllPanels();
+  if(!wasOpen){
+    document.getElementById("ws-"+id).classList.add("visible");
+    const btn = document.getElementById("btn-"+id);
+    if(btn) btn.classList.add("active");
+    document.querySelector(".center").classList.add("agent-open");
+  }
+  syncModeNavButtons();
 }
 function closeAgent(){
-  document.querySelectorAll(".work-surface").forEach(e=>e.classList.remove("visible"));
-  document.querySelectorAll(".agent-btn").forEach(e=>e.classList.remove("active"));
+  closeAllPanels();
+  syncModeNavButtons();
+}
+function toggleSettings(){
+  const panel = document.getElementById("settings-panel");
+  const wasOpen = panel.classList.contains("visible");
+  closeAllPanels();
+  if(!wasOpen){
+    panel.classList.add("visible");
+    document.getElementById("nav-settings").classList.add("active");
+    document.querySelector(".center").classList.add("agent-open");
+  }
+  syncModeNavButtons();
+}
+// keep the rail's Compare/Explore icons reflecting chatMode whenever panels change
+function syncModeNavButtons(){
+  document.getElementById("nav-compare").classList.toggle("active", chatMode==="comparison");
+  document.getElementById("nav-explore").classList.toggle("active", chatMode==="reasoner");
 }
 
 // ---- GENERATE TTL ----
@@ -787,7 +1060,7 @@ async function runGenerate(){
   fd.append("workbook", file); fd.append("prefix", prefix);
   try{
     const resp = await fetch(API+"/api/generate",{method:"POST",body:fd});
-    if(!resp.ok){ const e=await resp.json(); out.innerHTML=`<span style="color:red;">${e.detail}</span>`; return; }
+    if(!resp.ok){ const e=await resp.json(); out.innerHTML=`<span style="color:var(--danger);">${e.detail}</span>`; return; }
     const d = await resp.json();
     const blob = new Blob([d.ttl],{type:"text/turtle"});
     const url = URL.createObjectURL(blob);
@@ -802,19 +1075,85 @@ async function runGenerate(){
       <a class="dl-link" href="${url}" download="${d.filename}">Download ${d.filename}</a>
       <div class="ws-gate">Generated draft — review before adding to LAYERS and restarting.</div>
       <div class="ttl-preview">${d.ttl.split("\n").slice(0,30).join("\n").replace(/</g,"&lt;")}\n…</div>`;
-  }catch(e){ out.innerHTML=`<span style="color:red;">Request failed.</span>`; }
+  }catch(e){ out.innerHTML=`<span style="color:var(--danger);">Request failed.</span>`; }
   finally{ btn.disabled=false; }
+}
+
+// ---- INTAKE (Agent 6) ----
+function parseFilename(disposition, fallback){
+  if(!disposition) return fallback;
+  const m = /filename\*?=(?:UTF-8'')?"?([^";]+)"?/i.exec(disposition);
+  return m ? decodeURIComponent(m[1]) : fallback;
+}
+
+async function runIntake(){
+  const files = document.getElementById("intakeFiles").files;
+  const vendor = document.getElementById("intakeVendor").value.trim().toLowerCase();
+  const out = document.getElementById("intakeout");
+
+  if(!files.length || !vendor){
+    out.innerHTML = `<span style="color:var(--danger);">Choose at least one .html file and enter a vendor prefix.</span>`;
+    return;
+  }
+  if(files.length > 40){
+    out.innerHTML = `<span style="color:var(--danger);">Upload up to ~40 pages (one section) at a time.</span>`;
+    return;
+  }
+
+  const btn = document.getElementById("intakebtn");
+  btn.disabled = true;
+  out.innerHTML = `<span class="loading-txt">Mapping ${files.length} file(s)… this runs a model per concept, may take a minute.</span>`;
+
+  const fd = new FormData();
+  for(const f of files) fd.append("files", f);
+  fd.append("vendor", vendor);
+
+  try{
+    const r = await fetch(API+"/api/intake", {
+      method: "POST",
+      headers: { ...anthropicKeyHeaders() },   // no Content-Type - browser sets the multipart boundary
+      body: fd
+    });
+    if(!r.ok){
+      let msg = "Request failed.";
+      try{ const e = await r.json(); msg = e.detail || msg; }catch(_e){}
+      out.innerHTML = `<span style="color:var(--danger);">${msg}</span>`;
+      return;
+    }
+    const mapped = r.headers.get("x-intake-mapped") || "0";
+    const failed = r.headers.get("x-intake-failed") || "0";
+    const filename = parseFilename(r.headers.get("content-disposition"),
+                                   `MES-${vendor.toUpperCase()}-Overlay-DRAFT.xlsx`);
+    const blob = await r.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    out.innerHTML = `<span>Draft ready: ${mapped} concepts mapped, ${failed} need manual capture. `
+                   + `Review the spreadsheet, then load it through the normal generate flow.</span>`;
+  }catch(e){
+    out.innerHTML = `<span style="color:var(--danger);">Request failed.</span>`;
+  }finally{
+    btn.disabled = false;
+  }
 }
 
 // ---- CHAT ----
 function setMode(mode){
   chatMode = mode;
-  document.getElementById("tog-cmp").className = "toggle-opt" + (mode==="comparison"?" on-amber":"");
-  document.getElementById("tog-rsn").className  = "toggle-opt" + (mode==="reasoner"?" on-blue":"");
+  closeAllPanels();
+  const center = document.querySelector(".center");
+  center.setAttribute("data-view", mode==="comparison" ? "compare" : "explore");
+  if(mode!=="comparison") center.classList.remove("focused");
+  document.getElementById("tog-cmp").classList.toggle("on", mode==="comparison");
+  document.getElementById("tog-rsn").classList.toggle("on", mode==="reasoner");
   document.getElementById("toggle-desc").textContent = MODE_DESC[mode];
+  document.querySelector(".headline h1").textContent =
+    mode==="comparison" ? "Comparison workspace" : "Explore";
   document.getElementById("chatq").placeholder =
     mode==="comparison" ? "e.g. 'what does cm not cover?' or 'where do the vendors agree?'"
                         : "e.g. 'how is Data Collection related to Step?' or 'how does cm:Step work?'";
+  syncModeNavButtons();
 }
 
 async function askChat(){
@@ -871,24 +1210,46 @@ async function askChat(){
 }
 document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("chatq").addEventListener("keydown",e=>{ if(e.key==="Enter") askChat(); });
+  setMode("comparison");   // ensure the view starts in a consistent compare state
 });
 
 // ---- QUERY CARDS ----
+// ---- FOCUSED MODE: collapse grid to icon rail, results fill the screen ----
+function enterFocus(){
+  document.querySelector(".center").classList.add("focused");
+}
+function exitFocus(){
+  const c = document.querySelector(".center");
+  c.classList.remove("focused");
+  document.querySelectorAll(".qcard").forEach(x=>x.classList.remove("sel"));
+  document.querySelectorAll(".param-bar").forEach(b=>b.classList.remove("visible"));
+  const fp = document.getElementById("focus-params");
+  if(fp) fp.classList.remove("visible");  // hide holder; keep param-bar nodes alive
+}
+
 function selectQuery(q){
   document.querySelectorAll(".qcard").forEach(c=>c.classList.remove("sel"));
   document.getElementById("qc-"+q.name).classList.add("sel");
   selectedQuery = q;
+  enterFocus();
+
+  // hide + collapse every param bar first (prevents multiple bars leaking)
+  document.querySelectorAll(".param-bar").forEach(b=>b.classList.remove("visible"));
+  const holder = document.getElementById("focus-params");
 
   if(q.params.length===0){
-    document.querySelectorAll(".param-bar").forEach(b=>b.classList.remove("visible"));
+    holder.classList.remove("visible");
     executeQuery(q, {});
     return;
   }
 
-  document.querySelectorAll(".param-bar").forEach(b=>{
-    if(b.id !== "pb-"+q.name) b.classList.remove("visible");
-  });
-  document.getElementById("pb-"+q.name).classList.toggle("visible");
+  // this query needs params: put ONLY its bar in the holder and show it
+  const pb = document.getElementById("pb-"+q.name);
+  if(pb){
+    holder.appendChild(pb);          // appendChild moves it (one bar in holder)
+    pb.classList.add("visible");
+    holder.classList.add("visible");
+  }
 }
 
 async function executeQuery(q, params){
@@ -935,11 +1296,12 @@ function postQueryResultToChat(q, d, params, errorMsg){
       </div>`;
   } else {
     const caveat = completenessCaveat(q.name, params || {});
+    const initialView = pivotable ? PIVOT_DEFAULT : "rows";
     bubble.innerHTML = `
       ${pivotable ? `
       <div class="view-toggle">
-        <button class="view-opt active" data-view="matrix">Matrix</button>
-        <button class="view-opt" data-view="rows">Rows</button>
+        <button class="view-opt ${initialView==='matrix'?'active':''}" data-view="matrix">Matrix</button>
+        <button class="view-opt ${initialView==='rows'?'active':''}" data-view="rows">Rows</button>
       </div>` : ""}
       <div class="chat-result-wrap table-scroll" data-table-holder></div>
       <div class="chat-result-count" data-count-holder></div>
@@ -953,7 +1315,7 @@ function postQueryResultToChat(q, d, params, errorMsg){
       q, rawRows: rows, params: params || {}, pivotable, groupByCapability,
       holder: bubble.querySelector("[data-table-holder]"),
       countEl: bubble.querySelector("[data-count-holder]"),
-      view: pivotable ? "matrix" : "rows",
+      view: initialView,
     };
     CURRENT_RESULT = entry;
     renderResultInto(entry);
@@ -1117,7 +1479,7 @@ async function loadTTL(){
     if(!r.ok){ const e=await r.json(); out.textContent=e.detail; return; }
     const d = await r.json();
     out.innerHTML = `<strong>${d.prefix}:</strong> ${d.triples.toLocaleString()} triples loaded. Vendors: ${d.vendors_now.join(", ")}.
-      <div class="up-note">${d.note}</div>`;
+      <div class="field-note">${d.note}</div>`;
     boot();
   }catch(e){ out.textContent="Request failed."; }
   finally{ btn.disabled=false; }

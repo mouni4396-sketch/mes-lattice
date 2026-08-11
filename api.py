@@ -430,6 +430,176 @@ async def load_ttl(ttl: UploadFile = File(...), prefix: str = Form(...)):
 
 
 # ---------------------------------------------------------------------------
+# Intake (Agent 6): upload HTML -> AI-mapped draft overlay .xlsx for review.
+# Merged from api_intake_endpoint.py. mapper/draft_writer/html_reader are
+# imported LAZILY inside the route, not at module top-level like chatbot/
+# reasoner - mapper.py imports the `anthropic` SDK at its own top level, and
+# html_reader.py needs `beautifulsoup4` (not currently in requirements.txt).
+# A deployment missing either package must not take the whole app down; it
+# should only break /api/intake, with a clear message, exactly like
+# chatbot._gemini_client() already defers `import google.generativeai` so a
+# missing Gemini SDK doesn't block startup either.
+# Nothing here loads TTL or writes to the graph - it produces a DRAFT only,
+# for human review before any TTL generation.
+# ---------------------------------------------------------------------------
+TEMPLATE_PATH = BASE_DIR / "MES-Overlay-TEMPLATE.xlsx"
+
+
+def load_ref_vocab():
+    """
+    Pull the frozen reference vocabulary from the LIVE store so the mapper maps
+    ONLY to real ref: terms. Returns
+      {"data_objects":[...], "capabilities":[...], "operations":[...]}
+    Uses rdfs:label where present, else the local name.
+
+    Goes through store.sparql() - the same pattern graph_engine.py uses (it
+    never unwraps raw pyoxigraph QuerySolutions by hand, just calls
+    store.sparql() and reads plain dicts). store.sparql() already prepends the
+    ref:/rdfs:/owl: prefix block and runs with use_default_graph_as_union=True
+    (see store.py), so no manual PREFIX lines or raw store.query() are needed.
+
+    NOTE: ref: is a two-axis model (DataObject x Capability only - see
+    mes-neutral-reference-4.ttl's own dct:description). There is no
+    ref:Operation class, so "operations" will always come back empty;
+    Operations only exist per-vendor (generate_ttl.py's PortalOperation verb
+    axis). mapper.py's NODE_TYPES still allows the model to classify a concept
+    as "Operation" - it will just never get a maps_to_neutral value for that
+    type, which is a real, unavoidable gap the human reviewer needs to know
+    about, not a bug in this wiring.
+    """
+    def names(subclass_of):
+        rows = store.sparql(f"""
+            SELECT ?s ?l WHERE {{
+              ?s rdfs:subClassOf+ {subclass_of} .
+              OPTIONAL {{ ?s rdfs:label ?l }}
+            }}""")
+        out = []
+        for r in rows:
+            label, iri = r.get("l"), r.get("s")
+            if label:
+                out.append(label)
+            elif iri:
+                out.append(iri.rsplit("#", 1)[-1])
+        return sorted(set(out))
+
+    return {
+        "data_objects": names("ref:DataObject"),
+        "capabilities": names("ref:Capability"),
+        "operations": names("ref:Operation"),
+    }
+
+
+@app.post("/api/intake")
+async def api_intake(
+    files: list[UploadFile] = File(...),
+    vendor: str = Form(...),                          # layer token, e.g. "opc"
+    model: str = Form(default=None),                  # None -> mapper.MODEL
+    x_anthropic_api_key: str = Header(default=None),
+):
+    """Upload HTML or Word (.docx) -> draft overlay .xlsx (for human review)."""
+    try:
+        import mapper
+        import draft_writer
+        from html_reader import read_html_file
+        from docx_reader import read_docx_file
+        from pdf_reader import read_pdf_file
+    except ImportError as e:
+        raise HTTPException(status_code=503,
+                            detail=f"Intake is not available: {e}. "
+                                   f"pip install anthropic beautifulsoup4 python-docx pdfplumber.")
+
+    api_key = x_anthropic_api_key or os.getenv("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=400,
+                            detail="No Anthropic API key. Add it in the sidebar "
+                                   "(an API key from console.anthropic.com, not a "
+                                   "Claude Pro login).")
+    if not files:
+        raise HTTPException(status_code=400, detail="No files uploaded.")
+    if len(files) > 40:
+        raise HTTPException(status_code=400,
+                            detail=f"{len(files)} files is a lot for one batch. "
+                                   f"Upload up to ~40 pages (one section) at a time.")
+    if not TEMPLATE_PATH.exists():
+        raise HTTPException(status_code=503,
+                            detail=f"{TEMPLATE_PATH.name} is not on the server - "
+                                   f"add it at the project root before intake can run.")
+
+    model = model or mapper.MODEL
+
+    # 1) read uploaded HTML/Word/PDF -> concept records (deterministic)
+    records = []
+    with tempfile.TemporaryDirectory() as td:
+        tdp = Path(td)
+        for uf in files:
+            name_lower = uf.filename.lower()
+            if name_lower.startswith("~$"):
+                continue   # Word lock file
+            is_html = name_lower.endswith((".html", ".htm"))
+            is_docx = name_lower.endswith(".docx")
+            is_pdf = name_lower.endswith(".pdf")
+            if not (is_html or is_docx or is_pdf):
+                continue
+            dest = tdp / Path(uf.filename).name
+            dest.write_bytes(await uf.read())
+            def _read_error(reason):
+                return {"concept_name": uf.filename, "source": uf.filename,
+                        "section": uf.filename, "prose": "",
+                        "sections": [], "lists": [], "tables": [],
+                        "_read_error": reason}
+            try:
+                if is_html:
+                    rec = read_html_file(dest, root=tdp)
+                elif is_docx:
+                    rec = read_docx_file(dest)
+                else:
+                    rec = read_pdf_file(dest)
+                    if not (rec.get("prose") or "").strip():
+                        rec = _read_error("no text layer (scanned?) — needs OCR")
+                records.append(rec)
+            except Exception as e:
+                # skip unreadable file, keep going
+                records.append(_read_error(str(e)))
+
+    bad = [r for r in records if r.get("_read_error")]
+    good = [r for r in records if not r.get("_read_error") and r.get("concept_name")]
+    if not good:
+        raise HTTPException(status_code=400, detail="No readable concepts found in the upload.")
+
+    # 2) ref: vocabulary from the live store (real mapping targets)
+    ref_vocab = load_ref_vocab()
+    if not any(ref_vocab.values()):
+        raise HTTPException(status_code=500,
+                            detail="Reference vocabulary is empty - is the ref: "
+                                   "layer loaded in the store?")
+
+    # 3) map (Claude) -> draft rows
+    result = mapper.map_records(good, ref_vocab, vendor, api_key=api_key, model=model)
+
+    # 4) write the draft workbook
+    out_dir = Path(tempfile.mkdtemp())
+    out_path = out_dir / f"MES-{vendor.upper()}-Overlay-DRAFT.xlsx"
+    draft_writer.write_draft(result["rows"], vendor=vendor,
+                             template_path=str(TEMPLATE_PATH),
+                             out_path=str(out_path))
+
+    # 5) return the draft for download. Failures are surfaced in a header so the
+    #    UI can warn "N concepts need manual capture" without blocking download.
+    n_ok = len(result["rows"])
+    n_fail = len(result["failures"]) + len(bad)   # + files dropped before mapping (unreadable, scanned PDFs, ...)
+    return FileResponse(
+        str(out_path),
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        filename=out_path.name,
+        headers={
+            "X-Intake-Mapped": str(n_ok),
+            "X-Intake-Failed": str(n_fail),
+            "X-Intake-Vendor": vendor,
+        },
+    )
+
+
+# ---------------------------------------------------------------------------
 # Frontend (served last so /api/* wins)
 # ---------------------------------------------------------------------------
 @app.get("/")
