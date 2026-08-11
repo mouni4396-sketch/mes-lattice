@@ -1,0 +1,5 @@
+docs/cm/
+   *_index.json
+   *_index.progress
+   __pycache__/
+   .venv/
