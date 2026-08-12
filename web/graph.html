@@ -23,7 +23,7 @@
   #bar h1{font-size:15px;margin:0 10px 0 0;font-weight:700;letter-spacing:.3px}
   select,button{background:#0f1a25;color:var(--ink);border:1px solid #2b3a4d;
     border-radius:6px;padding:6px 10px;font-size:13px;cursor:pointer}
-  button:hover{border-color:#3d5group}
+  button:hover{border-color:#3d5570}
   label{font-size:12px;color:var(--muted);margin-right:4px}
   #net{width:100%;height:calc(100vh - 52px)}
   #legend{position:fixed;right:14px;bottom:14px;background:rgba(22,33,46,.94);
@@ -34,8 +34,11 @@
     margin-right:6px;vertical-align:middle}
   .ln{display:inline-block;width:22px;height:0;border-top-width:2px;
     border-top-style:solid;margin-right:6px;vertical-align:middle}
-  #status{font-size:12px;color:var(--muted);margin-left:auto}
-  #hint{color:var(--muted);font-size:12px}
+  #status{font-size:12px;color:var(--muted);margin-left:auto;flex-shrink:0}
+  #hint{color:var(--muted);font-size:12px;min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap;flex-shrink:1}
+  #fullscreen{flex-shrink:0;border-color:#35708a;color:#8fd4e6}
+  #fullscreen:hover{border-color:#4fb0cc;background:#123040}
 </style>
 </head>
 <body>
@@ -47,6 +50,7 @@
     <label><input type="checkbox" id="attrs"> show data properties</label>
     <button id="reload">Reload</button>
     <button id="fit">Fit</button>
+    <button id="fullscreen" title="Open full screen">⛶ Full screen</button>
     <span id="hint">tip: click a node to expand its neighbours · drag to pan · scroll to zoom</span>
     <span id="status"></span>
   </div>
@@ -209,6 +213,7 @@ document.getElementById("fit").onclick = ()=> network && network.fit();
 document.getElementById("layer").onchange = loadGraph;
 document.getElementById("ops").onchange = applyFilter;
 document.getElementById("attrs").onchange = loadGraph;
+document.getElementById("fullscreen").onclick = () => window.open("/graph.html", "_blank");
 
 initNetwork();
 loadLayers().then(loadGraph);

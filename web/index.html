@@ -32,7 +32,7 @@
     --radius:      16px;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%}
+  html,body{margin:0;height:100%;overflow:hidden}
   body{
     background:
       radial-gradient(1200px 700px at 78% -10%, rgba(53,208,224,.10), transparent 60%),
@@ -116,16 +116,38 @@
     font-family:Sora;font-weight:700;font-size:26px;letter-spacing:-.02em;margin:0;
   }
   .headline p{margin:4px 0 0;color:var(--muted);font-size:13px}
-  .seg{
-    display:inline-flex;background:var(--panel);border:1px solid var(--stroke);
-    border-radius:11px;padding:4px;gap:4px;flex-shrink:0;
+
+  /* Explore sub-toggle: Relationships (reasoner) vs Documentation (doc miner).
+     Same segmented-pill language as the old Comparison/Explore toggle. Hidden
+     outside Explore. */
+  #explore-source-toggle{
+    display:none;background:var(--panel);border:1px solid var(--stroke);
+    border-radius:10px;padding:3px;gap:3px;flex-shrink:0;margin-bottom:8px;
   }
-  .seg button{
+  .center[data-view="explore"] #explore-source-toggle{display:inline-flex}
+  #explore-source-toggle button{
     border:0;background:transparent;color:var(--ink-dim);
-    font-family:Inter;font-size:13px;font-weight:500;
-    padding:7px 14px;border-radius:8px;cursor:pointer;transition:.15s;
+    font-family:Inter;font-size:12px;font-weight:500;
+    padding:6px 12px;border-radius:7px;cursor:pointer;transition:.15s;
   }
-  .seg button.on{background:var(--cyan);color:#04121a;font-weight:600}
+  #explore-source-toggle button.on{background:var(--cyan);color:#04121a;font-weight:600}
+
+  /* Documentation (doc miner) result cards */
+  .doc-result{padding:10px 0;border-top:1px solid var(--stroke)}
+  .doc-result:first-of-type{border-top:0;padding-top:0}
+  .doc-result-head{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    font-weight:600;font-size:13px;margin-bottom:6px;
+  }
+  .doc-score{
+    font-family:JetBrains Mono;font-size:10px;color:var(--cyan);
+    background:var(--cyan-soft);padding:2px 7px;border-radius:4px;flex-shrink:0;
+  }
+  .doc-result-text{font-size:13px;line-height:1.6;color:var(--ink-dim);white-space:pre-wrap}
+  .doc-result-source{
+    font-family:JetBrains Mono;font-size:10px;color:var(--muted);margin-top:6px;
+    background:var(--panel-2);display:inline-block;padding:3px 8px;border-radius:5px;
+  }
 
   .section-label{
     display:flex;align-items:center;gap:10px;margin:2px 0 -4px;flex-shrink:0;
@@ -209,9 +231,12 @@
   }
 
   /* ===== VIEW SWITCHING: only the active view's zones show.
-     Driven by data-view on .center: "compare" | "explore". ===== */
+     Driven by data-view on .center: "compare" | "explore" | "graph". ===== */
   /* search bar shows only in explore */
-  .center[data-view="compare"] .topbar .search{visibility:hidden}
+  /* topbar holds only .search now (the avatar was removed) - in compare mode
+     hide the whole row via display:none, not visibility:hidden, so its flex
+     gap collapses too instead of reserving empty space above the headline. */
+  .center[data-view="compare"] .topbar{display:none}
   /* explore: hide the query grid + label + back btn; chat/results fill the area */
   .center[data-view="explore"] #label-queries,
   .center[data-view="explore"] #queries-grid,
@@ -219,13 +244,24 @@
   .center[data-view="explore"] .workspace{display:block}
   .center[data-view="explore"] .results-block{width:100%}
 
-  /* agent panel open: hide ALL compare/explore content, show only the panel */
-  .center.agent-open .topbar .search,
+  /* graph: hide search/headline/grid/results/back-btn, show only the iframe */
+  .graph-view{display:none; flex-direction:column; gap:10px; flex:1; min-height:0}
+  .center[data-view="graph"] .topbar .search,
+  .center[data-view="graph"] .headline,
+  .center[data-view="graph"] #label-queries,
+  .center[data-view="graph"] .back-btn,
+  .center[data-view="graph"] .workspace{display:none !important}
+  .center[data-view="graph"] .graph-view{display:flex}
+  .graph-frame{flex:1; width:100%; height:100%; border:0; border-radius:14px; background:var(--panel)}
+
+  /* agent panel open: hide ALL compare/explore/graph content, show only the panel */
+  .center.agent-open .topbar,
   .center.agent-open .headline,
   .center.agent-open #label-queries,
   .center.agent-open #label-results,
   .center.agent-open .back-btn,
-  .center.agent-open .workspace{display:none !important}
+  .center.agent-open .workspace,
+  .center.agent-open .graph-view{display:none !important}
 
   /* ---- query cards: outer shell + click/state classes are what the real JS
      (renderQueries/selectQuery/postQueryResultToChat) depends on; keep these
@@ -496,10 +532,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
       <span class="tip">Explore</span>
     </button>
-    <a class="navbtn" href="/graph.html" target="_blank" rel="noopener">
+    <button class="navbtn" id="nav-graph" onclick="setView('graph')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M5 8v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M12 13v3"/></svg>
       <span class="tip">Graph</span>
-    </a>
+    </button>
     <button class="navbtn" id="btn-a6" onclick="openAgent('a6')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M8 11l4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
       <span class="tip">Intake</span>
@@ -511,12 +547,6 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v5h5"/><path d="M8 14h8M8 17h5"/></svg>
       <span class="tip">Excel → Ontology</span>
     </button>
-    <!-- Docs: no view exists behind this yet — inert placeholder per brief. -->
-    <button class="navbtn" disabled title="Coming soon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v5h5M8 13h8M8 17h5"/></svg>
-      <span class="tip">Docs (soon)</span>
-    </button>
-
     <div class="spacer"></div>
 
     <!-- Settings: opens the panel holding the API key inputs (same fields/logic
@@ -538,6 +568,12 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
       </div>
+    </div>
+
+    <!-- Inline graph view: reuses /graph.html (its own vis-network code, not
+         duplicated here) via iframe. Shown only when data-view="graph". -->
+    <div class="graph-view" id="graph-view">
+      <iframe src="/graph.html" class="graph-frame" title="Ontology graph"></iframe>
     </div>
 
     <!-- Settings panel: API keys (Gemini + Anthropic). Same ids/sessionStorage
@@ -591,14 +627,15 @@
       <div class="ws-gate">Uses your Anthropic API key (Settings). Intake produces a draft spreadsheet for review — it does not change the graph.</div>
     </div>
 
+    <div id="explore-source-toggle">
+      <button class="on" data-source="reasoner" onclick="setExploreSource('reasoner')">Relationships</button>
+      <button data-source="docs" onclick="setExploreSource('docs')">Documentation</button>
+    </div>
+
     <div class="headline">
       <div>
         <h1>Comparison workspace</h1>
         <p id="toggle-desc">Answers comparison, gap, and migration questions — exact counts from the graph, always reproducible.</p>
-      </div>
-      <div class="seg">
-        <button class="on" id="tog-cmp" onclick="setMode('comparison')">Comparison</button>
-        <button id="tog-rsn" onclick="setMode('reasoner')">Explore</button>
       </div>
     </div>
 
@@ -640,16 +677,6 @@
       <div id="vendor-panel">
         <div class="loading-txt" style="padding:8px 0;">loading…</div>
       </div>
-    </div>
-
-    <div class="block">
-      <h2>Display</h2>
-      <!-- Wired: flips the default view (Matrix vs Rows) new Q1/Q2 results open in. -->
-      <div class="toggle-row"><span class="t">Matrix pivot by default</span><div class="switch on" id="sw-matrix-default" onclick="togglePivotDefault(this)"></div></div>
-      <!-- Not wired to anything yet — abbreviation (CM/BM/NM/RM) is always on. -->
-      <div class="toggle-row"><span class="t">Show match types</span><div class="switch on"></div></div>
-      <!-- Not wired to anything yet — no "gaps only" filter exists in the query results. -->
-      <div class="toggle-row"><span class="t">Only gaps</span><div class="switch"></div></div>
     </div>
 
     <div class="block">
@@ -703,10 +730,11 @@ let VENDORS = [];
 let selectedQuery = null;
 let COMPLETENESS = null;   // { prefix: refObjsMapped }
 let chatMode = "comparison";   // "comparison" or "reasoner"
+let exploreSource = "reasoner";   // "reasoner" (Relationships) or "docs" (Documentation) — Explore sub-toggle
 const QUERY_MAP = new Map();
 let ACTIVE_VENDORS = [];   // array of prefixes
 let CURRENT_RESULT = null; // { q, rawRows, params, holder, countEl, view, pivotable, groupByCapability } — latest result bubble
-let PIVOT_DEFAULT = "matrix";   // "matrix" or "rows" — wired to the Display > "Matrix pivot by default" switch
+const PIVOT_DEFAULT = "matrix";   // "matrix" or "rows" — new Q1/Q2 results open in this view; no UI toggle anymore
 let STATUS = null;   // last /api/status payload, cached for the vendor panel's triple counts
 
 // Queries with a Matrix pivot view, and whether that pivot groups by capability first.
@@ -941,12 +969,6 @@ function matchBadge(m){
   return `<span title="${full}">${shortMatch(m)}</span>`;
 }
 
-// ---- DISPLAY TOGGLE: Matrix pivot default ----
-function togglePivotDefault(el){
-  const on = el.classList.toggle("on");
-  PIVOT_DEFAULT = on ? "matrix" : "rows";
-}
-
 function renderQueries(qs){
   qs.forEach(q => QUERY_MAP.set(q.name, q));
   document.getElementById("queries-grid").innerHTML = qs.map((q,i)=>{
@@ -1041,10 +1063,24 @@ function toggleSettings(){
   }
   syncModeNavButtons();
 }
-// keep the rail's Compare/Explore icons reflecting chatMode whenever panels change
+// keep the rail's Compare/Explore/Graph icons reflecting the current view whenever it changes
 function syncModeNavButtons(){
-  document.getElementById("nav-compare").classList.toggle("active", chatMode==="comparison");
-  document.getElementById("nav-explore").classList.toggle("active", chatMode==="reasoner");
+  const view = document.querySelector(".center").getAttribute("data-view");
+  document.getElementById("nav-compare").classList.toggle("active", view!=="graph" && chatMode==="comparison");
+  document.getElementById("nav-explore").classList.toggle("active", view!=="graph" && chatMode==="reasoner");
+  document.getElementById("nav-graph").classList.toggle("active", view==="graph");
+}
+
+// ---- GRAPH VIEW ----
+// Graph is a VIEW, not a chat mode — chatMode/setMode() are untouched, so
+// Compare/Explore's underlying comparison-vs-reasoner behaviour is unaffected
+// when the user leaves the graph view.
+function setView(view){
+  closeAllPanels();
+  const center = document.querySelector(".center");
+  center.classList.remove("focused");
+  center.setAttribute("data-view", view);
+  syncModeNavButtons();
 }
 
 // ---- GENERATE TTL ----
@@ -1145,8 +1181,6 @@ function setMode(mode){
   const center = document.querySelector(".center");
   center.setAttribute("data-view", mode==="comparison" ? "compare" : "explore");
   if(mode!=="comparison") center.classList.remove("focused");
-  document.getElementById("tog-cmp").classList.toggle("on", mode==="comparison");
-  document.getElementById("tog-rsn").classList.toggle("on", mode==="reasoner");
   document.getElementById("toggle-desc").textContent = MODE_DESC[mode];
   document.querySelector(".headline h1").textContent =
     mode==="comparison" ? "Comparison workspace" : "Explore";
@@ -1154,6 +1188,39 @@ function setMode(mode){
     mode==="comparison" ? "e.g. 'what does cm not cover?' or 'where do the vendors agree?'"
                         : "e.g. 'how is Data Collection related to Step?' or 'how does cm:Step work?'";
   syncModeNavButtons();
+}
+
+// ---- EXPLORE SUB-TOGGLE: Relationships (reasoner) vs Documentation (doc miner) ----
+function setExploreSource(source){
+  exploreSource = source;
+  document.querySelectorAll("#explore-source-toggle button").forEach(b=>{
+    b.classList.toggle("on", b.dataset.source === source);
+  });
+}
+
+function docsResultBubble(data){
+  const bubble = document.createElement("div");
+  bubble.className = "chat-bubble";
+  const results = data.results || [];
+  if(!results.length){
+    bubble.innerHTML = `
+      <div class="chat-meta" style="margin:0 0 8px;"><span class="tier-badge tb-blue">retrieved · cited</span></div>
+      <div class="empty-txt">No matching documentation found.</div>`;
+    return bubble;
+  }
+  const items = results.map(r => `
+    <div class="doc-result">
+      <div class="doc-result-head">
+        <span>${r.vendor ? r.vendor+" · " : ""}${r.title || "(untitled)"}</span>
+        <span class="doc-score">${Number(r.score ?? 0).toFixed(2)}</span>
+      </div>
+      <div class="doc-result-text">${r.text || ""}</div>
+      <div class="doc-result-source">${r.source || ""}</div>
+    </div>`).join("");
+  bubble.innerHTML = `
+    <div class="chat-meta" style="margin:0 0 8px;"><span class="tier-badge tb-blue">retrieved · cited</span></div>
+    ${items}`;
+  return bubble;
 }
 
 async function askChat(){
@@ -1166,6 +1233,33 @@ async function askChat(){
   const loader = document.createElement("div");
   loader.className = "loading-txt"; loader.textContent = "thinking…";
   msgs.appendChild(loader); msgs.scrollTop = msgs.scrollHeight;
+
+  // Documentation branch: separate endpoint/response shape, so it's handled
+  // entirely on its own and returns early — the reasoner path below (the
+  // existing else-branch of chatMode==="reasoner") is untouched.
+  if(chatMode === "reasoner" && exploreSource === "docs"){
+    try{
+      const r = await fetch(API+"/api/docs",{method:"POST",
+        headers:{"Content-Type":"application/json", ...apiKeyHeaders()},
+        body:JSON.stringify({question:q, vendor:null})});
+      const data = await r.json();
+      loader.remove();
+      if(!r.ok){
+        const bubble = document.createElement("div");
+        bubble.className = "chat-bubble";
+        bubble.innerHTML = `<div class="empty-txt">${data.detail || "Doc search failed."}</div>`;
+        msgs.appendChild(bubble);
+      } else {
+        msgs.appendChild(docsResultBubble(data));
+      }
+      msgs.scrollTop = msgs.scrollHeight;
+      document.getElementById("chatq").value = "";
+    }catch(e){
+      loader.textContent = "Request failed — is the backend running?";
+    }
+    btn.disabled = false;
+    return;
+  }
 
   try{
     let data, tier, trace;

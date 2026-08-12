@@ -1,5 +1,7 @@
 docs/cm/
-   *_index.json
-   *_index.progress
-   __pycache__/
-   .venv/
+*_index.json
+*_index.progress
+__pycache__/
+*.pyc
+.venv/
+requirements.txt=*

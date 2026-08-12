@@ -76,7 +76,23 @@
       "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/fixidx.js\")",
       "Bash(curl -s http://127.0.0.1:8000/api/queries -o /dev/null -w \"status: %{http_code}\\\\n\")",
       "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/avatarcheck.js\")",
-      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/avatarcheck2.js\")"
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/avatarcheck2.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/displaycheck.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/graphview.js\")",
+      "Bash(certutil -hashfile api_intake_endpoint.py MD5)",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/docsfix.js\")",
+      "Bash(grep -n \"html,body{margin\\\\|\\\\.app{\" web/index.html)",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/spacefix.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/topbarfix.js\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('build_doc_index.py', encoding='utf-8'\\).read\\(\\)\\)\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/graphbarcheck.js\")",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/docsremove.js\")",
+      "Bash(python -c \"import numpy; print\\('numpy OK', numpy.__version__\\)\")",
+      "Bash(python -c \"import google.generativeai; print\\('genai OK'\\)\")",
+      "Bash(\".venv/Scripts/python.exe\" -c \"import numpy; print\\('venv numpy OK'\\)\")",
+      "Bash(\".venv/Scripts/python.exe\" -c \"import google.generativeai; print\\('venv genai OK'\\)\")",
+      "Bash(curl -s -X POST http://127.0.0.1:8000/api/docs -H 'Content-Type: application/json' -H 'X-User-API-Key: fake-key' -d '{\"question\":\"how do I create a flow\",\"vendor\":null}')",
+      "Bash(node --check \"C:/Users/Mounika/AppData/Local/Temp/claude/c--Users-Mounika-MES-Lattice/85e64e21-69e2-4816-9bc8-438c9adfe8cd/scratchpad/togglemove.js\")"
     ]
   }
 }

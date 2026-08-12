@@ -201,6 +201,40 @@ def reason(req: ChatRequest, x_user_api_key: str = Header(None)):
         raise HTTPException(status_code=503, detail=str(e))
 
 
+@app.post("/api/docs")
+async def api_docs(payload: dict, x_user_api_key: str = Header(default=None)):
+    """
+    Documentation Miner (Agent 3), retrieved tier. Embeds the question once
+    (Gemini, user's key) and cosine-matches it against the prebuilt per-vendor
+    doc indexes - no LLM generation, every result carries its source citation.
+
+    doc_miner is imported LAZILY here, not at module top-level, same reasoning
+    as mapper/html_reader/docx_reader/pdf_reader in /api/intake: it imports
+    numpy, which is listed in requirements.txt but - like anthropic/
+    beautifulsoup4/python-docx/pdfplumber - isn't guaranteed installed in every
+    environment. A missing numpy must only break /api/docs, not app startup.
+    """
+    try:
+        import doc_miner
+    except ImportError as e:
+        raise HTTPException(status_code=503, detail=f"Doc search is not available: {e}. pip install numpy.")
+
+    question = (payload.get("question") or "").strip()
+    vendor = payload.get("vendor")          # optional; None = all vendors
+    if not question:
+        raise HTTPException(status_code=400, detail="No question provided.")
+    key = x_user_api_key or os.getenv("GEMINI_API_KEY")
+    if not key:
+        raise HTTPException(status_code=400, detail="No Gemini API key. Add it in Settings.")
+    try:
+        results = doc_miner.search(question, api_key=key, top_k=4, vendor=vendor)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Doc search failed: {e}")
+    return {"question": question,
+            "vendors": doc_miner.available_vendors(),
+            "results": results}   # each: {rank,score,vendor,title,source,text}
+
+
 # ---------------------------------------------------------------------------
 # Graph visualizer (/api/graph, /api/graph/layers)
 #

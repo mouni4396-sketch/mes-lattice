@@ -132,7 +132,32 @@ def load_progress(out_path, prog_path):
 
 
 def save_progress(out_path, prog_path, records, done):
-    out_path.write_text(json.dumps(records), encoding="utf-8")
+    import os, json, time, tempfile
+    d = out_path.parent
+    fd, tmp = tempfile.mkstemp(dir=str(d), suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(records, f)
+    except Exception:
+        try: os.unlink(tmp)
+        except OSError: pass
+        raise
+
+    # try atomic replace, retrying if a sync/AV tool has the file locked
+    for attempt in range(6):
+        try:
+            os.replace(tmp, out_path)
+            break
+        except PermissionError:
+            time.sleep(2)            # wait for the lock to clear
+            if attempt == 5:
+                # last resort: direct overwrite (non-atomic) then drop temp
+                try:
+                    with open(out_path, "w", encoding="utf-8") as f:
+                        json.dump(records, f)
+                    os.unlink(tmp)
+                except Exception:
+                    raise
     prog_path.write_text(json.dumps(sorted(done)), encoding="utf-8")
 
 
